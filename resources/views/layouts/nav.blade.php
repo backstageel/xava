@@ -29,7 +29,13 @@
                         <li>
                             <a href="{{route('employees.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
-                                Funcionários
+                                Colaboradores
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('employee_types.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Tipos de Colaboradores
                             </a>
                         </li>
                         <li>
