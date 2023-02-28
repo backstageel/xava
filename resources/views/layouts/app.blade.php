@@ -21,7 +21,7 @@
 	<link href="{{asset('')}}assets/css/app.css" rel="stylesheet">
 	<link href="{{asset('')}}assets/css/icons.css" rel="stylesheet">
     @stack('styles')
-    <title>Plataforma de Gestão de Processos</title>
+    <title>XAVA Intranet</title>
 </head>
 
 <body>
