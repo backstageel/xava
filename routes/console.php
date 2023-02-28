@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Artisan;
             new Database\States\EnsureGendersArePresent,
             new Database\States\EnsureIdentityDocumentTypesArePresent,
             new Database\States\EnsureDefaultUserIsPresent,
+            new Database\States\EnsureEmployeeTypesArePresent,
 
         ])->each->__invoke();
     });
