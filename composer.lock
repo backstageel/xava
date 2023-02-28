@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96c5a48e7fa1a01cd650b3b6c6ae9ef7",
+    "content-hash": "d6f66dd6ae093ef90e9cada66df4c441",
     "packages": [
         {
             "name": "brick/math",
@@ -980,6 +980,130 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
+        },
+        {
+            "name": "hostmoz/blade-bootstrap-components",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hostmoz/blade-bootstrap-components.git",
+                "reference": "60573606016ebc8f6b2348449d3237a44d815244"
+            },
+            "require": {
+                "illuminate/support": ">=9.0",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hostmoz\\BladeBootstrapComponents\\BladeBootstrapComponentsServiceProvider"
+                    ],
+                    "aliases": {
+                        "BladeBootstrapComponents": "Hostmoz\\BladeBootstrapComponents\\BladeBootstrapComponentsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hostmoz\\BladeBootstrapComponents\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Hostmoz\\BladeBootstrapComponents\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "test-coverage": [
+                    "vendor/bin/phpunit --coverage-html coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elísio Leonardo",
+                    "email": "elisio.leonardo@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A set of Blade Components based on Boostrap-4 CSS Framework",
+            "homepage": "https://github.com/hostmoz/blade-bootstrap-components",
+            "keywords": [
+                "Blade",
+                "Bootstrap",
+                "Hostmoz",
+                "Laravel",
+                "backstageel",
+                "blade-bootstrap-components"
+            ],
+            "time": "2023-02-28T09:16:09+00:00"
+        },
+        {
+            "name": "laracasts/flash",
+            "version": "3.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/flash.git",
+                "reference": "6330bc3c027d3c03188b41c58133016f8226b8fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/flash/zipball/6330bc3c027d3c03188b41c58133016f8226b8fb",
+                "reference": "6330bc3c027d3c03188b41c58133016f8226b8fb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "^6.1|^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laracasts\\Flash\\FlashServiceProvider"
+                    ],
+                    "aliases": {
+                        "Flash": "Laracasts\\Flash\\Flash"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Laracasts/Flash/functions.php"
+                ],
+                "psr-0": {
+                    "Laracasts\\Flash": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Easy flash notifications",
+            "support": {
+                "source": "https://github.com/laracasts/flash/tree/3.2.2"
+            },
+            "time": "2023-01-30T20:31:40+00:00"
         },
         {
             "name": "laravel/framework",
@@ -9543,6 +9667,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "hostmoz/blade-bootstrap-components": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

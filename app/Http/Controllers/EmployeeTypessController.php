@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeTypeRequest;
 use App\Models\EmployeeType;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,19 @@ class EmployeeTypessController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee_types.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmployeeTypeRequest $request)
     {
-        //
+        $employeeType = new EmployeeType();
+        $employeeType->name = $request->input('name');
+        $employeeType->save();
+        flash('Tipo de Colaborador Registado com sucesso')->success();
+        return redirect()->route('employee_types.index');
     }
 
     /**
