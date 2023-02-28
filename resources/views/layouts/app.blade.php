@@ -1,36 +1,69 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<!doctype html>
+<html lang="en">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="{{asset('')}}assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	@yield("style")
+	<link href="{{asset('')}}assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="{{asset('')}}assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="{{asset('')}}assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="{{asset('')}}assets/css/pace.min.css" rel="stylesheet" />
+	<script src="{{asset('')}}assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="{{asset('')}}assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+	<link href="{{asset('')}}assets/css/app.css" rel="stylesheet">
+	<link href="{{asset('')}}assets/css/icons.css" rel="stylesheet">
+    @stack('styles')
+    <title>Plataforma de Gestão de Processos</title>
+</head>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+<body>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--start header -->
+		@include("layouts.header")
+		<!--end header -->
+		<!--navigation-->
+		@include("layouts.nav")
+		<!--end navigation-->
+		<!--start page wrapper -->
+        <!--start page wrapper -->
+        <div class="page-wrapper">
+            <div class="page-content">
+                @yield("wrapper")
+            </div>
         </div>
-    </body>
+        <!--end page wrapper -->
+
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © 2023. Todos Direitos Reservados.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	<!-- Bootstrap JS -->
+	<script src="{{asset('')}}assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="{{asset('')}}assets/js/jquery.min.js"></script>
+	<script src="{{asset('')}}assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="{{asset('')}}assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="{{asset('')}}assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<!--app JS-->
+	<script src="{{asset('')}}assets/js/app.js"></script>
+	@yield("script")
+    @stack('scripts')
+</body>
+
 </html>

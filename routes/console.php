@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+    Artisan::command('ensure-database-state-is-loaded', function () {
+        collect([
+            new Database\States\EnsureCountriesArePresent,
+            new Database\States\EnsureProvincesArePresent,
+            new Database\States\EnsureDistrictsArePresent,
+            new Database\States\EnsureCivilStatesArePresent,
+            new Database\States\EnsureGendersArePresent,
+            new Database\States\EnsureIdentityDocumentTypesArePresent,
+            new Database\States\EnsureDefaultUserIsPresent,
+
+        ])->each->__invoke();
+    });
