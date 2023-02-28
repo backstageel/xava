@@ -13,7 +13,8 @@
                 return;
             }
             $employeeTypes = [
-                ['name' => 'Colaborador Normal'],
+                ['name' => 'Colaborador Permanente'],
+                ['name' => 'Colaborador Temporário'],
                 ['name' => 'Parceiro'],
                 ['name' => 'Consultor'],
             ];

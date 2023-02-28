@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function person(){
+        return $this->belongsTo(Person::class);
+    }
+    public function department(){
+        return $this->belongsTo(Department::class);
+    }
+
+    public function employeeType(){
+        return $this->belongsTo(EmployeeType::class);
+    }
+
+    public function employeePosition(){
+        return $this->belongsTo(EmployeePosition::class);
+    }
+
 }

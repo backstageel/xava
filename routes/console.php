@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Artisan;
             new Database\States\EnsureIdentityDocumentTypesArePresent,
             new Database\States\EnsureDefaultUserIsPresent,
             new Database\States\EnsureEmployeeTypesArePresent,
+            new Database\States\EnsureDepartmentsArePresent,
+            new Database\States\EnsureEmployeePositionsArePresent,
 
         ])->each->__invoke();
     });
