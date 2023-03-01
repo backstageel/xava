@@ -59,7 +59,7 @@
                                             <x-bootstrap::form.input name="last_name" label="Apelido"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="first_name" label="Outros Nomes"/>
+                                            <x-bootstrap::form.input name="first_name" label="Primeiros Nomes"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="gender_id" label="Sexo" :options="$genders"/>
