@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Department;
+use App\Models\EmployeeContractStatus;
+use App\Models\EmployeeContractType;
 use App\Models\EmployeePosition;
 use App\Models\EmployeeType;
 use App\Models\Person;
@@ -28,8 +30,9 @@ class EmployeeFactory extends Factory
             'employee_position_id'=>EmployeePosition::all()->random(),
             'department_id'=>Department::all()->random(),
             'start_date'=>fake()->dateTimeThisDecade,
-            'salary'=>fake()->randomNumber(4),
-            'employee_type_id'=>EmployeeType::all()->random(),
+            'base_salary'=>fake()->randomNumber(4),
+            'contract_type_id'=>EmployeeContractType::all()->random(),
+            'contract_status_id'=>EmployeeContractStatus::all()->random(),
 
         ];
     }

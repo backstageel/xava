@@ -20,8 +20,14 @@ return new class extends Migration
             $table->unsignedTinyInteger('employee_position_id');
             $table->unsignedInteger('department_id');
             $table->date('start_date');
-            $table->decimal('salary',10,2);
-            $table->unsignedTinyInteger('employee_type_id');
+            $table->decimal('base_salary',10,2);
+            $table->unsignedTinyInteger('contract_type_id');
+            $table->unsignedTinyInteger('contract_status_id')->default(1);
+
+            $table->foreign('contract_status_id')->references('id')->on('employee_contract_statuses');
+            $table->foreign('contract_type_id')->references('id')->on('employee_contract_types');
+            $table->foreign('employee_position_id')->references('id')->on('employee_positions');
+            $table->foreign('department_id')->references('id')->on('departments');
 
             //Contas Bancarias, Bancos, Documentos Fiscais, Contratos de Trabalho,
             // Empregos anteriores, funcoes desempenhadas, duracao, motivo de saida

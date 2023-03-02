@@ -25,8 +25,8 @@
             "identity_document_emission_date" => "2023-02-15",
             "identity_document_expiry_date" => null,
             "start_date" => "2023-02-26",
-            "employee_type_id" => "1",
-            "salary" => "435353",
+            "contract_type_id" => "1",
+            "base_salary" => "435353",
             "nuit" => "123456789",
             "corporate_email" => "teste@xava.co.mz",
             "emergency_name" => "Elisio Leonardo",
@@ -44,5 +44,8 @@
         $this->assertDatabaseHas('users',['email'=>'teste@xava.co.mz']);
         $this->assertDatabaseHas('people',['nuit'=>'123456789']);
         $this->assertDatabaseHas('employees',['start_date'=>'2023-02-26']);
+
+        $employee = \App\Models\Employee::latest()->first();
+        $this->assertDatabaseHas('employee_contracts',['start_date'=>'2023-02-26','employee_id'=>$employee->id]);
         $response->assertStatus(302);
 });
