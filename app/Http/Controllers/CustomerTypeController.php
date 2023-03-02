@@ -32,7 +32,6 @@ class CustomerTypeController extends Controller
      */
     public function store(CustomerTypeRequest $request)
     {
-        echo 'ola';
         $customerType=new CustomerType();
         $customerType->name=$request->input('name');
         $customerType->save();
