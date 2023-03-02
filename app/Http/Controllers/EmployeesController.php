@@ -27,8 +27,6 @@ class EmployeesController extends Controller
     public function index(EmployeesDataTable $dataTable)
     {
         return $dataTable->render('employees.index');
-        $employees = Employee::paginate();
-        return view('employees.index',compact('employees'));
     }
 
     /**
