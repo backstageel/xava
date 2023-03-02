@@ -23,9 +23,8 @@ class EmployeesDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        dd($query);
         return (new EloquentDataTable($query))
-            ->addColumn('action', function st($row){
+            ->addColumn('action', function($row){
                 return $this->getActionColumn($row);
             })
             ->rawColumns(['action'])
