@@ -12,6 +12,8 @@
         $data = [
             "last_name" => "Leonardo",
             "first_name" => "Elisio",
+            "person_prefix_id" => "1",
+            "employee_code" => "111",
             "gender_id" => "1",
             "birth_date" => "2023-02-01",
             "civil_state_id" => "2",

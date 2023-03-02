@@ -35,6 +35,7 @@ class CreateEmployeeAction
       //Create Person
       $person = Person::create([
           'user_id'=>$user->id,
+            'person_prefix_id'=>$data['person_prefix_id'],
             'first_name'=>$data['first_name'],
             'last_name'=>$data['last_name'],
             'birth_date'=>$data['birth_date'],
@@ -58,6 +59,7 @@ class CreateEmployeeAction
 
       $employee = Employee::create([
             'person_id'=>$person->id,
+           'employee_code'=>$data['employee_code'],
           'emergency_name'=>$data['emergency_name'],
           'emergency_phone'=>$data['emergency_phone'],
           'employee_position_id'=>$data['employee_position_id'],

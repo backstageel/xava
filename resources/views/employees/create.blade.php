@@ -55,6 +55,20 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
+                                        <div class="col-1">
+                                            <x-bootstrap::form.select name="person_prefix_id" label="Prefixo" :options="$personPrefixes"/>
+                                        </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="employee_code" label="Código do Colaborador"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="last_name" label="Apelido"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="first_name" label="Primeiros Nomes"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="last_name" label="Apelido"/>
                                         </div>
