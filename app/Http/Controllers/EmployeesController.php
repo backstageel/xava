@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreateEmployeeAction;
+use App\DataTables\EmployeesDataTable;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Models\CivilState;
 use App\Models\ContractType;
@@ -23,8 +24,9 @@ class EmployeesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(EmployeesDataTable $dataTable)
     {
+        return $dataTable->render('employees.index');
         $employees = Employee::paginate();
         return view('employees.index',compact('employees'));
     }

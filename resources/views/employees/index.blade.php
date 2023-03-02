@@ -24,41 +24,12 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">PColaboradores Registados</h6>
+    <h6 class="mb-0 text-uppercase">Colaboradores Registados</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
-            <div class="table-responsive">
-                <table id="example2" class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Celular</th>
-                        <th>Email</th>
-                        <th>Departamento</th>
-                        <th>Posição</th>
-                        <th>Tipo de Contrato</th>
-                        <th>Data de Admissão</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($employees as $employee)
-                        <tr>
-                            <td>{{$employee->person->full_name}}</td>
-                            <td>{{$employee->person->cellphone}}</td>
-                            <td>{{$employee->person->personal_email}}</td>
-                            <td>{{$employee->department->name}}</td>
-                            <td>{{$employee->employeePosition->name}}</td>
-                            <td>{{$employee->employeeType->name}}</td>
-                            <td>{{$employee->start_date}}</td>
-                        </tr>
-                    @endforeach
+            {{ $dataTable->table() }}
 
-                    </tbody>
-                    <tfoot>
-                    </tfoot>
-                </table>
-            </div>
         </div>
     </div>
 @endsection
@@ -77,3 +48,6 @@
         });
     </script>
 @endsection
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

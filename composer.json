@@ -18,7 +18,8 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^4.14",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
