@@ -39,6 +39,13 @@
                             </a>
                         </li>
                         <li>
+                        <li>
+                            <a href="{{route('customer_types.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Tipos de Clientes
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('app-chat-box') }}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Empréstimos
