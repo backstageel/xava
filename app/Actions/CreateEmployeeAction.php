@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Models\Employee;
+use App\Models\EmployeeContract;
 use App\Models\Person;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -65,8 +66,20 @@ class CreateEmployeeAction
           'employee_position_id'=>$data['employee_position_id'],
           'department_id'=>$data['department_id'],
           'start_date'=>$data['start_date'],
-          'salary'=>$data['salary'],
-          'employee_type_id'=>$data['employee_type_id'],
+          'base_salary'=>$data['base_salary'],
+          'contract_type_id'=>$data['contract_type_id'],
+      ]);
+
+      $contract = EmployeeContract::create([
+            'employee_id'=>$employee->id,
+          'contract_type_id'=>$data['contract_type_id'],
+          'start_date'=>$data['start_date'],
+          'base_salary'=>$data['base_salary'],
+          'weekly_hours'=>$data['weekly_hours']??null,
+          'benefits'=>$data['benefits']??null,
+          'department_id'=>$data['department_id'],
+          'employee_position_id'=>$data['employee_position_id'],
+
       ]);
 
       return $employee;

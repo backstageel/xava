@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\Department;
 use App\Models\District;
 use App\Models\Employee;
+use App\Models\EmployeeContractType;
 use App\Models\EmployeePosition;
 use App\Models\EmployeeType;
 use App\Models\Gender;
@@ -42,9 +43,9 @@ class EmployeesController extends Controller
         $identityDocumentTypes = IdentityDocumentType::pluck('name','id');
         $departments = Department::pluck('name','id');
         $employeePositions = EmployeePosition::pluck('name','id');
-        $employeeTypes = EmployeeType::pluck('name','id');
+        $contractTypes = EmployeeContractType::pluck('name','id');
         $personPrefixes = PersonPrefix::pluck('code','id');
-        return view('employees.create',compact('genders','civilStates','countries','provinces','districts','identityDocumentTypes','departments','employeePositions','employeeTypes','personPrefixes'));
+        return view('employees.create',compact('genders','civilStates','countries','provinces','districts','identityDocumentTypes','departments','employeePositions','contractTypes','personPrefixes'));
     }
 
     /**
@@ -55,7 +56,6 @@ class EmployeesController extends Controller
         try{
             $employee = $createEmployee->execute($request->all());
         } catch (\Exception $e){
-            dd($e);
             flash($e->getMessage())->error();
             return back()->withInput();
         }

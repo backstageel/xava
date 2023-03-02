@@ -17,8 +17,12 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function employeeType(){
-        return $this->belongsTo(EmployeeType::class);
+    public function contractType(){
+        return $this->belongsTo(EmployeeContractType::class);
+    }
+
+    public function contractStatus(){
+        return $this->belongsTo(EmployeeContractStatus::class);
     }
 
     public function employeePosition(){

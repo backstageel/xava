@@ -36,7 +36,7 @@ class EmployeesDataTable extends DataTable
      */
     public function query(Employee $model): QueryBuilder
     {
-        return $model->newQuery()->with(['person','department','employeeType','employeePosition']);
+        return $model->newQuery()->with(['person','department','contractType','employeePosition','contractStatus']);
     }
 
     /**
@@ -70,8 +70,9 @@ class EmployeesDataTable extends DataTable
             Column::make('person.cellphone')->title('Celular'),
             Column::make('department.name')->title('Departamento'),
             Column::make('employee_position.name')->title('Cargo'),
-            Column::make('employee_type.name')->title('Tipo de Contrato'),
+            Column::make('contract_type.name')->title('Tipo de Contrato'),
             Column::make('start_date')->title('Data de Admissão'),
+            Column::make('contract_status.name')->title('Estado do Contrato'),
             Column::computed('action')->title('Acções')
                 ->exportable(false)
                 ->printable(false)
