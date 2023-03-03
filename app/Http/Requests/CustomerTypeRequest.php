@@ -23,7 +23,7 @@ class CustomerTypeRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|unique:employee_types|max:255',
+            'name' => 'required|unique:customer_types|max:255',
         ];
     }
 }
