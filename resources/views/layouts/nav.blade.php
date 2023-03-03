@@ -46,6 +46,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{route('category_products.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Categoria de Produtos
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('app-chat-box') }}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Empréstimos

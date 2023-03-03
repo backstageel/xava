@@ -20,12 +20,12 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('categories.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('category_products.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">Tipos de Colaboradores Registados</h6>
+    <h6 class="mb-0 text-uppercase">Categoria de Produtos</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
@@ -34,16 +34,16 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Name</th>
+                        <th>Nome da Categoria</th>
                         <th>Data de Criação</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categoriy as $categoria)
+                    @foreach($categorysProducts as $categoryProduct)
                         <tr>
-                            <td>{{$categoria->id}}</td>
-                            <td>{{$categoria->name}}</td>
-                            <td>{{$categoria->created_at}}</td>
+                            <td>{{$categoryProduct->id}}</td>
+                            <td>{{$categoryProduct->name}}</td>
+                            <td>{{$categoryProduct->created_at}}</td>
                         </tr>
                     @endforeach
 
