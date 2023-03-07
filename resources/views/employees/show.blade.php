@@ -40,26 +40,27 @@
                                 </div>
                             </div>
                             <hr class="my-4"/>
+                            <h5 class="d-flex align-items-center mb-3">Detalhes Pessoais</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Data de Inicio</h6>
-                                    <span class="text-secondary">{{$employee->start_date}}</span>
+                                    <h6 class="mb-0">Genero</h6>
+                                    <span class="text-secondary">{{$employee->person->gender->name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Tipo de Contrato</h6>
-                                    <span class="text-secondary">{{$employee->contractType->name}}</span>
+                                    <h6 class="mb-0">Data de Nascimento</h6>
+                                    <span class="text-secondary">{{$employee->person->birth_date}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Estado do Contrato</h6>
-                                    <span class="text-secondary">{{$employee->contractStatus->name}}</span>
+                                    <h6 class="mb-0">Celular</h6>
+                                    <span class="text-secondary">{{$employee->person->cellphone}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Salário Base</h6>
-                                    <span class="text-secondary">0MT</span>
+                                    <h6 class="mb-0">Email Pessoal</h6>
+                                    <span class="text-secondary">{{$employee->person->personal_email}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Contacto de Emergencia</h6>
-                                    <span class="text-secondary">{{$employee->emergency_name}} ({{$employee->emergency_phone}})</span>
+                                    <h6 class="mb-0">NUIT</h6>
+                                    <span class="text-secondary">{{$employee->person->nuit}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -68,34 +69,42 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
+                            <h5 class="d-flex align-items-center mb-3">Detalhes do Contrato</h5>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Genero</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Data de Inicio</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->person->gender->name}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->start_date}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Data de Nascimento</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo de Contrato</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->person->birth_date}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->contractType->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Celular</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Estado do Contrato</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->person->cellphone}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->contractStatus->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Email Pessoal</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Salário Base</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->person->personal_email}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="0MT">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">NUIT</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Contacto de Emergencia</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->person->nuit}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->emergency_name}} ({{$employee->emergency_phone}})">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" class="btn btn-primary px-4" value="Renovar Contrato" />
+                                    <input type="button" class="btn btn-primary px-4" value="Cancelar Contrato" />
                                 </div>
                             </div>
                         </div>
