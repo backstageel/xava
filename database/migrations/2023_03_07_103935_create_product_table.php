@@ -15,7 +15,7 @@ return new class extends Migration
             $table->tinyIncrements('id');
             $table->String('reference')->unique();
             $table->String('description')->unique();
-            $table->String('category')->nullable();
+            $table->unsignedTinyInteger('category_id')->nullable();
             $table->String('brand')->nullable();
             $table->unsigneddecimal('sale_price',10,2);
             $table->unsigneddecimal('purchase_price');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('vat_id')->references('id')->on('vat');
             $table->foreign('vendor_id')->references('id')->on('vendor');
+            $table->foreign('category_id')->references('id')->on('category_products');
         });
     }
 
