@@ -73,7 +73,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+
+                        <a href="{{route('customers.index')}}">
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>
                         <div class="menu-title">Clientes</div>
