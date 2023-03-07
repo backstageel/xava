@@ -59,41 +59,40 @@
                         </li>
                     </ul>
                 </li>
-
-                {{--<li>
-                    <a href="javascript:;">
-                        <div class="parent-icon"><i class='bx bx-cart'></i>
-                        </div>
-                        <div class="menu-title">Audiencias</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <div class="parent-icon"><i class='bx bx-cart'></i>
-                        </div>
-                        <div class="menu-title">Documentos</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <div class="parent-icon"><i class='bx bx-cart'></i>
-                        </div>
-                        <div class="menu-title">Fases</div>
-                    </a>
-                </li>
                 <li>
                     <a href="{{route('dashboard')}}">
                         <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
-                        <div class="menu-title">Pessoas</div>
+                        <div class="menu-title">Comercial</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Produtos</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Clientes</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Fornecedores</div>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:;">
                         <div class="parent-icon"><i class="bx bx-repeat"></i>
                         </div>
-                        <div class="menu-title">Tipo de Utilizadores</div>
+                        <div class="menu-title">Administração</div>
                     </a>
-                </li>--}}
+                </li>
                 <li>
                     <a href="javascript:;">
                         <div class="parent-icon"> <i class="bx bx-donate-blood"></i>

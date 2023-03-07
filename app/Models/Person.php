@@ -12,6 +12,18 @@ class Person extends Model
 
     protected $guarded=[];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function prefix(){
+        return $this->belongsTo(PersonPrefix::class,'person_prefix_id');
+    }
+
+    public function gender(){
+        return $this->belongsTo(Gender::class);
+    }
+
     protected function fullName(): Attribute
     {
         return Attribute::make(
