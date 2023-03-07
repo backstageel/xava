@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CustomerAction;
 use App\DataTables\CustomersDataTable;
+use App\Http\Requests\CustomerRequest;
 use App\Models\CivilState;
 use App\Models\Country;
 
@@ -40,6 +42,17 @@ class CustomerController extends Controller
         return view('customers.create',compact('genders','civilStates','countries','provinces','districts','identityDocumentTypes','personPrefixes', 'customer_types'));
     }
 
+    public function store(CustomerRequest $request, CustomerAction $customer)
+    {
+        try{
+            $customer->execute($request->all());
+            flash('Cliente Criado com Sucesso')->success();
+            return redirect()->route('customers.index');
+        } catch (\Exception $e){
+            flash($e->getMessage())->error();
+            return back()->withInput();
+        }
+    }
 }
 
 
