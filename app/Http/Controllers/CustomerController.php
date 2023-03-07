@@ -7,7 +7,7 @@ use App\DataTables\CustomersDataTable;
 use App\Http\Requests\CustomerRequest;
 use App\Models\CivilState;
 use App\Models\Country;
-
+use Illuminate\Http\Request;
 use App\Models\District;
 
 use App\Models\Gender;
@@ -52,6 +52,12 @@ class CustomerController extends Controller
             flash($e->getMessage())->error();
             return back()->withInput();
         }
+    }
+
+    public function show(Customer $customer)
+    {
+        $customer = $customer->load(['person.user','person.prefix']);
+        return view('customers.show',compact('customer'));
     }
 }
 
