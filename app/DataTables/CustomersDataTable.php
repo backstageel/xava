@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\customer;
-
 use App\Traits\WithActionColumn;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -65,12 +64,16 @@ class CustomersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('Código'),
+            #Column::make('id')->title('Código'),
             Column::make('person.first_name')->title('Nome'),
             Column::make('person.cellphone')->title('Celular'),
-
-
-
+            Column::make('status')->title('Estado'),
+            Column::make('customer_type.name')->title('tipo de Cliente'),
+            Column::computed('action')->title('Acções')
+                ->exportable(false)
+                ->printable(false)
+                ->width(90)
+                ->addClass('text-center'),
         ];
     }
 
