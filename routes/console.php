@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Artisan;
             new Database\States\EnsureDepartmentsArePresent,
             new Database\States\EnsureEmployeePositionsArePresent,
             new Database\States\EnsurePersonPrefixesArePresent,
+            new Database\States\EnsureCustomerStatusesArePresent,
 
         ])->each->__invoke();
     });

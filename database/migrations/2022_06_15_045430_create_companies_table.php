@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('nuel')->unique();
-            $table->date('date_registration');
+            $table->integer('nuel')->unique()->nullable();
+            $table->date('date_registration')->nullable();
             $table->unsignedInteger('republic_bulletin_id')->nullable();
-            $table->unsignedTinyInteger('company_type_id');
-            $table->decimal('share_capital',12,2);
-            $table->string('address_avenue_id');
-            $table->string('address_street_number');
-            $table->string('address_neighborhood_id');
-            $table->integer('address_district_id');
-            $table->integer('address_province_id');
-            $table->integer('address_country_id');
+            $table->unsignedTinyInteger('company_type_id')->nullable();
+            $table->decimal('share_capital',12,2)->nullable();
+            $table->string('address_avenue_id')->nullable();
+            $table->string('address_street_number')->nullable();
+            $table->string('address_neighborhood_id')->nullable();
+            $table->integer('address_district_id')->nullable();
+            $table->integer('address_province_id')->nullable();
+            $table->integer('address_country_id')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
 

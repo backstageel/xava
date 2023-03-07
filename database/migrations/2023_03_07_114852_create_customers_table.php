@@ -13,13 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->tinyIncrements('id');
-            $table->unsignedInteger('person_id');
-            $table->string('status');
-            $table->Integer('nuit');
-            $table->unsignedTinyInteger('customer_type_id');
+            $table->increments('id');
+            $table->unsignedTinyInteger('customer_status_id')->default(1);
+            $table->unsignedTinyInteger('customer_type_id')->nullable();
+            $table->unsignedInteger('customable_id');
+            $table->string('customable_type');
 
             $table->foreign('customer_type_id')->references('id')->on('customer_types');
+            $table->foreign('customer_status_id')->references('id')->on('customer_statuses');
 
             $table->timestamps();
         });

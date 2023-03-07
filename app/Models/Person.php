@@ -24,6 +24,10 @@ class Person extends Model
         return $this->belongsTo(Gender::class);
     }
 
+    public function customer(){
+        return $this->morphOne(Customer::class,'customable');
+    }
+
     protected function fullName(): Attribute
     {
         return Attribute::make(
