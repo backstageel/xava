@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Gender;
+use App\Models\PersonPrefix;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,7 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
+            'person_prefix_id'=>PersonPrefix::all()->random(),
             'user_id'=>User::factory(),
             'first_name'=>fake()->firstName,
             'last_name'=>fake()->lastName,
