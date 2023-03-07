@@ -20,7 +20,7 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
-            'person_prefix_id'=>PersonPrefix::factory(),
+            'person_prefix_id'=>PersonPrefix::all()->random(),
             'user_id'=>User::factory(),
             'first_name'=>fake()->firstName,
             'last_name'=>fake()->lastName,

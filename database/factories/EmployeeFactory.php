@@ -8,7 +8,6 @@ use App\Models\EmployeeContractType;
 use App\Models\EmployeePosition;
 use App\Models\EmployeeType;
 use App\Models\Person;
-use App\Models\PersonPrefix;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +23,7 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'person_id'=>PersonPrefix::all()->random(),
+            'person_id'=>Person::factory(),
             'employee_code'=>fake()->randomNumber(4),
             'emergency_name'=>fake()->name,
             'emergency_phone'=>fake()->phoneNumber,
