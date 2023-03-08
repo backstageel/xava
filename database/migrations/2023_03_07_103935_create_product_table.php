@@ -11,20 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product', function (Blueprint $table) {
-            $table->tinyIncrements('id');
-            $table->String('reference')->unique();
-            $table->String('description')->unique();
+        Schema::create('products', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->String('reference')->unique()->nullable();
+            $table->String('description')->unique()->nullable();
             $table->unsignedTinyInteger('category_id')->nullable();
             $table->String('brand')->nullable();
             $table->unsigneddecimal('sale_price',10,2);
-            $table->unsigneddecimal('purchase_price');
-            $table->unsignedTinyInteger('vendor_id');
-            $table->unsignedTinyInteger('vat_id');
+            $table->unsigneddecimal('purchase_price')->nullable();
+            $table->unsignedTinyInteger('vat_id')->nullable();
             $table->timestamps();
             $table->foreign('vat_id')->references('id')->on('vat');
-            $table->foreign('vendor_id')->references('id')->on('vendor');
-            $table->foreign('category_id')->references('id')->on('category_products');
+            $table->foreign('category_id')->references('id')->on('product_categories');
         });
     }
 

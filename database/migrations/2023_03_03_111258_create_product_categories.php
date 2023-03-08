@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->string('morada')->nullable();
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table->tinyIncrements('id');
+            $table->string('name')->unique();
+            $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('people', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('product_categories');
     }
+
+
 };
