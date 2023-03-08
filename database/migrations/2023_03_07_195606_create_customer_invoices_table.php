@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('customer_id');
             $table->string('billing_address')->nullable();
             $table->string('shipping_address')->nullable();
-            $table->decimal('total_amount', 8, 2)->default(0);
+            $table->decimal('total_amount', 12, 2)->default(0);
             $table->string('payment_method')->nullable();
             $table->date('due_date')->nullable();
             $table->string('payment_status')->default(2);

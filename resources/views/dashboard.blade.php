@@ -26,8 +26,8 @@
                     <div class="d-flex align-items-center">
                         <div>
                             <p class="mb-0 text-secondary">Total de Vendas</p>
-                            <h4 class="my-1 text-danger">$84,245</h4>
-                            <p class="mb-0 font-13">+5.4% from last week</p>
+                            <h4 class="my-1 text-danger">@money($totalInvoicesAmount)</h4>
+                            <p class="mb-0 font-13"></p>
                         </div>
                         <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bxs-wallet'></i>
                         </div>
@@ -73,27 +73,12 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h6 class="mb-0">Sales Overview</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                </li>
-                            </ul>
+                            <h6 class="mb-0">Vendas Mensais</h6>
                         </div>
                     </div>
                     <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
-                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Sales</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Visits</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Vendas</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Facturas</span>
                     </div>
                     <div class="chart-container-1">
                         <canvas id="chart1"></canvas>
@@ -102,14 +87,14 @@
                 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">24.15M</h5>
-                            <small class="mb-0">Overall Visitor <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
+                            <h5 class="mb-0">@money($totalInvoicesAmount12Months)</h5>
+                            <small class="mb-0">Total de Vendas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">12:38</h5>
-                            <small class="mb-0">Visitor Duration <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
+                            <h5 class="mb-0">{{$totalInvoices12Months}}</h5>
+                            <small class="mb-0">Total de Facturas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
                         </div>
                     </div>
                     <div class="col">
@@ -126,22 +111,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h6 class="mb-0">Trending Products</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                </li>
-                            </ul>
+                            <h6 class="mb-0">Produtos mais vendidos</h6>
                         </div>
                     </div>
                     <div class="chart-container-2 mt-4">
@@ -149,14 +119,12 @@
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Jeans <span class="badge bg-success rounded-pill">25</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">T-Shirts <span class="badge bg-danger rounded-pill">10</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Shoes <span class="badge bg-primary rounded-pill">65</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Lingerie <span class="badge bg-warning text-dark rounded-pill">14</span>
-                    </li>
+                    @foreach($mostSoldProducts as $product)
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                            {{$product->product_name}}
+                            <span class="badge bg-success rounded-pill">{{$product->total_quantity}}</span>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -166,247 +134,47 @@
         <div class="card-body">
             <div class="d-flex align-items-center">
                 <div>
-                    <h6 class="mb-0">Recent Orders</h6>
+                    <h6 class="mb-0">Últimos Produtos Vendidos</h6>
                 </div>
                 <div class="dropdown ms-auto">
                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="table align-middle mb-0">
                     <thead class="table-light">
                     <tr>
-                        <th>Product</th>
-                        <th>Photo</th>
-                        <th>Product ID</th>
-                        <th>Status</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Shipping</th>
+                        <th>Nome</th>
+                        <th>Foto</th>
+                        <th>Factura</th>
+                        <th>Estado da Venda</th>
+                        <th>Valor da Venda</th>
+                        <th>Data da Venda</th>
                     </tr>
                     </thead>
-                    <tbody><tr>
-                        <td>Iphone 5</td>
-                        <td><img src="assets/images/products/01.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#9405822</td>
-                        <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">Paid</span></td>
-                        <td>$1250.00</td>
-                        <td>03 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-quepal" role="progressbar" style="width: 100%"></div>
-                            </div></td>
-                    </tr>
-
-                    <tr>
-                        <td>Earphone GL</td>
-                        <td><img src="assets/images/products/02.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#8304620</td>
-                        <td><span class="badge bg-gradient-blooker text-white shadow-sm w-100">Pending</span></td>
-                        <td>$1500.00</td>
-                        <td>05 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-blooker" role="progressbar" style="width: 60%"></div>
-                            </div></td>
-                    </tr>
-
-                    <tr>
-                        <td>HD Hand Camera</td>
-                        <td><img src="assets/images/products/03.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#4736890</td>
-                        <td><span class="badge bg-gradient-bloody text-white shadow-sm w-100">Failed</span></td>
-                        <td>$1400.00</td>
-                        <td>06 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-bloody" role="progressbar" style="width: 70%"></div>
-                            </div></td>
-                    </tr>
-
-                    <tr>
-                        <td>Clasic Shoes</td>
-                        <td><img src="assets/images/products/04.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#8543765</td>
-                        <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">Paid</span></td>
-                        <td>$1200.00</td>
-                        <td>14 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-quepal" role="progressbar" style="width: 100%"></div>
-                            </div></td>
-                    </tr>
-                    <tr>
-                        <td>Sitting Chair</td>
-                        <td><img src="assets/images/products/06.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#9629240</td>
-                        <td><span class="badge bg-gradient-blooker text-white shadow-sm w-100">Pending</span></td>
-                        <td>$1500.00</td>
-                        <td>18 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-blooker" role="progressbar" style="width: 60%"></div>
-                            </div></td>
-                    </tr>
-                    <tr>
-                        <td>Hand Watch</td>
-                        <td><img src="assets/images/products/05.png')  }}" class="product-img-2" alt="product img"></td>
-                        <td>#8506790</td>
-                        <td><span class="badge bg-gradient-bloody text-white shadow-sm w-100">Failed</span></td>
-                        <td>$1800.00</td>
-                        <td>21 Feb 2020</td>
-                        <td><div class="progress" style="height: 6px;">
-                                <div class="progress-bar bg-gradient-bloody" role="progressbar" style="width: 40%"></div>
-                            </div></td>
-                    </tr>
+                    <tbody>
+                    @foreach($lastSoldProducts as $item)
+                        <tr>
+                            <td>{{$item->product->name}}</td>
+                            <td><img src="{{asset('assets/images/products/01.png')}}" class="product-img-2" alt="product img"></td>
+                            <td>{{$item->invoice->invoice_number}}</td>
+                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->invoice->payment_status}}</span></td>
+                            <td>@money($item->unit_price)</td>
+                            <td>{{$item->invoice->invoice_date}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-12 col-lg-7 col-xl-8 d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-header bg-transparent">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h6 class="mb-0">Recent Orders</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-7 col-xl-8 border-end">
-                            <div id="geographic-map-2"></div>
-                        </div>
-                        <div class="col-lg-5 col-xl-4">
-
-                            <div class="mb-4">
-                                <p class="mb-2"><i class="flag-icon flag-icon-us me-1"></i> USA <span class="float-end">70%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 70%"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2"><i class="flag-icon flag-icon-ca me-1"></i> Canada <span class="float-end">65%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 65%"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2"><i class="flag-icon flag-icon-gb me-1"></i> England <span class="float-end">60%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 60%"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2"><i class="flag-icon flag-icon-au me-1"></i> Australia <span class="float-end">55%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 55%"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <p class="mb-2"><i class="flag-icon flag-icon-in me-1"></i> India <span class="float-end">50%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-0">
-                                <p class="mb-2"><i class="flag-icon flag-icon-cn me-1"></i> China <span class="float-end">45%</span></p>
-                                <div class="progress" style="height: 7px;">
-                                    <div class="progress-bar bg-dark progress-bar-striped" role="progressbar" style="width: 45%"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-5 col-xl-4 d-flex">
-            <div class="card w-100 radius-10">
-                <div class="card-body">
-                    <div class="card radius-10 border shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Total Likes</p>
-                                    <h4 class="my-1">45.6M</h4>
-                                    <p class="mb-0 font-13">+6.2% from last week</p>
-                                </div>
-                                <div class="widgets-icons-2 bg-gradient-cosmic text-white ms-auto"><i class='bx bxs-heart-circle'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card radius-10 border shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Comments</p>
-                                    <h4 class="my-1">25.6K</h4>
-                                    <p class="mb-0 font-13">+3.7% from last week</p>
-                                </div>
-                                <div class="widgets-icons-2 bg-gradient-ibiza text-white ms-auto"><i class='bx bxs-comment-detail'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card radius-10 mb-0 border shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Total Shares</p>
-                                    <h4 class="my-1">85.4M</h4>
-                                    <p class="mb-0 font-13">+4.6% from last week</p>
-                                </div>
-                                <div class="widgets-icons-2 bg-gradient-moonlit text-white ms-auto"><i class='bx bxs-share-alt'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div><!--end row-->
-
     <div class="row row-cols-1 row-cols-lg-3">
         <div class="col d-flex">
             <div class="card radius-10 w-100">
                 <div class="card-body">
-                    <p class="font-weight-bold mb-1 text-secondary">Weekly Revenue</p>
+                    <p class="font-weight-bold mb-1 text-secondary">Receita Semanal</p>
                     <div class="d-flex align-items-center mb-4">
                         <div>
                             <h4 class="mb-0">$89,540</h4>
@@ -427,7 +195,7 @@
                 <div class="card-header bg-transparent">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h6 class="mb-0">Orders Summary</h6>
+                            <h6 class="mb-0">Resumo das Vendas</h6>
                         </div>
                         <div class="dropdown ms-auto">
                             <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
@@ -466,7 +234,7 @@
                 <div class="card-header bg-transparent">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h6 class="mb-0">Top Selling Categories</h6>
+                            <h6 class="mb-0">Categorias mais vendidas</h6>
                         </div>
                         <div class="dropdown ms-auto">
                             <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
@@ -515,5 +283,327 @@
     <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.min.js"></script>
     <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.extension.js"></script>
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-    <script src="{{asset('')}}assets/js/index.js"></script>
+
+    <script>
+        $(function() {
+            "use strict";
+
+
+// chart 1
+
+            var ctx = document.getElementById("chart1").getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#6078ea');
+            gradientStroke1.addColorStop(1, '#17c5ea');
+
+            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke2.addColorStop(0, '#ff8359');
+            gradientStroke2.addColorStop(1, '#ffdf40');
+
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($invoicesByMonth->pluck('month')),
+                    datasets: [{
+                        label: 'Vendas',
+                        data: @json($invoicesByMonth->pluck('total')),
+                        borderColor: gradientStroke1,
+                        backgroundColor: gradientStroke1,
+                        hoverBackgroundColor: gradientStroke1,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }, {
+                        label: 'Facturas',
+                        data: @json($invoicesByMonth->pluck('count')),
+                        borderColor: gradientStroke2,
+                        backgroundColor: gradientStroke2,
+                        hoverBackgroundColor: gradientStroke2,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }]
+                },
+
+                options:{
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        labels: {
+                            boxWidth:8
+                        }
+                    },
+                    tooltips: {
+                        displayColors:false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            barPercentage: .5
+                        }]
+                    }
+                }
+            });
+
+
+// chart 2
+
+            var ctx = document.getElementById("chart2").getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#fc4a1a');
+            gradientStroke1.addColorStop(1, '#f7b733');
+
+            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke2.addColorStop(0, '#4776e6');
+            gradientStroke2.addColorStop(1, '#8e54e9');
+
+
+            var gradientStroke3 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke3.addColorStop(0, '#ee0979');
+            gradientStroke3.addColorStop(1, '#ff6a00');
+
+            var gradientStroke4 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke4.addColorStop(0, '#42e695');
+            gradientStroke4.addColorStop(1, '#3bb2b8');
+
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: @json($mostSoldProducts->pluck('product_name')),
+                    datasets: [{
+                        backgroundColor: [
+                            gradientStroke1,
+                            gradientStroke2,
+                            gradientStroke3,
+                            gradientStroke4
+                        ],
+                        hoverBackgroundColor: [
+                            gradientStroke1,
+                            gradientStroke2,
+                            gradientStroke3,
+                            gradientStroke4
+                        ],
+                        data: @json($mostSoldProducts->pluck('total_quantity')),
+                        borderWidth: [1, 1, 1, 1]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutoutPercentage: 75,
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        labels: {
+                            boxWidth:8
+                        }
+                    },
+                    tooltips: {
+                        displayColors:false,
+                    }
+                }
+            });
+
+
+
+// worl map
+
+            jQuery('#geographic-map-2').vectorMap(
+                {
+                    map: 'world_mill_en',
+                    backgroundColor: 'transparent',
+                    borderColor: '#818181',
+                    borderOpacity: 0.25,
+                    borderWidth: 1,
+                    zoomOnScroll: false,
+                    color: '#009efb',
+                    regionStyle : {
+                        initial : {
+                            fill : '#008cff'
+                        }
+                    },
+                    markerStyle: {
+                        initial: {
+                            r: 9,
+                            'fill': '#fff',
+                            'fill-opacity':1,
+                            'stroke': '#000',
+                            'stroke-width' : 5,
+                            'stroke-opacity': 0.4
+                        },
+                    },
+                    enableZoom: true,
+                    hoverColor: '#009efb',
+                    markers : [{
+                        latLng : [21.00, 78.00],
+                        name : 'Lorem Ipsum Dollar'
+
+                    }],
+                    hoverOpacity: null,
+                    normalizeFunction: 'linear',
+                    scaleColors: ['#b6d6ff', '#005ace'],
+                    selectedColor: '#c9dfaf',
+                    selectedRegions: [],
+                    showTooltip: true,
+                });
+
+
+// chart 3
+
+            var ctx = document.getElementById('chart3').getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#008cff');
+            gradientStroke1.addColorStop(1, 'rgba(22, 195, 233, 0.1)');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [3, 30, 10, 10, 22, 12, 5],
+                        pointBorderWidth: 2,
+                        pointHoverBackgroundColor: gradientStroke1,
+                        backgroundColor: gradientStroke1,
+                        borderColor: gradientStroke1,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        display:false
+                    },
+                    tooltips: {
+                        displayColors:false,
+                        mode: 'nearest',
+                        intersect: false,
+                        position: 'nearest',
+                        xPadding: 10,
+                        yPadding: 10,
+                        caretPadding: 10
+                    }
+                }
+            });
+
+
+
+// chart 4
+
+            var ctx = document.getElementById("chart4").getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#ee0979');
+            gradientStroke1.addColorStop(1, '#ff6a00');
+
+            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke2.addColorStop(0, '#283c86');
+            gradientStroke2.addColorStop(1, '#39bd3c');
+
+            var gradientStroke3 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke3.addColorStop(0, '#7f00ff');
+            gradientStroke3.addColorStop(1, '#e100ff');
+
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["Completed", "Pending", "Process"],
+                    datasets: [{
+                        backgroundColor: [
+                            gradientStroke1,
+                            gradientStroke2,
+                            gradientStroke3
+                        ],
+
+                        hoverBackgroundColor: [
+                            gradientStroke1,
+                            gradientStroke2,
+                            gradientStroke3
+                        ],
+
+                        data: [50, 50, 50],
+                        borderWidth: [1, 1, 1]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutoutPercentage: 0,
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        labels: {
+                            boxWidth:8
+                        }
+                    },
+                    tooltips: {
+                        displayColors:false,
+                    },
+                }
+            });
+
+
+            // chart 5
+
+            var ctx = document.getElementById("chart5").getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#f54ea2');
+            gradientStroke1.addColorStop(1, '#ff7676');
+
+            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke2.addColorStop(0, '#42e695');
+            gradientStroke2.addColorStop(1, '#3bb2b8');
+
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8],
+                    datasets: [{
+                        label: 'Clothing',
+                        data: [40, 30, 60, 35, 60, 25, 50, 40],
+                        borderColor: gradientStroke1,
+                        backgroundColor: gradientStroke1,
+                        hoverBackgroundColor: gradientStroke1,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 1
+                    }, {
+                        label: 'Electronic',
+                        data: [50, 60, 40, 70, 35, 75, 30, 20],
+                        borderColor: gradientStroke2,
+                        backgroundColor: gradientStroke2,
+                        hoverBackgroundColor: gradientStroke2,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 1
+                    }]
+                },
+                options:{
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        labels: {
+                            boxWidth:8
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            barPercentage: .5
+                        }]
+                    },
+                    tooltips: {
+                        displayColors:false,
+                    }
+                }
+            });
+
+
+
+
+        });
+    </script>
 @endsection

@@ -20,13 +20,17 @@
 
         public function onRow(Row $row)
         {
+
             $rowIndex = $row->getIndex();
             $row = $row->toArray(null, true);
             $clientName = trim($row['cliente']);
             $clientName = $clientName === '' ? null : $clientName;
             if ($clientName === null) {
-                return;
+                return ;
                 dd($rowIndex, $row);
+            }
+            if($row['factura']==null){
+                return ;
             }
             $company = Company::firstOrCreate(['name' => $clientName]);
             $customer = Customer::firstOrCreate([
@@ -77,7 +81,7 @@
                     $invoiceDate = Date::parse('first day of December 2022');
                     break;
                 default:
-                    dd($mes);
+                    $invoiceDate = Date::parse('first day of December 2022');
             }
             $invoice = CustomerInvoice::firstOrCreate([
                 'customer_id' => $customer->id,
@@ -93,7 +97,7 @@
                 'product_id' => $product->id,
                 'quantity' => $row['qty'],
                 'unit_price' => $row['preco_venda'],
-                'sub_total' => $row['valor_venda'],
+                'sub_total' => $row['valor_venda']?? $row['qty']*$row['preco_venda'],
             ]);
             dump($rowIndex);
             //dd($invoice);
