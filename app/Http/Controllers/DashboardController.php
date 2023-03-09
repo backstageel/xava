@@ -13,17 +13,13 @@
     {
         public function index()
         {
-            $totalEmployees = Employee::count();
-            $totalCustomers = Customer::count();
-            $totalInvoices = CustomerInvoice::count();
-            $totalInvoicesAmount = CustomerInvoice::sum('total_amount');
-
-            $startDate = Date::now()->subMonths(12)->startOfMonth();
+            $startDate = Date::now()->startOfYear();
             $endDate = Date::now()->endOfMonth();
 
-            $totalInvoicesAmount12Months = CustomerInvoice::whereBetween('invoice_date',
-                [$startDate, $endDate])->sum('total_amount');
-            $totalInvoices12Months = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->count();
+            $totalEmployees = Employee::count();
+            $totalCustomers = Customer::count();
+            $totalInvoices = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->count();
+            $totalInvoicesAmount = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->sum('total_amount');
 
             $invoicesByMonth = CustomerInvoice::selectRaw('MONTHNAME(invoice_date) as month, SUM(total_amount) as total,COUNT(*) as count')
                 ->whereBetween('invoice_date', [$startDate, $endDate])
@@ -48,6 +44,6 @@
                 ->get();
             return view('dashboard',
                 compact('totalEmployees', 'totalCustomers', 'totalInvoices', 'totalInvoicesAmount', 'invoicesByMonth',
-                    'totalInvoicesAmount12Months', 'totalInvoices12Months','mostSoldProducts','lastSoldProducts'));
+                    'mostSoldProducts','lastSoldProducts'));
         }
     }

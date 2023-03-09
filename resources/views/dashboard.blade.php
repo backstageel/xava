@@ -87,13 +87,13 @@
                 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">@money($totalInvoicesAmount12Months)</h5>
+                            <h5 class="mb-0">@money($totalInvoicesAmount)</h5>
                             <small class="mb-0">Total de Vendas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">{{$totalInvoices12Months}}</h5>
+                            <h5 class="mb-0">{{$totalInvoices}}</h5>
                             <small class="mb-0">Total de Facturas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
                         </div>
                     </div>
