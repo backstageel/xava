@@ -33,20 +33,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('employee_types.index')}}">
-                                <i class="bx bx-right-arrow-alt"></i>
-                                Tipos de Colaboradores
-                            </a>
-                        </li>
-                        <li>
-                        <li>
                             <a href="{{route('customer_types.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Tipos de Clientes
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('category_products.index')}}">
+                            <a href="{{route('product_categories.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Categoria de Produtos
                             </a>

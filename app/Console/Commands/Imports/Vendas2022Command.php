@@ -28,7 +28,8 @@ class Vendas2022Command extends Command
      */
     public function handle()
     {
-        Excel::import(new Vendas2022Import(), 'vendas2022.xlsx');
+        Excel::import(new Vendas2022Import(2022), 'vendas2022.xlsx');
+        Excel::import(new Vendas2022Import(2023), 'vendas2023.xlsx');
 
         $this->updateInvoiceTable();
 

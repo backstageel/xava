@@ -14,7 +14,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('category_products.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('product_categories.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="p-4 border rounded">
-                        <x-bootstrap::form.form class="row g-3" action="{{route('category_products.store')}}">
+                        <x-bootstrap::form.form class="row g-3" action="{{route('product_categories.store')}}">
                             <div class="row">
                                 <div class="col">
                                     <x-bootstrap::form.input name="name" label="nome de categoria" />

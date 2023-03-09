@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeTypeRequest;
-use App\Models\EmployeeType;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductCategoryRequest;
+use App\Models\ProductCategory;
 
-class EmployeeTypessController extends Controller
+class ProductCategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $employeeTypes = EmployeeType::paginate();
-        return view('employee_types.index',compact('employeeTypes'));
+        //
+        $categorysProducts=ProductCategory::paginate();
+        return view('product_categories.index', compact('categorysProducts'));
     }
 
     /**
@@ -22,19 +20,19 @@ class EmployeeTypessController extends Controller
      */
     public function create()
     {
-        return view('employee_types.create');
+        return view('product_categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EmployeeTypeRequest $request)
+    public function store(ProductCategoryRequest $request)
     {
-        $employeeType = new EmployeeType();
-        $employeeType->name = $request->input('name');
-        $employeeType->save();
-        flash('Tipo de Colaborador Registado com sucesso')->success();
-        return redirect()->route('employee_types.index');
+        $category = new ProductCategory();
+        $category->name = $request->input('name');
+        $category->save();
+        flash('Tipo de Categoria Registado com sucesso')->success();
+        return redirect()->route('product_categories.index');
     }
 
     /**

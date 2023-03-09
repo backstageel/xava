@@ -17,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
     Route::resource('employees',\App\Http\Controllers\EmployeesController::class);
-    Route::resource('employee_types',\App\Http\Controllers\EmployeeTypessController::class);
     Route::resource('customer_types',\App\Http\Controllers\CustomerTypeController::class);
-    Route::resource('category_products',\App\Http\Controllers\CategoryProductController::class);
+    Route::resource('product_categories',\App\Http\Controllers\ProductCategoriesController::class);
     Route::resource('customers',\App\Http\Controllers\CustomerController::class);
 
 });
