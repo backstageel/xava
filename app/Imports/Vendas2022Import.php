@@ -7,6 +7,8 @@
     use App\Models\CustomerInvoice;
     use App\Models\CustomerInvoiceItem;
     use App\Models\Product;
+    use App\Models\Sale;
+    use App\Models\SaleItem;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Date;
     use Maatwebsite\Excel\Concerns\OnEachRow;
@@ -41,8 +43,8 @@
             }
             $company = Company::firstOrCreate(['name' => $clientName]);
             $customer = Customer::firstOrCreate([
-                'customable_type' => Company::class,
-                'customable_id' => $company->id,
+                'customerable_type' => Company::class,
+                'customerable_id' => $company->id,
             ]);
 
             $mes = $row['mes'];
@@ -87,8 +89,15 @@
                 default:
                     $invoiceDate = Date::parse('first day of December '.$this->year);
             }
+            $sale = Sale::firstOrCreate([
+                'customer_id' => $customer->id,
+                'sale_ref'=>$row['factura'],
+                'sale_date' => $invoiceDate,
+            ]);
+
             $invoice = CustomerInvoice::firstOrCreate([
                 'customer_id' => $customer->id,
+                'sale_id' => $sale->id,
                 'invoice_number' => $row['factura'],
                 'invoice_date' => $invoiceDate,
             ]);
@@ -96,8 +105,8 @@
                 'name' => $row['descricao_duto'],
             ], ['sale_price' => $row['preco_venda'],]
             );
-            $invoiceItem = CustomerInvoiceItem::firstOrCreate([
-                'invoice_id' => $invoice->id,
+            $invoiceItem = SaleItem::firstOrCreate([
+                'sale_id' => $invoice->id,
                 'product_id' => $product->id,
                 'quantity' => $row['qty'],
                 'unit_price' => $row['preco_venda'],

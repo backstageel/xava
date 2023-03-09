@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Customer extends Model
 {
     use HasFactory;
 
-    public function Customable(){
-        return $this->morphTo(__FUNCTION__,'customable_type','customable_id');
+    public function Customerable():MorphTo{
+        return $this->morphTo();
     }
 }

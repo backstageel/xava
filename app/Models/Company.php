@@ -9,6 +9,6 @@ class Company extends Model
     use HasFactory;
 
     public function customer(){
-        return $this->morphOne(Customer::class,'customable');
+        return $this->morphOne(Customer::class,'customerable');
     }
 }

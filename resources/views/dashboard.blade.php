@@ -158,10 +158,10 @@
                         <tr>
                             <td>{{$item->product->name}}</td>
                             <td><img src="{{asset('assets/images/products/01.png')}}" class="product-img-2" alt="product img"></td>
-                            <td>{{$item->invoice->invoice_number}}</td>
-                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->invoice->payment_status}}</span></td>
+                            <td>{{$item->sale->customer->toArray()['customerable']['name']}}</td>
+                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->sale->saleStatus->name}}</span></td>
                             <td>@money($item->unit_price)</td>
-                            <td>{{$item->invoice->invoice_date}}</td>
+                            <td>{{$item->sale->sale_date}}</td>
                         </tr>
                     @endforeach
                     </tbody>
