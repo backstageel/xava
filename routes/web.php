@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+    use App\Http\Controllers\ChangePasswordsController;
+    use App\Http\Controllers\ProfileController;
     use App\Models\Customer;
     use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer_types',\App\Http\Controllers\CustomerTypeController::class);
     Route::resource('product_categories',\App\Http\Controllers\ProductCategoriesController::class);
     Route::resource('customers',\App\Http\Controllers\CustomerController::class);
+    Route::resource('change_passwords', ChangePasswordsController::class)->only('create','store');
 
 });
 
