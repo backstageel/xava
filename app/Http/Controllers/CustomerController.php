@@ -15,11 +15,14 @@ use App\Models\IdentityDocumentType;
 use App\Models\PersonPrefix;
 use App\Models\Province;
 use App\Models\CustomerType;
+use App\Models\CustomerStatus;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
     public function index(CustomersDataTable $dataTable){
         return $dataTable->render('customers.index');
+
     }
 
     /**
@@ -34,12 +37,13 @@ class CustomerController extends Controller
         $districts = District::pluck('name','id');
         //$avenues = Avenue::pluck('name','id');
         $customer_types= CustomerType::pluck('name', 'id');
+        $customer_statuses= CustomerStatus::pluck('name', 'id');
         $identityDocumentTypes = IdentityDocumentType::pluck('name','id');
 
 
 
         $personPrefixes = PersonPrefix::pluck('code','id');
-        return view('customers.create',compact('genders','civilStates','countries','provinces','districts','identityDocumentTypes','personPrefixes', 'customer_types'));
+        return view('customers.create',compact('genders','civilStates','countries','provinces','districts','identityDocumentTypes','personPrefixes', 'customer_types', 'customer_statuses'));
     }
 
     public function store(CustomerRequest $request, CustomerAction $customer)

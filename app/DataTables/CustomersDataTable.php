@@ -9,7 +9,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-
 use Yajra\DataTables\Services\DataTable;
 
 class CustomersDataTable extends DataTable
@@ -35,7 +34,7 @@ class CustomersDataTable extends DataTable
      */
     public function query(customer $model): QueryBuilder
     {
-        return $model->newQuery()->with(['person','customer_types']);
+        return $model->newQuery()->with(['person','customer_types', 'customer_statuses']);
     }
 
     /**
@@ -64,11 +63,13 @@ class CustomersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            #Column::make('id')->title('Código'),
-            Column::make('person.first_name')->title('Nome'),
+            Column::make('id')->title('Código'),
+            Column::make('person.first_name')->title('Primeiro Nome'),
+            Column::make('person.last_name')->title('Outros nomes'),
+            Column::make('person.personal_email')->title('Email'),
+            Column::make('customer_status.name')->title('Estado'),
+            Column::make('customer_type.name')->title('Tipo de Cliente'),
             Column::make('person.cellphone')->title('Celular'),
-            Column::make('status')->title('Estado'),
-            Column::make('customer_type.name')->title('tipo de Cliente'),
             Column::computed('action')->title('Acções')
                 ->exportable(false)
                 ->printable(false)
