@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="{{route('products.index')}}">
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>
                         <div class="menu-title">Produtos</div>
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="{{route('vendors.index')}}">
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>
                         <div class="menu-title">Fornecedores</div>

@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer_types',\App\Http\Controllers\CustomerTypeController::class);
     Route::resource('category_products',\App\Http\Controllers\CategoryProductController::class);
     Route::resource('customers',\App\Http\Controllers\CustomerController::class);
+    Route::resource('products',\App\Http\Controllers\ProductController::class);
+    Route::resource('vendors',\App\Http\Controllers\VendorController::class);
 
 });
 

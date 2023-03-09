@@ -11,8 +11,8 @@ class CategoryProductController extends Controller
     public function index()
     {
         //
-        $categorysProducts=CategoryProduct::paginate();
-        return view('category_products.index', compact('categorysProducts'));
+        $categoryProducts=CategoryProduct::paginate();
+        return view('category_products.index', compact('categoryProducts'));
     }
 
     /**

@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendor', function (Blueprint $table) {
+        Schema::create('vendors', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->String('name')->unique();
             $table->String('email')->unique()->nullable();
             $table->String('web')->unique()->nullable();
-            $table->unsignedTinyInteger('country_id');
-            $table->unsignedInteger('province_id');
+            $table->unsignedTinyInteger('country_id')->nullable();
+            $table->unsignedInteger('province_id')->nullable();
             $table->unsignedInteger('district_id')->nullable();
             $table->String('address')->nullable();
-            //numero único de identificação tributaria
-            $table->String('utin_code')->unique();
+            $table->String('nuit')->unique()->nullable();
             $table->bigInteger('phone_number_1')->unique();
             $table->bigInteger('phone_number_2')->unique()->nullable();
             $table->timestamps();
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendor');
+        Schema::dropIfExists('vendors');
     }
 };

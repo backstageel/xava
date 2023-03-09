@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_categories', function (Blueprint $table) {
+
             $table->tinyIncrements('id');
             $table->string('name')->unique();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -26,6 +26,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('product_categories');
     }
-
-
 };
