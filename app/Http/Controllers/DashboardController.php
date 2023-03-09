@@ -6,6 +6,7 @@
     use App\Models\CustomerInvoice;
     use App\Models\CustomerInvoiceItem;
     use App\Models\Employee;
+    use App\Models\SaleItem;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Date;
 
@@ -13,41 +14,39 @@
     {
         public function index()
         {
-            $totalEmployees = Employee::count();
-            $totalCustomers = Customer::count();
-            $totalInvoices = CustomerInvoice::count();
-            $totalInvoicesAmount = CustomerInvoice::sum('total_amount');
-
-            $startDate = Date::now()->subMonths(12)->startOfMonth();
+            $startDate = Date::now()->startOfYear();
             $endDate = Date::now()->endOfMonth();
 
-            $totalInvoicesAmount12Months = CustomerInvoice::whereBetween('invoice_date',
-                [$startDate, $endDate])->sum('total_amount');
-            $totalInvoices12Months = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->count();
+            $totalEmployees = Employee::count();
+            $totalCustomers = Customer::count();
+            $totalInvoices = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->count();
+            $totalInvoicesAmount = CustomerInvoice::whereBetween('invoice_date', [$startDate, $endDate])->sum('total_amount');
 
             $invoicesByMonth = CustomerInvoice::selectRaw('MONTHNAME(invoice_date) as month, SUM(total_amount) as total,COUNT(*) as count')
                 ->whereBetween('invoice_date', [$startDate, $endDate])
                 ->groupBy('month')
                 ->get();
 
-            $mostSoldProducts = CustomerInvoiceItem::selectRaw('products.name as product_name, customer_invoice_items.product_id, SUM(quantity) as total_quantity')
-                ->join('customer_invoices', 'customer_invoices.id', '=', 'customer_invoice_items.invoice_id')
-                ->join('products', 'products.id', '=', 'customer_invoice_items.product_id')
+            $mostSoldProducts = SaleItem::selectRaw('products.name as product_name, sale_items.product_id, SUM(quantity) as total_quantity')
+                ->join('customer_invoices', 'customer_invoices.id', '=', 'sale_items.sale_id')
+                ->join('products', 'products.id', '=', 'sale_items.product_id')
                 ->whereBetween('customer_invoices.invoice_date', [$startDate, $endDate])
-                ->groupBy('customer_invoice_items.product_id', 'product_name')
+                ->groupBy('sale_items.product_id', 'product_name')
                 ->orderByDesc('total_quantity')
                 ->take(4) // only retrieve the top 10 products
                 ->get();
 
-            $lastSoldProducts = CustomerInvoiceItem::with(['invoice','product'])
-                ->join('customer_invoices', 'customer_invoices.id', '=', 'customer_invoice_items.invoice_id')
-                ->join('products', 'products.id', '=', 'customer_invoice_items.product_id')
+            $lastSoldProducts = SaleItem::with(['sale.customer.customerable','sale.saleStatus','product'])
+                ->join('customer_invoices', 'customer_invoices.id', '=', 'sale_items.sale_id')
+                ->join('products', 'products.id', '=', 'sale_items.product_id')
                 ->whereBetween('customer_invoices.invoice_date', [$startDate, $endDate])
                 ->orderByDesc('customer_invoices.invoice_date')
                 ->take(10) // retrieve the last 10 products
                 ->get();
+
+
             return view('dashboard',
                 compact('totalEmployees', 'totalCustomers', 'totalInvoices', 'totalInvoicesAmount', 'invoicesByMonth',
-                    'totalInvoicesAmount12Months', 'totalInvoices12Months','mostSoldProducts','lastSoldProducts'));
+                    'mostSoldProducts','lastSoldProducts'));
         }
     }

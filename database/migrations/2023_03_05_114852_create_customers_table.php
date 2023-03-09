@@ -16,8 +16,8 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedTinyInteger('customer_status_id')->default(1);
             $table->unsignedTinyInteger('customer_type_id')->nullable();
-            $table->unsignedInteger('customable_id');
-            $table->string('customable_type');
+            $table->unsignedInteger('customerable_id');
+            $table->string('customerable_type');
 
             $table->foreign('customer_type_id')->references('id')->on('customer_types');
             $table->foreign('customer_status_id')->references('id')->on('customer_statuses');

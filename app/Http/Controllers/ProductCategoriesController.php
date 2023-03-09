@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CategoryProductRequest;
-use App\Models\CategoryProduct;
+use App\Http\Requests\ProductCategoryRequest;
+use App\Models\ProductCategory;
 
-class CategoryProductController extends Controller
+class ProductCategoriesController extends Controller
 {
     public function index()
     {
         //
+<<<<<<< HEAD:app/Http/Controllers/CategoryProductController.php
         $categoryProducts=CategoryProduct::paginate();
         return view('category_products.index', compact('categoryProducts'));
+=======
+        $categorysProducts=ProductCategory::paginate();
+        return view('product_categories.index', compact('categorysProducts'));
+>>>>>>> refs/remotes/origin/main:app/Http/Controllers/ProductCategoriesController.php
     }
 
     /**
@@ -20,19 +25,19 @@ class CategoryProductController extends Controller
      */
     public function create()
     {
-        return view('category_products.create');
+        return view('product_categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryProductRequest $request)
+    public function store(ProductCategoryRequest $request)
     {
-        $category = new CategoryProduct();
+        $category = new ProductCategory();
         $category->name = $request->input('name');
         $category->save();
         flash('Tipo de Categoria Registado com sucesso')->success();
-        return redirect()->route('category_products.index');
+        return redirect()->route('product_categories.index');
     }
 
     /**

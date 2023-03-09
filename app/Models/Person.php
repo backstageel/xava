@@ -25,7 +25,7 @@ class Person extends Model
     }
 
     public function customer(){
-        return $this->morphOne(Customer::class,'customable');
+        return $this->morphOne(Customer::class,'customerable','customable_type','customable_id');
     }
 
     protected function fullName(): Attribute

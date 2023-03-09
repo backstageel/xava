@@ -87,13 +87,13 @@
                 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">@money($totalInvoicesAmount12Months)</h5>
+                            <h5 class="mb-0">@money($totalInvoicesAmount)</h5>
                             <small class="mb-0">Total de Vendas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="p-3">
-                            <h5 class="mb-0">{{$totalInvoices12Months}}</h5>
+                            <h5 class="mb-0">{{$totalInvoices}}</h5>
                             <small class="mb-0">Total de Facturas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
                         </div>
                     </div>
@@ -158,10 +158,10 @@
                         <tr>
                             <td>{{$item->product->name}}</td>
                             <td><img src="{{asset('assets/images/products/01.png')}}" class="product-img-2" alt="product img"></td>
-                            <td>{{$item->invoice->invoice_number}}</td>
-                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->invoice->payment_status}}</span></td>
+                            <td>{{$item->sale->customer->toArray()['customerable']['name']}}</td>
+                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->sale->saleStatus->name}}</span></td>
                             <td>@money($item->unit_price)</td>
-                            <td>{{$item->invoice->invoice_date}}</td>
+                            <td>{{$item->sale->sale_date}}</td>
                         </tr>
                     @endforeach
                     </tbody>

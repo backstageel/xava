@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
-class EmployeeTypeRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,8 @@ class EmployeeTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:employee_types|max:255',
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed'],
         ];
     }
 }

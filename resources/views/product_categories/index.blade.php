@@ -20,7 +20,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('category_products.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('product_categories.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>

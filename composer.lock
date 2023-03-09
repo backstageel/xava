@@ -4,21 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "239cd29df0569050199ab40d65529860",
+    "content-hash": "66a30d7f4822bae36c2b478f8702032d",
     "packages": [
         {
             "name": "akaunting/laravel-money",
-            "version": "4.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/akaunting/laravel-money.git",
-                "reference": "1b9a56e9cfdfe53291be2936754592c2c432ddcf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/laravel-money/zipball/1b9a56e9cfdfe53291be2936754592c2c432ddcf",
-                "reference": "1b9a56e9cfdfe53291be2936754592c2c432ddcf",
-                "shasum": ""
+                "url": "https://github.com/backstageel/laravel-money.git",
+                "reference": "f0a7e3836dc0d0a1ded8e431fb5704d4204ab392"
             },
             "require": {
                 "illuminate/contracts": "^9.0|^10.0",
@@ -33,6 +27,7 @@
                 "phpunit/phpunit": "^9.5",
                 "vimeo/psalm": "^4.23"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -42,14 +37,26 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
                 "psr-4": {
                     "Akaunting\\Money\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Akaunting\\Money\\Tests\\": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "psalm": [
+                    "vendor/bin/psalm"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -69,11 +76,7 @@
                 "laravel",
                 "money"
             ],
-            "support": {
-                "issues": "https://github.com/akaunting/laravel-money/issues",
-                "source": "https://github.com/akaunting/laravel-money/tree/4.0.0"
-            },
-            "time": "2023-02-14T18:09:30+00:00"
+            "time": "2023-03-09T07:37:54+00:00"
         },
         {
             "name": "brick/math",
@@ -9169,16 +9172,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.4",
+            "version": "9.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d"
+                "reference": "86e761949019ae83f49240b2f2123fb5ab3b2fc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
-                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/86e761949019ae83f49240b2f2123fb5ab3b2fc5",
+                "reference": "86e761949019ae83f49240b2f2123fb5ab3b2fc5",
                 "shasum": ""
             },
             "require": {
@@ -9211,8 +9214,8 @@
                 "sebastian/version": "^3.0.2"
             },
             "suggest": {
-                "ext-soap": "*",
-                "ext-xdebug": "*"
+                "ext-soap": "To be able to generate mocks based on WSDL files",
+                "ext-xdebug": "PHP extension that provides line coverage as well as branch and path coverage"
             },
             "bin": [
                 "phpunit"
@@ -9251,7 +9254,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.4"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.5"
             },
             "funding": [
                 {
@@ -9267,7 +9270,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-27T13:06:37+00:00"
+            "time": "2023-03-09T06:34:10+00:00"
         },
         {
             "name": "psr/cache",
@@ -11293,6 +11296,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "akaunting/laravel-money": 20,
         "hostmoz/blade-bootstrap-components": 20,
         "roave/security-advisories": 20
     },
