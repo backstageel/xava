@@ -9,7 +9,12 @@ class Customer extends Model
 {
     use HasFactory;
 
-    public function Customerable():MorphTo{
+    public function customerable():MorphTo{
         return $this->morphTo();
     }
+
+    public function scopeWithCustomerable($query){
+        $query->with('customerable');
+    }
+
 }

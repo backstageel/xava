@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger('customer_status_id')->default(1);
             $table->unsignedInteger('customerable_id');
             $table->string('customerable_type');
             $table->timestamps();
-
-            $table->foreign('customer_status_id')->references('id')->on('customer_statuses');
 
 
         });

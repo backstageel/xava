@@ -28,7 +28,7 @@ class Person extends Model
         return $this->morphOne(Customer::class,'customerable');
     }
 
-    public function supplierr(){
+    public function supplier(){
         return $this->morphOne(Supplier::class,'supplierable');
     }
 
