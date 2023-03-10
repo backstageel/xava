@@ -18,7 +18,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('vendors.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('vendors.store')}}">
+                    <x-bootstrap::form.form class="row g-3" action="{{route('suppliers.store')}}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -57,10 +57,14 @@
                                             <x-bootstrap::form.input name="email" label="Email"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"/>
+                                            <x-bootstrap::form.select name="supplier_type" label="Tipo de Fornecedor" :options="$supplierTypes"/>
                                         </div>
+
                                     </div>
                                     <div class="row">
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="nuit" label="NUIT"/>
+                                        </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="country_id" label="Nacionalidade" :options="$countries" :default="152"/>
                                         </div>
@@ -78,14 +82,11 @@
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
 
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="phone_number_1" label="Contacto 1" />
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="phone" label="Contacto 1" />
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="phone_number_2" label="Contacto 2" />
-                                        </div>
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="web" label="Pagina WEB" />
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="website" label="Pagina WEB" />
                                         </div>
 
                                     </div>

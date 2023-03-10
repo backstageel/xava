@@ -26,8 +26,8 @@ class PersonFactory extends Factory
             'last_name'=>fake()->lastName,
             'gender_id'=>Gender::all()->random(),
             'birth_date'=>fake()->date,
-            'cellphone'=>fake()->phoneNumber,
-            'personal_email'=>fake()->email
+            'phone'=>fake()->phoneNumber,
+            'email'=>fake()->email
         ];
     }
 }

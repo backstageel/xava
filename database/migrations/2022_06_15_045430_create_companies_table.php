@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('nuel')->unique()->nullable();
+            $table->integer('nuit')->unique()->nullable();
             $table->date('date_registration')->nullable();
             $table->unsignedInteger('republic_bulletin_id')->nullable();
             $table->unsignedTinyInteger('company_type_id')->nullable();
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->integer('address_country_id')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('website')->nullable();
 
             $table->timestamps();
         });

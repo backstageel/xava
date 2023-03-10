@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customers',\App\Http\Controllers\CustomerController::class);
 
     Route::resource('products',\App\Http\Controllers\ProductController::class);
-    Route::resource('vendors',\App\Http\Controllers\VendorController::class);
+    Route::resource('suppliers',\App\Http\Controllers\SuppliersController::class);
 
     Route::resource('change_passwords', ChangePasswordsController::class)->only('create','store');
 

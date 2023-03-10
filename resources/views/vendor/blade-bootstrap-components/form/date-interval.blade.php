@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="{{global_asset('css/datepicker.css')}}">
 @endpush
 @push('scripts')
-    <script src="{{global_asset('vendors/moment/js/moment.min.js')}}" type="text/javascript"></script>
+    <script src="{{global_asset('suppliers/moment/js/moment.min.js')}}" type="text/javascript"></script>
     <script src="{{global_asset('js/jquery.datetimepicker.js')}}" type="text/javascript"></script>
 @endpush
 @endonce

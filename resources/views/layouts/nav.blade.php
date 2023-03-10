@@ -21,8 +21,7 @@
                 </li>
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class="bx bx-category"></i>
-                        </div>
+                        <div class="parent-icon"><i class="bx bx-category"></i></div>
                         <div class="menu-title">Recursos Humanos</div>
                     </a>
                     <ul>
@@ -53,10 +52,36 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{route('dashboard')}}">
+                    <a href="#" class="has-arrow">
                         <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
-                        <div class="menu-title">Comercial</div>
+                        <div class="menu-title">Parceiros</div>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('customers.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Clientes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('prospects.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Possiveis Clientes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('suppliers.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Fornecedores
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('contacts.index') }}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Contactos
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{route('products.index')}}">
@@ -71,13 +96,6 @@
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>
                         <div class="menu-title">Clientes</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('vendors.index')}}">
-                        <div class="parent-icon"><i class='bx bx-cart'></i>
-                        </div>
-                        <div class="menu-title">Fornecedores</div>
                     </a>
                 </li>
                 <li>

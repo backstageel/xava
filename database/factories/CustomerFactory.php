@@ -23,16 +23,6 @@ class CustomerFactory extends Factory
 
         $customable = $this->customable();
         return [
-           /* 'person_id'=>Person::factory(),
-
-            'person.first_name'=>fake()->name,
-            'person.last_name'=>fake()->name,
-            'person.personal_email'=>fake()->email(),
-            'customer_status.name'=>CustomerStatus::all()->random(),
-            'customer_type.name'=>fake()->name,
-            'person.cellphone'=>fake()->phoneNumber(),
-           // 'contract_type_id'=>CustomerType::all()->random(),*/
-
             'customable_id'=>$customable::factory(),
             'customable_type'=>$customable
         ];

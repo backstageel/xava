@@ -11,4 +11,8 @@ class Company extends Model
     public function customer(){
         return $this->morphOne(Customer::class,'customerable');
     }
+
+    public function supplier(){
+        return $this->morphOne(Supplier::class,'supplierable');
+    }
 }

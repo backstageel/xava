@@ -16,14 +16,13 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedTinyInteger('customer_status_id')->default(1);
-            $table->unsignedTinyInteger('customer_type_id')->nullable();
             $table->unsignedInteger('customerable_id');
             $table->string('customerable_type');
+            $table->timestamps();
 
-            $table->foreign('customer_type_id')->references('id')->on('customer_types');
             $table->foreign('customer_status_id')->references('id')->on('customer_statuses');
 
-            $table->timestamps();
+
         });
     }
 

@@ -1,8 +1,7 @@
-
 @extends("layouts.app")
 
 @section("style")
-    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
 
 @section("wrapper")
@@ -20,7 +19,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('vendors.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
@@ -36,32 +35,21 @@
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>NUIT</th>
-                        <th>contacto 1</th>
-                        <th>Contacto 2</th>
-                        <th>País</th>
-                        <th>Província</th>
-                        <th>Distríto</th>
-                        <th>Endereço</th>
-                        <th>WEB</th>
-                        <th>Data criação</th>
+                        <th>contacto</th>
 
 
                     </tr>
                     </thead>
                     <tbody>
-                       @foreach($vendors as $vendor)
-                           <tr>
-                               <td>{{$vendor->name}}</td>
-                               <td>{{$vendor->email}}</td>
-                               <td>{{$vendor->nuit}}</td>
-                               <td>{{$vendor->phone_number_1}}<td>
-                               <td>{{$vendor->country->name}}</td>
-                               <td>{{$vendor->province_id}}</td>
-                               <td>{{$vendor->district_id}}</td>
-                               <td>{{$vendor->web}}<td>
-                               <td>{{$vendor->created_at}}</td>
-                           </tr>
-                       @endforeach
+                    @foreach($suppliers as $supplier)
+                        <tr>
+                            <td>{{$supplier->supplierable->name}}</td>
+                            <td>{{$supplier->supplierable->email}}</td>
+                            <td>{{$supplier->supplierable->nuit}}</td>
+                            <td>{{$supplier->supplierable->phone}}<td>
+                            <td>{{$supplier->created_at}}</td>
+                        </tr>
+                    @endforeach
 
                     </tbody>
                     <tfoot>
@@ -76,13 +64,13 @@
     <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var table = $('#example2').DataTable( {
+        $(document).ready(function () {
+            var table = $('#example2').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
                 lengthChange: false,
-            } );
-        } );
+            });
+        });
     </script>
 @endsection
