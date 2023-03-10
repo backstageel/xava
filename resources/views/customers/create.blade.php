@@ -58,34 +58,36 @@
                                         <div class="col-1">
                                             <x-bootstrap::form.select name="person_prefix_id" label="Prefixo" :options="$personPrefixes"/>
                                         </div>
-
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="last_name" label="Apelido"/>
-                                        </div>
+                                                <x-bootstrap::form.input name="last_name" label="Apelido"/>
+                                            </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="first_name" label="Primeiros Nomes"/>
                                         </div>
                                     </div>
+
+                                       <!-- <div class="col-4">
+                                            <x-bootstrap::form.input name="last_name" label="Nome da empresa"/>
+                                        </div> -->
+
+
+
+                                    <!--  <div class="row">
+                                        <div class="col-4">
+                                             <x-bootstrap::form.select name="gender_id" label="Sexo" :options="$genders"/>
+                                         </div>
+
+
+                                    </div> -->
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="gender_id" label="Sexo" :options="$genders"/>
+                                            <x-bootstrap::form.select name="birth_country_id" label="Pais " :options="$countries" :default="152"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.date-picker name="birth_date" label="Data de Nascimento"/>
+                                            <x-bootstrap::form.select name="birth_province_id" label="Provincia " :options="$provinces"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="civil_state_id" label="Estado Civil" :options="$civilStates"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_province_id" label="Provincia de Nascimento" :options="$provinces"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_district_id" label="Distrito de Nascimento" :options="$districts"/>
+                                            <x-bootstrap::form.select name="birth_district_id" label="Distrito " :options="$districts"/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -111,35 +113,20 @@
                                             <x-bootstrap::form.select name="status" label="Estado" />
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="customer_type_id" label="Cargo" :options="$customer_types"/>
+                                            <x-bootstrap::form.select name="customer_type_id" label="Tipo de Cliente" :options="$customer_types"/>
                                         </div>
                                     </div>
                                     <div class="row">
 
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_name" label="Nome para Emergencia"/>
-                                        </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_phone" label="Telemóvel para Emergencias"/>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
                                         <div class="col-12">
                                             <x-bootstrap::form.input name="living_address" label="Endereço de Morada"/>
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="living_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="living_province_id" label="Provincia de Nascimento" :options="$provinces"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="living_district_id" label="Distrito de Nascimento" :options="$districts"/>
-                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-6">

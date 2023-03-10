@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\database\migrations\people;
 
 return new class extends Migration
+
 {
     /**
      * Run the migrations.
