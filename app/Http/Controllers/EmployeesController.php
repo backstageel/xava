@@ -6,14 +6,12 @@ use App\Actions\CreateEmployeeAction;
 use App\DataTables\EmployeesDataTable;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Models\CivilState;
-use App\Models\ContractType;
 use App\Models\Country;
 use App\Models\Department;
 use App\Models\District;
 use App\Models\Employee;
 use App\Models\EmployeeContractType;
 use App\Models\EmployeePosition;
-use App\Models\EmployeeType;
 use App\Models\Gender;
 use App\Models\IdentityDocumentType;
 use App\Models\PersonPrefix;
@@ -25,9 +23,10 @@ class EmployeesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(EmployeesDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('employees.index');
+        $employees = Employee::with(['person.user','employeePosition','contractStatus','contractType'])->paginate(20);
+        return view('employees.index',compact('employees'));
     }
 
     /**

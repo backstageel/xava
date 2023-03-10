@@ -1,9 +1,4 @@
 @extends("layouts.app")
-
-@section("style")
-    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
-@endsection
-
 @section("wrapper")
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -26,28 +21,39 @@
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Colaboradores Registados</h6>
     <hr/>
-    <div class="card">
-        <div class="card-body">
-            {{ $dataTable->table() }}
-
-        </div>
+    <div class="row row-cols-1 row-cols-lg-4 row-cols-xl-5">
+        @foreach($employees as $employee)
+            <div class="col">
+                <div class="card radius-15">
+                    <div class="card-body text-center">
+                        <div class="p-1 border radius-15">
+                            <img src="{{asset('assets/images/avatars/avatar-1.png')}}" width="110" height="110" class="rounded-circle shadow" alt="">
+                            <h5 class="mb-0 mt-0">{{$employee->person->full_name}}</h5>
+                            <p class="mb-3">{{$employee->employeePosition->name}}</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Celular</h6>
+                                    <span class="text-secondary">{{$employee->person->cellphone}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Email</h6>
+                                    <span class="text-secondary">{{$employee->person->personal_email}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Contracto</h6>
+                                    <span class="text-secondary">{{$employee->contractType->name}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Estado</h6>
+                                    <span class="text-secondary">{{$employee->contractStatus->name}}</span>
+                                </li>
+                            </ul>
+                            <div class="d-grid"> <a href="{{route('employees.show',$employee->id)}}" class="btn btn-outline-primary radius-15">Ver perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection
-
-@section("script")
-    <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var table = $('#example2').DataTable({
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
-                },
-                lengthChange: false,
-            });
-        });
-    </script>
-@endsection
-@push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush

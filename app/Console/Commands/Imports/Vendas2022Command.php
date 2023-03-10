@@ -29,6 +29,10 @@ class Vendas2022Command extends Command
      */
     public function handle()
     {
+        $salesExist = Sale::exists();
+        if($salesExist && true){
+            return true;
+        }
         Excel::import(new Vendas2022Import(2022), 'vendas2022.xlsx');
         Excel::import(new Vendas2022Import(2023), 'vendas2023.xlsx');
 
