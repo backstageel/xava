@@ -6,25 +6,25 @@
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Fornecedor</div>
+        <div class="breadcrumb-title pe-3">Clientes</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lista de Fornecedores</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de Clientes</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('customers.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Registar Novo Fornecedor</h6>
+            <h6 class="mb-0 text-uppercase">Registar Novo Cliente</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
@@ -35,7 +35,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Dados do Fornecedor
+                                        Dados do Cliente
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -57,7 +57,7 @@
                                             <x-bootstrap::form.input name="email" label="Email"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_type" label="Tipo de Fornecedor" :options="$customerTypes"/>
+                                            <x-bootstrap::form.select name="customer_type" label="Tipo de Cliente" :options="$customerTypes"/>
                                         </div>
 
                                     </div>
