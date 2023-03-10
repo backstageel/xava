@@ -55,7 +55,7 @@
                                <td>{{$vendor->email}}</td>
                                <td>{{$vendor->nuit}}</td>
                                <td>{{$vendor->phone_number_1}}<td>
-                               <td>{{$vendor->country_id}}</td>
+                               <td>{{$vendor->country->name}}</td>
                                <td>{{$vendor->province_id}}</td>
                                <td>{{$vendor->district_id}}</td>
                                <td>{{$vendor->web}}<td>

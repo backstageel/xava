@@ -16,7 +16,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendors=Vendor::paginate();
+        $vendors=Vendor::with(['country','province','district'])->paginate();
         return view('vendors.index',compact('vendors'));
     }
 

@@ -22,12 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer_types',\App\Http\Controllers\CustomerTypeController::class);
     Route::resource('product_categories',\App\Http\Controllers\ProductCategoriesController::class);
     Route::resource('customers',\App\Http\Controllers\CustomerController::class);
-<<<<<<< HEAD
+
     Route::resource('products',\App\Http\Controllers\ProductController::class);
     Route::resource('vendors',\App\Http\Controllers\VendorController::class);
-=======
+
     Route::resource('change_passwords', ChangePasswordsController::class)->only('create','store');
->>>>>>> refs/remotes/origin/main
 
 });
 
