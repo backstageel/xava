@@ -15,4 +15,20 @@ class Company extends Model
     public function supplier(){
         return $this->morphOne(Supplier::class,'supplierable');
     }
+
+    public function companyType(){
+        return $this->belongsTo(CompanyType::class);
+    }
+
+    public function livingDistrict(){
+        return $this->belongsTo(District::class);
+    }
+
+    public function livingProvince(){
+        return $this->belongsTo(Province::class);
+    }
+
+    public function livingCountry(){
+        return $this->belongsTo(Country::class);
+    }
 }

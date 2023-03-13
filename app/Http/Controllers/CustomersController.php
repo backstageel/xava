@@ -97,16 +97,22 @@ class CustomersController extends Controller
        return redirect()->route('customers.index');
     }
 
-    public function edit(string $id)
+    public function edit(Customer $customer)
     {
-        $customer = Customer::find($id);
         $countries = Country::pluck('name','id');
         $provinces = Province::pluck('name','id');
         $districts = District::pluck('name','id');
-        $customerTypes = [1=>'Empresa',2=>'Individual'];
-
-        return view('customers.edit', compact('customer', 'countries','provinces','districts', 'customerTypes'));
+        if($customer->customerable_type==Company::class){
+            $company = Company::with(['companyType','livingDistrict','livingProvince','livingCountry'])
+                ->where('id',$customer->customerable_id)->first();
+            return view('customers.edit_company', compact('customer', 'company','countries','provinces','districts'));
+        } else{
+            $person = Person::with(['prefix','gender'])
+                ->where('id',$customer->customerable_id)->first();
+            return view('customers.edit_person', compact('customer', 'person'));
+        }
     }
+
     public function show(Customer $customer)
     {
        // $customer = Customer::with('country');
