@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('vat_id')->nullable();
             $table->timestamps();
             $table->foreign('vat_id')->references('id')->on('vat');
-          //  $table->foreign('category_id')->references('id')->on('product_categories');
+            $table->foreign('category_id')->references('id')->on('product_categories');
         });
     }
 

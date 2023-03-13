@@ -72,25 +72,37 @@ class SuppliersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Supplier $supplier)
     {
-        //
-    }
+
+        return view('suppliers.show',compact('supplier'));    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Supplier $supplier)
     {
-        //
+        $countries = Country::pluck('name','id');
+        $provinces = Province::pluck('name','id');
+        $districts = District::pluck('name','id');
+        $company = Company::with(['livingDistrict','livingProvince','livingCountry'])
+                ->where('id',$supplier->supplierable_id)->first();
+            return view('suppliers.edit', compact('supplier', 'company','countries','provinces','districts'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CreateSupplierRequest $request, Supplier $supplier)
     {
-        //
+
+            $companyData = $request->except('_token','_method');
+            $company = Company::where('id',$supplier->supplierable_id)->first();
+            $company->update($companyData);
+
+            flash('Fornecedor editado com sucesso')->success();
+        return redirect()->route('suppliers.index');
     }
 
     /**

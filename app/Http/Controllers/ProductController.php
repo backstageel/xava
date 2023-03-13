@@ -16,6 +16,7 @@ use App\Models\Gender;
 use App\Models\IdentityDocumentType;
 use App\Models\PersonPrefix;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Province;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //$category=CategoryProduct::pluck('name','id');
-        return view('products.create');
+        $category=ProductCategory::pluck('name','id');
+        $countries = Country::pluck('name','id');
+        return view('products.create',compact('category','countries'));
     }
 
     /**

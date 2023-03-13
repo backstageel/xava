@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="category_id" label="Categoria" />
+                                            <x-bootstrap::form.select name="category_id" label="Categoria" :options="$category"  />
                                         </div>
 
                                         <div class="col-3">
