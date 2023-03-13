@@ -47,15 +47,12 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-6">
                                             <x-bootstrap::form.input name="name" label="Nome da Empresa" value="{{old('name', $company->name)}}"/>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <x-bootstrap::form.input name="email" label="email" value="{{old('email', $company->email)}}"/>
-                                        </div>
-                                        <div class="col-3">
-                                           <x-bootstrap::form.input name="customer_type" label="Tipo de Cliente" value="Empresarial" class="form-control-plaintext" readonly/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -63,14 +60,14 @@
                                             <x-bootstrap::form.input name="nuit" label="NUIT" value="{{old('nuit', $company->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="country_id" label="Nacionalidade" :options="$countries" default="{{old('country_id', $company->country_id)}}"/>
+                                            <x-bootstrap::form.select name="address_country_id" label="Nacionalidade" :options="$countries" default="{{old('country_id', $company->country_id)}}"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="province_id" label="Província" :options="$provinces"  default="{{old('province_id', $company->province_id)}}"/>
+                                            <x-bootstrap::form.select name="address_province_id" label="Província" :options="$provinces"  default="{{old('province_id', $company->province_id)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="district_id" label="Distrito" :options="$districts"  default="{{old('district_id', $company->district_id)}}"/>
+                                            <x-bootstrap::form.select name="address_district_id" label="Distrito" :options="$districts"  default="{{old('district_id', $company->district_id)}}"/>
                                         </div>
                                     </div>
                                 </div>

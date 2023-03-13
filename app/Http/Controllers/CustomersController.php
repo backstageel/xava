@@ -62,39 +62,20 @@ class CustomersController extends Controller
         return redirect()->route('customers.index');
     }
 
-    public function update(CustomerRequest $request, $id){
+    public function update(CustomerRequest $request,Customer $customer){
 
-        $customer = Customer::find($id);
+        if($customer->customerable_type==Company::class){
+            $companyData = $request->except('_token','_method');
+            $company = Company::where('id',$customer->customerable_id)->first();
+            $company->update($companyData);
 
-        if(!is_null( $request->input('email'))){
-            $customer->customerable->name = $request->input('email');
-        }
-        if(!is_null( $request->input('nuit'))){
-            $customer->customerable->name = $request->input('nuit');
-        }
-        if(!is_null( $request->input('country_id'))){
-            $customer->customerable->name = $request->input('country_id');
-        }
-        if(!is_null( $request->input('province_id'))){
-            $customer->customerable->name = $request->input('province_id');
-        }
-        if(!is_null( $request->input('district_id'))){
-            $customer->customerable->name = $request->input('district_id');
-        }
-        $customerType = $request->input(['customer_type']);
 
-        if($customerType==1){
-            $customer->customerable->name = $request->input('name');
-            $customer->customerable->first =  null;
-            $customer->customerable->last_name =  null;
         } else{
-           // $customer->[customerable->first,customerable->last_name] = split_name($request->input('name'));
-            $customer->customerable->website=null;
+            $person = Person::where('id',$customer->customerable_id)->first();
         }
-        $customer->save();
+        flash('Cliente editado com sucesso')->success();
+        return redirect()->route('customers.index');
 
-       flash('Cliente editado com sucesso')->success();
-       return redirect()->route('customers.index');
     }
 
     public function edit(Customer $customer)
