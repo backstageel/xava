@@ -13,6 +13,9 @@ class Customer extends Model
         return $this->morphTo();
     }
 
+    public function country(){
+        return $this->belongsTo('Country');
+    }
     public function scopeWithCustomerable($query){
         $query->with('customerable');
     }

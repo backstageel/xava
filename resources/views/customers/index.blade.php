@@ -20,7 +20,9 @@
         <div class="ms-auto">
             <div class="btn-group">
                 <a href="{{route('customers.create')}}" class="btn btn-primary">Adicionar</a>
+
             </div>
+
         </div>
     </div>
     <!--end breadcrumb-->
@@ -38,6 +40,7 @@
                         <th>contacto</th>
 
 
+
                     </tr>
                     </thead>
                     <tbody>
@@ -49,6 +52,9 @@
                             <td>{{$customer->customerable->phone}}
                             <td>
                             <td>{{$customer->created_at}}</td>
+                            <td>
+                                <a href="{{route('customers.show', $customer)}}"> mostrar </a>
+                            </td>
                         </tr>
                     @endforeach
 
@@ -56,6 +62,7 @@
                     <tfoot>
                     </tfoot>
                 </table>
+
             </div>
         </div>
     </div>

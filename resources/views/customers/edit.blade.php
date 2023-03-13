@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -16,19 +16,17 @@
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('customers.create')}}" class="btn btn-primary">Adicionar</a>
-            </div>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Registar Novo Cliente</h6>
+            <h6 class="mb-0 text-uppercase">Editar Cliente</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('customers.store')}}">
+
+                     <x-bootstrap::form.form method='PUT'  action="{{route('customers.update', $customer)}}">
+
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -41,7 +39,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-2">
                                         <span class="num">2</span>
-                                        Contactos
+                                        Contacto do Cliente
                                     </a>
                                 </li>
 
@@ -53,13 +51,13 @@
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="name" label="Nome"/>
                                         </div>
+
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="email" label="Email"/>
+                                            <x-bootstrap::form.input name="email" label="email"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_type" label="Tipo de Cliente" :options="$customerTypes"/>
+                                           <x-bootstrap::form.select name="customer_type" label="Tipo de Cliente" :options="$customerTypes"/>
                                         </div>
-
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
@@ -76,23 +74,19 @@
                                             <x-bootstrap::form.select name="district_id" label="Distrito" :options="$districts" />
                                         </div>
                                     </div>
-
                                 </div>
-
-                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                    <div class="row">
-
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="phone" label="Contacto 1" />
+                                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <x-bootstrap::form.input name="phone" label="Contacto 1" />
+                                            </div>
+                                            <div class="col-6">
+                                                <x-bootstrap::form.input name="website" label="Pagina WEB" />
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="website" label="Pagina WEB" />
-                                        </div>
-
-                                    </div>
                                     <div class="row float-end" >
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Gravar</button>
+                                            <button class="btn btn-success" type="submit">Update</button> </a>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -101,17 +95,17 @@
 
                         </div>
 
-
-
-
                 <!-- Include optional progressbar HTML -->
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
                          aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
 
-            </x-bootstrap::form.form>
+             </x-bootstrap::form.form>
         </div>
+            </div>
+        </div>
+    </div>
 
         <!--end row-->
         @endsection
