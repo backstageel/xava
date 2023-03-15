@@ -48,40 +48,45 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="name" label="Nome"/>
+
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="first_name" label="primeiros nome"  value="{{old('first_name', $person->first_name)}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="last_name" label="Apelido"  value="{{old('last_name', $person->last_name)}}"/>
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="email" label="email"/>
+                                            <x-bootstrap::form.input name="email" label="email" value="{{old('email', $person->email)}}"/>
                                         </div>
-                                        <div class="col-3">
-                                           <x-bootstrap::form.select name="customer_type" label="Tipo de Cliente" :options="$customerTypes"/>
-                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"/>
+                                            <x-bootstrap::form.input name="nuit" label="NUIT"  value="{{old('nuit', $person->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="country_id" label="Nacionalidade" :options="$countries" :default="152"/>
+                                            <x-bootstrap::form.select name="gender_id" label="Genero" :options="$genders" default="{{old('gender_id', $person->gender_id)}}"/>
+                                        </div>
+                                        <div class="col-3">
+                                        <x-bootstrap::form.select name="address_country_id" label="Nacionalidade" :options="$countries" default="{{old('country_id', $person->country_id)}}"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="province_id" label="Província" :options="$provinces" />
+                                            <x-bootstrap::form.select name="address_province_id" label="Província" :options="$provinces" default="{{old('province_id', $person->province_id)}}" />
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="district_id" label="Distrito" :options="$districts" />
+                                            <x-bootstrap::form.select name="address_district_id" label="Distrito" :options="$districts" default="{{old('district_id', $person->district_id)}}"/>
                                         </div>
                                     </div>
                                 </div>
                                     <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                         <div class="row">
                                             <div class="col-6">
-                                                <x-bootstrap::form.input name="phone" label="Contacto 1" />
+                                                <x-bootstrap::form.input name="phone" label="Contacto 1" value="{{old('phone', $person->phone)}}"/>
                                             </div>
                                             <div class="col-6">
-                                                <x-bootstrap::form.input name="website" label="Pagina WEB" />
+                                              {{--  <x-bootstrap::form.input name="website" label="Pagina WEB" />--}}
                                             </div>
                                         </div>
                                     <div class="row float-end" >

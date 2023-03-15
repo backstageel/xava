@@ -46,14 +46,18 @@
                     <tbody>
                     @foreach($customers as $customer)
                         <tr>
-                            <td>{{$customer->customerable->name}}</td>
+                            @if( ($customer->customerable->name) == null)
+                                <td> {{$customer->customerable->first_name, $customer->customerable->last_name}}</td>
+                            @else
+                            <td>{{$customer->customerable->name}} </td>
+                            @endif
                             <td>{{$customer->customerable->email}}</td>
                             <td>{{$customer->customerable->nuit}}</td>
                             <td>{{$customer->customerable->phone}}
                             <td>
                             <td>{{$customer->created_at}}</td>
                             <td>
-                                <a href="{{route('customers.show', $customer)}}"> mostrar </a>
+                                <a href="{{route('customers.show', $customer)}}"> ver detalhes </a>
                             </td>
                         </tr>
                     @endforeach

@@ -7,13 +7,14 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\District;
+use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Province;
 
 class CustomersController extends Controller
 {
     public function index(){
-        //$customer = Customer::with('country');
+
         $customers = Customer::withCustomerable()->orderByDesc('created_at')->paginate();
 
         return view('customers.index',compact('customers'));
@@ -29,8 +30,11 @@ class CustomersController extends Controller
         $provinces = Province::pluck('name','id');
         $districts = District::pluck('name','id');
         $customerTypes = [1=>'Empresa',2=>'Individual'];
+        $genders = Gender::pluck('name', 'id');
 
-        return view('customers.create',compact('countries','provinces','districts', 'customerTypes',));
+
+
+        return view('customers.create',compact('countries','provinces','districts', 'customerTypes', 'genders'));
     }
 
     public function store(CustomerRequest $request)
@@ -43,7 +47,8 @@ class CustomersController extends Controller
             $customerableType = Company::class;
         } else{
             $customerable = new Person();
-            [$customerable->first,$customerable->last_name] = split_name($request->input('name'));
+            [$customerable->first_name,$customerable->last_name] = split_name($request->input('name'));
+            $customerable->gender_id=$request->input('gender_id');
             $customerableType = Person::class;
         }
         $customerable->email = $request->input('email');
@@ -71,7 +76,11 @@ class CustomersController extends Controller
 
 
         } else{
+            $personData = $request->except('_token','_method');
             $person = Person::where('id',$customer->customerable_id)->first();
+
+            $person->update($personData);
+
         }
         flash('Cliente editado com sucesso')->success();
         return redirect()->route('customers.index');
@@ -83,6 +92,8 @@ class CustomersController extends Controller
         $countries = Country::pluck('name','id');
         $provinces = Province::pluck('name','id');
         $districts = District::pluck('name','id');
+        $genders = Gender::pluck('name','id');
+
         if($customer->customerable_type==Company::class){
             $company = Company::with(['companyType','livingDistrict','livingProvince','livingCountry'])
                 ->where('id',$customer->customerable_id)->first();
@@ -90,14 +101,22 @@ class CustomersController extends Controller
         } else{
             $person = Person::with(['prefix','gender'])
                 ->where('id',$customer->customerable_id)->first();
-            return view('customers.edit_person', compact('customer', 'person'));
+            return view('customers.edit_person', compact('customer', 'person','genders', 'countries','provinces','districts'));
         }
     }
 
     public function show(Customer $customer)
     {
-       // $customer = Customer::with('country');
+
         return view('customers.show',compact('customer'));
+    }
+
+    public function destroy($id)
+    {
+
+        Customer::destroy($id);
+        flash('Cliente removido com sucesso')->success();
+        return redirect()->route('customers.index');
     }
 }
 

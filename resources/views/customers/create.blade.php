@@ -5,6 +5,9 @@
           type="text/css"/>
 @endsection
 @section("wrapper")
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Clientes</div>
         <div class="ps-3">
@@ -57,8 +60,19 @@
                                             <x-bootstrap::form.input name="email" label="Email"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_type" label="Tipo de Cliente" :options="$customerTypes"/>
+                                            <x-bootstrap::form.select name="customer_type"  id="tipo" label="Tipo de Cliente" :options="$customerTypes"/>
+
                                         </div>
+                                        <div class = "col-3">
+                                            <x-bootstrap::form.select name="gender_id" label="genero" :options="$genders"/>
+                                        </div>
+
+                                      {{--  @if ($customerTypes[$_POST['customer_type']]== " Individual")
+                                            <div class = "col-3">
+                                                <x-bootstrap::form.select name="gender_id" label="genero2" :options="$genders"/>
+                                            </div>
+                                        @ndif --}}
+
 
                                     </div>
                                     <div class="row">
