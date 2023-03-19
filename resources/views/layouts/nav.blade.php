@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('app-chat-box') }}">
+                            <a href="{{route('loans.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Empréstimos
                             </a>
