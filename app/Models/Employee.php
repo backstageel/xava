@@ -16,6 +16,7 @@ class Employee extends Model
     ];
 
     protected $casts = [
+
         //'employee_position_id' => \App\Enums\EmployeePosition::class,
     ];
 

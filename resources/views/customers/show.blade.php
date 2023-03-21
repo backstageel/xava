@@ -47,8 +47,8 @@
                                      class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     @if( ($customer->customerable->name) == null)
-                                        <h4> {{$customer->customerable->first_name}}</h4>
-                                        <h4>{{$customer->customerable->last_name}}</h4>
+                                        <h4> {{$customer->customerable->first_name}} {{$customer->customerable->last_name}}</h4>
+
                                     @else
                                         <h4> {{$customer->customerable->name}}</h4>
                                     @endif
