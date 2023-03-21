@@ -14,15 +14,9 @@
         </div>
         <div class="ms-auto">
 
-                @php
-                    //caso o user nao estiver nesse conjunto nao terá possibilidade de adicionar novo colaborador
-                    $valid_position=[1,2,3];
-               @endphp
-                @if(in_array($employee_position_id,$valid_position))
-                <div class="btn-group">
-                    <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
-                </div>
-                @endif
+            <div class="btn-group">
+                <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
+            </div>
 
         </div>
     </div>
@@ -34,22 +28,15 @@
     <div class="row row-cols-1 row-cols-lg-3 row-cols-xl-30">
 
         @foreach($employees as $employee)
-
                     <div class="col">
                 <div class="card radius-15">
                     <div class="card-body text-center">
                         <div class="p-1 border radius-15">
-                            @php
-                            $employee_id = $employee->id;
-
-                            $image_path = DB::table('employees')
-                            ->join('people', 'employees.person_id', '=', 'people.id')
-                            ->where('employees.id', '=', $employee_id)
-                            ->value('people.image_path');
-                            //dd(asset('storage/app/'.$image_path));
-                            @endphp
-
-                            <img src="{{asset('storage/app/'.$image_path)}}" width="110" height="110" class="rounded-circle shadow" alt="admin">
+                            @if ($employee->person->profile_picture)
+                                <img src="{{ asset('storage/'.$employee->person->profile_picture) }}"  width="110" height="110" class="rounded-circle shadow" alt="{{ $employee->name }}'s Profile Picture">
+                            @else
+                                <img src="{{ asset('assets/images/default-profile-picture.png') }}"  width="110" height="110" class="rounded-circle shadow" alt="Default Profile Picture">
+                            @endif
                             <h5 class="mb-0 mt-0">{{$employee->person->full_name}}</h5>
                             <p class="mb-3">{{$employee->employeePosition->name}}</p>
                             <ul class="list-group list-group-flush">
