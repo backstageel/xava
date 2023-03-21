@@ -92,7 +92,7 @@
                                     @endif
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">distito</h6>
+                                    <h6 class="mb-0">distrito</h6>
                                     @if($district!==null)
                                     <span class="text-secondary">{{$district->name}}</span>
                                     @endif

@@ -43,15 +43,32 @@
                                 Categoria de Produtos
                             </a>
                         </li>
+                                @php
+                                    $user_id = auth()->user()->id;
+                                    $person= \App\Models\Person::where('user_id', $user_id)->first();
 
+                                    if($person){
+                                    $employee= \App\Models\Employee::where('person_id', $person->id);
+
+                                    }
+
+                                     @endphp
+                        @if( isset($employee) && $employee->employee_position_id= 1)
                             <li>
                                 <a href="{{route('loans.index')}}">
                                     <i class="bx bx-right-arrow-alt"></i>
                                     Empréstimos
                                 </a>
                             </li>
-{{--                            @endif--}}
-{{--                        @endif--}}
+                        @else
+                            <li>
+                                <a href="{{route('loans.create')}}">
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                    Simular Emprestimos
+                                </a>
+                            </li>
+                        @endif
+
                     </ul>
                 </li>
                 <li>

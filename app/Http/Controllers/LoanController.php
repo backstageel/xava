@@ -38,60 +38,65 @@ class LoanController extends Controller
 
     }
 
+
     //metodo para simulacao do emprestimo
     public function store(LoanRequest $request)
     {
 
             $employee = Employee::where('employee_code',$request->input(['employee_code']))->first();
+            if(isset($employee)) {
+                $loan = new Loan();
+                $loan->amount = $request->input(['amount']);
+                $loan->months = $request->input('months');
+                $loan->installment = $request->input('installment');
 
-            $loan = new Loan();
-            $loan->amount= $request->input(['amount']);
-            $loan->months= $request->input('months');
-            $loan->installment= $request->input('installment');
-
-            if(is_null( $loan->installment) && is_null($loan->months)) {
-                $loan->months = 24;
-                $loan->installment = $loan->amount / $loan->months;
-                if (($employee->base_salary / 3) < $loan->installment) {
-                    flash('Valor Alto, impossivel pagar em 24meses pois a prestacao excede a 3
+                if (is_null($loan->installment) && is_null($loan->months)) {
+                    $loan->months = 24;
+                    $loan->installment = $loan->amount / $loan->months;
+                    if (($employee->base_salary / 3) < $loan->installment) {
+                        flash('Valor Alto, impossivel pagar em 24meses pois a prestacao excede a 3
                     perte do salario')->success();
-                    return redirect()->route('loans.create');
-                } else {
-                    flash('Emprestimo valido para pagar em 24 meses')->success();
-                    return view('loans.submit', compact('loan', 'employee'));
-                }
-            } else if(is_null($loan->months)) {
-                $loan->months = $loan->amount / $loan->installment;
-                if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                    flash('Emprestimo invalido')->success();
-                    return redirect()->route('loans.create');
-                } else {
-                    flash('Valor Alto, impossivel pagar essa prestacao em menos
-                    de 24 meses')->success();
-                    return view('loans.submit', compact('loan', 'employee'));
-                }
-            } else if (is_null($loan->installment)){
-                $loan->installment = $loan->amount/ $loan->months;
-                if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                    flash('Emprestimo Invalido')->success();
-                    return redirect()->route('loans.create');
-                } else {
-                    flash('Emprestimo valido')->success();
-                    return view('loans.submit', compact('loan', 'employee'));
-                }
-            } else{
-                if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                    flash('Emprestimo invalido')->success();
-                    return redirect()->route('loans.create');
-                } else {
-                    if($loan->amount == $loan->installment*$loan->months) {
-                        flash('Emprestimo valido ')->success();
+                        return redirect()->route('loans.create');
+                    } else {
+                        flash('Emprestimo valido para pagar em 24 meses')->success();
                         return view('loans.submit', compact('loan', 'employee'));
-                    }else{
+                    }
+                } else if (is_null($loan->months)) {
+                    $loan->months = $loan->amount / $loan->installment;
+                    if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
                         flash('Emprestimo invalido')->success();
                         return redirect()->route('loans.create');
+                    } else {
+                        flash('Valor Alto, impossivel pagar essa prestacao em menos
+                    de 24 meses')->success();
+                        return view('loans.submit', compact('loan', 'employee'));
+                    }
+                } else if (is_null($loan->installment)) {
+                    $loan->installment = $loan->amount / $loan->months;
+                    if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
+                        flash('Emprestimo Invalido')->success();
+                        return redirect()->route('loans.create');
+                    } else {
+                        flash('Emprestimo valido')->success();
+                        return view('loans.submit', compact('loan', 'employee'));
+                    }
+                } else {
+                    if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
+                        flash('Emprestimo invalido')->success();
+                        return redirect()->route('loans.create');
+                    } else {
+                        if ($loan->amount == $loan->installment * $loan->months) {
+                            flash('Emprestimo valido ')->success();
+                            return view('loans.submit', compact('loan', 'employee'));
+                        } else {
+                            flash('Emprestimo invalido')->success();
+                            return redirect()->route('loans.create');
+                        }
                     }
                 }
+            }else{
+                flash('Codigo de funcionario invalido ')->success();
+                return  redirect()->route('loans.create');
             }
     }
 
