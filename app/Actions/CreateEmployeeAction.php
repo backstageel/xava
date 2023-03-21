@@ -25,7 +25,7 @@ class CreateEmployeeAction
    *
    * @return void
    */
-  public function execute($data)
+  public function execute($data,$imagePath)
   {
     //Create user
       $user = User::create([
@@ -41,7 +41,7 @@ class CreateEmployeeAction
             'last_name'=>$data['last_name'],
             'birth_date'=>$data['birth_date'],
             'gender_id'=>$data['gender_id'],
-            'address'=>$data['address_address'],
+            'address'=>$data['address'],
             'address_district_id'=>$data['address_district_id'],
             'address_province_id'=>$data['address_province_id'],
             'address_country_id'=>$data['address_country_id'],
@@ -56,6 +56,8 @@ class CreateEmployeeAction
             'identity_document_number'=>$data['identity_document_number'],
             'identity_document_emission_date'=>$data['identity_document_emission_date'],
             'identity_document_expiry_date'=>$data['identity_document_expiry_date'],
+             'image_path'=>$imagePath,
+
       ]);
 
       $employee = Employee::create([
@@ -68,6 +70,7 @@ class CreateEmployeeAction
           'start_date'=>$data['start_date'],
           'base_salary'=>$data['base_salary'],
           'contract_type_id'=>$data['contract_type_id'],
+
       ]);
 
       $contract = EmployeeContract::create([

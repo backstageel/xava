@@ -55,7 +55,7 @@
                                     <span class="text-secondary">{{$supplier->supplierable->email}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Nuit</h6>
+                                    <h6 class="mb-0">NUIT</h6>
                                     <span class="text-secondary">{{$supplier->supplierable->nuit}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

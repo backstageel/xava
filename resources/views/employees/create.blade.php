@@ -28,7 +28,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}">
+                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}" enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -69,15 +69,19 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-2">
                                             <x-bootstrap::form.select name="gender_id" label="Sexo" :options="$genders"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.date-picker name="birth_date" label="Data de Nascimento"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-2">
                                             <x-bootstrap::form.select name="civil_state_id" label="Estado Civil" :options="$civilStates"/>
                                         </div>
+                                        <div class="col-5">
+                                            <x-bootstrap::form.input name="image" label="Foto do colaborador" type="file" accept="image/*" />
+                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
@@ -103,6 +107,7 @@
                                         <div class="col-3">
                                             <x-bootstrap::form.date-picker name="identity_document_expiry_date" label="Data de Validade"/>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -144,16 +149,16 @@
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
                                         <div class="col-12">
-                                            <x-bootstrap::form.input name="living_address" label="Endereço de Morada"/>
+                                            <x-bootstrap::form.input name="address" label="Endereço de Morada"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="living_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
+                                            <x-bootstrap::form.select name="address_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="living_province_id" label="Provincia de Nascimento" :options="$provinces"/>
+                                            <x-bootstrap::form.select name="address_province_id" label="Provincia de Nascimento" :options="$provinces"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="living_district_id" label="Distrito de Nascimento" :options="$districts"/>
+                                            <x-bootstrap::form.select name="address_district_id" label="Distrito de Nascimento" :options="$districts"/>
                                         </div>
                                     </div>
                                     <div class="row">

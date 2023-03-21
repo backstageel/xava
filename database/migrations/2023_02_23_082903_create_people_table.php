@@ -37,6 +37,8 @@ return new class extends Migration
             $table->date('identity_document_emission_date')->nullable();
             $table->date('identity_document_expiry_date')->nullable();
 
+
+
             $table->foreign('gender_id')->references('id')->on('genders');
 
             $table->timestamps();

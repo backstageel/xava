@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('department_id');
             $table->date('start_date');
             $table->decimal('base_salary',10,2);
+
             $table->unsignedTinyInteger('contract_type_id');
             $table->unsignedTinyInteger('contract_status_id')->default(1);
 

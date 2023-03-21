@@ -23,9 +23,9 @@ class UpdateEmployeeRoles
      */
     public function handle(EmployeeSaved $event): void
     {
-        $employee = $event->employee;
-        $roleName = Str::slug($employee->employee_position_id->key);
-        $role = Role::firstOrCreate(['name'=>$roleName]);
-        $employee->person->user->assignRole($role);
+//        $employee = $event->employee;
+//        $roleName = Str::slug($employee->employee_position_id->key);
+//        $role = Role::firstOrCreate(['name'=>$roleName]);
+//        $employee->person->user->assignRole($role);
     }
 }

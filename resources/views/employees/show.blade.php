@@ -31,6 +31,7 @@
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="{{asset('assets/images/avatars/avatar-2.png')}}" alt="Admin"
                                      class="rounded-circle p-1 bg-primary" width="110">
+
                                 <div class="mt-3">
                                     <h4>{{$employee->person->prefix->code}} {{$employee->person->full_name}}</h4>
                                     <p class="text-secondary mb-1">{{$employee->employeePosition->name}}</p>

@@ -13,21 +13,43 @@
             </nav>
         </div>
         <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
-            </div>
+
+                @php
+                    //caso o user nao estiver nesse conjunto nao terá possibilidade de adicionar novo colaborador
+                    $valid_position=[1,2,3];
+               @endphp
+                @if(in_array($employee_position_id,$valid_position))
+                <div class="btn-group">
+                    <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
+                </div>
+                @endif
+
         </div>
     </div>
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Colaboradores Registados</h6>
     <hr/>
-    <div class="row row-cols-1 row-cols-lg-4 row-cols-xl-5">
+
+
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-xl-30">
+
         @foreach($employees as $employee)
-            <div class="col">
+
+                    <div class="col">
                 <div class="card radius-15">
                     <div class="card-body text-center">
                         <div class="p-1 border radius-15">
-                            <img src="{{asset('assets/images/avatars/avatar-1.png')}}" width="110" height="110" class="rounded-circle shadow" alt="">
+                            @php
+                            $employee_id = $employee->id;
+
+                            $image_path = DB::table('employees')
+                            ->join('people', 'employees.person_id', '=', 'people.id')
+                            ->where('employees.id', '=', $employee_id)
+                            ->value('people.image_path');
+                            //dd(asset('storage/app/'.$image_path));
+                            @endphp
+
+                            <img src="{{asset('storage/app/'.$image_path)}}" width="110" height="110" class="rounded-circle shadow" alt="admin">
                             <h5 class="mb-0 mt-0">{{$employee->person->full_name}}</h5>
                             <p class="mb-3">{{$employee->employeePosition->name}}</p>
                             <ul class="list-group list-group-flush">

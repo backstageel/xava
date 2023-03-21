@@ -17,6 +17,8 @@ use App\Models\IdentityDocumentType;
 use App\Models\PersonPrefix;
 use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class EmployeesController extends Controller
 {
@@ -25,8 +27,18 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with(['person.user','employeePosition','contractStatus','contractType'])->paginate(20);
-        return view('employees.index',compact('employees'));
+        $id_user=auth()->id();
+        $employee_position_id = DB::table('users')
+            ->join('people', 'users.id', '=', 'people.user_id')
+            ->join('employees', 'people.id', '=', 'employees.person_id')
+            ->where('users.id', '=', $id_user)
+            ->value('employee_position_id');
+
+
+
+        $employees = Employee::with(['person.user','employeePosition','contractStatus','contractType'])->paginate(100);
+
+        return view('employees.index',compact('employees','employee_position_id'));
     }
 
     /**
@@ -52,14 +64,27 @@ class EmployeesController extends Controller
      */
     public function store(CreateEmployeeRequest $request,CreateEmployeeAction $createEmployee)
     {
-        try{
-            $createEmployee->execute($request->all());
-            flash('Colaborador Criado com Sucesso')->success();
-            return redirect()->route('employees.index');
-        } catch (\Exception $e){
-            flash($e->getMessage())->error();
-            return back()->withInput();
-        }
+
+
+               if ($request->hasFile('image')) {
+
+                   $imagePath = $request->file('image')->store('employees_images');
+
+                   try {
+                       $createEmployee->execute($request->all(),$imagePath);
+                       flash('Colaborador Criado com Sucesso')->success();
+                       return redirect()->route('employees.index');
+                   } catch (\Exception $e) {
+                       flash($e->getMessage())->error();
+                       return back()->withInput();
+                   }
+
+               }
+
+
+       //
+
+
     }
 
     /**
