@@ -1819,16 +1819,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.3.3",
+            "version": "v10.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "90f24d9e2860ecf6b5492e966956270ceb98c03d"
+                "reference": "7d15f7eef442633cff108f83d9fe43d8c3b8b76f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/90f24d9e2860ecf6b5492e966956270ceb98c03d",
-                "reference": "90f24d9e2860ecf6b5492e966956270ceb98c03d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7d15f7eef442633cff108f83d9fe43d8c3b8b76f",
+                "reference": "7d15f7eef442633cff108f83d9fe43d8c3b8b76f",
                 "shasum": ""
             },
             "require": {
@@ -1927,7 +1927,7 @@
                 "league/flysystem-read-only": "^3.3",
                 "league/flysystem-sftp-v3": "^3.0",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^8.0",
+                "orchestra/testbench-core": "^8.1",
                 "pda/pheanstalk": "^4.0",
                 "phpstan/phpdoc-parser": "^1.15",
                 "phpstan/phpstan": "^1.4.7",
@@ -2015,7 +2015,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-03-09T14:00:53+00:00"
+            "time": "2023-03-18T11:34:02+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -8523,27 +8523,28 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v1.19.2",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "725e0c4fb1f630afdd90b5fba2a7f6d8d547ac29"
+                "reference": "3d8955fc1b68d5cee7ab7ee8a6ca9e302fd20c30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/725e0c4fb1f630afdd90b5fba2a7f6d8d547ac29",
-                "reference": "725e0c4fb1f630afdd90b5fba2a7f6d8d547ac29",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/3d8955fc1b68d5cee7ab7ee8a6ca9e302fd20c30",
+                "reference": "3d8955fc1b68d5cee7ab7ee8a6ca9e302fd20c30",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "^9.21|^10.0",
-                "illuminate/filesystem": "^9.21|^10.0",
-                "illuminate/support": "^9.21|^10.0",
-                "illuminate/validation": "^9.21|^10.0",
-                "php": "^8.0.2"
+                "illuminate/console": "^10.0",
+                "illuminate/filesystem": "^10.0",
+                "illuminate/support": "^10.0",
+                "illuminate/validation": "^10.0",
+                "php": "^8.1.0"
             },
-            "conflict": {
-                "laravel/framework": "<9.37.0"
+            "require-dev": {
+                "orchestra/testbench": "^8.0",
+                "phpstan/phpstan": "^1.10"
             },
             "type": "library",
             "extra": {
@@ -8580,7 +8581,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2023-02-18T20:55:43+00:00"
+            "time": "2023-03-20T11:31:54+00:00"
         },
         {
             "name": "laravel/dusk",
@@ -9073,23 +9074,23 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v1.22.5",
+            "version": "v1.22.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "a1a0f049cddb7da097e7450e1a80da4d1a59571e"
+                "reference": "9f6a88232733f9d1e33f49531340f447bd255c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/a1a0f049cddb7da097e7450e1a80da4d1a59571e",
-                "reference": "a1a0f049cddb7da097e7450e1a80da4d1a59571e",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/9f6a88232733f9d1e33f49531340f447bd255c9e",
+                "reference": "9f6a88232733f9d1e33f49531340f447bd255c9e",
                 "shasum": ""
             },
             "require": {
-                "nunomaduro/collision": "^5.11.0|^6.3.0",
+                "nunomaduro/collision": "^5.11.0|^6.4.0",
                 "pestphp/pest-plugin": "^1.1.0",
                 "php": "^7.3 || ^8.0",
-                "phpunit/phpunit": "^9.6.4"
+                "phpunit/phpunit": "^9.6.5"
             },
             "require-dev": {
                 "illuminate/console": "^8.83.27",
@@ -9150,7 +9151,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v1.22.5"
+                "source": "https://github.com/pestphp/pest/tree/v1.22.6"
             },
             "funding": [
                 {
@@ -9178,7 +9179,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-03-03T10:16:59+00:00"
+            "time": "2023-03-17T23:24:14+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
@@ -9969,12 +9970,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d20203bb2d1046c1f55bab9585547cfe62b997be"
+                "reference": "ea4755f8932eb1bd1c1152495811e9edb7cf3301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d20203bb2d1046c1f55bab9585547cfe62b997be",
-                "reference": "d20203bb2d1046c1f55bab9585547cfe62b997be",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ea4755f8932eb1bd1c1152495811e9edb7cf3301",
+                "reference": "ea4755f8932eb1bd1c1152495811e9edb7cf3301",
                 "shasum": ""
             },
             "conflict": {
@@ -9984,7 +9985,7 @@
                 "aheinze/cockpit": "<=2.2.1",
                 "akaunting/akaunting": "<2.1.13",
                 "akeneo/pim-community-dev": "<5.0.119|>=6,<6.0.53",
-                "alextselegidis/easyappointments": "<=1.4.3",
+                "alextselegidis/easyappointments": "<1.5",
                 "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
                 "amazing/media2click": ">=1,<1.3.3",
                 "amphp/artax": "<1.0.6|>=2,<2.0.6",
@@ -10036,7 +10037,7 @@
                 "codeception/codeception": "<3.1.3|>=4,<4.1.22",
                 "codeigniter/framework": "<=3.0.6",
                 "codeigniter4/framework": "<4.2.11",
-                "codeigniter4/shield": "= 1.0.0-beta",
+                "codeigniter4/shield": "<1-beta.4|= 1.0.0-beta",
                 "codiad/codiad": "<=2.8.4",
                 "composer/composer": "<1.10.26|>=2-alpha.1,<2.2.12|>=2.3,<2.3.5",
                 "concrete5/concrete5": "<=9.1.3|>= 9.0.0RC1, < 9.1.3",
@@ -10078,7 +10079,7 @@
                 "elgg/elgg": "<3.3.24|>=4,<4.0.5",
                 "encore/laravel-admin": "<=1.8.19",
                 "endroid/qr-code-bundle": "<3.4.2",
-                "enshrined/svg-sanitize": "<0.15",
+                "enshrined/svg-sanitize": "<0.16",
                 "erusev/parsedown": "<1.7.2",
                 "ether/logs": "<3.0.4",
                 "exceedone/exment": "<4.4.3|>=5,<5.0.3",
@@ -10091,11 +10092,11 @@
                 "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6|>=1.5,<1.5.29|>=2.3,<2.3.26",
                 "ezsystems/ezplatform-admin-ui-assets": ">=4,<4.2.1|>=5,<5.0.1|>=5.1,<5.1.1",
                 "ezsystems/ezplatform-graphql": ">=1-rc.1,<1.0.13|>=2-beta.1,<2.3.12",
-                "ezsystems/ezplatform-kernel": "<=1.2.5|>=1.3,<1.3.26",
+                "ezsystems/ezplatform-kernel": "<1.2.5.1|>=1.3,<1.3.26",
                 "ezsystems/ezplatform-rest": ">=1.2,<=1.2.2|>=1.3,<1.3.8",
                 "ezsystems/ezplatform-richtext": ">=2.3,<=2.3.7",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
-                "ezsystems/ezpublish-kernel": "<=6.13.8.1|>=7,<7.5.30",
+                "ezsystems/ezpublish-kernel": "<6.13.8.2|>=7,<7.5.30",
                 "ezsystems/ezpublish-legacy": "<=2017.12.7.3|>=2018.6,<=2019.3.5.1",
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1|>=2.5,<2.5.15",
@@ -10109,7 +10110,7 @@
                 "firebase/php-jwt": "<6",
                 "fixpunkt/fp-masterquiz": "<2.2.1|>=3,<3.5.2",
                 "fixpunkt/fp-newsletter": "<1.1.1|>=2,<2.1.2|>=2.2,<3.2.6",
-                "flarum/core": "<1.6.3",
+                "flarum/core": "<1.7",
                 "flarum/mentions": "<1.6.3",
                 "flarum/sticky": ">=0.1-beta.14,<=0.1-beta.15",
                 "flarum/tags": "<=0.1-beta.13",
@@ -10186,6 +10187,7 @@
                 "kimai/kimai": "<1.1",
                 "kitodo/presentation": "<3.1.2",
                 "klaviyo/magento2-extension": ">=1,<3",
+                "knplabs/knp-snappy": "<=1.4.1",
                 "krayin/laravel-crm": "<1.2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
@@ -10301,7 +10303,7 @@
                 "prestashop/blockwishlist": ">=2,<2.1.1",
                 "prestashop/contactform": ">=1.0.1,<4.3",
                 "prestashop/gamification": "<2.3.2",
-                "prestashop/prestashop": "<1.7.8.8",
+                "prestashop/prestashop": "<8.0.1",
                 "prestashop/productcomments": "<5.0.2",
                 "prestashop/ps_emailsubscription": "<2.6.1",
                 "prestashop/ps_facetedsearch": "<3.4.1",
@@ -10343,7 +10345,7 @@
                 "silverstripe/comments": ">=1.3,<1.9.99|>=2,<2.9.99|>=3,<3.1.1",
                 "silverstripe/forum": "<=0.6.1|>=0.7,<=0.7.3",
                 "silverstripe/framework": "<4.11.14",
-                "silverstripe/graphql": "<3.5.2|>=4-alpha.1,<4-alpha.2|= 4.0.0-alpha1",
+                "silverstripe/graphql": "<3.5.2|>=4-alpha.1,<4-alpha.2|>=4.1.1,<4.1.2|>=4.2.2,<4.2.3|= 4.0.0-alpha1",
                 "silverstripe/hybridsessions": ">=1,<2.4.1|>=2.5,<2.5.1",
                 "silverstripe/registry": ">=2.1,<2.1.2|>=2.2,<2.2.1",
                 "silverstripe/restfulserver": ">=1,<1.0.9|>=2,<2.0.4",
@@ -10554,7 +10556,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-12T20:04:22+00:00"
+            "time": "2023-03-20T21:03:58+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -11952,5 +11954,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
