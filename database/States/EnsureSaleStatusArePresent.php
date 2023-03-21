@@ -1,28 +1,28 @@
 <?php
 
-    namespace Database\States;
+namespace Database\States;
 
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    class EnsureSaleStatusArePresent
+class EnsureSaleStatusArePresent
+{
+    public function __invoke()
     {
-        public function __invoke()
-        {
-            if ($this->present()) {
-                return;
-            }
-            $saleStatuses = [
-                ['name' => 'Draft'],
-                ['name' => 'Cotação'],
-                ['name' => 'Facturado'],
-                ['name' => 'Pago']
-            ];
-
-            DB::table('sale_statuses')->insert($saleStatuses);
+        if ($this->present()) {
+            return;
         }
+        $saleStatuses = [
+            ['name' => 'Draft'],
+            ['name' => 'Cotação'],
+            ['name' => 'Facturado'],
+            ['name' => 'Pago']
+        ];
 
-        public function present()
-        {
-            return DB::table('sale_statuses')->count() > 0;
-        }
+        DB::table('sale_statuses')->insert($saleStatuses);
     }
+
+    public function present()
+    {
+        return DB::table('sale_statuses')->count() > 0;
+    }
+}

@@ -21,12 +21,12 @@ class EmployeeContractFactory extends Factory
     {
         return [
             'employee_id' => Employee::factory(),
-            'contract_type_id'=>EmployeeContractType::all()->random(),
-            'start_date'=>fake()->dateTimeThisDecade,
-            'end_date'=>fake()->dateTimeThisYear,
-            'base_salary'=>fake()->randomNumber(4),
-            'employee_position_id'=>EmployeePosition::all()->random(),
-            'department_id'=>1
+            'contract_type_id' => EmployeeContractType::all()->random(),
+            'start_date' => fake()->dateTimeThisDecade,
+            'end_date' => fake()->dateTimeThisYear,
+            'base_salary' => fake()->randomNumber(4),
+            'employee_position_id' => EmployeePosition::all()->random(),
+            'department_id' => 1
         ];
     }
 }

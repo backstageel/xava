@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -14,22 +13,22 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-    Artisan::command('ensure-database-state-is-loaded', function () {
-        collect([
-            new Database\States\EnsureCountriesArePresent,
-            new Database\States\EnsureProvincesArePresent,
-            new Database\States\EnsureDistrictsArePresent,
-            new Database\States\EnsureCivilStatesArePresent,
-            new Database\States\EnsureGendersArePresent,
-            new Database\States\EnsureIdentityDocumentTypesArePresent,
-            new Database\States\EnsureDefaultUserIsPresent,
-            new Database\States\EnsureEmployeeContractTypesArePresent,
-            new Database\States\EnsureEmployeeContractStatusesArePresent,
-            new Database\States\EnsureDepartmentsArePresent,
-            new Database\States\EnsureEmployeePositionsArePresent,
-            new Database\States\EnsurePersonPrefixesArePresent,
-            new Database\States\EnsureCustomerStatusesArePresent,
-            new Database\States\EnsureSaleStatusArePresent,
+Artisan::command('ensure-database-state-is-loaded', function () {
+    collect([
+        new Database\States\EnsureCountriesArePresent,
+        new Database\States\EnsureProvincesArePresent,
+        new Database\States\EnsureDistrictsArePresent,
+        new Database\States\EnsureCivilStatesArePresent,
+        new Database\States\EnsureGendersArePresent,
+        new Database\States\EnsureIdentityDocumentTypesArePresent,
+        new Database\States\EnsureDefaultUserIsPresent,
+        new Database\States\EnsureEmployeeContractTypesArePresent,
+        new Database\States\EnsureEmployeeContractStatusesArePresent,
+        new Database\States\EnsureDepartmentsArePresent,
+        new Database\States\EnsureEmployeePositionsArePresent,
+        new Database\States\EnsurePersonPrefixesArePresent,
+        new Database\States\EnsureCustomerStatusesArePresent,
+        new Database\States\EnsureSaleStatusArePresent,
 
-        ])->each->__invoke();
-    });
+    ])->each->__invoke();
+});

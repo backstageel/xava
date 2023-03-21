@@ -7,7 +7,243 @@
  *
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
- */var DateFormatter;!function(){"use strict";var t,e,r,n,a,u,i;u=864e5,i=3600,t=function(t,e){return"string"==typeof t&&"string"==typeof e&&t.toLowerCase()===e.toLowerCase()},e=function(t,r,n){var a=n||"0",u=t.toString();return u.length<r?e(a+u,r):u},r=function(t){var e,n;for(t=t||{},e=1;e<arguments.length;e++)if(n=arguments[e])for(var a in n)n.hasOwnProperty(a)&&("object"==typeof n[a]?r(t[a],n[a]):t[a]=n[a]);return t},n=function(t,e){for(var r=0;r<e.length;r++)if(e[r].toLowerCase()===t.toLowerCase())return r;return-1},a={dateSettings:{days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],meridiem:["AM","PM"],ordinal:function(t){var e=t%10,r={1:"st",2:"nd",3:"rd"};return 1!==Math.floor(t%100/10)&&r[e]?r[e]:"th"}},separators:/[ \-+\/\.T:@]/g,validParts:/[dDjlNSwzWFmMntLoYyaABgGhHisueTIOPZcrU]/g,intParts:/[djwNzmnyYhHgGis]/g,tzParts:/\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,tzClip:/[^-+\dA-Z]/g},DateFormatter=function(t){var e=this,n=r(a,t);e.dateSettings=n.dateSettings,e.separators=n.separators,e.validParts=n.validParts,e.intParts=n.intParts,e.tzParts=n.tzParts,e.tzClip=n.tzClip},DateFormatter.prototype={constructor:DateFormatter,getMonth:function(t){var e,r=this;return e=n(t,r.dateSettings.monthsShort)+1,0===e&&(e=n(t,r.dateSettings.months)+1),e},parseDate:function(e,r){var n,a,u,i,s,o,c,f,l,h,d=this,g=!1,m=!1,p=d.dateSettings,y={date:null,year:null,month:null,day:null,hour:0,min:0,sec:0};if(!e)return null;if(e instanceof Date)return e;if("U"===r)return u=parseInt(e),u?new Date(1e3*u):e;switch(typeof e){case"number":return new Date(e);case"string":break;default:return null}if(n=r.match(d.validParts),!n||0===n.length)throw new Error("Invalid date format definition.");for(a=e.replace(d.separators,"\x00").split("\x00"),u=0;u<a.length;u++)switch(i=a[u],s=parseInt(i),n[u]){case"y":case"Y":if(!s)return null;l=i.length,y.year=2===l?parseInt((70>s?"20":"19")+i):s,g=!0;break;case"m":case"n":case"M":case"F":if(isNaN(s)){if(o=d.getMonth(i),!(o>0))return null;y.month=o}else{if(!(s>=1&&12>=s))return null;y.month=s}g=!0;break;case"d":case"j":if(!(s>=1&&31>=s))return null;y.day=s,g=!0;break;case"g":case"h":if(c=n.indexOf("a")>-1?n.indexOf("a"):n.indexOf("A")>-1?n.indexOf("A"):-1,h=a[c],c>-1)f=t(h,p.meridiem[0])?0:t(h,p.meridiem[1])?12:-1,s>=1&&12>=s&&f>-1?y.hour=s+f-1:s>=0&&23>=s&&(y.hour=s);else{if(!(s>=0&&23>=s))return null;y.hour=s}m=!0;break;case"G":case"H":if(!(s>=0&&23>=s))return null;y.hour=s,m=!0;break;case"i":if(!(s>=0&&59>=s))return null;y.min=s,m=!0;break;case"s":if(!(s>=0&&59>=s))return null;y.sec=s,m=!0}if(g===!0&&y.year&&y.month&&y.day)y.date=new Date(y.year,y.month-1,y.day,y.hour,y.min,y.sec,0);else{if(m!==!0)return null;y.date=new Date(0,0,0,y.hour,y.min,y.sec,0)}return y.date},guessDate:function(t,e){if("string"!=typeof t)return t;var r,n,a,u,i,s,o=this,c=t.replace(o.separators,"\x00").split("\x00"),f=/^[djmn]/g,l=e.match(o.validParts),h=new Date,d=0;if(!f.test(l[0]))return t;for(a=0;a<c.length;a++){if(d=2,i=c[a],s=parseInt(i.substr(0,2)),isNaN(s))return null;switch(a){case 0:"m"===l[0]||"n"===l[0]?h.setMonth(s-1):h.setDate(s);break;case 1:"m"===l[0]||"n"===l[0]?h.setDate(s):h.setMonth(s-1);break;case 2:if(n=h.getFullYear(),r=i.length,d=4>r?r:4,n=parseInt(4>r?n.toString().substr(0,4-r)+i:i.substr(0,4)),!n)return null;h.setFullYear(n);break;case 3:h.setHours(s);break;case 4:h.setMinutes(s);break;case 5:h.setSeconds(s)}u=i.substr(d),u.length>0&&c.splice(a+1,0,u)}return h},parseFormat:function(t,r){var n,a=this,s=a.dateSettings,o=/\\?(.?)/gi,c=function(t,e){return n[t]?n[t]():e};return n={d:function(){return e(n.j(),2)},D:function(){return s.daysShort[n.w()]},j:function(){return r.getDate()},l:function(){return s.days[n.w()]},N:function(){return n.w()||7},w:function(){return r.getDay()},z:function(){var t=new Date(n.Y(),n.n()-1,n.j()),e=new Date(n.Y(),0,1);return Math.round((t-e)/u)},W:function(){var t=new Date(n.Y(),n.n()-1,n.j()-n.N()+3),r=new Date(t.getFullYear(),0,4);return e(1+Math.round((t-r)/u/7),2)},F:function(){return s.months[r.getMonth()]},m:function(){return e(n.n(),2)},M:function(){return s.monthsShort[r.getMonth()]},n:function(){return r.getMonth()+1},t:function(){return new Date(n.Y(),n.n(),0).getDate()},L:function(){var t=n.Y();return t%4===0&&t%100!==0||t%400===0?1:0},o:function(){var t=n.n(),e=n.W(),r=n.Y();return r+(12===t&&9>e?1:1===t&&e>9?-1:0)},Y:function(){return r.getFullYear()},y:function(){return n.Y().toString().slice(-2)},a:function(){return n.A().toLowerCase()},A:function(){var t=n.G()<12?0:1;return s.meridiem[t]},B:function(){var t=r.getUTCHours()*i,n=60*r.getUTCMinutes(),a=r.getUTCSeconds();return e(Math.floor((t+n+a+i)/86.4)%1e3,3)},g:function(){return n.G()%12||12},G:function(){return r.getHours()},h:function(){return e(n.g(),2)},H:function(){return e(n.G(),2)},i:function(){return e(r.getMinutes(),2)},s:function(){return e(r.getSeconds(),2)},u:function(){return e(1e3*r.getMilliseconds(),6)},e:function(){var t=/\((.*)\)/.exec(String(r))[1];return t||"Coordinated Universal Time"},I:function(){var t=new Date(n.Y(),0),e=Date.UTC(n.Y(),0),r=new Date(n.Y(),6),a=Date.UTC(n.Y(),6);return t-e!==r-a?1:0},O:function(){var t=r.getTimezoneOffset(),n=Math.abs(t);return(t>0?"-":"+")+e(100*Math.floor(n/60)+n%60,4)},P:function(){var t=n.O();return t.substr(0,3)+":"+t.substr(3,2)},T:function(){var t=(String(r).match(a.tzParts)||[""]).pop().replace(a.tzClip,"");return t||"UTC"},Z:function(){return 60*-r.getTimezoneOffset()},c:function(){return"Y-m-d\\TH:i:sP".replace(o,c)},r:function(){return"D, d M Y H:i:s O".replace(o,c)},U:function(){return r.getTime()/1e3||0}},c(t,t)},formatDate:function(t,e){var r,n,a,u,i,s=this,o="",c="\\";if("string"==typeof t&&(t=s.parseDate(t,e),!t))return null;if(t instanceof Date){for(a=e.length,r=0;a>r;r++)i=e.charAt(r),"S"!==i&&i!==c&&(r>0&&e.charAt(r-1)===c?o+=i:(u=s.parseFormat(i,t),r!==a-1&&s.intParts.test(i)&&"S"===e.charAt(r+1)&&(n=parseInt(u)||0,u+=s.dateSettings.ordinal(n)),o+=u));return o}return""}}}();
+ */
+var DateFormatter;
+!function () {
+    "use strict";
+    var t, e, r, n, a, u, i;
+    u = 864e5, i = 3600, t = function (t, e) {
+        return "string" == typeof t && "string" == typeof e && t.toLowerCase() === e.toLowerCase()
+    }, e = function (t, r, n) {
+        var a = n || "0", u = t.toString();
+        return u.length < r ? e(a + u, r) : u
+    }, r = function (t) {
+        var e, n;
+        for (t = t || {}, e = 1; e < arguments.length; e++) if (n = arguments[e]) for (var a in n) n.hasOwnProperty(a) && ("object" == typeof n[a] ? r(t[a], n[a]) : t[a] = n[a]);
+        return t
+    }, n = function (t, e) {
+        for (var r = 0; r < e.length; r++) if (e[r].toLowerCase() === t.toLowerCase()) return r;
+        return -1
+    }, a = {
+        dateSettings: {
+            days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            meridiem: ["AM", "PM"],
+            ordinal: function (t) {
+                var e = t % 10, r = {1: "st", 2: "nd", 3: "rd"};
+                return 1 !== Math.floor(t % 100 / 10) && r[e] ? r[e] : "th"
+            }
+        },
+        separators: /[ \-+\/\.T:@]/g,
+        validParts: /[dDjlNSwzWFmMntLoYyaABgGhHisueTIOPZcrU]/g,
+        intParts: /[djwNzmnyYhHgGis]/g,
+        tzParts: /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+        tzClip: /[^-+\dA-Z]/g
+    }, DateFormatter = function (t) {
+        var e = this, n = r(a, t);
+        e.dateSettings = n.dateSettings, e.separators = n.separators, e.validParts = n.validParts, e.intParts = n.intParts, e.tzParts = n.tzParts, e.tzClip = n.tzClip
+    }, DateFormatter.prototype = {
+        constructor: DateFormatter, getMonth: function (t) {
+            var e, r = this;
+            return e = n(t, r.dateSettings.monthsShort) + 1, 0 === e && (e = n(t, r.dateSettings.months) + 1), e
+        }, parseDate: function (e, r) {
+            var n, a, u, i, s, o, c, f, l, h, d = this, g = !1, m = !1, p = d.dateSettings,
+                y = {date: null, year: null, month: null, day: null, hour: 0, min: 0, sec: 0};
+            if (!e) return null;
+            if (e instanceof Date) return e;
+            if ("U" === r) return u = parseInt(e), u ? new Date(1e3 * u) : e;
+            switch (typeof e) {
+                case"number":
+                    return new Date(e);
+                case"string":
+                    break;
+                default:
+                    return null
+            }
+            if (n = r.match(d.validParts), !n || 0 === n.length) throw new Error("Invalid date format definition.");
+            for (a = e.replace(d.separators, "\x00").split("\x00"), u = 0; u < a.length; u++) switch (i = a[u], s = parseInt(i), n[u]) {
+                case"y":
+                case"Y":
+                    if (!s) return null;
+                    l = i.length, y.year = 2 === l ? parseInt((70 > s ? "20" : "19") + i) : s, g = !0;
+                    break;
+                case"m":
+                case"n":
+                case"M":
+                case"F":
+                    if (isNaN(s)) {
+                        if (o = d.getMonth(i), !(o > 0)) return null;
+                        y.month = o
+                    } else {
+                        if (!(s >= 1 && 12 >= s)) return null;
+                        y.month = s
+                    }
+                    g = !0;
+                    break;
+                case"d":
+                case"j":
+                    if (!(s >= 1 && 31 >= s)) return null;
+                    y.day = s, g = !0;
+                    break;
+                case"g":
+                case"h":
+                    if (c = n.indexOf("a") > -1 ? n.indexOf("a") : n.indexOf("A") > -1 ? n.indexOf("A") : -1, h = a[c], c > -1) f = t(h, p.meridiem[0]) ? 0 : t(h, p.meridiem[1]) ? 12 : -1, s >= 1 && 12 >= s && f > -1 ? y.hour = s + f - 1 : s >= 0 && 23 >= s && (y.hour = s); else {
+                        if (!(s >= 0 && 23 >= s)) return null;
+                        y.hour = s
+                    }
+                    m = !0;
+                    break;
+                case"G":
+                case"H":
+                    if (!(s >= 0 && 23 >= s)) return null;
+                    y.hour = s, m = !0;
+                    break;
+                case"i":
+                    if (!(s >= 0 && 59 >= s)) return null;
+                    y.min = s, m = !0;
+                    break;
+                case"s":
+                    if (!(s >= 0 && 59 >= s)) return null;
+                    y.sec = s, m = !0
+            }
+            if (g === !0 && y.year && y.month && y.day) y.date = new Date(y.year, y.month - 1, y.day, y.hour, y.min, y.sec, 0); else {
+                if (m !== !0) return null;
+                y.date = new Date(0, 0, 0, y.hour, y.min, y.sec, 0)
+            }
+            return y.date
+        }, guessDate: function (t, e) {
+            if ("string" != typeof t) return t;
+            var r, n, a, u, i, s, o = this, c = t.replace(o.separators, "\x00").split("\x00"), f = /^[djmn]/g,
+                l = e.match(o.validParts), h = new Date, d = 0;
+            if (!f.test(l[0])) return t;
+            for (a = 0; a < c.length; a++) {
+                if (d = 2, i = c[a], s = parseInt(i.substr(0, 2)), isNaN(s)) return null;
+                switch (a) {
+                    case 0:
+                        "m" === l[0] || "n" === l[0] ? h.setMonth(s - 1) : h.setDate(s);
+                        break;
+                    case 1:
+                        "m" === l[0] || "n" === l[0] ? h.setDate(s) : h.setMonth(s - 1);
+                        break;
+                    case 2:
+                        if (n = h.getFullYear(), r = i.length, d = 4 > r ? r : 4, n = parseInt(4 > r ? n.toString().substr(0, 4 - r) + i : i.substr(0, 4)), !n) return null;
+                        h.setFullYear(n);
+                        break;
+                    case 3:
+                        h.setHours(s);
+                        break;
+                    case 4:
+                        h.setMinutes(s);
+                        break;
+                    case 5:
+                        h.setSeconds(s)
+                }
+                u = i.substr(d), u.length > 0 && c.splice(a + 1, 0, u)
+            }
+            return h
+        }, parseFormat: function (t, r) {
+            var n, a = this, s = a.dateSettings, o = /\\?(.?)/gi, c = function (t, e) {
+                return n[t] ? n[t]() : e
+            };
+            return n = {
+                d: function () {
+                    return e(n.j(), 2)
+                }, D: function () {
+                    return s.daysShort[n.w()]
+                }, j: function () {
+                    return r.getDate()
+                }, l: function () {
+                    return s.days[n.w()]
+                }, N: function () {
+                    return n.w() || 7
+                }, w: function () {
+                    return r.getDay()
+                }, z: function () {
+                    var t = new Date(n.Y(), n.n() - 1, n.j()), e = new Date(n.Y(), 0, 1);
+                    return Math.round((t - e) / u)
+                }, W: function () {
+                    var t = new Date(n.Y(), n.n() - 1, n.j() - n.N() + 3), r = new Date(t.getFullYear(), 0, 4);
+                    return e(1 + Math.round((t - r) / u / 7), 2)
+                }, F: function () {
+                    return s.months[r.getMonth()]
+                }, m: function () {
+                    return e(n.n(), 2)
+                }, M: function () {
+                    return s.monthsShort[r.getMonth()]
+                }, n: function () {
+                    return r.getMonth() + 1
+                }, t: function () {
+                    return new Date(n.Y(), n.n(), 0).getDate()
+                }, L: function () {
+                    var t = n.Y();
+                    return t % 4 === 0 && t % 100 !== 0 || t % 400 === 0 ? 1 : 0
+                }, o: function () {
+                    var t = n.n(), e = n.W(), r = n.Y();
+                    return r + (12 === t && 9 > e ? 1 : 1 === t && e > 9 ? -1 : 0)
+                }, Y: function () {
+                    return r.getFullYear()
+                }, y: function () {
+                    return n.Y().toString().slice(-2)
+                }, a: function () {
+                    return n.A().toLowerCase()
+                }, A: function () {
+                    var t = n.G() < 12 ? 0 : 1;
+                    return s.meridiem[t]
+                }, B: function () {
+                    var t = r.getUTCHours() * i, n = 60 * r.getUTCMinutes(), a = r.getUTCSeconds();
+                    return e(Math.floor((t + n + a + i) / 86.4) % 1e3, 3)
+                }, g: function () {
+                    return n.G() % 12 || 12
+                }, G: function () {
+                    return r.getHours()
+                }, h: function () {
+                    return e(n.g(), 2)
+                }, H: function () {
+                    return e(n.G(), 2)
+                }, i: function () {
+                    return e(r.getMinutes(), 2)
+                }, s: function () {
+                    return e(r.getSeconds(), 2)
+                }, u: function () {
+                    return e(1e3 * r.getMilliseconds(), 6)
+                }, e: function () {
+                    var t = /\((.*)\)/.exec(String(r))[1];
+                    return t || "Coordinated Universal Time"
+                }, I: function () {
+                    var t = new Date(n.Y(), 0), e = Date.UTC(n.Y(), 0), r = new Date(n.Y(), 6), a = Date.UTC(n.Y(), 6);
+                    return t - e !== r - a ? 1 : 0
+                }, O: function () {
+                    var t = r.getTimezoneOffset(), n = Math.abs(t);
+                    return (t > 0 ? "-" : "+") + e(100 * Math.floor(n / 60) + n % 60, 4)
+                }, P: function () {
+                    var t = n.O();
+                    return t.substr(0, 3) + ":" + t.substr(3, 2)
+                }, T: function () {
+                    var t = (String(r).match(a.tzParts) || [""]).pop().replace(a.tzClip, "");
+                    return t || "UTC"
+                }, Z: function () {
+                    return 60 * -r.getTimezoneOffset()
+                }, c: function () {
+                    return "Y-m-d\\TH:i:sP".replace(o, c)
+                }, r: function () {
+                    return "D, d M Y H:i:s O".replace(o, c)
+                }, U: function () {
+                    return r.getTime() / 1e3 || 0
+                }
+            }, c(t, t)
+        }, formatDate: function (t, e) {
+            var r, n, a, u, i, s = this, o = "", c = "\\";
+            if ("string" == typeof t && (t = s.parseDate(t, e), !t)) return null;
+            if (t instanceof Date) {
+                for (a = e.length, r = 0; a > r; r++) i = e.charAt(r), "S" !== i && i !== c && (r > 0 && e.charAt(r - 1) === c ? o += i : (u = s.parseFormat(i, t), r !== a - 1 && s.intParts.test(i) && "S" === e.charAt(r + 1) && (n = parseInt(u) || 0, u += s.dateSettings.ordinal(n)), o += u));
+                return o
+            }
+            return ""
+        }
+    }
+}();
 /**
  * @preserve jQuery DateTimePicker
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
@@ -20,7 +256,7 @@
 var datetimepickerFactory = function ($) {
     'use strict';
 
-    var default_options  = {
+    var default_options = {
         i18n: {
             ar: { // Arabic
                 months: [
@@ -194,7 +430,7 @@ var datetimepickerFactory = function ($) {
             },
             se: { // Swedish
                 months: [
-                    "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September",  "Oktober", "November", "December"
+                    "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"
                 ],
                 dayOfWeekShort: [
                     "Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
@@ -303,7 +539,7 @@ var datetimepickerFactory = function ($) {
                 dayOfWeekShort: [
                     "Ned", "Pon", "Uto", "Sri", "Čet", "Pet", "Sub"
                 ],
-                dayOfWeek: ["Nedjelja","Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak", "Subota"]
+                dayOfWeek: ["Nedjelja", "Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak", "Subota"]
             },
             ca: { //Català
                 months: [
@@ -447,7 +683,7 @@ var datetimepickerFactory = function ($) {
                 dayOfWeekShort: [
                     "Ned", "Pon", "Uto", "Sre", "čet", "Pet", "Sub"
                 ],
-                dayOfWeek: ["Nedelja","Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"]
+                dayOfWeek: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"]
             },
             sr: { //Serbian Cyrillic (Српски)
                 months: [
@@ -456,7 +692,7 @@ var datetimepickerFactory = function ($) {
                 dayOfWeekShort: [
                     "нед", "пон", "уто", "сре", "чет", "пет", "суб"
                 ],
-                dayOfWeek: ["Недеља","Понедељак", "Уторак", "Среда", "Четвртак", "Петак", "Субота"]
+                dayOfWeek: ["Недеља", "Понедељак", "Уторак", "Среда", "Четвртак", "Петак", "Субота"]
             },
             sv: { //Svenska
                 months: [
@@ -485,12 +721,12 @@ var datetimepickerFactory = function ($) {
                 ],
                 dayOfWeek: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
             },
-            ug:{ // Uyghur(ئۇيغۇرچە)
+            ug: { // Uyghur(ئۇيغۇرچە)
                 months: [
-                    "1-ئاي","2-ئاي","3-ئاي","4-ئاي","5-ئاي","6-ئاي","7-ئاي","8-ئاي","9-ئاي","10-ئاي","11-ئاي","12-ئاي"
+                    "1-ئاي", "2-ئاي", "3-ئاي", "4-ئاي", "5-ئاي", "6-ئاي", "7-ئاي", "8-ئاي", "9-ئاي", "10-ئاي", "11-ئاي", "12-ئاي"
                 ],
                 dayOfWeek: [
-                    "يەكشەنبە", "دۈشەنبە","سەيشەنبە","چارشەنبە","پەيشەنبە","جۈمە","شەنبە"
+                    "يەكشەنبە", "دۈشەنبە", "سەيشەنبە", "چارشەنبە", "پەيشەنبە", "جۈمە", "شەنبە"
                 ]
             },
             he: { //Hebrew (עברית)
@@ -550,11 +786,11 @@ var datetimepickerFactory = function ($) {
         value: '',
         rtl: false,
 
-        format:	'Y/m/d H:i',
-        formatTime:	'H:i',
-        formatDate:	'Y/m/d',
+        format: 'Y/m/d H:i',
+        formatTime: 'H:i',
+        formatDate: 'Y/m/d',
 
-        startDate:	false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
+        startDate: false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
         step: 60,
         monthChangeSpinner: true,
 
@@ -587,21 +823,30 @@ var datetimepickerFactory = function ($) {
         theme: '',
         touchMovedThreshold: 5,
 
-        onSelectDate: function () {},
-        onSelectTime: function () {},
-        onChangeMonth: function () {},
-        onGetWeekOfYear: function () {},
-        onChangeYear: function () {},
-        onChangeDateTime: function () {},
-        onShow: function () {},
-        onClose: function () {},
-        onGenerate: function () {},
+        onSelectDate: function () {
+        },
+        onSelectTime: function () {
+        },
+        onChangeMonth: function () {
+        },
+        onGetWeekOfYear: function () {
+        },
+        onChangeYear: function () {
+        },
+        onChangeDateTime: function () {
+        },
+        onShow: function () {
+        },
+        onClose: function () {
+        },
+        onGenerate: function () {
+        },
 
         withoutCopyright: true,
         inverseButton: false,
         hours12: false,
         next: 'xdsoft_next',
-        prev : 'xdsoft_prev',
+        prev: 'xdsoft_prev',
         dayOfWeekStart: 0,
         parentID: 'body',
         timeHeightInTimePicker: 25,
@@ -631,9 +876,9 @@ var datetimepickerFactory = function ($) {
         weekends: [],
         highlightedDates: [],
         highlightedPeriods: [],
-        allowDates : [],
-        allowDateRe : null,
-        disabledDates : [],
+        allowDates: [],
+        allowDateRe: null,
+        disabledDates: [],
         disabledWeekDays: [],
         yearOffset: 0,
         beforeShowDay: null,
@@ -651,13 +896,15 @@ var datetimepickerFactory = function ($) {
         meridiem: ['AM', 'PM']
     };
 
-    var initDateFormatter = function(){
+    var initDateFormatter = function () {
         var locale = default_options.i18n[globalLocale],
             opts = {
                 days: locale.dayOfWeek,
                 daysShort: locale.dayOfWeekShort,
                 months: locale.months,
-                monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) })
+                monthsShort: $.map(locale.months, function (n) {
+                    return n.substring(0, 3)
+                })
             };
 
         if (typeof DateFormatter === 'function') {
@@ -669,14 +916,14 @@ var datetimepickerFactory = function ($) {
 
     var dateFormatters = {
         moment: {
-            default_options:{
+            default_options: {
                 format: 'YYYY/MM/DD HH:mm',
                 formatDate: 'YYYY/MM/DD',
                 formatTime: 'HH:mm',
             },
             formatter: {
                 parseDate: function (date, format) {
-                    if(isFormatStandard(format)){
+                    if (isFormatStandard(format)) {
                         return defaultDateHelper.parseDate(date, format);
                     }
                     var d = moment(date, format);
@@ -684,13 +931,13 @@ var datetimepickerFactory = function ($) {
                 },
 
                 formatDate: function (date, format) {
-                    if(isFormatStandard(format)){
+                    if (isFormatStandard(format)) {
                         return defaultDateHelper.formatDate(date, format);
                     }
                     return moment(date).format(format);
                 },
 
-                formatMask: function(format){
+                formatMask: function (format) {
                     return format
                         .replace(/Y{4}/g, '9999')
                         .replace(/Y{2}/g, '99')
@@ -706,7 +953,7 @@ var datetimepickerFactory = function ($) {
 
     // for locale settings
     $.datetimepicker = {
-        setLocale: function(locale){
+        setLocale: function (locale) {
             var newLocale = default_options.i18n[locale] ? locale : globalLocaleDefault;
             if (globalLocale !== newLocale) {
                 globalLocale = newLocale;
@@ -715,13 +962,12 @@ var datetimepickerFactory = function ($) {
             }
         },
 
-        setDateFormatter: function(dateFormatter) {
-            if(typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)){
+        setDateFormatter: function (dateFormatter) {
+            if (typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)) {
                 var df = dateFormatters[dateFormatter];
                 $.extend(default_options, df.default_options);
                 dateHelper = df.formatter;
-            }
-            else {
+            } else {
                 dateHelper = dateFormatter;
             }
         },
@@ -739,7 +985,7 @@ var datetimepickerFactory = function ($) {
         W3C: 'Y-m-d\TH:i:sP'
     }
 
-    var isFormatStandard = function(format){
+    var isFormatStandard = function (format) {
         return Object.values(standardFormats).indexOf(format) === -1 ? false : true;
     }
 
@@ -771,7 +1017,9 @@ var datetimepickerFactory = function ($) {
         Array.prototype.indexOf = function (obj, start) {
             var i, j;
             for (i = (start || 0), j = this.length; i < j; i += 1) {
-                if (this[i] === obj) { return i; }
+                if (this[i] === obj) {
+                    return i;
+                }
             }
             return -1;
         };
@@ -788,7 +1036,7 @@ var datetimepickerFactory = function ($) {
                     var out = {x: 0, y: 0},
                         touch;
                     if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend' || e.type === 'touchcancel') {
-                        touch  = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                        touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
                         out.x = touch.clientX;
                         out.y = touch.clientY;
                     } else if (e.type === 'mousedown' || e.type === 'mouseup' || e.type === 'mousemove' || e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'mouseenter' || e.type === 'mouseleave') {
@@ -809,7 +1057,8 @@ var datetimepickerFactory = function ($) {
                 h1 = 0,
                 touchStart = false,
                 startTopScroll = 0,
-                calcOffset = function () {};
+                calcOffset = function () {
+                };
 
             if (percent === 'hide') {
                 timeboxparent.find('.xdsoft_scrollbar').hide();
@@ -869,7 +1118,7 @@ var datetimepickerFactory = function ($) {
                         }
                     })
                     .on('touchend touchcancel', function () {
-                        touchStart =  false;
+                        touchStart = false;
                         startTopScroll = 0;
                     });
 
@@ -961,7 +1210,7 @@ var datetimepickerFactory = function ($) {
             VKEY = 86,
             ZKEY = 90,
             YKEY = 89,
-            ctrlDown	=	false,
+            ctrlDown = false,
             options = ($.isPlainObject(opt) || !opt) ? $.extend(true, {}, default_options, opt) : $.extend(true, {}, default_options),
 
             lazyInitTimer = 0,
@@ -1074,7 +1323,7 @@ var datetimepickerFactory = function ($) {
                 var xMovement = Math.abs(this.touchStartPosition.clientX - touchPosition.clientX)
                 var yMovement = Math.abs(this.touchStartPosition.clientY - touchPosition.clientY)
                 var distance = Math.sqrt(xMovement * xMovement + yMovement * yMovement)
-                if(distance > options.touchMovedThreshold) {
+                if (distance > options.touchMovedThreshold) {
                     this.touchMoved = true;
                 }
             }
@@ -1134,7 +1383,7 @@ var datetimepickerFactory = function ($) {
                     options.allowDates = $.extend(true, [], _options.allowDates);
                 }
 
-                if (_options.allowDateRe && Object.prototype.toString.call(_options.allowDateRe)==="[object String]") {
+                if (_options.allowDateRe && Object.prototype.toString.call(_options.allowDateRe) === "[object String]") {
                     options.allowDateRe = new RegExp(_options.allowDateRe);
                 }
 
@@ -1172,8 +1421,7 @@ var datetimepickerFactory = function ($) {
                             dateEnd = value[1];
                             desc = value[2];
                             style = value[3];
-                        }
-                        else {
+                        } else {
                             var splitData = $.map(value.split(','), $.trim);
                             dateTest = dateHelper.parseDate(splitData[0], options.formatDate);
                             dateEnd = dateHelper.parseDate(splitData[1], options.formatDate);
@@ -1255,11 +1503,11 @@ var datetimepickerFactory = function ($) {
                     options.minDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.minDate), options.formatDate);
                 }
 
-                if (options.maxDate &&  /^[\+\-](.*)$/.test(options.maxDate)) {
+                if (options.maxDate && /^[\+\-](.*)$/.test(options.maxDate)) {
                     options.maxDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.maxDate), options.formatDate);
                 }
 
-                if (options.minDateTime &&  /^\+(.*)$/.test(options.minDateTime)) {
+                if (options.minDateTime && /^\+(.*)$/.test(options.minDateTime)) {
                     options.minDateTime = _xdsoft_datetime.strToDateTime(options.minDateTime).dateFormat(options.formatDate);
                 }
 
@@ -1284,7 +1532,7 @@ var datetimepickerFactory = function ($) {
                         .off('blur.xdsoft')
                         .on('blur.xdsoft', function () {
                             if (options.allowBlank && (!$.trim($(this).val()).length ||
-                                    (typeof options.mask === "string" && $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_')))) {
+                                (typeof options.mask === "string" && $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_')))) {
                                 $(this).val(null);
                                 datetimepicker.data('xdsoft_datetime').empty();
                             } else {
@@ -1292,7 +1540,7 @@ var datetimepickerFactory = function ($) {
                                 if (d) { // parseDate() may skip some invalid parts like date or time, so make it clear for user: show parsed date/time
                                     $(this).val(dateHelper.formatDate(d, options.format));
                                 } else {
-                                    var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
+                                    var splittedHours = +([$(this).val()[0], $(this).val()[1]].join('')),
                                         splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
 
                                     // parse the numbers as 0312 => 03:12
@@ -1389,14 +1637,11 @@ var datetimepickerFactory = function ($) {
                 _this.setCurrentTime = function (dTime, requireValidDate) {
                     if (typeof dTime === 'string') {
                         _this.currentTime = _this.strToDateTime(dTime);
-                    }
-                    else if (_this.isValidDate(dTime)) {
+                    } else if (_this.isValidDate(dTime)) {
                         _this.currentTime = dTime;
-                    }
-                    else if (!dTime && !requireValidDate && options.allowBlank && !options.inline) {
+                    } else if (!dTime && !requireValidDate && options.allowBlank && !options.inline) {
                         _this.currentTime = null;
-                    }
-                    else {
+                    } else {
                         _this.currentTime = _this.now();
                     }
 
@@ -1482,7 +1727,7 @@ var datetimepickerFactory = function ($) {
 
                     //First week of the year is th one with the first Thursday according to ISO8601
                     if (onejan.getDay() !== 4) {
-                        onejan.setMonth(0, 1 + ((4 - onejan.getDay()+ 7) % 7));
+                        onejan.setMonth(0, 1 + ((4 - onejan.getDay() + 7) % 7));
                     }
 
                     return Math.ceil((((datetime - onejan) / 86400000) + onejan.getDay() + 1) / 7);
@@ -1501,7 +1746,7 @@ var datetimepickerFactory = function ($) {
                         tmpDate[2] = dateHelper.parseDate(tmpDate[2], options.formatDate);
                     }
 
-                    if (tmpDate  && tmpDate[2]) {
+                    if (tmpDate && tmpDate[2]) {
                         timeOffset = tmpDate[2].getTime() - (tmpDate[2].getTimezoneOffset()) * 60000;
                         currentTime = new Date((_this.now(true)).getTime() + parseInt(tmpDate[1] + '1', 10) * timeOffset);
                     } else {
@@ -1662,7 +1907,7 @@ var datetimepickerFactory = function ($) {
                             _xdsoft_datetime.currentTime = _xdsoft_datetime.now();
                         }
 
-                        var table =	'',
+                        var table = '',
                             start = new Date(_xdsoft_datetime.currentTime.getFullYear(), _xdsoft_datetime.currentTime.getMonth(), 1, 12, 0, 0),
                             i = 0,
                             j,
@@ -1735,19 +1980,19 @@ var datetimepickerFactory = function ($) {
                                 customDateSettings = null;
                             }
 
-                            if(options.allowDateRe && Object.prototype.toString.call(options.allowDateRe) === "[object RegExp]"){
-                                if(!options.allowDateRe.test(dateHelper.formatDate(start, options.formatDate))){
+                            if (options.allowDateRe && Object.prototype.toString.call(options.allowDateRe) === "[object RegExp]") {
+                                if (!options.allowDateRe.test(dateHelper.formatDate(start, options.formatDate))) {
                                     classes.push('xdsoft_disabled');
                                 }
                             }
 
-                            if(options.allowDates && options.allowDates.length>0){
-                                if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
+                            if (options.allowDates && options.allowDates.length > 0) {
+                                if (options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1) {
                                     classes.push('xdsoft_disabled');
                                 }
                             }
 
-                            if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+                            if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
                                 classes.push('xdsoft_disabled');
                             }
 
@@ -1946,7 +2191,7 @@ var datetimepickerFactory = function ($) {
 
                     input.val(_xdsoft_datetime.str());
 
-                    if (options.onSelectDate &&	$.isFunction(options.onSelectDate)) {
+                    if (options.onSelectDate && $.isFunction(options.onSelectDate)) {
                         options.onSelectDate.call(datetimepicker, _xdsoft_datetime.currentTime, datetimepicker.data('input'), xdevent);
                     }
 
@@ -2313,7 +2558,7 @@ var datetimepickerFactory = function ($) {
                         return false;
                     };
 
-                if(options.mask) {
+                if (options.mask) {
                     input.off('keydown.xdsoft');
                 }
 
@@ -2381,7 +2626,7 @@ var datetimepickerFactory = function ($) {
                             digit;
 
                         // only alow these characters
-                        if (((key >=  KEY0 && key <=  KEY9)  ||
+                        if (((key >= KEY0 && key <= KEY9) ||
                                 (key >= _KEY0 && key <= _KEY9)) ||
                             (key === BACKSPACE || key === DEL)) {
 
@@ -2495,7 +2740,7 @@ var datetimepickerFactory = function ($) {
 
                         triggerAfterOpen = true;
                         _xdsoft_datetime.setCurrentTime(getCurrentValue(), true);
-                        if(options.mask) {
+                        if (options.mask) {
                             setMask(options);
                         }
                         datetimepicker.trigger('open.xdsoft');
@@ -2609,18 +2854,18 @@ var datetimepickerFactory = function ($) {
     }
 };
 ;(function (factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery', 'jquery-mousewheel'], factory);
     } else if (typeof exports === 'object') {
         // Node/CommonJS style for Browserify
-        module.exports = factory(require('jquery'));;
+        module.exports = factory(require('jquery'));
+        ;
     } else {
         // Browser globals
         factory(jQuery);
     }
 }(datetimepickerFactory));
-
 
 
 /*!
@@ -2632,7 +2877,7 @@ var datetimepickerFactory = function ($) {
  */
 
 (function (factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
@@ -2644,25 +2889,25 @@ var datetimepickerFactory = function ($) {
     }
 }(function ($) {
 
-    var toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
-        toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
+    var toFix = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
+        toBind = ('onwheel' in document || document.documentMode >= 9) ?
             ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
-        slice  = Array.prototype.slice,
+        slice = Array.prototype.slice,
         nullLowestDeltaTimeout, lowestDelta;
 
-    if ( $.event.fixHooks ) {
-        for ( var i = toFix.length; i; ) {
-            $.event.fixHooks[ toFix[--i] ] = $.event.mouseHooks;
+    if ($.event.fixHooks) {
+        for (var i = toFix.length; i;) {
+            $.event.fixHooks[toFix[--i]] = $.event.mouseHooks;
         }
     }
 
     var special = $.event.special.mousewheel = {
         version: '3.1.12',
 
-        setup: function() {
-            if ( this.addEventListener ) {
-                for ( var i = toBind.length; i; ) {
-                    this.addEventListener( toBind[--i], handler, false );
+        setup: function () {
+            if (this.addEventListener) {
+                for (var i = toBind.length; i;) {
+                    this.addEventListener(toBind[--i], handler, false);
                 }
             } else {
                 this.onmousewheel = handler;
@@ -2672,10 +2917,10 @@ var datetimepickerFactory = function ($) {
             $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
         },
 
-        teardown: function() {
-            if ( this.removeEventListener ) {
-                for ( var i = toBind.length; i; ) {
-                    this.removeEventListener( toBind[--i], handler, false );
+        teardown: function () {
+            if (this.removeEventListener) {
+                for (var i = toBind.length; i;) {
+                    this.removeEventListener(toBind[--i], handler, false);
                 }
             } else {
                 this.onmousewheel = null;
@@ -2685,7 +2930,7 @@ var datetimepickerFactory = function ($) {
             $.removeData(this, 'mousewheel-page-height');
         },
 
-        getLineHeight: function(elem) {
+        getLineHeight: function (elem) {
             var $elem = $(elem),
                 $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
             if (!$parent.length) {
@@ -2694,7 +2939,7 @@ var datetimepickerFactory = function ($) {
             return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
         },
 
-        getPageHeight: function(elem) {
+        getPageHeight: function (elem) {
             return $(elem).height();
         },
 
@@ -2705,36 +2950,44 @@ var datetimepickerFactory = function ($) {
     };
 
     $.fn.extend({
-        mousewheel: function(fn) {
+        mousewheel: function (fn) {
             return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
         },
 
-        unmousewheel: function(fn) {
+        unmousewheel: function (fn) {
             return this.unbind('mousewheel', fn);
         }
     });
 
 
     function handler(event) {
-        var orgEvent   = event || window.event,
-            args       = slice.call(arguments, 1),
-            delta      = 0,
-            deltaX     = 0,
-            deltaY     = 0,
-            absDelta   = 0,
-            offsetX    = 0,
-            offsetY    = 0;
+        var orgEvent = event || window.event,
+            args = slice.call(arguments, 1),
+            delta = 0,
+            deltaX = 0,
+            deltaY = 0,
+            absDelta = 0,
+            offsetX = 0,
+            offsetY = 0;
         event = $.event.fix(orgEvent);
         event.type = 'mousewheel';
 
         // Old school scrollwheel delta
-        if ( 'detail'      in orgEvent ) { deltaY = orgEvent.detail * -1;      }
-        if ( 'wheelDelta'  in orgEvent ) { deltaY = orgEvent.wheelDelta;       }
-        if ( 'wheelDeltaY' in orgEvent ) { deltaY = orgEvent.wheelDeltaY;      }
-        if ( 'wheelDeltaX' in orgEvent ) { deltaX = orgEvent.wheelDeltaX * -1; }
+        if ('detail' in orgEvent) {
+            deltaY = orgEvent.detail * -1;
+        }
+        if ('wheelDelta' in orgEvent) {
+            deltaY = orgEvent.wheelDelta;
+        }
+        if ('wheelDeltaY' in orgEvent) {
+            deltaY = orgEvent.wheelDeltaY;
+        }
+        if ('wheelDeltaX' in orgEvent) {
+            deltaX = orgEvent.wheelDeltaX * -1;
+        }
 
         // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
-        if ( 'axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS ) {
+        if ('axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS) {
             deltaX = deltaY * -1;
             deltaY = 0;
         }
@@ -2743,62 +2996,66 @@ var datetimepickerFactory = function ($) {
         delta = deltaY === 0 ? deltaX : deltaY;
 
         // New school wheel delta (wheel event)
-        if ( 'deltaY' in orgEvent ) {
+        if ('deltaY' in orgEvent) {
             deltaY = orgEvent.deltaY * -1;
-            delta  = deltaY;
+            delta = deltaY;
         }
-        if ( 'deltaX' in orgEvent ) {
+        if ('deltaX' in orgEvent) {
             deltaX = orgEvent.deltaX;
-            if ( deltaY === 0 ) { delta  = deltaX * -1; }
+            if (deltaY === 0) {
+                delta = deltaX * -1;
+            }
         }
 
         // No change actually happened, no reason to go any further
-        if ( deltaY === 0 && deltaX === 0 ) { return; }
+        if (deltaY === 0 && deltaX === 0) {
+            return;
+        }
 
         // Need to convert lines and pages to pixels if we aren't already in pixels
         // There are three delta modes:
         //   * deltaMode 0 is by pixels, nothing to do
         //   * deltaMode 1 is by lines
         //   * deltaMode 2 is by pages
-        if ( orgEvent.deltaMode === 1 ) {
+        if (orgEvent.deltaMode === 1) {
             var lineHeight = $.data(this, 'mousewheel-line-height');
-            delta  *= lineHeight;
+            delta *= lineHeight;
             deltaY *= lineHeight;
             deltaX *= lineHeight;
-        } else if ( orgEvent.deltaMode === 2 ) {
+        } else if (orgEvent.deltaMode === 2) {
             var pageHeight = $.data(this, 'mousewheel-page-height');
-            delta  *= pageHeight;
+            delta *= pageHeight;
             deltaY *= pageHeight;
             deltaX *= pageHeight;
         }
 
         // Store lowest absolute delta to normalize the delta values
-        absDelta = Math.max( Math.abs(deltaY), Math.abs(deltaX) );
+        absDelta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
 
-        if ( !lowestDelta || absDelta < lowestDelta ) {
+        if (!lowestDelta || absDelta < lowestDelta) {
             lowestDelta = absDelta;
 
             // Adjust older deltas if necessary
-            if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+            if (shouldAdjustOldDeltas(orgEvent, absDelta)) {
                 lowestDelta /= 40;
             }
         }
 
         // Adjust older deltas if necessary
-        if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+        if (shouldAdjustOldDeltas(orgEvent, absDelta)) {
             // Divide all the things by 40!
-            delta  /= 40;
+            delta /= 40;
             deltaX /= 40;
             deltaY /= 40;
         }
 
         // Get a whole, normalized value for the deltas
-        delta  = Math[ delta  >= 1 ? 'floor' : 'ceil' ](delta  / lowestDelta);
-        deltaX = Math[ deltaX >= 1 ? 'floor' : 'ceil' ](deltaX / lowestDelta);
-        deltaY = Math[ deltaY >= 1 ? 'floor' : 'ceil' ](deltaY / lowestDelta);
+        delta = Math[delta >= 1 ? 'floor' : 'ceil'](delta / lowestDelta);
+        deltaX = Math[deltaX >= 1 ? 'floor' : 'ceil'](deltaX / lowestDelta);
+        deltaY = Math[deltaY >= 1 ? 'floor' : 'ceil'](deltaY / lowestDelta);
 
         // Normalise offsetX and offsetY properties
-        if ( special.settings.normalizeOffset && this.getBoundingClientRect ) {
+        if (special.settings.normalizeOffset && this.getBoundingClientRect) {
             var boundingRect = this.getBoundingClientRect();
             offsetX = event.clientX - boundingRect.left;
             offsetY = event.clientY - boundingRect.top;
@@ -2822,7 +3079,9 @@ var datetimepickerFactory = function ($) {
         // handle multiple device types that give different
         // a different lowestDelta
         // Ex: trackpad = 3 and mouse wheel = 120
-        if (nullLowestDeltaTimeout) { clearTimeout(nullLowestDeltaTimeout); }
+        if (nullLowestDeltaTimeout) {
+            clearTimeout(nullLowestDeltaTimeout);
+        }
         nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200);
 
         return ($.event.dispatch || $.event.handle).apply(this, args);

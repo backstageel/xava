@@ -72,40 +72,50 @@
                         <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3">Detalhes do Contrato</h5>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Data de Inicio</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Data de
+                                    Inicio</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->start_date}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$employee->start_date}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo de Contrato</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo de
+                                    Contrato</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->contractType->name}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$employee->contractType->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Estado do Contrato</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Estado do
+                                    Contrato</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->contractStatus->name}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$employee->contractStatus->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Salário Base</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Salário
+                                    Base</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="0MT">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="0MT">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Contacto de Emergencia</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Contacto de
+                                    Emergencia</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$employee->emergency_name}} ({{$employee->emergency_phone}})">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$employee->emergency_name}} ({{$employee->emergency_phone}})">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="button" class="btn btn-primary px-4" value="Renovar Contrato" />
-                                    <input type="button" class="btn btn-primary px-4" value="Cancelar Contrato" />
+                                    <input type="button" class="btn btn-primary px-4" value="Renovar Contrato"/>
+                                    <input type="button" class="btn btn-primary px-4" value="Cancelar Contrato"/>
                                 </div>
                             </div>
                         </div>

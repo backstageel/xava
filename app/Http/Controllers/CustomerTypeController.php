@@ -14,9 +14,8 @@ class CustomerTypeController extends Controller
     public function index()
     {
         //
-        $customersTypes=CustomerType::paginate();
-        return view('customer_types.index',compact('customersTypes'));
-
+        $customersTypes = CustomerType::paginate();
+        return view('customer_types.index', compact('customersTypes'));
     }
 
     /**
@@ -32,8 +31,8 @@ class CustomerTypeController extends Controller
      */
     public function store(CustomerTypeRequest $request)
     {
-        $customerType=new CustomerType();
-        $customerType->name=$request->input('name');
+        $customerType = new CustomerType();
+        $customerType->name = $request->input('name');
         $customerType->save();
         flash('Tipo de cliente registado com sucesso')->success();
         return redirect()->route('customer_types.index');

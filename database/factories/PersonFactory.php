@@ -20,14 +20,14 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
-            'person_prefix_id'=>PersonPrefix::all()->random(),
-            'user_id'=>User::factory(),
-            'first_name'=>fake()->firstName,
-            'last_name'=>fake()->lastName,
-            'gender_id'=>Gender::all()->random(),
-            'birth_date'=>fake()->date,
-            'phone'=>fake()->phoneNumber,
-            'email'=>fake()->email
+            'person_prefix_id' => PersonPrefix::all()->random(),
+            'user_id' => User::factory(),
+            'first_name' => fake()->firstName,
+            'last_name' => fake()->lastName,
+            'gender_id' => Gender::all()->random(),
+            'birth_date' => fake()->date,
+            'phone' => fake()->phoneNumber,
+            'email' => fake()->email
         ];
     }
 }

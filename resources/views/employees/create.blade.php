@@ -28,7 +28,8 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}" enctype="multipart/form-data">
+                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}"
+                                            enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -56,10 +57,12 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-1">
-                                            <x-bootstrap::form.select name="person_prefix_id" label="Prefixo" :options="$personPrefixes"/>
+                                            <x-bootstrap::form.select name="person_prefix_id" label="Prefixo"
+                                                                      :options="$personPrefixes"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="employee_code" label="Código do Colaborador"/>
+                                            <x-bootstrap::form.input name="employee_code"
+                                                                     label="Código do Colaborador"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="last_name" label="Apelido"/>
@@ -70,42 +73,56 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-2">
-                                            <x-bootstrap::form.select name="gender_id" label="Sexo" :options="$genders"/>
+                                            <x-bootstrap::form.select name="gender_id" label="Sexo"
+                                                                      :options="$genders"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="birth_date" label="Data de Nascimento"/>
+                                            <x-bootstrap::form.date-picker name="birth_date"
+                                                                           label="Data de Nascimento"/>
                                         </div>
                                         <div class="col-2">
-                                            <x-bootstrap::form.select name="civil_state_id" label="Estado Civil" :options="$civilStates"/>
+                                            <x-bootstrap::form.select name="civil_state_id" label="Estado Civil"
+                                                                      :options="$civilStates"/>
                                         </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="image" label="Foto do colaborador" type="file" accept="image/*" />
+                                            <x-bootstrap::form.input name="image" label="Foto do colaborador"
+                                                                     type="file" accept="image/*"/>
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
+                                            <x-bootstrap::form.select name="birth_country_id" label="Pais de Nascimento"
+                                                                      :options="$countries" :default="152"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_province_id" label="Provincia de Nascimento" :options="$provinces"/>
+                                            <x-bootstrap::form.select name="birth_province_id"
+                                                                      label="Provincia de Nascimento"
+                                                                      :options="$provinces"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_district_id" label="Distrito de Nascimento" :options="$districts"/>
+                                            <x-bootstrap::form.select name="birth_district_id"
+                                                                      label="Distrito de Nascimento"
+                                                                      :options="$districts"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="identity_document_type_id" label="Tipo de Documento" :options="$identityDocumentTypes"/>
+                                            <x-bootstrap::form.select name="identity_document_type_id"
+                                                                      label="Tipo de Documento"
+                                                                      :options="$identityDocumentTypes"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="identity_document_number" label="Número de Documento"/>
+                                            <x-bootstrap::form.input name="identity_document_number"
+                                                                     label="Número de Documento"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="identity_document_emission_date" label="Data de Emissão"/>
+                                            <x-bootstrap::form.date-picker name="identity_document_emission_date"
+                                                                           label="Data de Emissão"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="identity_document_expiry_date" label="Data de Validade"/>
+                                            <x-bootstrap::form.date-picker name="identity_document_expiry_date"
+                                                                           label="Data de Validade"/>
                                         </div>
 
                                     </div>
@@ -117,15 +134,19 @@
                                             <x-bootstrap::form.date-picker name="start_date" label="Data de Admissão"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="department_id" label="Departamento" :options="$departments"/>
+                                            <x-bootstrap::form.select name="department_id" label="Departamento"
+                                                                      :options="$departments"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="employee_position_id" label="Cargo" :options="$employeePositions"/>
+                                            <x-bootstrap::form.select name="employee_position_id" label="Cargo"
+                                                                      :options="$employeePositions"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="contract_type_id" label="Tipo de Colaborador" :options="$contractTypes"/>
+                                            <x-bootstrap::form.select name="contract_type_id"
+                                                                      label="Tipo de Colaborador"
+                                                                      :options="$contractTypes"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="base_salary" label="Salário"/>
@@ -139,10 +160,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_name" label="Nome para Emergencia"/>
+                                            <x-bootstrap::form.input name="emergency_name"
+                                                                     label="Nome para Emergencia"/>
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_phone" label="Telemóvel para Emergencias"/>
+                                            <x-bootstrap::form.input name="emergency_phone"
+                                                                     label="Telemóvel para Emergencias"/>
                                         </div>
                                     </div>
                                 </div>
@@ -152,13 +175,19 @@
                                             <x-bootstrap::form.input name="address" label="Endereço de Morada"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="address_country_id" label="Pais de Nascimento" :options="$countries" :default="152"/>
+                                            <x-bootstrap::form.select name="address_country_id"
+                                                                      label="Pais de Nascimento" :options="$countries"
+                                                                      :default="152"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="address_province_id" label="Provincia de Nascimento" :options="$provinces"/>
+                                            <x-bootstrap::form.select name="address_province_id"
+                                                                      label="Provincia de Nascimento"
+                                                                      :options="$provinces"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="address_district_id" label="Distrito de Nascimento" :options="$districts"/>
+                                            <x-bootstrap::form.select name="address_district_id"
+                                                                      label="Distrito de Nascimento"
+                                                                      :options="$districts"/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -169,7 +198,7 @@
                                             <x-bootstrap::form.input name="personal_email" label="Email Pessoal"/>
                                         </div>
                                     </div>
-                                    <div class="row float-end" >
+                                    <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>

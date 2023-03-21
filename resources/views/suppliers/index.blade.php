@@ -38,7 +38,6 @@
                         <th>contacto</th>
 
 
-
                     </tr>
                     </thead>
                     <tbody>
@@ -47,12 +46,13 @@
                             <td>{{$supplier->supplierable->name}}</td>
                             <td>{{$supplier->supplierable->email}}</td>
                             <td>{{$supplier->supplierable->nuit}}</td>
-                            <td>{{$supplier->supplierable->phone}}<td>
+                            <td>{{$supplier->supplierable->phone}}
+                            <td>
                             <td>{{$supplier->created_at}}</td>
 
-                        <td>
-                          <a href="{{route('suppliers.show', $supplier)}}"> mostrar </a>
-                        </td>
+                            <td>
+                                <a href="{{route('suppliers.show', $supplier)}}"> mostrar </a>
+                            </td>
                         </tr>
                     @endforeach
 

@@ -10,32 +10,37 @@ class Person extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function prefix(){
-        return $this->belongsTo(PersonPrefix::class,'person_prefix_id');
+    public function prefix()
+    {
+        return $this->belongsTo(PersonPrefix::class, 'person_prefix_id');
     }
 
-    public function gender(){
+    public function gender()
+    {
         return $this->belongsTo(Gender::class);
     }
 
-    public function customer(){
-        return $this->morphOne(Customer::class,'customerable');
+    public function customer()
+    {
+        return $this->morphOne(Customer::class, 'customerable');
     }
 
-    public function supplier(){
-        return $this->morphOne(Supplier::class,'supplierable');
+    public function supplier()
+    {
+        return $this->morphOne(Supplier::class, 'supplierable');
     }
 
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['first_name'].' '.$attributes['last_name'],
+            get: fn(mixed $value, array $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
         );
     }
 

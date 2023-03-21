@@ -28,7 +28,7 @@
                         <x-bootstrap::form.form class="row g-3" action="{{route('employee_types.store')}}">
                             <div class="row">
                                 <div class="col">
-                                    <x-bootstrap::form.input name="name" label="Tipo de Colaborador" />
+                                    <x-bootstrap::form.input name="name" label="Tipo de Colaborador"/>
                                 </div>
                             </div>
 

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <x-bootstrap::form.label :label="$label" :for="$name" />
+    <x-bootstrap::form.label :label="$label" :for="$name"/>
 
     <select
         @if($isWired())
@@ -12,14 +12,14 @@
             multiple
         @endif
 
-        id ="{{$id}}" {!! $attributes->merge(['class' => 'form-control '.  ($hasError($name) ? 'is-invalid' : '')]) !!}>
+        id="{{$id}}" {!! $attributes->merge(['class' => 'form-control '.  ($hasError($name) ? 'is-invalid' : '')]) !!}>
         <option value="">Digite...</option>
     </select>
 
     {!! $help ?? null !!}
 
     @if($hasErrorAndShow($name))
-        <x-bootstrap::form.errors :name="$name" />
+        <x-bootstrap::form.errors :name="$name"/>
     @endif
 </div>
 @push('scripts')
@@ -57,8 +57,7 @@
     @push('scripts')
         <script>
             $(document).ready(function () {
-                var selectedKey  = {!! $selectedKey !!};
-
+                var selectedKey = {!! $selectedKey !!};
 
 
                 // make a request for the selected data object
@@ -66,7 +65,7 @@
                     type: 'GET',
                     url: '{!! $url !!}',
                     data: {
-                        key:selectedKey
+                        key: selectedKey
                     },
                     dataType: 'json'
                 }).then(function (data) {

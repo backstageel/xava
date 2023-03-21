@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if($request->input('password')==='12345'){
+        if ($request->input('password') === '12345') {
             return redirect()->route('change_passwords.create');
         }
 

@@ -30,7 +30,7 @@ class Vendas2022Command extends Command
     public function handle()
     {
         $salesExist = Sale::exists();
-        if($salesExist && true){
+        if ($salesExist && true) {
             return true;
         }
         Excel::import(new Vendas2022Import(2022), 'vendas2022.xlsx');
@@ -44,12 +44,12 @@ class Vendas2022Command extends Command
     private function updateInvoiceTable()
     {
         $sales = Sale::with('saleItems')->get();
-        foreach ($sales as $sale){
+        foreach ($sales as $sale) {
             $totalAmount = $sale->saleItems->sum('sub_total');
             $sale->total_amount = $totalAmount;
             $sale->save();
 
-            $invoice = CustomerInvoice::where('sale_id',$sale->id)->first();
+            $invoice = CustomerInvoice::where('sale_id', $sale->id)->first();
             $invoice->total_amount = $totalAmount;
             $invoice->save();
         }

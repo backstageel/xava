@@ -1,28 +1,28 @@
 <?php
 
-    namespace Database\States;
+namespace Database\States;
 
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    class EnsureCivilStatesArePresent
+class EnsureCivilStatesArePresent
+{
+    public function __invoke()
     {
-        public function __invoke()
-        {
-            if ($this->present()) {
-                return;
-            }
-            $civilStates = [
-                ['name' => 'Solteiro'],
-                ['name' => 'Casado'],
-                ['name' => 'Divorciado'],
-                ['name' => 'Viúvo'],
-            ];
-
-            DB::table('civil_states')->insert($civilStates);
+        if ($this->present()) {
+            return;
         }
+        $civilStates = [
+            ['name' => 'Solteiro'],
+            ['name' => 'Casado'],
+            ['name' => 'Divorciado'],
+            ['name' => 'Viúvo'],
+        ];
 
-        public function present()
-        {
-            return DB::table('civil_states')->count() > 0;
-        }
+        DB::table('civil_states')->insert($civilStates);
     }
+
+    public function present()
+    {
+        return DB::table('civil_states')->count() > 0;
+    }
+}

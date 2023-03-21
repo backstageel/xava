@@ -8,11 +8,13 @@ class SaleItem extends Model
 {
     use HasFactory;
 
-    public function sale(){
+    public function sale()
+    {
         return $this->belongsTo(Sale::class);
     }
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 }

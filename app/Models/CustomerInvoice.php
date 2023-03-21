@@ -8,7 +8,8 @@ class CustomerInvoice extends Model
 {
     use HasFactory;
 
-    public function sale(){
+    public function sale()
+    {
         return $this->belongsTo(Sale::class);
     }
 

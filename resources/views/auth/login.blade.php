@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--favicon-->
-    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png"/>
     <!-- loader-->
-    <link href="assets/css/pace.min.css" rel="stylesheet" />
+    <link href="assets/css/pace.min.css" rel="stylesheet"/>
     <script src="assets/js/pace.min.js"></script>
     <!-- Bootstrap CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                 <div class="col mx-auto">
                     <div class="mb-4 text-center">
-                        <img src="assets/images/xava-logo.png" width="180" alt="" />
+                        <img src="assets/images/xava-logo.png" width="180" alt=""/>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -36,17 +36,23 @@
                                         @csrf
                                         <div class="col-12">
                                             <label for="inputEmailAddress" class="form-label">Email</label>
-                                            <input name="email" type="email" class="form-control" id="inputEmailAddress" placeholder="Emai">
+                                            <input name="email" type="email" class="form-control" id="inputEmailAddress"
+                                                   placeholder="Emai">
                                         </div>
                                         <div class="col-12">
                                             <label for="inputChoosePassword" class="form-label">Password</label>
                                             <div class="input-group" id="show_hide_password">
-                                                <input name="password" type="password" class="form-control border-end-0" id="inputChoosePassword" value="12345678" placeholder="Senha"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                <input name="password" type="password" class="form-control border-end-0"
+                                                       id="inputChoosePassword" value="12345678" placeholder="Senha"> <a
+                                                    href="javascript:;" class="input-group-text bg-transparent"><i
+                                                        class='bx bx-hide'></i></a>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-grid">
-                                                <button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Entrar</button>
+                                                <button type="submit" class="btn btn-primary"><i
+                                                        class="bx bxs-lock-open"></i>Entrar
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

@@ -1,24 +1,24 @@
 <?php
 
-    namespace Database\States;
+namespace Database\States;
 
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    class EnsurePartnershipTypesArePresent
+class EnsurePartnershipTypesArePresent
+{
+    public function __invoke()
     {
-        public function __invoke()
-        {
-            if ($this->present()) {
-                return;
-            }
-            DB::table('partnership_types')->insert([
-                ['name' => 'Personalidade'],
-                ['name' => 'Empresa'],
-            ]);
+        if ($this->present()) {
+            return;
         }
-
-        public function present()
-        {
-            return DB::table('partnership_types')->count() > 0;
-        }
+        DB::table('partnership_types')->insert([
+            ['name' => 'Personalidade'],
+            ['name' => 'Empresa'],
+        ]);
     }
+
+    public function present()
+    {
+        return DB::table('partnership_types')->count() > 0;
+    }
+}

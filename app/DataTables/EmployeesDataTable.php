@@ -9,13 +9,12 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class EmployeesDataTable extends DataTable
 {
     use WithActionColumn;
+
     /**
      * Build the DataTable class.
      *
@@ -24,7 +23,7 @@ class EmployeesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function($row){
+            ->addColumn('action', function ($row) {
                 return $this->getActionColumn($row);
             })
             ->rawColumns(['action'])
@@ -36,7 +35,7 @@ class EmployeesDataTable extends DataTable
      */
     public function query(Employee $model): QueryBuilder
     {
-        return $model->newQuery()->with(['person','department','contractType','employeePosition','contractStatus']);
+        return $model->newQuery()->with(['person', 'department', 'contractType', 'employeePosition', 'contractStatus']);
     }
 
     /**
@@ -45,18 +44,18 @@ class EmployeesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('employees-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(0,'ASC')
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print')
-                    ]);
+            ->setTableId('employees-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(0, 'ASC')
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print')
+            ]);
     }
 
     /**

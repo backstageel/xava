@@ -28,14 +28,17 @@
     <div class="row row-cols-1 row-cols-lg-3 row-cols-xl-30">
 
         @foreach($employees as $employee)
-                    <div class="col">
+            <div class="col">
                 <div class="card radius-15">
                     <div class="card-body text-center">
                         <div class="p-1 border radius-15">
                             @if ($employee->person->profile_picture)
-                                <img src="{{ asset('storage/'.$employee->person->profile_picture) }}"  width="110" height="110" class="rounded-circle shadow" alt="{{ $employee->name }}'s Profile Picture">
+                                <img src="{{ asset('storage/'.$employee->person->profile_picture) }}" width="110"
+                                     height="110" class="rounded-circle shadow"
+                                     alt="{{ $employee->name }}'s Profile Picture">
                             @else
-                                <img src="{{ asset('assets/images/default-profile-picture.png') }}"  width="110" height="110" class="rounded-circle shadow" alt="Default Profile Picture">
+                                <img src="{{ asset('assets/images/default-profile-picture.png') }}" width="110"
+                                     height="110" class="rounded-circle shadow" alt="Default Profile Picture">
                             @endif
                             <h5 class="mb-0 mt-0">{{$employee->person->full_name}}</h5>
                             <p class="mb-3">{{$employee->employeePosition->name}}</p>
@@ -57,7 +60,8 @@
                                     <span class="text-secondary">{{$employee->contractStatus->name}}</span>
                                 </li>
                             </ul>
-                            <div class="d-grid"> <a href="{{route('employees.show',$employee->id)}}" class="btn btn-outline-primary radius-15">Ver perfil</a>
+                            <div class="d-grid"><a href="{{route('employees.show',$employee->id)}}"
+                                                   class="btn btn-outline-primary radius-15">Ver perfil</a>
                             </div>
                         </div>
                     </div>

@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateSupplierRequest;
 use App\Models\Company;
 use App\Models\Country;
-use App\Models\Customer;
 use App\Models\District;
 use App\Models\Person;
 use App\Models\Province;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 
 class SuppliersController extends Controller
 {
@@ -19,8 +17,8 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers=Supplier::withSupplierable()->paginate();
-        return view('suppliers.index',compact('suppliers'));
+        $suppliers = Supplier::withSupplierable()->paginate();
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -28,13 +26,12 @@ class SuppliersController extends Controller
      */
     public function create()
     {
+        $countries = Country::pluck('name', 'id');
+        $provinces = Province::pluck('name', 'id');
+        $districts = District::pluck('name', 'id');
 
-        $countries = Country::pluck('name','id');
-        $provinces = Province::pluck('name','id');
-        $districts = District::pluck('name','id');
-
-        $supplierTypes = [1=>'Empresal',2=>'Individual'];
-        return view('suppliers.create',compact('countries','provinces','districts','supplierTypes'));
+        $supplierTypes = [1 => 'Empresal', 2 => 'Individual'];
+        return view('suppliers.create', compact('countries', 'provinces', 'districts', 'supplierTypes'));
     }
 
     /**
@@ -43,22 +40,22 @@ class SuppliersController extends Controller
     public function store(CreateSupplierRequest $request)
     {
         $supplierType = $request->input(['supplier_type']);
-        if($supplierType==1){
+        if ($supplierType == 1) {
             $supplierable = new Company();
             $supplierable->name = $request->input('name');
-            $supplierable->website=$request->input('website');
+            $supplierable->website = $request->input('website');
             $supplierableType = Company::class;
-        } else{
+        } else {
             $supplierable = new Person();
-            [$supplierable->first,$supplierable->last_name] = split_name($request->input('name'));
+            [$supplierable->first, $supplierable->last_name] = split_name($request->input('name'));
             $supplierableType = Person::class;
         }
         $supplierable->email = $request->input('email');
         $supplierable->nuit = $request->input('nuit');
         $supplierable->phone = $request->input('phone');
-        $supplierable->address_country_id=$request->input('country_id');
-        $supplierable->address_province_id=$request->input('province_id');
-        $supplierable->address_district_id=$request->input('district_id');
+        $supplierable->address_country_id = $request->input('country_id');
+        $supplierable->address_province_id = $request->input('province_id');
+        $supplierable->address_district_id = $request->input('district_id');
         $supplierable->save();
 
         $supplier = new Supplier();
@@ -74,21 +71,20 @@ class SuppliersController extends Controller
      */
     public function show(Supplier $supplier)
     {
-
-        return view('suppliers.show',compact('supplier'));    }
+        return view('suppliers.show', compact('supplier'));
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Supplier $supplier)
     {
-        $countries = Country::pluck('name','id');
-        $provinces = Province::pluck('name','id');
-        $districts = District::pluck('name','id');
-        $company = Company::with(['livingDistrict','livingProvince','livingCountry'])
-                ->where('id',$supplier->supplierable_id)->first();
-            return view('suppliers.edit', compact('supplier', 'company','countries','provinces','districts'));
-
+        $countries = Country::pluck('name', 'id');
+        $provinces = Province::pluck('name', 'id');
+        $districts = District::pluck('name', 'id');
+        $company = Company::with(['livingDistrict', 'livingProvince', 'livingCountry'])
+            ->where('id', $supplier->supplierable_id)->first();
+        return view('suppliers.edit', compact('supplier', 'company', 'countries', 'provinces', 'districts'));
     }
 
     /**
@@ -96,12 +92,11 @@ class SuppliersController extends Controller
      */
     public function update(CreateSupplierRequest $request, Supplier $supplier)
     {
+        $companyData = $request->except('_token', '_method');
+        $company = Company::where('id', $supplier->supplierable_id)->first();
+        $company->update($companyData);
 
-            $companyData = $request->except('_token','_method');
-            $company = Company::where('id',$supplier->supplierable_id)->first();
-            $company->update($companyData);
-
-            flash('Fornecedor editado com sucesso')->success();
+        flash('Fornecedor editado com sucesso')->success();
         return redirect()->route('suppliers.index');
     }
 

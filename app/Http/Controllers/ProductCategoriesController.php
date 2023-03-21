@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\ProductCategory;
+use Illuminate\Http\Request;
 
 class ProductCategoriesController extends Controller
 {
@@ -12,9 +12,8 @@ class ProductCategoriesController extends Controller
     {
         //
 
-        $categorysProducts=ProductCategory::paginate();
+        $categorysProducts = ProductCategory::paginate();
         return view('product_categories.index', compact('categorysProducts'));
-
     }
 
     /**

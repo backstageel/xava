@@ -23,16 +23,16 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'person_id'=>Person::factory(),
-            'employee_code'=>fake()->randomNumber(4),
-            'emergency_name'=>fake()->name,
-            'emergency_phone'=>fake()->phoneNumber,
-            'employee_position_id'=>EmployeePosition::all()->random(),
-            'department_id'=>Department::all()->random(),
-            'start_date'=>fake()->dateTimeThisDecade,
-            'base_salary'=>fake()->randomNumber(4),
-            'contract_type_id'=>EmployeeContractType::all()->random(),
-            'contract_status_id'=>EmployeeContractStatus::all()->random(),
+            'person_id' => Person::factory(),
+            'employee_code' => fake()->randomNumber(4),
+            'emergency_name' => fake()->name,
+            'emergency_phone' => fake()->phoneNumber,
+            'employee_position_id' => EmployeePosition::all()->random(),
+            'department_id' => Department::all()->random(),
+            'start_date' => fake()->dateTimeThisDecade,
+            'base_salary' => fake()->randomNumber(4),
+            'contract_type_id' => EmployeeContractType::all()->random(),
+            'contract_status_id' => EmployeeContractStatus::all()->random(),
 
         ];
     }

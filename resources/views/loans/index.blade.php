@@ -38,8 +38,6 @@
                         <th>Estado do Emprestimo</th>
 
 
-
-
                     </tr>
                     </thead>
                     <tbody>

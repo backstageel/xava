@@ -62,7 +62,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="category_id" label="Categoria" :options="$category"  />
+                                            <x-bootstrap::form.select name="category_id" label="Categoria"
+                                                                      :options="$category"/>
                                         </div>
 
                                         <div class="col-3">
@@ -79,14 +80,14 @@
                                     <div class="row">
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="purchase_price" label="Preço de Compra" />
+                                            <x-bootstrap::form.input name="purchase_price" label="Preço de Compra"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="sale_price" label="Preço de Venda" />
+                                            <x-bootstrap::form.input name="sale_price" label="Preço de Venda"/>
                                         </div>
 
                                     </div>
-                                    <div class="row float-end" >
+                                    <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
@@ -97,19 +98,19 @@
 
                         </div>
 
-                                </div>
+                </div>
 
 
-                            <!-- Include optional progressbar HTML -->
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </x-bootstrap::form.form>
+                <!-- Include optional progressbar HTML -->
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
+            </x-bootstrap::form.form>
         </div>
+    </div>
+    </div>
     </div>
     <!--end row-->
 @endsection

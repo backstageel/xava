@@ -23,10 +23,13 @@
                         <x-bootstrap::form.form class="row g-3" action="{{route('change_passwords.store')}}">
                             <div class="row">
                                 <div class="col">
-                                    <x-bootstrap::form.input name="email" label="Email" value="{{Auth::user()->email}}" class="form-control-plaintext" autocomplete="off"/>
-                                    <x-bootstrap::form.input type="password" name="current_password" label="Senha Actual" />
-                                    <x-bootstrap::form.input type="password" name="password" label="Nova Senha" />
-                                    <x-bootstrap::form.input type="password" name="password_confirmation" label="Confirmar Nova Senha" />
+                                    <x-bootstrap::form.input name="email" label="Email" value="{{Auth::user()->email}}"
+                                                             class="form-control-plaintext" autocomplete="off"/>
+                                    <x-bootstrap::form.input type="password" name="current_password"
+                                                             label="Senha Actual"/>
+                                    <x-bootstrap::form.input type="password" name="password" label="Nova Senha"/>
+                                    <x-bootstrap::form.input type="password" name="password_confirmation"
+                                                             label="Confirmar Nova Senha"/>
                                 </div>
                             </div>
 

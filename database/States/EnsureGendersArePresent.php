@@ -1,26 +1,26 @@
 <?php
 
-    namespace Database\States;
+namespace Database\States;
 
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    class EnsureGendersArePresent
+class EnsureGendersArePresent
+{
+    public function __invoke()
     {
-        public function __invoke()
-        {
-            if ($this->present()) {
-                return;
-            }
-            $companyTypes = [
-                ['name' => 'Masculino'],
-                ['name' => 'Feminino'],
-            ];
-
-            DB::table('genders')->insert($companyTypes);
+        if ($this->present()) {
+            return;
         }
+        $companyTypes = [
+            ['name' => 'Masculino'],
+            ['name' => 'Feminino'],
+        ];
 
-        public function present()
-        {
-            return DB::table('genders')->count() > 0;
-        }
+        DB::table('genders')->insert($companyTypes);
     }
+
+    public function present()
+    {
+        return DB::table('genders')->count() > 0;
+    }
+}

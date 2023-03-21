@@ -11,13 +11,14 @@
 </div>
 
 @once
-@push('styles')
-    <link rel="stylesheet" type="text/css" href="{{global_asset('suppliers/duallistbox/bootstrap-duallistbox.min.css')}}">
-@endpush
+    @push('styles')
+        <link rel="stylesheet" type="text/css"
+              href="{{global_asset('suppliers/duallistbox/bootstrap-duallistbox.min.css')}}">
+    @endpush
 
-@push('scripts')
-    <script src="{{global_asset('suppliers/duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
-@endpush
+    @push('scripts')
+        <script src="{{global_asset('suppliers/duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+    @endpush
 @endonce
 
 @push('scripts')

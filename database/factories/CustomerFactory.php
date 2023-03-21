@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Company;
-use App\Models\CustomerStatus;
-use App\Models\CustomerType;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,11 +18,10 @@ class CustomerFactory extends Factory
      */
     public function definition(): array
     {
-
         $customable = $this->customable();
         return [
-            'customable_id'=>$customable::factory(),
-            'customable_type'=>$customable
+            'customable_id' => $customable::factory(),
+            'customable_type' => $customable
         ];
     }
 

@@ -1,27 +1,27 @@
 <?php
 
-    namespace Database\States;
+namespace Database\States;
 
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-    class EnsureIdentityDocumentTypesArePresent
+class EnsureIdentityDocumentTypesArePresent
+{
+    public function __invoke()
     {
-        public function __invoke()
-        {
-            if ($this->present()) {
-                return;
-            }
-            $identityDocumentTypes = [
-                ['name' => 'Bilhete de Identidade'],
-                ['name' => 'Cartão de Eleitor'],
-                ['name' => 'Passaporte'],
-            ];
-
-            DB::table('identity_document_types')->insert($identityDocumentTypes);
+        if ($this->present()) {
+            return;
         }
+        $identityDocumentTypes = [
+            ['name' => 'Bilhete de Identidade'],
+            ['name' => 'Cartão de Eleitor'],
+            ['name' => 'Passaporte'],
+        ];
 
-        public function present()
-        {
-            return DB::table('identity_document_types')->count() > 0;
-        }
+        DB::table('identity_document_types')->insert($identityDocumentTypes);
     }
+
+    public function present()
+    {
+        return DB::table('identity_document_types')->count() > 0;
+    }
+}

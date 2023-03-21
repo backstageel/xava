@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     protected $dispatchesEvents = [
@@ -21,22 +22,28 @@ class Employee extends Model
     ];
 
 
-    public function person(){
+    public function person()
+    {
         return $this->belongsTo(Person::class);
     }
-    public function department(){
+
+    public function department()
+    {
         return $this->belongsTo(Department::class);
     }
 
-    public function contractType(){
+    public function contractType()
+    {
         return $this->belongsTo(EmployeeContractType::class);
     }
 
-    public function contractStatus(){
+    public function contractStatus()
+    {
         return $this->belongsTo(EmployeeContractStatus::class);
     }
 
-    public function employeePosition(){
+    public function employeePosition()
+    {
         return $this->belongsTo(EmployeePosition::class);
     }
 

@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
 
-                     <x-bootstrap::form.form method='PUT'  action="{{route('customers.update', $customer)}}">
+                    <x-bootstrap::form.form method='PUT' action="{{route('customers.update', $customer)}}">
 
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
@@ -50,48 +50,62 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="first_name" label="primeiros nome"  value="{{old('first_name', $person->first_name)}}"/>
+                                            <x-bootstrap::form.input name="first_name" label="primeiros nome"
+                                                                     value="{{old('first_name', $person->first_name)}}"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="last_name" label="Apelido"  value="{{old('last_name', $person->last_name)}}"/>
+                                            <x-bootstrap::form.input name="last_name" label="Apelido"
+                                                                     value="{{old('last_name', $person->last_name)}}"/>
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="email" label="email" value="{{old('email', $person->email)}}"/>
+                                            <x-bootstrap::form.input name="email" label="email"
+                                                                     value="{{old('email', $person->email)}}"/>
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"  value="{{old('nuit', $person->nuit)}}"/>
+                                            <x-bootstrap::form.input name="nuit" label="NUIT"
+                                                                     value="{{old('nuit', $person->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="gender_id" label="Genero" :options="$genders" default="{{old('gender_id', $person->gender_id)}}"/>
+                                            <x-bootstrap::form.select name="gender_id" label="Genero"
+                                                                      :options="$genders"
+                                                                      default="{{old('gender_id', $person->gender_id)}}"/>
                                         </div>
                                         <div class="col-3">
-                                        <x-bootstrap::form.select name="address_country_id" label="Nacionalidade" :options="$countries" default="{{old('country_id', $person->country_id)}}"/>
+                                            <x-bootstrap::form.select name="address_country_id" label="Nacionalidade"
+                                                                      :options="$countries"
+                                                                      default="{{old('country_id', $person->country_id)}}"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="address_province_id" label="Província" :options="$provinces" default="{{old('province_id', $person->province_id)}}" />
+                                            <x-bootstrap::form.select name="address_province_id" label="Província"
+                                                                      :options="$provinces"
+                                                                      default="{{old('province_id', $person->province_id)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="address_district_id" label="Distrito" :options="$districts" default="{{old('district_id', $person->district_id)}}"/>
+                                            <x-bootstrap::form.select name="address_district_id" label="Distrito"
+                                                                      :options="$districts"
+                                                                      default="{{old('district_id', $person->district_id)}}"/>
                                         </div>
                                     </div>
                                 </div>
-                                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <x-bootstrap::form.input name="phone" label="Contacto 1" value="{{old('phone', $person->phone)}}"/>
-                                            </div>
-                                            <div class="col-6">
-                                              {{--  <x-bootstrap::form.input name="website" label="Pagina WEB" />--}}
-                                            </div>
+                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="phone" label="Contacto 1"
+                                                                     value="{{old('phone', $person->phone)}}"/>
                                         </div>
-                                    <div class="row float-end" >
+                                        <div class="col-6">
+                                            {{--  <x-bootstrap::form.input name="website" label="Pagina WEB" />--}}
+                                        </div>
+                                    </div>
+                                    <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Update</button> </a>
+                                            <button class="btn btn-success" type="submit">Update</button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -100,30 +114,30 @@
 
                         </div>
 
-                <!-- Include optional progressbar HTML -->
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
 
-             </x-bootstrap::form.form>
-        </div>
+                    </x-bootstrap::form.form>
+                </div>
             </div>
         </div>
     </div>
 
-        <!--end row-->
-        @endsection
+    <!--end row-->
+@endsection
 
-        @section("script")
-            <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
-                    type="text/javascript"></script>
-            <script>
-                $(function () {
-                    $('#smartwizard').smartWizard({
-                        theme: 'arrows',
-                    })
-                });
-            </script>
+@section("script")
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
+            type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#smartwizard').smartWizard({
+                theme: 'arrows',
+            })
+        });
+    </script>
 @endsection
 

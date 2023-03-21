@@ -9,11 +9,13 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    public function supplierable():MorphTo{
+    public function supplierable(): MorphTo
+    {
         return $this->morphTo();
     }
 
-    public function scopeWithSupplierable($query){
+    public function scopeWithSupplierable($query)
+    {
         $query->with('supplierable');
     }
 

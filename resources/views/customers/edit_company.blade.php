@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
 
-                     <x-bootstrap::form.form method='PUT'  action="{{route('customers.update', $customer)}}">
+                    <x-bootstrap::form.form method='PUT' action="{{route('customers.update', $customer)}}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -48,41 +48,53 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="name" label="Nome da Empresa" value="{{old('name', $company->name)}}"/>
+                                            <x-bootstrap::form.input name="name" label="Nome da Empresa"
+                                                                     value="{{old('name', $company->name)}}"/>
                                         </div>
 
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="email" label="email" value="{{old('email', $company->email)}}"/>
+                                            <x-bootstrap::form.input name="email" label="email"
+                                                                     value="{{old('email', $company->email)}}"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT" value="{{old('nuit', $company->nuit)}}"/>
+                                            <x-bootstrap::form.input name="nuit" label="NUIT"
+                                                                     value="{{old('nuit', $company->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="address_country_id" label="Nacionalidade" :options="$countries" default="{{old('country_id', $company->country_id)}}"/>
+                                            <x-bootstrap::form.select name="address_country_id" label="Nacionalidade"
+                                                                      :options="$countries"
+                                                                      default="{{old('country_id', $company->country_id)}}"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="address_province_id" label="Província" :options="$provinces"  default="{{old('province_id', $company->province_id)}}"/>
+                                            <x-bootstrap::form.select name="address_province_id" label="Província"
+                                                                      :options="$provinces"
+                                                                      default="{{old('province_id', $company->province_id)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="address_district_id" label="Distrito" :options="$districts"  default="{{old('district_id', $company->district_id)}}"/>
+                                            <x-bootstrap::form.select name="address_district_id" label="Distrito"
+                                                                      :options="$districts"
+                                                                      default="{{old('district_id', $company->district_id)}}"/>
                                         </div>
                                     </div>
                                 </div>
-                                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <x-bootstrap::form.input name="phone" label="Telemovel" value="{{old('phone', $company->phone)}}"/>
-                                            </div>
-                                            <div class="col-6">
-                                                <x-bootstrap::form.input name="website" label="Pagina WEB" value="{{old('website', $company->website)}}"/>
-                                            </div>
+                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="phone" label="Telemovel"
+                                                                     value="{{old('phone', $company->phone)}}"/>
                                         </div>
-                                    <div class="row float-end" >
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="website" label="Pagina WEB"
+                                                                     value="{{old('website', $company->website)}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Update</button> </a>
+                                            <button class="btn btn-success" type="submit">Update</button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -91,30 +103,30 @@
 
                         </div>
 
-                <!-- Include optional progressbar HTML -->
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
 
-             </x-bootstrap::form.form>
-        </div>
+                    </x-bootstrap::form.form>
+                </div>
             </div>
         </div>
     </div>
 
-        <!--end row-->
-        @endsection
+    <!--end row-->
+@endsection
 
-        @section("script")
-            <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
-                    type="text/javascript"></script>
-            <script>
-                $(function () {
-                    $('#smartwizard').smartWizard({
-                        theme: 'arrows',
-                    })
-                });
-            </script>
+@section("script")
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
+            type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#smartwizard').smartWizard({
+                theme: 'arrows',
+            })
+        });
+    </script>
 @endsection
 

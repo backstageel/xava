@@ -40,7 +40,6 @@
                         <th>contacto</th>
 
 
-
                     </tr>
                     </thead>
                     <tbody>
@@ -49,7 +48,7 @@
                             @if( ($customer->customerable->name) == null)
                                 <td> {{$customer->customerable->first_name, $customer->customerable->last_name}}</td>
                             @else
-                            <td>{{$customer->customerable->name}} </td>
+                                <td>{{$customer->customerable->name}} </td>
                             @endif
                             <td>{{$customer->customerable->email}}</td>
                             <td>{{$customer->customerable->nuit}}</td>

@@ -60,18 +60,21 @@
                                             <x-bootstrap::form.input name="email" label="Email"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_type"  id="tipo" label="Tipo de Cliente" :options="$customerTypes"/>
+                                            <x-bootstrap::form.select name="customer_type" id="tipo"
+                                                                      label="Tipo de Cliente"
+                                                                      :options="$customerTypes"/>
 
                                         </div>
-                                        <div class = "col-3">
-                                            <x-bootstrap::form.select name="gender_id" label="genero" :options="$genders"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.select name="gender_id" label="genero"
+                                                                      :options="$genders"/>
                                         </div>
 
-                                      {{--  @if ($customerTypes[$_POST['customer_type']]== " Individual")
-                                            <div class = "col-3">
-                                                <x-bootstrap::form.select name="gender_id" label="genero2" :options="$genders"/>
-                                            </div>
-                                        @ndif --}}
+                                        {{--  @if ($customerTypes[$_POST['customer_type']]== " Individual")
+                                              <div class = "col-3">
+                                                  <x-bootstrap::form.select name="gender_id" label="genero2" :options="$genders"/>
+                                              </div>
+                                          @ndif --}}
 
 
                                     </div>
@@ -80,14 +83,17 @@
                                             <x-bootstrap::form.input name="nuit" label="NUIT"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="country_id" label="Nacionalidade" :options="$countries" :default="152"/>
+                                            <x-bootstrap::form.select name="country_id" label="Nacionalidade"
+                                                                      :options="$countries" :default="152"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="province_id" label="Província" :options="$provinces" />
+                                            <x-bootstrap::form.select name="province_id" label="Província"
+                                                                      :options="$provinces"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="district_id" label="Distrito" :options="$districts" />
+                                            <x-bootstrap::form.select name="district_id" label="Distrito"
+                                                                      :options="$districts"/>
                                         </div>
                                     </div>
 
@@ -97,14 +103,14 @@
                                     <div class="row">
 
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="phone" label="Contacto 1" />
+                                            <x-bootstrap::form.input name="phone" label="Contacto 1"/>
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="website" label="Pagina WEB" />
+                                            <x-bootstrap::form.input name="website" label="Pagina WEB"/>
                                         </div>
 
                                     </div>
-                                    <div class="row float-end" >
+                                    <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
@@ -116,29 +122,27 @@
                         </div>
 
 
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
 
-
-                <!-- Include optional progressbar HTML -->
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100"></div>
+                    </x-bootstrap::form.form>
                 </div>
 
-            </x-bootstrap::form.form>
-        </div>
+                <!--end row-->
+                @endsection
 
-        <!--end row-->
-        @endsection
-
-        @section("script")
-            <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
-                    type="text/javascript"></script>
-            <script>
-                $(function () {
-                    $('#smartwizard').smartWizard({
-                        theme: 'arrows',
-                    })
-                });
-            </script>
+                @section("script")
+                    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
+                            type="text/javascript"></script>
+                    <script>
+                        $(function () {
+                            $('#smartwizard').smartWizard({
+                                theme: 'arrows',
+                            })
+                        });
+                    </script>
 @endsection
 

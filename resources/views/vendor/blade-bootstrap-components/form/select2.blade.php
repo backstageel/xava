@@ -1,15 +1,14 @@
-
 <div>
-    <x-bootstrap::form.label :label="$label" :for="$name" />
+    <x-bootstrap::form.label :label="$label" :for="$name"/>
     <select
         @if($isWired())
-        wire:model="{{ $name }}"
+            wire:model="{{ $name }}"
         @else
-        name="{{ $name }}"
+            name="{{ $name }}"
         @endif
 
         @if($multiple)
-        multiple
+            multiple
         @endif
 
         {!! $attributes->merge(['class' => 'form-select ' . ($hasError($name) ? 'is-invalid' : '')]) !!} id="{{$name}}">
@@ -21,15 +20,15 @@
         @endforeach
     </select>
     @if($hasErrorAndShow($name))
-        <x-bootstrap::form.errors :name="$name" />
+        <x-bootstrap::form.errors :name="$name"/>
     @endif
 
     {!! $help ?? null !!}
 </div>
 @once
     @push('styles')
-        <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
+        <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet"/>
     @endpush
     @push('scripts')
         <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
@@ -41,7 +40,7 @@
         $(document).ready(function () {
             $('#{!! $name !!}').select2({
                 theme: 'bootstrap4',
-                placeholder:'{!! $placeholder??$label !!}',
+                placeholder: '{!! $placeholder??$label !!}',
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 allowClear: Boolean($(this).data('allow-clear')),
                 minimumInputLength: 3,
@@ -82,8 +81,7 @@
     @push('scripts')
         <script>
             $(document).ready(function () {
-                var selectedKey  = {!! $selectedKey !!};
-
+                var selectedKey = {!! $selectedKey !!};
 
 
                 // make a request for the selected data object
@@ -91,7 +89,7 @@
                     type: 'GET',
                     url: '{!! $url !!}',
                     data: {
-                        key:selectedKey
+                        key: selectedKey
                     },
                     dataType: 'json'
                 }).then(function (data) {

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <x-bootstrap::form.label :label="$label" :for="$name" />
+    <x-bootstrap::form.label :label="$label" :for="$name"/>
 
     <textarea
         @if($isWired())
@@ -9,11 +9,13 @@
         @endif
 
         {!! $attributes->merge(['class' => 'form-control ' . ($hasError($name) ? 'is-invalid' : '')]) !!}
-    >@unless($isWired()){!! $value !!}@endunless</textarea>
+    >@unless($isWired())
+            {!! $value !!}
+        @endunless</textarea>
 
     {!! $help ?? null !!}
 
     @if($hasErrorAndShow($name))
-        <x-bootstrap::form.errors :name="$name" />
+        <x-bootstrap::form.errors :name="$name"/>
     @endif
 </div>

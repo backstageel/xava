@@ -3,10 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\EmployeeSaved;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
 
 class UpdateEmployeeRoles
 {

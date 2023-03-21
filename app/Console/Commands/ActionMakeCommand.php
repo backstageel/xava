@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
@@ -44,7 +45,7 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/action.stub';
+        return __DIR__ . '/stubs/action.stub';
     }
 
     /**
@@ -55,6 +56,6 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Actions';
+        return $rootNamespace . '\Actions';
     }
 }

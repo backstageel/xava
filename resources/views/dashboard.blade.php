@@ -14,7 +14,8 @@
                             <h4 class="my-1 text-info">{{$totalEmployees}}</h4>
                             <p class="mb-0 font-13">.</p>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-cart'></i>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                class='bx bxs-cart'></i>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,8 @@
                             <h4 class="my-1 text-danger">@money($totalInvoicesAmount)</h4>
                             <p class="mb-0 font-13"></p>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bxs-wallet'></i>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+                                class='bx bxs-wallet'></i>
                         </div>
                     </div>
                 </div>
@@ -44,7 +46,8 @@
                             <h4 class="my-1 text-success">{{$totalInvoices}}</h4>
                             <p class="mb-0 font-13"></p>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bxs-bar-chart-alt-2' ></i>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+                                class='bx bxs-bar-chart-alt-2'></i>
                         </div>
                     </div>
                 </div>
@@ -59,7 +62,8 @@
                             <h4 class="my-1 text-warning">{{$totalCustomers}}</h4>
                             <p class="mb-0 font-13"></p>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bxs-group'></i>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i
+                                class='bx bxs-group'></i>
                         </div>
                     </div>
                 </div>
@@ -77,8 +81,10 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
-                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Vendas</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Facturas</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
+                                                                            style="color: #14abef"></i>Vendas</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
+                                                                            style="color: #ffc107"></i>Facturas</span>
                     </div>
                     <div class="chart-container-1">
                         <canvas id="chart1"></canvas>
@@ -137,7 +143,8 @@
                     <h6 class="mb-0">Últimos Produtos Vendidos</h6>
                 </div>
                 <div class="dropdown ms-auto">
-                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i
+                            class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                     </a>
                 </div>
             </div>
@@ -157,9 +164,12 @@
                     @foreach($lastSoldProducts as $item)
                         <tr>
                             <td>{{$item->product->name}}</td>
-                            <td><img src="{{asset('assets/images/products/01.png')}}" class="product-img-2" alt="product img"></td>
+                            <td><img src="{{asset('assets/images/products/01.png')}}" class="product-img-2"
+                                     alt="product img"></td>
                             <td>{{$item->sale->customer->toArray()['customerable']['name']}}</td>
-                            <td><span class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->sale->saleStatus->name}}</span></td>
+                            <td><span
+                                    class="badge bg-gradient-quepal text-white shadow-sm w-100">{{$item->sale->saleStatus->name}}</span>
+                            </td>
                             <td>@money($item->unit_price)</td>
                             <td>{{$item->sale->sale_date}}</td>
                         </tr>
@@ -180,7 +190,8 @@
                             <h4 class="mb-0">$89,540</h4>
                         </div>
                         <div class="">
-                            <p class="mb-0 align-self-center font-weight-bold text-success ms-2">4.4% <i class="bx bxs-up-arrow-alt mr-2"></i>
+                            <p class="mb-0 align-self-center font-weight-bold text-success ms-2">4.4% <i
+                                    class="bx bxs-up-arrow-alt mr-2"></i>
                             </p>
                         </div>
                     </div>
@@ -198,7 +209,8 @@
                             <h6 class="mb-0">Resumo das Vendas</h6>
                         </div>
                         <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i
+                                    class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="javascript:;">Action</a>
@@ -220,11 +232,14 @@
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Completed <span class="badge bg-gradient-quepal rounded-pill">25</span>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        Completed <span class="badge bg-gradient-quepal rounded-pill">25</span>
                     </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pending <span class="badge bg-gradient-ibiza rounded-pill">10</span>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pending
+                        <span class="badge bg-gradient-ibiza rounded-pill">10</span>
                     </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Process <span class="badge bg-gradient-deepblue rounded-pill">65</span>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Process
+                        <span class="badge bg-gradient-deepblue rounded-pill">65</span>
                     </li>
                 </ul>
             </div>
@@ -237,7 +252,8 @@
                             <h6 class="mb-0">Categorias mais vendidas</h6>
                         </div>
                         <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i
+                                    class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="javascript:;">Action</a>
@@ -285,7 +301,7 @@
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 
     <script>
-        $(function() {
+        $(function () {
             "use strict";
 
 
@@ -326,17 +342,17 @@
                     }]
                 },
 
-                options:{
+                options: {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'bottom',
                         display: false,
                         labels: {
-                            boxWidth:8
+                            boxWidth: 8
                         }
                     },
                     tooltips: {
-                        displayColors:false,
+                        displayColors: false,
                     },
                     scales: {
                         xAxes: [{
@@ -396,15 +412,14 @@
                         position: 'bottom',
                         display: false,
                         labels: {
-                            boxWidth:8
+                            boxWidth: 8
                         }
                     },
                     tooltips: {
-                        displayColors:false,
+                        displayColors: false,
                     }
                 }
             });
-
 
 
 // worl map
@@ -418,26 +433,26 @@
                     borderWidth: 1,
                     zoomOnScroll: false,
                     color: '#009efb',
-                    regionStyle : {
-                        initial : {
-                            fill : '#008cff'
+                    regionStyle: {
+                        initial: {
+                            fill: '#008cff'
                         }
                     },
                     markerStyle: {
                         initial: {
                             r: 9,
                             'fill': '#fff',
-                            'fill-opacity':1,
+                            'fill-opacity': 1,
                             'stroke': '#000',
-                            'stroke-width' : 5,
+                            'stroke-width': 5,
                             'stroke-opacity': 0.4
                         },
                     },
                     enableZoom: true,
                     hoverColor: '#009efb',
-                    markers : [{
-                        latLng : [21.00, 78.00],
-                        name : 'Lorem Ipsum Dollar'
+                    markers: [{
+                        latLng: [21.00, 78.00],
+                        name: 'Lorem Ipsum Dollar'
 
                     }],
                     hoverOpacity: null,
@@ -475,10 +490,10 @@
                     maintainAspectRatio: false,
                     legend: {
                         position: 'bottom',
-                        display:false
+                        display: false
                     },
                     tooltips: {
-                        displayColors:false,
+                        displayColors: false,
                         mode: 'nearest',
                         intersect: false,
                         position: 'nearest',
@@ -488,7 +503,6 @@
                     }
                 }
             });
-
 
 
 // chart 4
@@ -535,11 +549,11 @@
                         position: 'bottom',
                         display: false,
                         labels: {
-                            boxWidth:8
+                            boxWidth: 8
                         }
                     },
                     tooltips: {
-                        displayColors:false,
+                        displayColors: false,
                     },
                 }
             });
@@ -581,13 +595,13 @@
                         borderWidth: 1
                     }]
                 },
-                options:{
+                options: {
                     maintainAspectRatio: false,
                     legend: {
                         position: 'bottom',
                         display: false,
                         labels: {
-                            boxWidth:8
+                            boxWidth: 8
                         }
                     },
                     scales: {
@@ -596,12 +610,10 @@
                         }]
                     },
                     tooltips: {
-                        displayColors:false,
+                        displayColors: false,
                     }
                 }
             });
-
-
 
 
         });

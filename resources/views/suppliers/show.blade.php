@@ -82,24 +82,29 @@
                         <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3">Contactos</h5>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Contacto</label>
+                                <label for="staticEmail"
+                                       class="col-sm-3 col-form-label text-end fw-bold">Contacto</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$supplier->supplierable->phone}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$supplier->supplierable->phone}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina web</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina
+                                    web</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$supplier->supplierable->website}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$supplier->supplierable->website}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Fornecedor</label>
+                                <label for="staticEmail"
+                                       class="col-sm-3 col-form-label text-end fw-bold">Fornecedor</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{$supplier->supplierable->name}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$supplier->supplierable->name}}">
                                 </div>
                             </div>
-
 
 
                         </div>

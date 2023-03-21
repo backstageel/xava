@@ -37,7 +37,7 @@
     <script>
         $("[name='{{$name}}']").datetimepicker({
             lang: 'en',
-            format:'Y-m-d H:i:s',
+            format: 'Y-m-d H:i:s',
         });
     </script>
 @endpush

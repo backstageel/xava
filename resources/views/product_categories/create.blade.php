@@ -28,7 +28,7 @@
                         <x-bootstrap::form.form class="row g-3" action="{{route('product_categories.store')}}">
                             <div class="row">
                                 <div class="col">
-                                    <x-bootstrap::form.input name="name" label="nome de categoria" />
+                                    <x-bootstrap::form.input name="name" label="nome de categoria"/>
                                 </div>
                             </div>
 
