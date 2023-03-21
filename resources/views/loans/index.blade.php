@@ -45,7 +45,7 @@
                     <tbody>
                     @foreach($loans as $loan)
                         <tr>
-                            <td>{{$loan->loanable->name}}</td>
+                            <td>{{$loan->employee_id}}</td>
                             <td>{{$loan->amount}}</td>
                             <td>{{$loan->total_paid - $loan->amount}}</td>
                             <td>{{$loan->status}}</td>

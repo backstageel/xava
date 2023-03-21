@@ -18,7 +18,9 @@
     "require": {
         "php": "^8.1",
         "akaunting/laravel-money": "dev-master",
+        "barryvdh/laravel-dompdf": "^2.0",
         "bensampo/laravel-enum": "^6.3",
+        "dompdf/dompdf": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "guzzlehttp/guzzle": "^7.2",
         "hostmoz/blade-bootstrap-components": "dev-main",

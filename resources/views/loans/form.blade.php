@@ -31,7 +31,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Emprestimo
+                                        Simulacao de Emprestimo
                                     </a>
                                 </li>
 
@@ -49,16 +49,22 @@
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="installment" label="Prestacao Mensal"/>
+
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="months" label="Meses" />
                                         </div>
 
 
+                                    </div>
+                                    <div class="row float-end" >
+                                        <div class="col-12">
                                             <button class="btn btn-success" type="submit">Simular</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
+                                    </div>
+
                                 </div>
                             </div>
 

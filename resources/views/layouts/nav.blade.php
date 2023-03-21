@@ -43,12 +43,27 @@
                                 Categoria de Produtos
                             </a>
                         </li>
-                        <li>
-                            <a href="{{route('loans.index')}}">
-                                <i class="bx bx-right-arrow-alt"></i>
-                                Empréstimos
-                            </a>
-                        </li>
+                        @php
+                        $user_email = auth()->user()->email;
+                        $person= \App\Models\Person::where('email', $user_email)->first();
+                        $do =false;
+                        if($person){
+                        $employee= \App\Models\Employee::where('person_id', $person->id);
+                        $do= true;
+                        }
+
+                        @endphp
+                        @if($do == true)
+                            @if($employee->employeePosition->name= 'Director Geral'
+                            )
+                            <li>
+                                <a href="{{route('loans.index')}}">
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                    Empréstimos
+                                </a>
+                            </li>
+                            @endif
+                        @endif
                     </ul>
                 </li>
                 <li>
