@@ -22,6 +22,6 @@ class EnsureDatabaseStatesAreLoaded
     public function handle(MigrationsEnded $event)
     {
         Artisan::call('ensure-database-state-is-loaded');
-        Artisan::call('import:vendas');
+        //Artisan::call('import:vendas');
     }
 }

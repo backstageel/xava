@@ -45,9 +45,7 @@
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.4",
-        "pestphp/pest": "^1.22",
-        "pestphp/pest-plugin-laravel": "^1.2",
+        "pestphp/pest-plugin-laravel": "^2.0",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^2.0"
     },
