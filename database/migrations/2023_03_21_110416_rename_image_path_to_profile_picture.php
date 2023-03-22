@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('people', function (Blueprint $table) {
-            $table->renameColumn('image_path', 'profile_picture');
+            $table->string('profile_picture')->nullable();
         });
     }
 
