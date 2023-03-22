@@ -16,12 +16,15 @@ class EnsureEmployeePositionsArePresent
         $employeePositions = [
             ['name' => 'Director Geral'],
             ['name' => 'Director Financeiro'],
-            ['name' => 'Director Operativo'],
+            ['name' => 'Director Operaacional'],
             ['name' => 'Colaborador'],
+            ['name' => 'Gestor do Escritório'],
+            ['name' => 'Gestor Senior Vendas de IT'],
+            ['name' => 'Gestor Senior Vendas Motas & Bicicletas'],
         ];
 
         foreach ($employeePositions as $k => $v) {
-            EmployeePosition::create($v);
+            EmployeePosition::firstOrCreate($v);
         }
     }
 

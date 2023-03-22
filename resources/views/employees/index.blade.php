@@ -27,7 +27,7 @@
 
     <div class="row row-cols-1 row-cols-lg-3 row-cols-xl-30">
 
-        @foreach($employees as $employee)
+        @foreach($employees as $employee) @dd($employee)
             <div class="col">
                 <div class="card radius-15">
                     <div class="card-body text-center">
@@ -45,11 +45,11 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">Celular</h6>
-                                    <span class="text-secondary">{{$employee->person->cellphone}}</span>
+                                    <span class="text-secondary">{{$employee->person->phone}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">Email</h6>
-                                    <span class="text-secondary">{{$employee->person->personal_email}}</span>
+                                    <span class="text-secondary">{{$employee->person->email}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">Contracto</h6>
