@@ -8,6 +8,7 @@ use App\Models\Person;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Utils\Employee_reference;
 
 class CreateEmployeeAction
 {
@@ -28,6 +29,10 @@ class CreateEmployeeAction
      */
     public function execute($data, $imagePath = null, $extension = null)
     {
+        //create employee reference
+        $last_Id = Employee::latest()->value('id');
+        $reference = Employee_reference::generate_employee_reference($last_Id+1,$data['start_date'] );
+
         //Create user
         $user = User::create([
             'email' => $data['corporate_email'] ?? $data['personal_email'],
@@ -67,7 +72,7 @@ class CreateEmployeeAction
 
         $employee = Employee::create([
             'person_id' => $person->id,
-            'employee_code' => $data['employee_code'],
+            'employee_code' => $reference,
             'emergency_name' => $data['emergency_name'],
             'emergency_phone' => $data['emergency_phone'],
             'employee_position_id' => $data['employee_position_id'],

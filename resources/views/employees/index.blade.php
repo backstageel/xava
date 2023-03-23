@@ -51,6 +51,10 @@
                                     <h6 class="mb-0">Email</h6>
                                     <span class="text-secondary">{{$employee->person->email}}</span>
                                 </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">ID</h6>
+                                    <span class="text-secondary">{{$employee->employee_code}}</span>
+                                </li>
 {{--                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">Contracto</h6>
                                     <span class="text-secondary">{{$employee->contractType->name}}</span>
