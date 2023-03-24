@@ -26,7 +26,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('change_passwords', ChangePasswordsController::class)->only('create', 'store');
     Route::resource('loans', \App\Http\Controllers\LoanController::class);
-    Route::get('/loans/createPDF', [\App\Http\Controllers\LoanController::class, 'createPDF'])->name('createPDF');
+
+    Route::resource('create_pdf', \App\Http\Controllers\CreatePdfController::class);
 });
 
 require __DIR__ . '/auth.php';

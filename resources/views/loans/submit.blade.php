@@ -25,7 +25,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <x-bootstrap::form.form method="GET" action="{{route('createPDF', $loan)}}">
+
 
 
                                 <hr class="my-4"/>
@@ -34,7 +34,7 @@
 
 
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                        <h6 class="mb-0">Codigo do Colaborador</h6>
+                                        <h6 class="mb-0">Nome do Colaborador</h6>
                                         <span
                                             class="text-secondary">{{$employee->person->first_name}} {{$employee->person->last_name}}</span>
                                     </li>
@@ -53,6 +53,12 @@
                                     </li>
                                 </ul>
 
+                            <x-bootstrap::form.form class="row g-3" action="{{route('create_pdf.store')}}">
+                                @csrf
+                                <input type="hidden" name="amount" value="{{$loan->amount}}"/>
+                                <input type="hidden" name="installment" value="{{$loan->installment}}"/>
+                                <input type="hidden" name="months" value="{{$loan->months}}"/>
+                                <input type="hidden" name="full_name" value="{{$employee->first_name}} {{$employee->last_name}}"/>
 
                                 <button class="btn btn-success" type="submit">Gerar Pedido</button>
                             </x-bootstrap::form.form>

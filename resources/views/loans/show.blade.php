@@ -15,6 +15,17 @@
                 </ol>
             </nav>
         </div>
+        <div class="ms-auto">
+            <div class="btn-group">
+                @if($loan->order_status == 'Pendente de aprovacao')
+                    <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Editar</a>
+
+                @endif
+
+
+
+            </div>
+        </div>
 
 
     </div>

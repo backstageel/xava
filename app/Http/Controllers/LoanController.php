@@ -6,7 +6,6 @@ use App\Http\Requests\LoanRequest;
 use App\Models\Employee;
 use App\Models\Loan;
 use Illuminate\Http\Request;
-use PDF;
 
 
 class LoanController extends Controller
@@ -30,11 +29,7 @@ class LoanController extends Controller
     }
 
 
-    public function createPDF($loan)
-    {
-        $pdf = PDF::loadView('application', compact('loan'));
-        return $pdf->download('pedido.pdf');
-    }
+
 
 
     //metodo para simulacao do emprestimo
@@ -46,6 +41,7 @@ class LoanController extends Controller
             $loan->amount = $request->input(['amount']);
             $loan->months = $request->input('months');
             $loan->installment = $request->input('installment');
+            $loan->employee_id = $employee->id;
 
             if (is_null($loan->installment) && is_null($loan->months)) {
                 $loan->months = 24;
@@ -57,6 +53,7 @@ class LoanController extends Controller
                     )->success();
                     return redirect()->route('loans.create');
                 } else {
+                    $loan->save();
                     flash('Emprestimo valido para pagar em 24 meses')->success();
                     return view('loans.submit', compact('loan', 'employee'));
                 }
@@ -67,10 +64,8 @@ class LoanController extends Controller
                         flash('Emprestimo invalido')->success();
                         return redirect()->route('loans.create');
                     } else {
-                        flash(
-                            'Valor Alto, impossivel pagar essa prestacao em menos
-                    de 24 meses'
-                        )->success();
+                        $loan->save();
+                        flash('Emprestimo valido')->success();
                         return view('loans.submit', compact('loan', 'employee'));
                     }
                 } else {
@@ -80,6 +75,7 @@ class LoanController extends Controller
                             flash('Emprestimo Invalido')->success();
                             return redirect()->route('loans.create');
                         } else {
+                            $loan->save();
                             flash('Emprestimo valido')->success();
                             return view('loans.submit', compact('loan', 'employee'));
                         }
@@ -89,6 +85,7 @@ class LoanController extends Controller
                             return redirect()->route('loans.create');
                         } else {
                             if ($loan->amount == $loan->installment * $loan->months) {
+                                $loan->save();
                                 flash('Emprestimo valido ')->success();
                                 return view('loans.submit', compact('loan', 'employee'));
                             } else {
@@ -117,14 +114,26 @@ class LoanController extends Controller
      */
     public function edit($id)
     {
+        $order_status = [1 => 'Pedido Recusado', 2 => 'Pedido Aceite'];
+        return view(
+            'loans.edit',
+            compact('order_status')
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Loan $loan)
     {
-        //
+        $loan->order_status = $request->input('order_status');
+        $loan->save();
+
+        if($loan = 'Pedido Aceite'){
+            #gerar todos pagamentos
+        } else {
+            #notificar email do usuario que foi recusado o emprestimo
+        }
     }
 
     /**
