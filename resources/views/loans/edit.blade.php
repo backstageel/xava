@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-
+    <
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -12,7 +12,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Aceitar/Recusar Emprestimo</li>
+                    <li class="breadcrumb-item active" aria-current="page"> Emprestimo</li>
                 </ol>
             </nav>
         </div>
@@ -20,32 +20,45 @@
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Editar estado do Emprestimo</h6>
+            <h6 class="mb-0 text-uppercase"></h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
+                    <x-bootstrap::form.form  method='PUT'  action="{{route('loans.update', $loan)}}">
+                        <!-- SmartWizard html -->
+                        <div id="smartwizard">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#step-1">
+                                        <div class="num">1</div>
+                                       Editar de Emprestimo
+                                    </a>
+                                </li>
 
-                    <x-bootstrap::form.form method='PUT' action="{{route('loans.update', $loans)}}">
 
-
+                            </ul>
 
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-
-
-
                                     <div class="row">
+                                        <div class="col-5">
 
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="order_status" label="Estado do Pedido":options="$order_status"/>
-
+                                            <x-bootstrap::form.select name="order_status" label="Estado do Pedido"
+                                                                      :options="$order_status"/>
                                         </div>
 
-
                                     </div>
+                                    <div class="row float-end">
+                                        <div class="col-12">
+                                            <button class="btn btn-success" type="submit">Simular</button>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
 
                             </div>
+                        </div>
+
 
                         <!-- Include optional progressbar HTML -->
                         <div class="progress">
@@ -58,6 +71,7 @@
             </div>
         </div>
     </div>
+
 
     <!--end row-->
 @endsection
@@ -73,4 +87,3 @@
         });
     </script>
 @endsection
-

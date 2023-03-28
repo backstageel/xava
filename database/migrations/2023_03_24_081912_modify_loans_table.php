@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
        Schema::table('loans', function (Blueprint $table){
-           $table->dropColumn('start_date');
-           $table->dropColumn('end_date');
+        $table->dropColumn('start_date');
+        $table->dropColumn('end_date');
 
-           $table->string('status')->default('Ativo')->change();
-           $table->string('order_status')->default('Pendente de aprovacao');
-           $table->string('start_month')->nullable();
-           $table->string('end_month')->nullable();
-       });
+
+        $table->string('status')->default('Ativo')->change();
+        $table->string('order_status')->default('Pendente de aprovacao');
+        $table->string('start_month')->nullable();
+        $table->string('end_month')->nullable();
+    });
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+
     }
 };

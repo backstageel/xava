@@ -21,6 +21,7 @@
                     <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Editar</a>
 
                 @endif
+                    <a href="{{route('payments.index', $loan)}}" class="btn btn-primary">Ver Pagamentos</a>
 
 
 
@@ -45,17 +46,22 @@
 
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0">Nome Do Colaborados</h6>
-                                <span class="text-secondary">{{$employee->name}}</span>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Nome</h6>
+                                <span class="text-secondary">{{$employee->person->full_name}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Contacto</h6>
-                                <span class="text-secondary">{{$employee->person->cellphone}}</span>
+                                <h6 class="mb-0">contacto</h6>
+                                <span class="text-secondary">{{$employee->person->phone}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Email</h6>
-                                <span class="text-secondary">{{$employee->person->personal_email}}</span>
+                                <h6 class="mb-0">Email Pessoal</h6>
+                                <span class="text-secondary">{{$employee->person->email}}</span>
                             </li>
-
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">NUIT</h6>
+                                <span class="text-secondary">{{$employee->person->nuit}}</span>
+                            </li>
 
                         </ul>
                     </div>

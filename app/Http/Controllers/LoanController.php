@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoanRequest;
 use App\Models\Employee;
 use App\Models\Loan;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 
@@ -105,34 +106,45 @@ class LoanController extends Controller
 
     public function show(Loan $loan)
     {
-        $employee = Employee::where('employee_code', $loan->employee_id);
+        $employee = Employee::where('id', $loan->employee_id)->first();
         return view('loans.show', compact('employee', 'loan'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Loan $loan)
     {
         $order_status = [1 => 'Pedido Recusado', 2 => 'Pedido Aceite'];
-        return view(
-            'loans.edit',
-            compact('order_status')
-        );
+        return view('loans.edit', compact('order_status', 'loan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Loan $loan)
+    public function update(LoanRequest $request, Loan $loan)
     {
         $loan->order_status = $request->input('order_status');
         $loan->save();
 
-        if($loan = 'Pedido Aceite'){
-            #gerar todos pagamentos
+        if($loan->order_status == 2){
+
+            for($i=1; $i<=$loan->months; $i++){
+                $payment = new Payment();
+                $payment->loan_id = $loan->id;
+                $payment->months = now()->addMonths($i);
+                $payment->amount = $loan->installment;
+                $payment->status = 'Pendente';
+                $payment->payment_date = null;
+                $payment->save();
+            }
+            flash('pagamentos gerados')->success();
+
+            return redirect()->route('loans.index');
+
         } else {
             #notificar email do usuario que foi recusado o emprestimo
+            return redirect()->route('loans.index');
         }
     }
 
