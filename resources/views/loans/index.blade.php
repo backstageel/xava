@@ -19,7 +19,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('loans.create')}}" class="btn btn-primary">Simular Emprestimo</a>
+                <a href="{{route('loans_simulator.create')}}" class="btn btn-primary">Simular Emprestimo</a>
             </div>
         </div>
     </div>

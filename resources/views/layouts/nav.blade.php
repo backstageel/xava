@@ -62,7 +62,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="{{route('loans.create')}}">
+                        <a href="{{route('loans_simulator.create')}}">
                             <i class="bx bx-right-arrow-alt"></i>
                             Simular Emprestimos
                         </a>

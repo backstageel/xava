@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Loan;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(LoanController $loan)
+    public function index(Loan $loan)
     {
         $payments = Payment::paginate(100);
         return view('payments.index', compact('payments', 'loan'));
