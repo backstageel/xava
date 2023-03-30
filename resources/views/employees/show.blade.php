@@ -14,7 +14,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('employees.create')}}" class="btn btn-primary">Editar</a>
+                <a href="{{route('employees.edit',$employee->id)}}" class="btn btn-primary">Editar</a>
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Remover</a>
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>

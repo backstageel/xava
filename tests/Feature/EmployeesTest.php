@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 
 beforeEach(function () {
     $user = User::factory()->create();
@@ -8,7 +9,12 @@ beforeEach(function () {
 });
 
 test('new employees can register', function () {
+    Storage::fake('avatars');
+
+    $file = UploadedFile::fake()->image('avatar.jpg');
+
     $data = [
+        'image'=>$file,
         "last_name" => "Leonardo",
         "first_name" => "Elisio",
         "person_prefix_id" => "1",
@@ -30,10 +36,10 @@ test('new employees can register', function () {
         "corporate_email" => "teste@xava.co.mz",
         "emergency_name" => "Elisio Leonardo",
         "emergency_phone" => "34353453",
-        "living_address" => "35435345",
-        "living_country_id" => "152",
-        "living_province_id" => "1",
-        "living_district_id" => "101",
+        "address" => "35435345",
+        "address_country_id" => "152",
+        "address_province_id" => "1",
+        "address_district_id" => "101",
         "cellphone" => "3453535",
         "personal_email" => "elisio.leonardo@gmail.com",
         'department_id' => 1,

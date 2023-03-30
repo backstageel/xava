@@ -104,9 +104,29 @@ class EmployeesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
-        //
+        $genders = Gender::pluck('name', 'id');
+        $civilStates = CivilState::pluck('name', 'id');
+        $countries = Country::pluck('name', 'id');
+        $provinces = Province::pluck('name', 'id');
+        $districts = District::pluck('name', 'id');
+        $identityDocumentTypes = IdentityDocumentType::pluck('name', 'id');
+        $departments = Department::pluck('name', 'id');
+        $employeePositions = EmployeePosition::pluck('name', 'id');
+        $contractTypes = EmployeeContractType::pluck('name', 'id');
+        $personPrefixes = PersonPrefix::pluck('code', 'id');
+
+        return view('employees.edit',compact( 'employee','genders',
+            'civilStates',
+            'countries',
+            'provinces',
+            'districts',
+            'identityDocumentTypes',
+            'departments',
+            'employeePositions',
+            'contractTypes',
+            'personPrefixes'));
     }
 
     /**
