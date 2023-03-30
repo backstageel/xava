@@ -24,7 +24,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('loans.store')}}">
+                    <x-bootstrap::form.form class="row g-3" action="{{route('loans_simulator.store')}}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">

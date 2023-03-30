@@ -39,7 +39,7 @@
                     <tbody>
 
                     @foreach($payments as $payment)
-                        @if($loan->order_status == 'Pedido Aceite')
+                        @if($payment->loan_id == $loan->id )
 
 
                         <tr>
