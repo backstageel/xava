@@ -58,8 +58,8 @@
                                 <input type="hidden" name="amount" value="{{$loan->amount}}"/>
                                 <input type="hidden" name="installment" value="{{$loan->installment}}"/>
                                 <input type="hidden" name="months" value="{{$loan->months}}"/>
-                                <input type="hidden" name="full_name" value="{{$employee->first_name}} {{$employee->last_name}}"/>
-
+                                <input type="hidden" name="full_name" value="{{$employee->person->first_name}} {{$employee->person->last_name}}"/>
+                                <input type="hidden" name="employee_position" value="{{$employee->employeePosition->name}}">
                                 <button class="btn btn-success" type="submit">Gerar Pedido</button>
                             </x-bootstrap::form.form>
                         </div>

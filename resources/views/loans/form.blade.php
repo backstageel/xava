@@ -42,10 +42,6 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="employee_code" label="Codigo do Colaborador"
-                                                                     required/>
-                                        </div>
-                                        <div class="col-5">
                                             <x-bootstrap::form.input name="amount" label="Valor do Empretimo" required/>
                                         </div>
                                         <div class="col-4">

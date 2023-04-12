@@ -21,10 +21,11 @@ class CreatePdfController extends Controller
         $installment = $request->input('installment');
         $months = $request->input('months');
         $full_name = $request->input('full_name');
+        $employee_position = $request->input('employee_position');
 
 
         $html = view('loans.application', compact('amount', 'installment',
-        'months', 'full_name'))->render();
+        'months', 'full_name', 'employee_position'))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->render();

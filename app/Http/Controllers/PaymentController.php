@@ -12,7 +12,7 @@ class PaymentController extends Controller
      */
     public function index(Loan $loan)
     {
-        $payments = Payment::paginate(100);
+        $payments = Payment::where('loan_id', $loan->id)->get();
         return view('payments.index', compact('payments', 'loan'));
     }
 

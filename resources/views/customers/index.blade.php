@@ -46,7 +46,7 @@
                     @foreach($customers as $customer)
                         <tr>
                             @if( ($customer->customerable->name) == null)
-                                <td> {{$customer->customerable->first_name, $customer->customerable->last_name}}</td>
+                                <td> {{$customer->customerable->first_name}} {{$customer->customerable->last_name}}</td>
                             @else
                                 <td>{{$customer->customerable->name}} </td>
                             @endif

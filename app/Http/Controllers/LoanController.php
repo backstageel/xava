@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoanRequest;
 use App\Models\Employee;
+use App\Models\Person;
 use App\Models\Loan;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $loans = Loan::paginate(20);
+
+        $loans = Loan::with(['employee'])->paginate(20);
         return view('loans.index', compact('loans'));
     }
 
@@ -36,7 +37,9 @@ class LoanController extends Controller
     //metodo para simulacao do emprestimo
     public function store(LoanRequest $request)
     {
-        $employee = Employee::where('employee_code', $request->input(['employee_code']))->first();
+        $user = auth()->user();
+        $person = Person::where('user_id', $user->id)->first();
+        $employee = Employee::where('person_id', $person->user_id)->first();
         if (isset($employee)) {
             $loan = new Loan();
             $loan->amount = $request->input(['amount']);
@@ -60,7 +63,7 @@ class LoanController extends Controller
                 }
             } else {
                 if (is_null($loan->months)) {
-                    $loan->months = $loan->amount / $loan->installment;
+                    $loan->months = ceil($loan->amount / $loan->installment);
                     if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
                         flash('Emprestimo invalido')->success();
                         return redirect()->route('loans.create');
@@ -128,15 +131,22 @@ class LoanController extends Controller
         $loan->save();
 
         if($loan->order_status == 2){
-
-            for($i=1; $i<=$loan->months; $i++){
+            $auxiliar = $loan->amount;
+            for($i=1; $i<=$loan->months; $i++) {
                 $payment = new Payment();
                 $payment->loan_id = $loan->id;
                 $payment->months = now()->addMonths($i);
-                $payment->amount = $loan->installment;
                 $payment->status = 'Pendente';
                 $payment->payment_date = null;
-                $payment->save();
+
+                if ($auxiliar >= $loan->installment) {
+                    $payment->amount = $loan->installment;
+                    $payment->save();
+                }else{
+                    $payment->amount = $auxiliar;
+                    $payment->save();
+            }
+                $auxiliar= $auxiliar - $loan->installment;
             }
             flash('pagamentos gerados')->success();
 
