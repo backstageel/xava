@@ -36,6 +36,7 @@
                         <th>E-mail</th>
                         <th>NUIT</th>
                         <th>contacto</th>
+                        <th>Data da criação</th>
 
 
                     </tr>
@@ -46,8 +47,7 @@
                             <td>{{$supplier->supplierable->name}}</td>
                             <td>{{$supplier->supplierable->email}}</td>
                             <td>{{$supplier->supplierable->nuit}}</td>
-                            <td>{{$supplier->supplierable->phone}}
-                            <td>
+                            <td>{{$supplier->supplierable->phone}}</td>
                             <td>{{$supplier->created_at}}</td>
 
                             <td>
