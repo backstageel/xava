@@ -23,6 +23,7 @@
             </div>
         </div>
     </div>
+
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Produtos Registados</h6>
     <hr/>
@@ -48,8 +49,8 @@
                         <tr>
                             <td>{{$product->reference}}</td>
                             <td>{{$product->name}}</td>
-                            <td>{{$product->descripton}}</td>
-                            <td>{{$product->category_id}}</td>
+                            <td>{{$product->description}}</td>
+                            <td>{{ isset($product->ProductCategory) ? $product->ProductCategory->name : '' }}</td>
                             <td>{{$product->brand}}</td>
                             <td>{{$product->sale_price}}</td>
                             <td>{{$product->purchase_price}}</td>

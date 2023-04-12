@@ -56,11 +56,17 @@ class SuppliersController extends Controller
         $supplierable->address_country_id = $request->input('country_id');
         $supplierable->address_province_id = $request->input('province_id');
         $supplierable->address_district_id = $request->input('district_id');
-        $supplierable->save();
-
+        if(strlen($supplierable->nuit)!=9){
+            flash('Nuit invalido, o campo Nuit deve ser composto por 9 dígitos')->error();
+            return redirect()->route('suppliers.create');
+        }else {
+            $supplierable->save();
+        }
         $supplier = new Supplier();
         $supplier->supplierable_id = $supplierable->id;
         $supplier->supplierable_type = $supplierableType;
+
+
         $supplier->save();
         flash('Fornecedor registado com sucesso')->success();
         return redirect()->route('suppliers.index');
