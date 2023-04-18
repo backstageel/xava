@@ -31,18 +31,8 @@
                         Colaboradores
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('customer_types.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Tipos de Clientes
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('product_categories.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Categoria de Produtos
-                    </a>
-                </li>
+
+
                 @php
                     $user_id = auth()->user()->id;
                     $person= \App\Models\Person::where('user_id', $user_id)->first();
@@ -77,6 +67,12 @@
                 <div class="menu-title">Parceiros</div>
             </a>
             <ul>
+                <!--<li>
+                    <a href="{{route('customer_types.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Tipos de Clientes
+                    </a>
+                </li>-->
                 <li>
                     <a href="{{route('customers.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
@@ -103,21 +99,35 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="{{route('products.index')}}">
-                <div class="parent-icon"><i class='bx bx-cart'></i>
-                </div>
-                <div class="menu-title">Produtos</div>
-            </a>
-        </li>
-        <li>
 
-            <a href="{{route('customers.index')}}">
-                <div class="parent-icon"><i class='bx bx-cart'></i>
-                </div>
-                <div class="menu-title">Clientes</div>
+        <li>
+            <a href="#" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
+                <div class="menu-title">Vendas</div>
             </a>
+            <ul>
+
+                <li>
+                    <a href="{{route('products.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Produtos
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('product_categories.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Categoria de Produtos
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('sales.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Vendas
+                    </a>
+                </li>
+            </ul>
         </li>
+
         <li>
             <a href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-repeat"></i>

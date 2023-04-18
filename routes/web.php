@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('loans_simulator', \App\Http\Controllers\LoanController::class)->only('create', 'store');
     Route::resource('payments', \App\Http\Controllers\PaymentController::class);
     Route::resource('create_pdf', \App\Http\Controllers\CreatePdfController::class);
+    Route::resource('sales', \App\Http\Controllers\SaleController::class);
 });
 
 require __DIR__ . '/auth.php';
