@@ -40,8 +40,7 @@
                         <th>Marca</th>
                         <th>Preço venda</th>
                         <th>Preço compra</th>
-                        <th>Iva</th>
-                        <th>Data a criação</th>
+                         <th>Data a criação</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,7 +53,6 @@
                             <td>{{$product->brand}}</td>
                             <td>{{$product->sale_price}}</td>
                             <td>{{$product->purchase_price}}</td>
-                            <td>{{$product->vat_id}}</td>
                             <td>{{$product->created_at}}</td>
                         </tr>
                     @endforeach

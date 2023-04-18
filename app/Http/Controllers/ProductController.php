@@ -26,10 +26,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $vatTypes = [1 => 'Isento-0%', 2 => 'Taxa normal-16%'];
+
         $category = ProductCategory::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
-        return view('products.create', compact('category', 'countries','vatTypes'));
+        return view('products.create', compact('category', 'countries'));
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductController extends Controller
         $product->sale_price = $request->input('sale_price');
         $product->purchase_price = $request->input('purchase_price');
         $product->category_id = $request->input('category_id');
-        $product->vat_id = $request->input('vat_id');
+
 
         $product->save();
         flash('Produto registado com sucesso')->success();

@@ -69,9 +69,7 @@
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="brand" label="Marca"/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="vat" label="Iva" :options="$vatTypes"/>
-                                        </div>
+
                                     </div>
 
                                 </div>
