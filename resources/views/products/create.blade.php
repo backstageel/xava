@@ -80,9 +80,7 @@
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="purchase_price" label="Preço de Compra"/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="sale_price" label="Preço de Venda"/>
-                                        </div>
+
 
                                     </div>
                                     <div class="row float-end">

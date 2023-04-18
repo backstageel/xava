@@ -17,19 +17,15 @@
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>
-            </div>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Registar Nova Venda</h6>
+            <h6 class="mb-0 text-uppercase">Editar Venda</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('sales.store')}}"
+                    <x-bootstrap::form.form class="row g-3" method='PUT'  action="{{route('sales.update', $sale)}}"
                                             enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
@@ -37,7 +33,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Dados da Venda
+                                        Dados do Venda
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -54,14 +50,7 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
 
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_id" label="Cliente"
-                                                                      :options="$customers" required/>
-                                        </div>
 
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="sale_ref" label="Referencia"/>
-                                        </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
                                         </div>
@@ -78,11 +67,9 @@
                                             <x-bootstrap::form.select name="sale_status_id" label="Estado da venda"
                                                                       :options="$sale_statuses"/>
                                         </div>
+
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="sale_date" label="data da venda"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="methodo de pagamento"/>
+                                            <x-bootstrap::form.input name="payment_method" label="metodo de pagamento"/>
                                         </div>
 
                                     </div>
@@ -92,7 +79,7 @@
                                 </div>
 
 
-                                     <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="receipt_id" label="Nr do Recibo"/>
@@ -106,9 +93,9 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                                <div class="col-4">
-                                                    <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento" />
-                                                </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento" />
+                                        </div>
 
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="other_expenses" label="Valor de Outras Despesas" />
@@ -117,26 +104,30 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissao de Intermediários" />
                                         </div>
-                                        </div>
-                                         <div class="row float-end">
-                                             <div class="col-12">
-                                                 <button class="btn btn-success" name="create_sale" type="submit">Gravar</button>
-                                             </div>
-                                         </div>
-                                         <div class="clearfix"></div>
-
                                     </div>
+                                    <div class="row float-end">
+
+                                                <a href="{{route('sales.edit', $sale)}}" >
+                                                    <button name ="addProduct" class="btn btn-primary">Adicionar Producto</button></a>
+
+                                        <div class="col-12">
+                                            <button class="btn btn-success"  type="submit">Gravar</button>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
                                 </div>
-
-
-
                             </div>
 
-                            <!-- Include optional progressbar HTML -->
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+
+
+                        </div>
+
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
 
                     </x-bootstrap::form.form>
                 </div>

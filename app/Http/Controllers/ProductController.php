@@ -45,7 +45,7 @@ class ProductController extends Controller
         $product->reference = $request->input('reference');
         $product->description = $request->input('description');
         $product->brand = $request->input('brand');
-        $product->sale_price = $request->input('sale_price');
+
         $product->purchase_price = $request->input('purchase_price');
         $product->category_id = $request->input('category_id');
 

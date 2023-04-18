@@ -11,7 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('sales', function (Blueprint $table){
+
+
+
+            $table->string('receipt_id')->nullable();
+            $table->double('amount_received')->nullable();
+            $table->double('transport_value')->nullable();
+            $table->double('other_expenses')->nullable();
+            $table->string('invoice_id')->nullable();
+
+            $table->double('intermediary_committee')->nullable();
+            $table->date('payment_date')->nullable();
+            $table->double('profit')->nullable();
+            $table->double('debt_amount')->nullable();
+
+
+    });
     }
 
     /**

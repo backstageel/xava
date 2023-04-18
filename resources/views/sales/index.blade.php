@@ -36,8 +36,17 @@
                         <th>Data</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
-                        <th>Estado</th>
+                        <th>Estado da Venda</th>
                         <th>Preco de Venda Total</th>
+                        <th>nr da Factura</th>
+                        <th>Metodo de Pagamento</th>
+                        <th>Valor Recebido</th>
+                        <th>Nr De Recibo</th>
+                        <th>Despesa de Transporte</th>
+                        <th>Comissao de Intermediarios</th>
+                        <th>Outras Despesas</th>
+                        <th>Divida</th>
+                        <th>Data de Pagamento</th>
 
 
                     </tr>
@@ -50,8 +59,17 @@
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>{{$sale->total_amount}}</td>
+                            <td>{{$sale->invoice_id}} </td>
+                            <td>{{$sale->payment_method}}</td>
+                            <td>{{$sale->amount_received}}</td>
+                            <td>{{$sale->receipt_id}}</td>
+                            <td>{{$sale->transport_value}} </td>
+                            <td>{{$sale->intermediary_committe}} </td>
+                            <td>{{$sale->other_expenses}} </td>
+                            <td>{{$sale->debt_amount}} </td>
+                            <td>{{$sale->payment_date}} </td>
                             <td>
-                                <a href="{{route('sales.show', $sale)}}"> ver detalhes </a>
+                                <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
 
 
