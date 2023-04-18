@@ -98,9 +98,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('contacts.index')}}">
+                    <a href="{{route('contacts.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
-                        Contactos
+                        Listar Contactos
 
                     </a>
                 </li>
