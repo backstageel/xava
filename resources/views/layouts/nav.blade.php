@@ -84,12 +84,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('prospects.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Possiveis Clientes
-                    </a>
-                </li>
-                <li>
                     <a href="{{route('suppliers.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
                         Fornecedores
@@ -103,6 +97,30 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="#" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
+                <div class="menu-title">Concursos</div>
+            </a>
+            <ul>
+
+                <li>
+                    <a href="{{route('competitions.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Listar Concursos
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('contacts.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Contactos
+
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
         <li>
             <a href="{{route('products.index')}}">
                 <div class="parent-icon"><i class='bx bx-cart'></i>

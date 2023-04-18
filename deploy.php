@@ -6,7 +6,7 @@ require 'recipe/laravel.php';
 
 // Config
 set('application', 'intranet');
-set('repository', 'git@github.com:backstageel/xava.git');
+set('repository', 'https://git@github.com/backstageel/xava.git');
 set('keep_releases', 3);
 
 // Shared files/dirs between deploys
