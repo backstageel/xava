@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\SaleStatus;
@@ -16,6 +17,7 @@ class SaleController extends Controller
     {
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])->paginate(20);
+       // dd($sales);
         return view('sales.index', compact('sales'));
     }
 
@@ -32,7 +34,10 @@ class SaleController extends Controller
 
 
         #}
-        $customers = Customer::pluck('id');
+       // $customers = Customer::pluck('customerable_id','id');
+        $company=Company::pluck('name','id');
+        //dd($company);
+
        # $customers = Customer::withCustomerable()->selectRaw('IFNULL(name,
         #CONCAT_WS(first_name, " ", last_name)) as full_name')
         #->wherehasMorph('customerable', '*',function ($query){
@@ -43,7 +48,7 @@ class SaleController extends Controller
         return view(
             'sales.create',
             compact(
-                'customers',
+                'company',
 
                 'sale_statuses'
 
