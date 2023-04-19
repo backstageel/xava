@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('transport_value')->nullable();
             $table->double('other_expenses')->nullable();
             $table->string('invoice_id')->nullable();
+            $table->string('customer_name');
 
             $table->double('intermediary_committee')->nullable();
             $table->date('payment_date')->nullable();

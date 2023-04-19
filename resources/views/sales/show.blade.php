@@ -41,8 +41,6 @@
 
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0">ID da venda</h6>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Nome</h6>
                                 <span class="text-secondary">{{$sale->id}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -50,9 +48,9 @@
                                 <span class="text-secondary">{{$sale->sale_ref}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">cliente</h6>
+                                <h6 class="mb-0">Nome do Cliente</h6>
 
-                                    <span class="text-secondary">{{$sale->customer_id}}</span>
+                                    <span class="text-secondary">{{$sale->customer_name}}</span>
 
 
                             </li>

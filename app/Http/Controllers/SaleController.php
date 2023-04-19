@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Person;
 use App\Models\Product;
 use App\Models\SaleStatus;
 use App\Models\SaleItem;
@@ -17,7 +18,7 @@ class SaleController extends Controller
     {
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])->paginate(20);
-       // dd($sales);
+
         return view('sales.index', compact('sales'));
     }
 
@@ -26,30 +27,23 @@ class SaleController extends Controller
     public function create()
     {
 
-        #$customers = Customer::all();
-        #if(isset($customers)){
-        #foreach ($customers as $customer) {
-         #   $names = $customer->customerable->name?? $customer->customerable->first_name;
-        #}}
+        $company_names = Company::pluck('name');
+        $id_customer_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('id');
+        $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
 
+        $customers_person = Customer::all();
+        $id_customer_person =  Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('id');
+        $person_names = Person::whereIn('id', $customers_person->pluck('customerable_id'))
+            ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
 
-        #}
-       // $customers = Customer::pluck('customerable_id','id');
-        $company=Company::pluck('name','id');
-        //dd($company);
-
-       # $customers = Customer::withCustomerable()->selectRaw('IFNULL(name,
-        #CONCAT_WS(first_name, " ", last_name)) as full_name')
-        #->wherehasMorph('customerable', '*',function ($query){
-         #   $query->select('id');
-        #})->get();
-
+        $person = array_combine( ($id_customer_person)->toArray(), $person_names->toArray());
+        $customers = $company+  $person;
         $sale_statuses = SaleStatus::pluck('name', 'id');
         return view(
             'sales.create',
             compact(
-                'company',
 
+                'customers',
                 'sale_statuses'
 
             )
@@ -67,6 +61,16 @@ class SaleController extends Controller
             $sale = new Sale();
             $sale->sale_ref = $request->input(['sale_ref']);
             $sale->customer_id = $request->input('customer_id');
+            $customer= Customer::where('id', $sale->customer_id)->first();
+
+            if ($customer->customerable_type == Company::class) {
+                $company =  Company::where('id', $customer->customerable_id)->first();
+                $sale->customer_name =$company->name;
+            } else {
+                $person =  Person::where('id', $customer->customerable_id)->first();
+                $sale->customer_name = $person->first_name.$person->last_name;
+            }
+
             $sale->sale_date = $request->input('sale_date');
             $sale->sale_status_id = $request->input('sale_status_id');
             $sale->notes = $request->input('notes');
@@ -109,6 +113,7 @@ class SaleController extends Controller
 
     public function show(Sale $sale)
     {
+
         $sale_items = SaleItem::with(['product'])->
         where('sale_id', $sale->id)->get();
         return view('sales.show', compact('sale', 'sale_items'));

@@ -55,7 +55,8 @@
                     @foreach($sales as $sale)
                         <tr>
                             <td>{{$sale->sale_date}}</td>
-                            <td>{{$sale->customer_id}}</td>
+
+                            <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>{{$sale->total_amount}}</td>
