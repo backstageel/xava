@@ -23,7 +23,6 @@ class SaleController extends Controller
     }
 
 
-
     public function create()
     {
 
@@ -49,10 +48,6 @@ class SaleController extends Controller
             )
         );
     }
-
-
-
-
 
 
     public function store(SaleRequest $request)

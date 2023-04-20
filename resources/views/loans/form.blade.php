@@ -44,13 +44,7 @@
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="amount" label="Valor do Empretimo" required/>
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="installment" label="Prestacao Mensal"/>
 
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="months" label="Meses"/>
-                                        </div>
 
 
                                     </div>

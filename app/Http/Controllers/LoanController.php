@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoanRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Person;
 use App\Models\Loan;
@@ -37,73 +38,32 @@ class LoanController extends Controller
     //metodo para simulacao do emprestimo
     public function store(LoanRequest $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $person = Person::where('user_id', $user->id)->first();
         $employee = Employee::where('person_id', $person->user_id)->first();
-        if (isset($employee)) {
+
             $loan = new Loan();
             $loan->amount = $request->input(['amount']);
-            $loan->months = $request->input('months');
-            $loan->installment = $request->input('installment');
+            $loan->months = 24; //constante
             $loan->employee_id = $employee->id;
 
-            if (is_null($loan->installment) && is_null($loan->months)) {
-                $loan->months = 24;
+            if($loan->amount < 0){
+                flash('Valor introduzido menor que zero')->error();
+                return redirect()->route('loans.create');
+            } else {
                 $loan->installment = $loan->amount / $loan->months;
                 if (($employee->base_salary / 3) < $loan->installment) {
-                    flash(
-                        'Valor Alto, impossivel pagar em 24meses pois a prestacao excede a 3
-                    perte do salario'
-                    )->success();
+                    flash('Emprestimo impossivel, prestacao maior que 1/3 do seu salario.
+                    Por favor, tente um valor mais baixo'
+                    )->error();
                     return redirect()->route('loans.create');
                 } else {
                     $loan->save();
-                    flash('Emprestimo valido para pagar em 24 meses')->success();
+                    flash('Emprestimo válido')->success();
                     return view('loans.submit', compact('loan', 'employee'));
                 }
-            } else {
-                if (is_null($loan->months)) {
-                    $loan->months = ceil($loan->amount / $loan->installment);
-                    if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                        flash('Emprestimo invalido')->success();
-                        return redirect()->route('loans.create');
-                    } else {
-                        $loan->save();
-                        flash('Emprestimo valido')->success();
-                        return view('loans.submit', compact('loan', 'employee'));
-                    }
-                } else {
-                    if (is_null($loan->installment)) {
-                        $loan->installment = $loan->amount / $loan->months;
-                        if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                            flash('Emprestimo Invalido')->success();
-                            return redirect()->route('loans.create');
-                        } else {
-                            $loan->save();
-                            flash('Emprestimo valido')->success();
-                            return view('loans.submit', compact('loan', 'employee'));
-                        }
-                    } else {
-                        if ((($employee->base_salary / 3) < $loan->installment) || $loan->months > 24) {
-                            flash('Emprestimo invalido')->success();
-                            return redirect()->route('loans.create');
-                        } else {
-                            if ($loan->amount == $loan->installment * $loan->months) {
-                                $loan->save();
-                                flash('Emprestimo valido ')->success();
-                                return view('loans.submit', compact('loan', 'employee'));
-                            } else {
-                                flash('Emprestimo invalido')->success();
-                                return redirect()->route('loans.create');
-                            }
-                        }
-                    }
-                }
             }
-        } else {
-            flash('Codigo de funcionario invalido ')->success();
-            return redirect()->route('loans.create');
-        }
+
     }
 
 
@@ -131,7 +91,7 @@ class LoanController extends Controller
         $loan->save();
 
         if($loan->order_status == 2){
-            $auxiliar = $loan->amount;
+
             for($i=1; $i<=$loan->months; $i++) {
                 $payment = new Payment();
                 $payment->loan_id = $loan->id;
@@ -139,19 +99,10 @@ class LoanController extends Controller
                 $payment->status = 'Pendente';
                 $payment->payment_date = null;
 
-                if ($auxiliar >= $loan->installment) {
-                    $payment->amount = $loan->installment;
-                    $payment->save();
-                }else{
-                    $payment->amount = $auxiliar;
-                    $payment->save();
-            }
-                $auxiliar= $auxiliar - $loan->installment;
+
             }
             flash('pagamentos gerados')->success();
-
             return redirect()->route('loans.index');
-
         } else {
             #notificar email do usuario que foi recusado o emprestimo
             return redirect()->route('loans.index');
