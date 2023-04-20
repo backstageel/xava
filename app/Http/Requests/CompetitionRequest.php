@@ -23,8 +23,9 @@ class CompetitionRequest extends FormRequest
     public function rules()
     {
         return [
-            'institution_name' => 'required|min:3|max:255',
+
             'competition_reference' =>'required|min:3|max:255'
+
 
         ];
     }

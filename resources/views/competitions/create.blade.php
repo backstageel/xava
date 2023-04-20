@@ -66,7 +66,7 @@
                                                                       :options="$competition_types"/>
                                         </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="institution_name" label="Nome da Instituição"/>
+                                            <x-bootstrap::form.select name="institution_name" label="Nome da Instituição" :options="$company"/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -74,8 +74,8 @@
                                             <x-bootstrap::form.input name="competition_reference" label="Referência do Concurso"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="nature"
-                                                                           label="Indústria do Concurso"/>
+                                            <x-bootstrap::form.select name="nature"
+                                                                           label="Indústria do Concurso" :options="$nature"/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="product_type" label="Tipo de produto"/>
@@ -84,12 +84,10 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="proposal_delivery_date" label="Data da Entrega da proposta"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-time-picker name="proposal_delivery_date" label="Data e hora da Entrega da proposta"/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="proposal_delivery_time" label="Hora da entrega da proposta"/>
-                                        </div>
+
 
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="bidding_documents_value" label="Preço do caderno.Enc"/>
@@ -131,26 +129,26 @@
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="responsible" label="Responsável do concurso"/>
+                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso" :options="$employee"/>
                                         </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="technical_proposal_review" label="Responsável pela revisão da proposta"/>
+                                            <x-bootstrap::form.select name="technical_proposal_review" label="Responsável pela revisão da proposta" :options="$employee"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="documentary_review" label="Responsável pela revisão documental"/>
+                                            <x-bootstrap::form.select name="documentary_review" label="Responsável pela revisão documental" :options="$employee"/>
                                         </div>
                                         <div class="col-2">
                                             <x-bootstrap::form.input name="to_do" label="Por fazer"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="reason" label="Motivo(opcional)"/>
+                                            <x-bootstrap::form.select name="reason" label="Motivo de derrota" :options="$reason"/>
                                         </div>
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Gravar</button>
+                                           {{-- <button class="btn btn-success" type="submit">Gravar</button>--}}
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

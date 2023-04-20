@@ -73,7 +73,7 @@
                             <td>{{$competition->competition_type}}</td>
                             <td>{{$competition->competition_reference}}</td>
                             <td>{{$competition->nature}}</td>
-                            <td>{{$competition->product_type}}</td>
+                            <td>{{isset($competition->ProductCategory) ? $competition->ProductCategory->name : '' }}</td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
                             <td>{{$competition->definitive_guarantee}}</td>
