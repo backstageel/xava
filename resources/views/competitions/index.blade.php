@@ -48,8 +48,7 @@
                         <th>Prémio</th>
                         <th>Garantia Adiatamento</th>
                         <th>Prémio</th>
-                        <th>Data Entrega proposta</th>
-                        <th>Hora da entrega</th>
+                        <th>Data e hora Entrega proposta</th>
                         <th>Valor do caderno.Enc</th>
                         <th>Motivo</th>
                         <th>Por fazer</th>
@@ -73,7 +72,7 @@
                             <td>{{$competition->competition_type}}</td>
                             <td>{{$competition->competition_reference}}</td>
                             <td>{{$competition->nature}}</td>
-                            <td>{{isset($competition->ProductCategory) ? $competition->ProductCategory->name : '' }}</td>
+                            <td>{{$competition->product_type}}</td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
                             <td>{{$competition->definitive_guarantee}}</td>
@@ -81,7 +80,6 @@
                             <td>{{$competition->advance_guarantee}}</td>
                             <td>{{$competition->advance_guarantee_award}}</td>
                             <td>{{$competition->proposal_delivery_date}}</td>
-                            <td>{{$competition->proposal_delivery_time}}</td>
                             <td>{{$competition->bidding_documents_value}}</td>
                             <td>{{$competition->reason}}</td>
                             <td>{{$competition->to_do}}</td>

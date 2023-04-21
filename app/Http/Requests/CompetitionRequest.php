@@ -24,7 +24,20 @@ class CompetitionRequest extends FormRequest
     {
         return [
 
-            'competition_reference' =>'required|min:3|max:255'
+            'competition_reference' =>'required|min:3|max:255',
+            'product_type'=>'required|min:3',
+            'provisional_bank_guarantee'=>'numeric|min:3',
+            'provisional_bank_guarantee_award'=>'numeric',
+            'provisional_bank_guarantee_award'=>'numeric',
+            'definitive_guarantee'=>'numeric',
+            'definitive_guarantee_award'=>'numeric',
+            'advance_guarantee'=>'numeric',
+            'advance_guarantee_award'=>'numeric',
+            'bidding_documents_value'=>'numeric',
+            'proposal_value'=>'numeric',
+            'proposal_delivery_date'=>'required'
+
+
 
 
         ];

@@ -31,15 +31,14 @@ class CompetitionController extends Controller
      */
     public function create()
     {
-      $employee =  Person::pluck('first_name');
-        $company_names = Company::pluck('name');
-        $id_customer_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('id');
-        $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
+      $employee =  Person::whereNotNull('user_id')->pluck('first_name','id');
+
+        $company = Company::pluck('name','id');
 
         $institution_types=['0'=>'Estado','1'=>'ONG','2'=>'Privado','3'=>'Particular'];
         $competition_types=['0'=>'Publico','1'=>'Limitado','2'=>'Cotações','3'=>'Manifestação de Interesse'];
         $reason=['0'=>'Preço alto','1'=>'Falha na documentação', '2'=>'Entrega tardia','3'=>'Falta de garantia provisória','4'=>'Falha nas especificações'];
-        $nature=ProductCategory::pluck('name');
+        $nature=ProductCategory::pluck('name','id');
 
 
 
@@ -51,7 +50,24 @@ class CompetitionController extends Controller
      */
     public function store(CompetitionRequest $request)
     {
+
         $competition = new Competition();
+
+        $company= $request->input('institution_name');
+        $company_name = Company::find($company)->name;
+
+        $nature= $request->input('nature');
+        $nature_name = ProductCategory::find($nature)->name;
+
+        $competition_responsible= $request->input('responsible');
+        $responsible_name = Person::find($competition_responsible)->first_name;
+
+
+        $technical_proposal_review= $request->input('technical_proposal_review');
+        $technical_proposal_review_name = Person::find($technical_proposal_review)->first_name;
+
+        $documentary_review= $request->input('documentary_review');
+        $documentary_review_name = Person::find($documentary_review)->first_name;
 
         Carbon::setLocale('pt-BR');
         $today = Carbon::now();
@@ -62,10 +78,10 @@ class CompetitionController extends Controller
         $competition->competition_type=$this->verifyCompetitionType($request->input('competition_type'));
         $competition->reason=$this->verifyReason($request->input('reason'));
         $competition->competition_month = $month;
-        $competition->competition_number = ('Xv'.(1+$last_Id));
-        $competition->institution_name = $request->input('institution_name');
+        $competition->competition_number = ('XV'.(1+$last_Id));
+        $competition->institution_name = $company_name;
         $competition->competition_reference = $request->input('competition_reference');
-        $competition->product_category_id = $request->input('nature');
+        $competition->nature = $nature_name;
         $competition->product_type = $request->input('product_type');
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
@@ -75,12 +91,11 @@ class CompetitionController extends Controller
         $competition->advance_guarantee_award= $request->input('advance_guarantee_award');
         $competition->proposal_delivery_date = $request->input('proposal_delivery_date');
         $competition->bidding_documents_value= $request->input('bidding_documents_value');
-        $competition->reason = $request->input('reason');
         $competition->to_do= $request->input('to_do');
         $competition->proposal_value = $request->input('proposal_value');
-        $competition->responsible = $request->input('responsible');
-        $competition->technical_proposal_review= $request->input('technical_proposal_review');
-        $competition->documentary_review= $request->input('documentary_review');
+        $competition->responsible = $responsible_name;
+        $competition->technical_proposal_review= $technical_proposal_review_name;
+        $competition->documentary_review= $documentary_review_name;
 
         $competition->save();
         flash('Concurso registado com sucesso')->success();

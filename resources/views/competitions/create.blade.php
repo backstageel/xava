@@ -66,7 +66,12 @@
                                                                       :options="$competition_types"/>
                                         </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.select name="institution_name" label="Nome da Instituição" :options="$company"/>
+                                            <x-bootstrap::form.select
+                                                name="institution_name"
+                                                label="Nome da Instituição"
+                                                :options="$company"
+                                                :value="$selected_company_name ?? null"
+                                            />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -75,7 +80,7 @@
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="nature"
-                                                                           label="Indústria do Concurso" :options="$nature"/>
+                                                                           label="Indústria do Concurso" :options="$nature"  :value="$selected_nature_name ?? null"/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="product_type" label="Tipo de produto"/>
@@ -129,7 +134,8 @@
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso" :options="$employee"/>
+                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso" :options="$employee"
+                                                                      :value="$selected_employee_name ?? null"/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.select name="technical_proposal_review" label="Responsável pela revisão da proposta" :options="$employee"/>
@@ -148,7 +154,7 @@
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
-                                           {{-- <button class="btn btn-success" type="submit">Gravar</button>--}}
+                                           <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

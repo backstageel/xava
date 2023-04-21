@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('competitions', function (Blueprint $table){
-            $table->dateTime('proposal_delivery_date')->change();
-            $table->dropColumn('proposal_delivery_time');
+        Schema::table('people', function (Blueprint $table){
+            $table->String('profile_picture')->nullable()->change();});
 
-        });
     }
 
     /**
