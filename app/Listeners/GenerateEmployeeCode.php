@@ -4,16 +4,19 @@ namespace App\Listeners;
 
 use App\Events\EmployeeCreating;
 use App\Models\Employee;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 
 class GenerateEmployeeCode
 {
     public function handle(EmployeeCreating $event)
     {
+
         $nextId = Employee::latest()->value('id') + 1;
         $employee = $event->employee;
         // Extrai o ano e o mês da data do contrato
-        $year = substr($employee->start_date, 2, 2);
-        $month = substr($employee->start_date, 5, 2);
+        $year = $employee->start_date->year;
+        $month = $employee->start_date->month;
 
         // Monta a referência do funcionário
         $employeeCode = null;

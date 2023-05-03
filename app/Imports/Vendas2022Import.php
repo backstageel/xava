@@ -26,6 +26,7 @@ class Vendas2022Import implements OnEachRow, WithHeadingRow, WithCalculatedFormu
 
     public function onRow(Row $row)
     {
+
         $rowIndex = $row->getIndex();
         $row = $row->toArray(null, true);
         $clientName = trim($row['cliente'] ?? '');
@@ -85,10 +86,12 @@ class Vendas2022Import implements OnEachRow, WithHeadingRow, WithCalculatedFormu
             default:
                 $invoiceDate = Date::parse('first day of December ' . $this->year);
         }
+
         $sale = Sale::firstOrCreate([
             'customer_id' => $customer->id,
             'sale_ref' => $row['factura'],
             'sale_date' => $invoiceDate,
+            'customer_name'=>$customer->customerable->name
         ]);
 
         $invoice = CustomerInvoice::firstOrCreate([

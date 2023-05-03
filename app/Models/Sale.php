@@ -22,7 +22,13 @@ class Sale extends Model
         return $this->belongsTo(SaleStatus::class);
     }
 
+    #[Deprecated("use saleItems instead")]
     public function saleItem()
+    {
+        return $this->hasMany(SaleItem::class);
+    }
+
+    public function saleItems()
     {
         return $this->hasMany(SaleItem::class);
     }

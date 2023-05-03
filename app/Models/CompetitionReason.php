@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ProductCategory extends Model
+class CompetitionReason extends Model
 {
 
 }

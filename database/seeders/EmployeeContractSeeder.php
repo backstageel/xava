@@ -33,7 +33,7 @@ class EmployeeContractSeeder extends Seeder
                     ])
             )->create([
                 'start_date' => '2020-01-01',
-                'end_date' => Date::now()->startOfWeek(),
+                'end_date' => Date::now()->startOfWeek()->toDateString(),
                 'base_salary' => '10000',
                 'contract_status_id' => 6,
             ]);
@@ -60,7 +60,7 @@ class EmployeeContractSeeder extends Seeder
                     ])
             )->create([
                 'start_date' => '2020-01-01',
-                'end_date' => Date::now()->endOfYear(),
+                'end_date' => Date::now()->endOfYear()->toDateString(),
                 'base_salary' => '10000',
                 'contract_status_id' => 1,
             ]);
