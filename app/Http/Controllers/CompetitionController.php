@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompetitionRequest;
 use App\Models\Company;
+use App\Models\CompanyType;
 use App\Models\Competition;
-use App\Models\Customer;
-use App\Models\Employee;
+use App\Models\CompetitionReason;
+use App\Models\CompetitionStatus;
+use App\Models\CompetitionType;
 use App\Models\Person;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\PseudoTypes\NonEmptyLowercaseString;
+use Illuminate\Support\Facades\Date;
 
 class CompetitionController extends Controller
 {
@@ -22,7 +23,7 @@ class CompetitionController extends Controller
     public function index()
     {
 
-        $competitions=Competition::with('ProductCategory')->paginate();
+        $competitions=Competition::with('ProductCategory')->paginate(1000);
         return view('competitions.index',compact('competitions'));
     }
 
@@ -31,18 +32,18 @@ class CompetitionController extends Controller
      */
     public function create()
     {
-      $employee =  Person::whereNotNull('user_id')->pluck('first_name','id');
+      $employees =  Person::whereNotNull('user_id')->pluck('first_name','id');
 
-        $company = Company::pluck('name','id');
+        $companies = Company::pluck('name','id');
 
-        $institution_types=['0'=>'Estado','1'=>'ONG','2'=>'Privado','3'=>'Particular'];
-        $competition_types=['0'=>'Publico','1'=>'Limitado','2'=>'Cotações','3'=>'Manifestação de Interesse'];
-        $reason=['0'=>'Preço alto','1'=>'Falha na documentação', '2'=>'Entrega tardia','3'=>'Falta de garantia provisória','4'=>'Falha nas especificações'];
-        $nature=ProductCategory::pluck('name','id');
+        $companyTypes  = CompanyType::pluck('name','id');
+        $competitionTypes = CompetitionType::pluck('name','id');
+        $competitionReasons = CompetitionReason::pluck('name','id');
+        $competitionStatuses = CompetitionStatus::pluck('name','id');
+        $productCategories = ProductCategory::pluck('name','id');
 
 
-
-        return view('competitions.create',compact('competition_types','institution_types','company','nature','employee','reason'));
+        return view('competitions.create',compact('competitionTypes','companyTypes','companies','competitionReasons','employees','competitionStatuses','productCategories'));
     }
 
     /**
@@ -53,36 +54,25 @@ class CompetitionController extends Controller
 
         $competition = new Competition();
 
-        $company= $request->input('institution_name');
-        $company_name = Company::find($company)->name;
+        $responsible = Person::find($request->input('responsible'));
+        $technicalReview = Person::find($request->input('technical_proposal_review'));
+        $documentaryReview = Person::find($request->input('documentary_review'));
+        $product = Product::firstOrCreate([
+            'name' => $request->input('product'),
+            'category_id' => $request->input('product_category_id'),
+        ]);
 
-        $nature= $request->input('nature');
-        $nature_name = ProductCategory::find($nature)->name;
-
-        $competition_responsible= $request->input('responsible');
-        $responsible_name = Person::find($competition_responsible)->first_name;
-
-
-        $technical_proposal_review= $request->input('technical_proposal_review');
-        $technical_proposal_review_name = Person::find($technical_proposal_review)->first_name;
-
-        $documentary_review= $request->input('documentary_review');
-        $documentary_review_name = Person::find($documentary_review)->first_name;
-
-        Carbon::setLocale('pt-BR');
-        $today = Carbon::now();
-        $month = $today->format('F');
+        Date::setLocale('pt-BR');
         $last_Id =Competition::latest()->value('id');
 
-        $competition->institution_type=$this->verifyInstitutionType($request->input('institution_type'));
-        $competition->competition_type=$this->verifyCompetitionType($request->input('competition_type'));
-        $competition->reason=$this->verifyReason($request->input('reason'));
-        $competition->competition_month = $month;
-        $competition->competition_number = ('XV'.(1+$last_Id));
-        $competition->institution_name = $company_name;
+        $competition->competition_type_id=$request->input('competition_type_id');
+        $competition->competition_reason_id=$request->input('competition_reason_id');
+        $competition->competition_month = Date::now()->format('F');
+        $competition->internal_reference = ('XV'.(1+$last_Id));
+        $competition->customer_id = $request->input('customer_id');
         $competition->competition_reference = $request->input('competition_reference');
-        $competition->nature = $nature_name;
-        $competition->product_type = $request->input('product_type');
+        $competition->product_category_id = $request->input('product_category_id');
+        $competition->product_id = $product->id;
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
         $competition->definitive_guarantee = $request->input('definitive_guarantee');
@@ -91,56 +81,22 @@ class CompetitionController extends Controller
         $competition->advance_guarantee_award= $request->input('advance_guarantee_award');
         $competition->proposal_delivery_date = $request->input('proposal_delivery_date');
         $competition->bidding_documents_value= $request->input('bidding_documents_value');
-        $competition->to_do= $request->input('to_do');
+        $competition->competition_status_id= $request->input('competition_status_id');
         $competition->proposal_value = $request->input('proposal_value');
-        $competition->responsible = $responsible_name;
-        $competition->technical_proposal_review= $technical_proposal_review_name;
-        $competition->documentary_review= $documentary_review_name;
+        $competition->responsible = $responsible->first_name;
+        $competition->technical_proposal_review= $technicalReview->first_name;
+        $competition->documentary_review= $documentaryReview->first_name;
 
-        $competition->save();
-        flash('Concurso registado com sucesso')->success();
-        return redirect()->route('competitions.index');
-
-
-    }
-    public function verifyReason($position){
-        if($position==0) {
-             $reason='Preço alto';
-        }elseif ($position==1){
-            $reason ='Falha na documentação';
-        }elseif ($position==2){
-            $reason ='Entrega tardia';
-        }elseif($position==3){
-            $reason='Falta de garantia provisória';
-        }else{
-            $reason='Falha nas especificações';
+        try{
+            $competition->save();
+            flash('Concurso registado com sucesso')->success();
+            return redirect()->route('competitions.index');
+        } catch (\Exception $exception){
+            flash('Erro ao registar concurso: '.$exception->getMessage())->error();
+                    return redirect()->back()->withInput();
         }
-        return $reason;
-    }
-    public function verifyCompetitionType($position){
-        if($position==0) {
-            $competition_type ='Público';
-        }elseif ($position==1){
-            $competition_type ='Limitado';
-        }elseif ($position==2){
-            $competition_type ='Cotações';
-        }else{
-            $competition_type='Manifestação de Interesse';
-        }
-        return $competition_type;
-    }
-    public function verifyInstitutionType($postion){
 
-        if($postion==0){
-            $institution_type = 'Estado';
-        }elseif ($postion==1){
-            $institution_type = 'ONG';
-        }elseif($postion==2){
-            $institution_type = 'Privado';
-        }else{
-            $institution_type = 'Particular';
-        }
-        return $institution_type;
+
     }
 
 

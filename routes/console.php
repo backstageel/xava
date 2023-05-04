@@ -29,6 +29,7 @@ Artisan::command('ensure-database-state-is-loaded', function () {
         new Database\States\EnsurePersonPrefixesArePresent,
         new Database\States\EnsureCustomerStatusesArePresent,
         new Database\States\EnsureSaleStatusArePresent,
+        new Database\States\EnsureCompanyTypesArePresent,
 
     ])->each->__invoke();
 });

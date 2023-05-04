@@ -12,6 +12,8 @@ class EnsureCompanyTypesArePresent
             return;
         }
         $companyTypes = [
+            ['name' => 'ONG'],
+            ['name' => 'Estado'],
             ['name' => 'Sociedade por Quotas'],
             ['name' => 'SARL'],
             ['name' => 'Particular'],

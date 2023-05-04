@@ -25,7 +25,7 @@ class CompetitionRequest extends FormRequest
         return [
 
             'competition_reference' =>'required|min:3|max:255',
-            'product_type'=>'required|min:3',
+            'product'=>'required|min:3',
 //            'provisional_bank_guarantee'=>'numeric',
 //            'provisional_bank_guarantee_award'=>'numeric',
 //            'provisional_bank_guarantee_award'=>'numeric',

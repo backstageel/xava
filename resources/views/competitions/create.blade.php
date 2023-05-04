@@ -56,50 +56,49 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="institution_type" label="Tipo da Instituição"
-                                                                      :options="$institution_types"/>
-                                        </div>
-
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="competition_type" label="Tipo de Concurso"
-                                                                      :options="$competition_types"/>
-                                        </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.select
-                                                name="institution_name"
+                                                name="customer_id"
                                                 label="Nome da Instituição"
-                                                :options="$company"
-                                                :value="$selected_company_name ?? null"
+                                                :options="$companies"
                                             />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="competition_reference" label="Referência do Concurso"/>
-                                        </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="nature"
-                                                                           label="Indústria do Concurso" :options="$nature"  :value="$selected_nature_name ?? null"/>
+                                            <x-bootstrap::form.select name="competition_type_id"
+                                                                      label="Tipo de Concurso"
+                                                                      :options="$competitionTypes"/>
                                         </div>
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="product_type" label="Tipo de produto"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="competition_reference"
+                                                                     label="Referência do Concurso"/>
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <x-bootstrap::form.select name="product_category_id"
+                                                                      label="Indústria do Concurso"
+                                                                      :options="$productCategories"
+                                                                      :value="$selected_nature_name ?? null"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="product" label="Tipo de produto"/>
+                                        </div>
+
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.date-time-picker name="proposal_delivery_date" label="Data e hora da Entrega da proposta"/>
+                                            <x-bootstrap::form.date-time-picker name="proposal_delivery_date"
+                                                                                label="Data e hora da Entrega da proposta"/>
                                         </div>
-
-
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="bidding_documents_value" label="Preço do caderno.Enc"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="bidding_documents_value"
+                                                                     label="Preço do caderno.Enc"/>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="proposal_value"
-                                                                      label="Valor da Proposta"/>
+                                                                     label="Valor da Proposta"/>
                                         </div>
                                     </div>
 
@@ -108,53 +107,66 @@
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="provisional_bank_guarantee" label="Garantia Bancária Provisoria"/>
+                                            <x-bootstrap::form.input name="provisional_bank_guarantee"
+                                                                     label="Garantia Bancária Provisoria"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="provisional_bank_guarantee_award" label="Prémio da garantia"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="definitive_guarantee" label="Garantia Definitiva"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="definitive_guarantee_award" label="Prémio da garantia"/>
+                                            <x-bootstrap::form.input name="provisional_bank_guarantee_award"
+                                                                     label="Prémio da garantia"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="advance_guarantee" label="Garantia de adiatamento"/>
+                                            <x-bootstrap::form.input name="definitive_guarantee"
+                                                                     label="Garantia Definitiva"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="advance_guarantee_award" label="Prémio da garantia"/>
+                                            <x-bootstrap::form.input name="definitive_guarantee_award"
+                                                                     label="Prémio da garantia"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="advance_guarantee"
+                                                                     label="Garantia de adiatamento"/>
+                                        </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="advance_guarantee_award"
+                                                                     label="Prémio da garantia"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso" :options="$employee"
+                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso"
+                                                                      :options="$employees"
                                                                       :value="$selected_employee_name ?? null"/>
                                         </div>
-                                        <div class="col-5">
-                                            <x-bootstrap::form.select name="technical_proposal_review" label="Responsável pela revisão da proposta" :options="$employee"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="technical_proposal_review"
+                                                                      label="Responsável pela revisão da proposta"
+                                                                      :options="$employees"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="documentary_review"
+                                                                      label="Responsável pela revisão documental"
+                                                                      :options="$employees"/>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="documentary_review" label="Responsável pela revisão documental" :options="$employee"/>
+                                        <div class="col-6">
+                                            <x-bootstrap::form.select name="competition_status_id" label="Por Fazer"
+                                                                      :options="$competitionStatuses"/>
                                         </div>
-                                        <div class="col-2">
-                                            <x-bootstrap::form.input name="to_do" label="Por fazer"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="reason" label="Motivo de derrota" :options="$reason"/>
+                                        <div class="col-6">
+                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de derrota"
+                                                                      :options="$competitionReasons"/>
                                         </div>
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
-                                           <button class="btn btn-success" type="submit">Gravar</button>
+                                            <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
