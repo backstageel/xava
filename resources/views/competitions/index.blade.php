@@ -65,13 +65,13 @@
                     <tbody>
                     @foreach($competitions as $competition)
                         <tr>
-                            <td>{{$competition->competition_number}}</td>
+                            <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
-                            <td>{{$competition->institution_type}}</td>
-                            <td>{{$competition->institution_name}}</td>
-                            <td>{{$competition->competition_type}}</td>
+                            <td>{{$competition->customer->customerable->companyType?->name}}</td>
+                            <td>{{$competition->customer->customerable->name}}</td>
+                            <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
-                            <td>{{$competition->nature}}</td>
+                            <td>{{$competition->product->productCategory->name}}</td>
                             <td>{{$competition->product_type}}</td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
@@ -81,8 +81,8 @@
                             <td>{{$competition->advance_guarantee_award}}</td>
                             <td>{{$competition->proposal_delivery_date}}</td>
                             <td>{{$competition->bidding_documents_value}}</td>
-                            <td>{{$competition->reason}}</td>
-                            <td>{{$competition->to_do}}</td>
+                            <td>{{$competition->competitionReason->name}}</td>
+                            <td>{{$competition->competitionStatus->name}}</td>
                             <td>{{$competition->proposal_value}}</td>
                             <td>{{$competition->responsible}}</td>
                             <td>{{$competition->technical_proposal_review}}</td>

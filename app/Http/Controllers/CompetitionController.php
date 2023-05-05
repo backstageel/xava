@@ -22,9 +22,17 @@ class CompetitionController extends Controller
      */
     public function index()
     {
-
-        $competitions=Competition::with('ProductCategory')->paginate(1000);
-        return view('competitions.index',compact('competitions'));
+        $competitions = Competition::with(
+            [
+                'customer.customerable.companyType',
+                'ProductCategory',
+                'competitionType',
+                'competitionReason',
+                'competitionStatus',
+                'product.productCategory'
+            ]
+        )->paginate(1000);
+        return view('competitions.index', compact('competitions'));
     }
 
     /**
@@ -32,18 +40,29 @@ class CompetitionController extends Controller
      */
     public function create()
     {
-      $employees =  Person::whereNotNull('user_id')->pluck('first_name','id');
+        $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
-        $companies = Company::pluck('name','id');
+        $companies = Company::pluck('name', 'id');
 
-        $companyTypes  = CompanyType::pluck('name','id');
-        $competitionTypes = CompetitionType::pluck('name','id');
-        $competitionReasons = CompetitionReason::pluck('name','id');
-        $competitionStatuses = CompetitionStatus::pluck('name','id');
-        $productCategories = ProductCategory::pluck('name','id');
+        $companyTypes = CompanyType::pluck('name', 'id');
+        $competitionTypes = CompetitionType::pluck('name', 'id');
+        $competitionReasons = CompetitionReason::pluck('name', 'id');
+        $competitionStatuses = CompetitionStatus::pluck('name', 'id');
+        $productCategories = ProductCategory::pluck('name', 'id');
 
 
-        return view('competitions.create',compact('competitionTypes','companyTypes','companies','competitionReasons','employees','competitionStatuses','productCategories'));
+        return view(
+            'competitions.create',
+            compact(
+                'competitionTypes',
+                'companyTypes',
+                'companies',
+                'competitionReasons',
+                'employees',
+                'competitionStatuses',
+                'productCategories'
+            )
+        );
     }
 
     /**
@@ -51,7 +70,6 @@ class CompetitionController extends Controller
      */
     public function store(CompetitionRequest $request)
     {
-
         $competition = new Competition();
 
         $responsible = Person::find($request->input('responsible'));
@@ -63,12 +81,12 @@ class CompetitionController extends Controller
         ]);
 
         Date::setLocale('pt-BR');
-        $last_Id =Competition::latest()->value('id');
+        $last_Id = Competition::latest()->value('id');
 
-        $competition->competition_type_id=$request->input('competition_type_id');
-        $competition->competition_reason_id=$request->input('competition_reason_id');
+        $competition->competition_type_id = $request->input('competition_type_id');
+        $competition->competition_reason_id = $request->input('competition_reason_id');
         $competition->competition_month = Date::now()->format('F');
-        $competition->internal_reference = ('XV'.(1+$last_Id));
+        $competition->internal_reference = ('XV' . (1 + $last_Id));
         $competition->customer_id = $request->input('customer_id');
         $competition->competition_reference = $request->input('competition_reference');
         $competition->product_category_id = $request->input('product_category_id');
@@ -76,27 +94,25 @@ class CompetitionController extends Controller
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
         $competition->definitive_guarantee = $request->input('definitive_guarantee');
-        $competition->definitive_guarantee_award= $request->input('definitive_guarantee_award');
+        $competition->definitive_guarantee_award = $request->input('definitive_guarantee_award');
         $competition->advance_guarantee = $request->input('advance_guarantee');
-        $competition->advance_guarantee_award= $request->input('advance_guarantee_award');
+        $competition->advance_guarantee_award = $request->input('advance_guarantee_award');
         $competition->proposal_delivery_date = $request->input('proposal_delivery_date');
-        $competition->bidding_documents_value= $request->input('bidding_documents_value');
-        $competition->competition_status_id= $request->input('competition_status_id');
+        $competition->bidding_documents_value = $request->input('bidding_documents_value');
+        $competition->competition_status_id = $request->input('competition_status_id');
         $competition->proposal_value = $request->input('proposal_value');
         $competition->responsible = $responsible->first_name;
-        $competition->technical_proposal_review= $technicalReview->first_name;
-        $competition->documentary_review= $documentaryReview->first_name;
+        $competition->technical_proposal_review = $technicalReview->first_name;
+        $competition->documentary_review = $documentaryReview->first_name;
 
-        try{
+        try {
             $competition->save();
             flash('Concurso registado com sucesso')->success();
             return redirect()->route('competitions.index');
-        } catch (\Exception $exception){
-            flash('Erro ao registar concurso: '.$exception->getMessage())->error();
-                    return redirect()->back()->withInput();
+        } catch (\Exception $exception) {
+            flash('Erro ao registar concurso: ' . $exception->getMessage())->error();
+            return redirect()->back()->withInput();
         }
-
-
     }
 
 
@@ -105,7 +121,6 @@ class CompetitionController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**

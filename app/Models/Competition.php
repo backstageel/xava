@@ -7,9 +7,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Competition extends Model
 {
 
-    public function company()
+    public function customer()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function competitionType(){
+        return $this->belongsTo(CompetitionType::class);
+    }
+
+    public function competitionStatus(){
+        return $this->belongsTo(CompetitionStatus::class);
+    }
+
+    public function competitionReason(){
+        return $this->belongsTo(CompetitionReason::class);
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 
     public function productcategory()
