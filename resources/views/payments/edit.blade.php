@@ -1,18 +1,18 @@
 @extends("layouts.app")
 @section("style")
-
+    <
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Emprestimo</div>
+        <div class="breadcrumb-title pe-3">Pagamento</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"> Emprestimo</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar Estado Pagamento</li>
                 </ol>
             </nav>
         </div>
@@ -24,14 +24,14 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form  method='PUT'  action="{{route('loans.update', $loan)}}">
-                        <!-- SmartWizard html -->
+                    <x-bootstrap::form.form  method='PUT'  class="row g-3" action="{{route('payments.update', $payment)}}">
+
                         <div id="smartwizard">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                       Editar de Emprestimo
+                                        Estado Do Pagamento
                                     </a>
                                 </li>
 
@@ -42,15 +42,12 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-5">
-
-                                            <x-bootstrap::form.select name="order_status" label="Estado do Pedido"
-                                                                      :options="$order_status"/>
+                                            <x-bootstrap::form.select name="status" label="Estado do Pagamento" :options="$status"/>
                                         </div>
-
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Gravar</button>
+                                            <button class="btn btn-success" type="submit">Editar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

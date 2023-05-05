@@ -28,7 +28,7 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>#</th>
                         <th>Valor do Pagamento</th>
                         <th>Meses</th>
                         <th>Estado do Pagamento</th>
@@ -39,19 +39,19 @@
                     <tbody>
 
                     @foreach($payments as $payment)
-                        @if($payment->loan_id == $loan->id )
+
 
 
                         <tr>
-                            <td>{{$payment->id}}</td>
+                            <td>{{$payment->id}}o Mes</td>
                             <td>{{$payment->amount}}</td>
                             <td>{{$payment->month}}</td>
                             <td>{{$payment->status}}</td>
                             <td>
-                                <a href="{{route('$payments.show', $payment)}}"> mostrar detalhes </a>
+                                <a href="{{route('payments.edit', $payment)}}"> Editar </a>
                             </td>
                         </tr>
-                        @endif
+
                     @endforeach
 
                     </tbody>

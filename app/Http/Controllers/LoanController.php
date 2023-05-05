@@ -31,16 +31,12 @@ class LoanController extends Controller
         return view('loans.form');
     }
 
-
-
-
-
     //metodo para simulacao do emprestimo
     public function store(LoanRequest $request)
     {
         $user = $request->user();
         $person = Person::where('user_id', $user->id)->first();
-        $employee = Employee::where('person_id', $person->user_id)->first();
+        $employee = Employee::where('person_id', $person->id)->first();
 
             $loan = new Loan();
             $loan->amount = $request->input(['amount']);
@@ -97,13 +93,16 @@ class LoanController extends Controller
                 $payment->loan_id = $loan->id;
                 $payment->months = now()->addMonths($i);
                 $payment->status = 'Pendente';
+                $payment->amount = $loan->installment;
                 $payment->payment_date = null;
+                $payment->save();
 
 
             }
             flash('pagamentos gerados')->success();
             return redirect()->route('loans.index');
         } else {
+
             #notificar email do usuario que foi recusado o emprestimo
             return redirect()->route('loans.index');
         }

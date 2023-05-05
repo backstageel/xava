@@ -16,12 +16,18 @@
             </nav>
         </div>
         <div class="ms-auto">
-            <div class="btn-group">
+
                 @if($loan->order_status == 'Pendente de aprovacao')
-                    <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Editar</a>
+                <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Editar</a>
 
                 @endif
-                    <a href="{{route('payments.index', $loan)}}" class="btn btn-primary">Ver Pagamentos</a>
+
+                    <x-bootstrap::form.form class="row g-3" action="{{route('payments.store')}}">
+                        @csrf
+                        <input type="hidden" name="loan_id" value="{{$loan->id}}"/>
+
+                        <button class="btn btn-primary" >Ver Pagamentos</button>
+                    </x-bootstrap::form.form>
 
 
 
