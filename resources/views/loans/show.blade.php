@@ -17,10 +17,11 @@
         </div>
         <div class="ms-auto">
 
-                @if($loan->order_status == 'Pendente de aprovacao')
-                <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Editar</a>
 
-                @endif
+                <a href="{{route('loans.edit', $loan)}}" class="btn btn-primary">Aceitar/Revogar Pedido de Emprestimo</a>
+
+
+                @if($loan->order_status == 2)
 
                     <x-bootstrap::form.form class="row g-3" action="{{route('payments.store')}}">
                         @csrf
@@ -28,6 +29,7 @@
 
                         <button class="btn btn-primary" >Ver Pagamentos</button>
                     </x-bootstrap::form.form>
+                    @endif
 
 
 

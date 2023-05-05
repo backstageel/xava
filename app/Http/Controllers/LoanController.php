@@ -91,7 +91,7 @@ class LoanController extends Controller
             for($i=1; $i<=$loan->months; $i++) {
                 $payment = new Payment();
                 $payment->loan_id = $loan->id;
-                $payment->months = now()->addMonths($i);
+                $payment->months = now()->addMonths($i)->format('m');
                 $payment->status = 'Pendente';
                 $payment->amount = $loan->installment;
                 $payment->payment_date = null;

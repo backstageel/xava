@@ -28,7 +28,7 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>id de Pagamento</th>
                         <th>Valor do Pagamento</th>
                         <th>Meses</th>
                         <th>Estado do Pagamento</th>
@@ -43,9 +43,9 @@
 
 
                         <tr>
-                            <td>{{$payment->id}}o Mes</td>
+                            <td>{{$payment->id}}</td>
                             <td>{{$payment->amount}}</td>
-                            <td>{{$payment->month}}</td>
+                            <td>{{$payment->months}}</td>
                             <td>{{$payment->status}}</td>
                             <td>
                                 <a href="{{route('payments.edit', $payment)}}"> Editar </a>
