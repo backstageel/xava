@@ -67,8 +67,8 @@
                         <tr>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
-                            <td>{{$competition->customer->customerable->companyType?->name}}</td>
-                            <td>{{$competition->customer->customerable->name}}</td>
+                            <td>{{$competition->customer?->customerable->companyType?->name}}</td>
+                            <td>{{$competition->customer?->customerable->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
                             <td>{{$competition->product->productCategory->name}}</td>
