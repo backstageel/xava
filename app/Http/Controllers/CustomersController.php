@@ -10,9 +10,12 @@ use App\Models\District;
 use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Province;
+use Illuminate\Database\Eloquent\Model;
 
 class CustomersController extends Controller
 {
+
+
     public function index()
     {
         $customers = Customer::withCustomerable()->orderByDesc('created_at')->paginate();

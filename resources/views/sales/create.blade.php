@@ -56,7 +56,9 @@
 
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="customer_id" label="Cliente"
-                                                                      :options="$customers "  required/>
+                                                    :options="$customers"  required
+                                           />
+
                                         </div>
 
                                         <div class="col-4">

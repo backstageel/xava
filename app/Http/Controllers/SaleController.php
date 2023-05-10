@@ -10,6 +10,7 @@ use App\Models\SaleStatus;
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleRequest;
+use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
 
 class SaleController extends Controller
@@ -27,21 +28,22 @@ class SaleController extends Controller
     {
 
         $company_names = Company::pluck('name');
-        $id_customer_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('id');
+        $id_customer_company =DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
         $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
 
-        $customers_person = Customer::all();
-        $id_customer_person =  Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('id');
-        $person_names = Person::whereIn('id', $customers_person->pluck('customerable_id'))
-            ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
+        $customers_person =Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('customerable_id');
+        $id_customer_person =DB::table('customers')->where('customerable_type', 'App\Models\Person')->get()->pluck('id');
+        $person_names =DB::table('people')->whereIn('id', $customers_person)
+           ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
+        $person = array_combine( $id_customer_person->toArray(), $person_names->toArray());
 
-        $person = array_combine( ($id_customer_person)->toArray(), $person_names->toArray());
-        $customers = $company+  $person;
+        $customers = $person + $company;
+
         $sale_statuses = SaleStatus::pluck('name', 'id');
+
         return view(
             'sales.create',
             compact(
-
                 'customers',
                 'sale_statuses'
 
@@ -56,6 +58,7 @@ class SaleController extends Controller
             $sale = new Sale();
             $sale->sale_ref = $request->input(['sale_ref']);
             $sale->customer_id = $request->input('customer_id');
+
             $customer= Customer::where('id', $sale->customer_id)->first();
 
             if ($customer->customerable_type == Company::class) {
