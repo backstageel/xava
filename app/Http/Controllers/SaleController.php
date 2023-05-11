@@ -26,8 +26,8 @@ class SaleController extends Controller
 
     public function create()
     {
-
-        $company_names = Company::pluck('name');
+        $customers_company =Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
+        $company_names = Company::whereIn('id', $customers_company)->pluck('name');
         $id_customer_company =DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
         $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
 
