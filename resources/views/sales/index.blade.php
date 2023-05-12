@@ -33,7 +33,7 @@
                     <thead>
                     <tr>
 
-                        <th>Data</th>
+                        <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
                         <th>Estado da Venda</th>

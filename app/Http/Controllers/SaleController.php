@@ -18,7 +18,8 @@ class SaleController extends Controller
     public function index()
     {
 
-        $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])->paginate(20);
+        $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
+                    ->orderBy('sale_date', 'desc')->paginate(100);
 
         return view('sales.index', compact('sales'));
     }
@@ -26,19 +27,26 @@ class SaleController extends Controller
 
     public function create()
     {
+        #busca customerable_id da tabela customer para poder comparar com id das companias
         $customers_company =Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
+        # busca todos nomes de companias que sejam clientes
         $company_names = Company::whereIn('id', $customers_company)->pluck('name');
+        # busca id de clientes que pertencam
         $id_customer_company =DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
+        # combina o array de id de cliente co  o seu nome
         $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
 
+        #busca customerable_id da tabela customer para poder comparar com id da tabela pessoa
         $customers_person =Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('customerable_id');
+        # busca id de clientes que pertencam
         $id_customer_person =DB::table('customers')->where('customerable_type', 'App\Models\Person')->get()->pluck('id');
+        # busca todos nomes de pessoas que sejam clientes na tabela pessoa juntando first_name com last_name
         $person_names =DB::table('people')->whereIn('id', $customers_person)
            ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
+        # combina o array de id de cliente co  o seu nome
         $person = array_combine( $id_customer_person->toArray(), $person_names->toArray());
 
         $customers = $person + $company;
-
         $sale_statuses = SaleStatus::pluck('name', 'id');
 
         return view(
