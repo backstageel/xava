@@ -44,7 +44,7 @@
                             <h5 class="d-flex align-items-center mb-3">Detalhes Pessoais</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Genero</h6>
+                                    <h6 class="mb-0">Gênero</h6>
                                     <span class="text-secondary">{{$employee->person->gender->name}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

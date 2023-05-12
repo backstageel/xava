@@ -66,7 +66,7 @@
 
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="gender_id" label="genero"
+                                            <x-bootstrap::form.select name="gender_id" label="Gênero"
                                                                       :options="$genders"/>
                                         </div>
 

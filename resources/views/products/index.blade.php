@@ -38,9 +38,8 @@
                         <th>Descrição</th>
                         <th>Categoria</th>
                         <th>Marca</th>
-
                         <th>Preço compra</th>
-                         <th>Data a criação</th>
+                        <th>Data a criação</th>
                     </tr>
                     </thead>
                     <tbody>

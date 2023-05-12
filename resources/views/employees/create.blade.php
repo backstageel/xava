@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-2">
-                                            <x-bootstrap::form.select name="gender_id" label="Sexo"
+                                            <x-bootstrap::form.select name="gender_id" label="Genero"
                                                                       :options="$genders"/>
                                         </div>
                                         <div class="col-3">
@@ -82,14 +82,14 @@
                                                                       :options="$civilStates"/>
                                         </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="image" label="Foto do colaborador"
+                                            <x-bootstrap::form.input name="image" label="Foto do Colaborador"
                                                                      type="file" accept="image/*"/>
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_country_id" label="Pais de Nascimento"
+                                            <x-bootstrap::form.select name="birth_country_id" label="País de Nascimento"
                                                                       :options="$countries" :default="152"/>
                                         </div>
                                         <div class="col-4">
@@ -158,7 +158,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="emergency_name"
-                                                                     label="Nome para Emergencia"/>
+                                                                     label="Nome para Emergencias"/>
                                         </div>
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="emergency_phone"
@@ -173,17 +173,17 @@
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="address_country_id"
-                                                                      label="Pais de Nascimento" :options="$countries"
+                                                                      label="País de Morada" :options="$countries"
                                                                       :default="152"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="address_province_id"
-                                                                      label="Provincia de Nascimento"
+                                                                      label="Provincia de Morada"
                                                                       :options="$provinces"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="address_district_id"
-                                                                      label="Distrito de Nascimento"
+                                                                      label="Distrito de Morada"
                                                                       :options="$districts"/>
                                         </div>
                                     </div>

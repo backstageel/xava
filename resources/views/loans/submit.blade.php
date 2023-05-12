@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -29,7 +29,7 @@
 
 
                                 <hr class="my-4"/>
-                                <h5 class="d-flex align-items-center mb-3">Dados da Simulacao de Empretimo</h5>
+                                <h5 class="d-flex align-items-center mb-3">Dados da Simulação de Emprestimo</h5>
                                 <ul class="list-group list-group-flush">
 
 
@@ -39,12 +39,12 @@
                                             class="text-secondary">{{$employee->person->first_name}} {{$employee->person->last_name}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                        <h6 class="mb-0">Valor do emprestimo</h6>
+                                        <h6 class="mb-0">Valor do Emprestimo</h6>
                                         <span class="text-secondary">{{ $loan->amount}}</span>
 
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                        <h6 class="mb-0">Prestacao Mensal</h6>
+                                        <h6 class="mb-0">Prestação Mensal</h6>
                                         <span class="text-secondary">{{$loan->installment}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

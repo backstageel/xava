@@ -18,9 +18,7 @@
             </nav>
         </div>
         <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('loans_simulator.create')}}" class="btn btn-primary">Simular Emprestimo</a>
-            </div>
+
         </div>
     </div>
     <!--end breadcrumb-->
@@ -34,7 +32,7 @@
                     <tr>
                         <th>Nome</th>
                         <th>Valor de Emprestimo</th>
-                        <th>Valor da divida</th>
+                        <th>Valor da Divida</th>
                         <th>Estado do Emprestimo</th>
 
 

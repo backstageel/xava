@@ -62,7 +62,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="sale_ref" label="Referencia"/>
+                                            <x-bootstrap::form.input name="sale_ref" label="Referência"/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
@@ -73,18 +73,18 @@
 
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="notes" label="Descricao da venda"/>
+                                            <x-bootstrap::form.input name="notes" label="Descrição da Venda"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="sale_status_id" label="Estado da venda"
+                                            <x-bootstrap::form.select name="sale_status_id" label="Estado da Venda"
                                                                       :options="$sale_statuses"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="sale_date" label="data da venda"/>
+                                            <x-bootstrap::form.date-picker name="sale_date" label="Data da Venda"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="methodo de pagamento"/>
+                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>
                                         </div>
 
                                     </div>
@@ -103,7 +103,7 @@
                                             <x-bootstrap::form.input name="amount_received" label="Valor Recebido"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="transport_value" label="Valor do transporte"
+                                            <x-bootstrap::form.input name="transport_value" label="Valor do Transporte"
                                             />
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissao de Intermediários" />
+                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
                                         </div>
                                         </div>
                                          <div class="row float-end">

@@ -33,7 +33,7 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Tipo de Clientes</th>
+                        <th>Tipo de Cliente</th>
                         <th>Data de Criação</th>
                     </tr>
                     </thead>

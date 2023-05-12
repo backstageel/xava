@@ -41,21 +41,21 @@
                         <th>Tipo Concurso</th>
                         <th>Referência</th>
                         <th>Natureza</th>
-                        <th>Tipo produto</th>
-                        <th>Garantia B.provisoria</th>
+                        <th>Tipo Produto</th>
+                        <th>Garantia B.Provisoria</th>
                         <th>Prémio</th>
-                        <th>Garantia definitiva</th>
+                        <th>Garantia Definitiva</th>
                         <th>Prémio</th>
                         <th>Garantia Adiatamento</th>
                         <th>Prémio</th>
-                        <th>Data e hora Entrega proposta</th>
-                        <th>Valor do caderno.Enc</th>
+                        <th>Data e hora Entrega Proposta</th>
+                        <th>Valor do Caderno.Enc</th>
                         <th>Motivo</th>
-                        <th>Por fazer</th>
-                        <th>Valor proposta</th>
+                        <th>Por Fazer</th>
+                        <th>Valor Proposta</th>
                         <th>Responsável</th>
-                        <th>Responsável Rev.proposta técnica</th>
-                        <th>Responsável Rev.documental</th>
+                        <th>Responsável Rev.Proposta Técnica</th>
+                        <th>Responsável Rev.Documental</th>
 
 
 

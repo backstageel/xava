@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Adicionar productos a venda</h6>
+            <h6 class="mb-0 text-uppercase">Adicionar Productos a Venda</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
@@ -55,7 +55,7 @@
                                                                           class="form-control" :options="$products" required/>
                                             </div>
                                             <div class="col-2">
-                                                <x-bootstrap::form.input name="unit_price" label="Preco Unitario de Venda"
+                                                <x-bootstrap::form.input name="unit_price" label="Preco Unitário de Venda"
                                                                          class="form-control" required/>
                                             </div>
                                             <div class="col-5">
@@ -67,8 +67,8 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <button class="btn btn-success" name="form_products" type="submit">Gravar</button>
-                                            <a href="{{route('sales.index')}}" class="btn btn-secondary" >Cancelar</a>
+                                            <button class="btn btn-success" name="form_products" type="submit">Adicionar</button>
+                                            <a href="{{route('sales.index')}}" class="btn btn-secondary" >Terminar</a>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

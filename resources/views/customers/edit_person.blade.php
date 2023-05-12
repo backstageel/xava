@@ -12,7 +12,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lista de Clientes</li>
+                    <li class="breadcrumb-item active" aria-current="page">Clientes</li>
                 </ol>
             </nav>
         </div>
@@ -50,7 +50,7 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="first_name" label="primeiros nome"
+                                            <x-bootstrap::form.input name="first_name" label="Primeiros Nomes"
                                                                      value="{{old('first_name', $person->first_name)}}"/>
                                         </div>
                                         <div class="col-4">
@@ -59,7 +59,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="email" label="email"
+                                            <x-bootstrap::form.input name="email" label="Email"
                                                                      value="{{old('email', $person->email)}}"/>
                                         </div>
 
@@ -70,7 +70,7 @@
                                                                      value="{{old('nuit', $person->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="gender_id" label="Genero"
+                                            <x-bootstrap::form.select name="gender_id" label="Gênero"
                                                                       :options="$genders"
                                                                       default="{{old('gender_id', $person->gender_id)}}"/>
                                         </div>

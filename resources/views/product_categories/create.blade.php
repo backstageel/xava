@@ -2,7 +2,7 @@
 
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Pessoas</div>
+        <div class="breadcrumb-title pe-3">Categoria</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Registar nova Pessoa</h6>
+            <h6 class="mb-0 text-uppercase">Registar Categoria</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
@@ -28,7 +28,7 @@
                         <x-bootstrap::form.form class="row g-3" action="{{route('product_categories.store')}}">
                             <div class="row">
                                 <div class="col">
-                                    <x-bootstrap::form.input name="name" label="nome de categoria"/>
+                                    <x-bootstrap::form.input name="name" label="Nome da Categoria"/>
                                 </div>
                             </div>
 

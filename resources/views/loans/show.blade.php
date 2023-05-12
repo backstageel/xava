@@ -1,4 +1,4 @@
-'
+
 
 @extends("layouts.app")
 @section("wrapper")
@@ -53,13 +53,13 @@
 
 
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Nome Do Colaborados</h6>
+
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Nome</h6>
+                                <h6 class="mb-0">Nome Do Colaborador</h6>
                                 <span class="text-secondary">{{$employee->person->full_name}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">contacto</h6>
+                                <h6 class="mb-0">Contacto</h6>
                                 <span class="text-secondary">{{$employee->person->phone}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

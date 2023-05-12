@@ -35,8 +35,8 @@
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>NUIT</th>
-                        <th>contacto</th>
-                        <th>Data da criação</th>
+                        <th>Contacto</th>
+                        <th>Data da Criação</th>
 
 
                     </tr>

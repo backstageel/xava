@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -31,7 +31,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Simulacao de Emprestimo
+                                        Simulação de Emprestimo
                                     </a>
                                 </li>
 
@@ -42,7 +42,7 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="amount" label="Valor do Empretimo" required/>
+                                            <x-bootstrap::form.input name="amount" label="Valor do Emprestimo" required/>
                                         </div>
 
 

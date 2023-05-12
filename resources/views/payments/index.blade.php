@@ -28,7 +28,7 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>id de Pagamento</th>
+                        <th>Id do Pagamento</th>
                         <th>Valor do Pagamento</th>
                         <th>Meses</th>
                         <th>Estado do Pagamento</th>

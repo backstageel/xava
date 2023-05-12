@@ -38,12 +38,12 @@
                         <th>Descricao</th>
                         <th>Estado da Venda</th>
                         <th>Preco de Venda Total</th>
-                        <th>nr da Factura</th>
-                        <th>Metodo de Pagamento</th>
+                        <th>Nr da Factura</th>
+                        <th>Método de Pagamento</th>
                         <th>Valor Recebido</th>
                         <th>Nr De Recibo</th>
-                        <th>Despesa de Transporte</th>
-                        <th>Comissao de Intermediarios</th>
+                        <th>Despesas de Transporte</th>
+                        <th>Comissão de Intermediários</th>
                         <th>Outras Despesas</th>
                         <th>Divida</th>
                         <th>Data de Pagamento</th>

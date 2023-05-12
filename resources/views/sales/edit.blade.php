@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -60,16 +60,16 @@
 
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="notes" label="Descricao da venda"/>
+                                            <x-bootstrap::form.input name="notes" label="Descrição da Venda"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="sale_status_id" label="Estado da venda"
+                                            <x-bootstrap::form.select name="sale_status_id" label="Estado da Venda"
                                                                       :options="$sale_statuses"/>
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="metodo de pagamento"/>
+                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>
                                         </div>
 
                                     </div>
@@ -88,7 +88,7 @@
                                             <x-bootstrap::form.input name="amount_received" label="Valor Recebido"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="transport_value" label="Valor do transporte"
+                                            <x-bootstrap::form.input name="transport_value" label="Valor do Transporte"
                                             />
                                         </div>
                                     </div>
@@ -102,16 +102,16 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissao de Intermediários" />
+                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
                                         </div>
                                     </div>
                                     <div class="row float-end">
 
-                                                <a href="{{route('sales.edit', $sale)}}" >
+
                                                     <button name ="addProduct" class="btn btn-primary">Adicionar Producto</button></a>
 
-                                        <div class="col-12">
-                                            <button class="btn btn-success"  type="submit">Gravar</button>
+                                        <div class="row float-end">
+                                            <button class="btn btn-success"  type="submit">Salvar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

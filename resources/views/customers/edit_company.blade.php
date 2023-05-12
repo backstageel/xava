@@ -53,7 +53,7 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="email" label="email"
+                                            <x-bootstrap::form.input name="email" label="Email"
                                                                      value="{{old('email', $company->email)}}"/>
                                         </div>
                                     </div>

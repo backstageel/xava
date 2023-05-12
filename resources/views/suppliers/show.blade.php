@@ -91,7 +91,7 @@
                             </div>
                             <div class="mb-3 row">
                                 <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina
-                                    web</label>
+                                    Web</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
                                            value="{{$supplier->supplierable->website}}">

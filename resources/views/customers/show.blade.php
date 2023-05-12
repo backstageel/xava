@@ -1,4 +1,4 @@
-'
+
 @extends("layouts.app")
 @section("wrapper")
     <!--breadcrumb-->
@@ -68,31 +68,31 @@
                                     <span class="text-secondary">{{$customer->customerable->email}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">nuit</h6>
+                                    <h6 class="mb-0">NUIT</h6>
                                     <span class="text-secondary">{{$customer->customerable->nuit}}</span>
                                 </li>
                                 @if( ($customer->customerable->gender_id) !== null)
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                        <h6 class="mb-0">Genero</h6>
+                                        <h6 class="mb-0">Gênero</h6>
                                         <span class="text-secondary">{{$gender->name}}</span>
                                     </li>
 
                                 @endif
 
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">nacionalidade</h6>
+                                    <h6 class="mb-0">Nacionalidade</h6>
                                     @if($country !==null)
                                         <span class="text-secondary">{{$country->name}}</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">provincia</h6>
+                                    <h6 class="mb-0">Provincia</h6>
                                     @if($province!==null)
                                         <span class="text-secondary">{{$province->name}}</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">distrito</h6>
+                                    <h6 class="mb-0">Distrito</h6>
                                     @if($district!==null)
                                         <span class="text-secondary">{{$district->name}}</span>
                                     @endif
@@ -118,7 +118,7 @@
                             @if($customer_type =="Empresa")
                                 <div class="mb-3 row">
                                     <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina
-                                        web</label>
+                                        Web</label>
                                     <div class="col-sm-9">
                                         <input type="text" readonly class="form-control-plaintext" id="staticEmail"
                                                value="{{$customer->customerable->website}}">
@@ -127,7 +127,7 @@
                             @endif
                             <div class="mb-3 row">
                                 <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo de
-                                    cliente</label>
+                                    Cliente</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
                                            value="{{$customer_type}}">

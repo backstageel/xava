@@ -31,11 +31,11 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body"> <h5 class="d-flex align-items-center mb-3">Dados da Venda</h5>
 
                         </div>
                         <hr class="my-4"/>
-                        <h5 class="d-flex align-items-center mb-3">Dados da Venda</h5>
+
                         <ul class="list-group list-group-flush">
 
 
@@ -44,18 +44,15 @@
                                 <span class="text-secondary">{{$sale->id}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Referencia </h6>
+                                <h6 class="mb-0">Referência </h6>
                                 <span class="text-secondary">{{$sale->sale_ref}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0">Nome do Cliente</h6>
-
                                     <span class="text-secondary">{{$sale->customer_name}}</span>
-
-
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Descricao da Venda</h6>
+                                <h6 class="mb-0">Descrição da Venda</h6>
                                 <span class="text-secondary">{{$sale->notes}}</span>
                             </li>
 
@@ -70,16 +67,13 @@
                             <table id="example2" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-
                                     <th>Produto</th>
                                     <th>Quantidade</th>
-                                    <th>Preco de Venda</th>
+                                    <th>Preço de Venda</th>
                                     <th>Valor de Venda</th>
-                                    <th>Preco de Compra</th>
+                                    <th>Preço de Compra</th>
                                     <th>Valor de Compra</th>
                                     <th>Impostos</th>
-
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -91,11 +85,6 @@
                                         <td>{{$saleitem->sub_total}}</td>
                                         <td>{{$saleitem->product->purchase_price}}</td>
                                         <td>{{$saleitem->product->purchase_price * $saleitem->quantity}}</td>
-
-
-
-
-
                                     </tr>
                                 @endforeach
 

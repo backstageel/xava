@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -82,7 +82,7 @@
                                                                       :value="$selected_nature_name ?? null"/>
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="product" label="Tipo de produto"/>
+                                            <x-bootstrap::form.input name="product" label="Tipo de Produto"/>
                                         </div>
 
                                     </div>
@@ -90,11 +90,11 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <x-bootstrap::form.date-time-picker name="proposal_delivery_date"
-                                                                                label="Data e hora da Entrega da proposta"/>
+                                                                                label="Data e hora da Entrega da Proposta"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="bidding_documents_value"
-                                                                     label="Preço do caderno.Enc"/>
+                                                                     label="Preço do Caderno.Enc"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="proposal_value"
@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="provisional_bank_guarantee_award"
-                                                                     label="Prémio da garantia"/>
+                                                                     label="Prémio da Garantia"/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -122,17 +122,17 @@
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="definitive_guarantee_award"
-                                                                     label="Prémio da garantia"/>
+                                                                     label="Prémio da Garantia"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="advance_guarantee"
-                                                                     label="Garantia de adiatamento"/>
+                                                                     label="Garantia de Adiatamento"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="advance_guarantee_award"
-                                                                     label="Prémio da garantia"/>
+                                                                     label="Prémio da Garantia"/>
                                         </div>
                                     </div>
                                 </div>
@@ -145,12 +145,12 @@
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="technical_proposal_review"
-                                                                      label="Responsável pela revisão da proposta"
+                                                                      label="Responsável pela revisão da Proposta"
                                                                       :options="$employees"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="documentary_review"
-                                                                      label="Responsável pela revisão documental"
+                                                                      label="Responsável pela Revisão Documental"
                                                                       :options="$employees"/>
                                         </div>
                                     </div>
@@ -160,7 +160,7 @@
                                                                       :options="$competitionStatuses"/>
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de derrota"
+                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de Derrota"
                                                                       :options="$competitionReasons"/>
                                         </div>
                                     </div>
