@@ -49,15 +49,10 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-
-
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
                                         </div>
                                     </div>
-
-
-
                                     <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="notes" label="Descrição da Venda"/>
@@ -74,7 +69,9 @@
 
                                     </div>
 
-
+                                    <div>
+                                        <p style="color: red;"> Todos campos são opcionais</p>
+                                    </div>
 
                                 </div>
 
@@ -105,14 +102,15 @@
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
                                         </div>
                                     </div>
+                                    <div>
+                                        <p style="color: red;"> Todos campos são opcionais</p>
+                                    </div>
                                     <div class="row float-end">
+                                        <button name ="addProduct" class="btn btn-primary">Adicionar Producto</button></a>
 
-
-                                                    <button name ="addProduct" class="btn btn-primary">Adicionar Producto</button></a>
-
-                                        <div class="row float-end">
+                                    <div class="row float-end">
                                             <button class="btn btn-success"  type="submit">Salvar</button>
-                                        </div>
+                                    </div>
                                     </div>
                                     <div class="clearfix"></div>
 
