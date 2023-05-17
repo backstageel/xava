@@ -19,7 +19,7 @@ class SaleController extends Controller
     {
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
-                    ->orderBy('sale_date', 'desc')->paginate(100);
+                    ->orderBy('created_at', 'desc')->paginate(100);
 
         return view('sales.index', compact('sales'));
     }
@@ -110,6 +110,15 @@ class SaleController extends Controller
 
             flash('Produto Adicionado')->success();
             return view('sales.choose_products', compact('sale', 'products'));
+        } else if($request->has('search')){
+            $name = $request->input('name');
+
+            $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
+                ->orderBy('created_at', 'desc')->
+                where('customer_name', 'like', '%'.$name.'%')->get();
+
+            return view('sales.index', compact('sales'));
+
         }
         flash('Erro')->error();
         return redirect()->route('sales.index');

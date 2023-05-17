@@ -62,7 +62,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="sale_ref" label="Referência"/>
+                                            <x-bootstrap::form.input name="sale_ref" label="Referência" required/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
@@ -81,7 +81,7 @@
                                                                       :options="$sale_statuses"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="sale_date" label="Data da Venda"/>
+                                            <x-bootstrap::form.date-picker name="sale_date" label="Data da Venda" required/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>

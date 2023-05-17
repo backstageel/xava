@@ -3750,6 +3750,10 @@ textarea.form-control-lg {
 	color: #6c757d;
 	content: var(--bs-breadcrumb-divider, "/")
 }
+
+.hidden-button{
+    display: none;
+}
 .breadcrumb-item.active {
 	color: #6c757d
 }

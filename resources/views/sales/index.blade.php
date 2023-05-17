@@ -21,6 +21,14 @@
             <div class="btn-group">
                 <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
+            <div class="btn-group">
+
+            </div>
+            <x-bootstrap::form.form class="row g-3" action="{{route('sales.store')}}">
+                @csrf
+                <input type="text" class="border-primary" name="name"  placeholder="Pesquisar" required/>
+                <button class="hidden-button" name="search" type="submit">P</button>
+            </x-bootstrap::form.form>
         </div>
     </div>
     <!--end breadcrumb-->
