@@ -31,7 +31,7 @@ class CompetitionController extends Controller
                 'competitionStatus',
                 'product.productCategory'
             ]
-        )->paginate(1000);
+        )->orderBy('created_at', 'desc')->paginate(1000);
         return view('competitions.index', compact('competitions'));
     }
 
@@ -44,11 +44,11 @@ class CompetitionController extends Controller
 
         $companies = Company::pluck('name', 'id');
 
-        $companyTypes = CompanyType::pluck('name', 'id');
-        $competitionTypes = CompetitionType::pluck('name', 'id');
-        $competitionReasons = CompetitionReason::pluck('name', 'id');
-        $competitionStatuses = CompetitionStatus::pluck('name', 'id');
-        $productCategories = ProductCategory::pluck('name', 'id');
+        $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
+        $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
+        $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
+        $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
+        $productCategories = ProductCategory::orderBy('name')->pluck('name', 'id');
 
 
         return view(
