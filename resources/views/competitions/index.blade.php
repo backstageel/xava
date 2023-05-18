@@ -90,7 +90,9 @@
 
 
 
-
+                            <td>
+                                <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
+                            </td>
 
                         </tr>
                     @endforeach

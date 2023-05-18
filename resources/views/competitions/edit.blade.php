@@ -6,29 +6,29 @@
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Colaboradores</div>
+        <div class="breadcrumb-title pe-3">Concursos</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lista de Colaboradores</li>
+                    <li class="breadcrumb-item active" aria-current="page">Concursos</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Editar Colaborador {{$employee->person->full_name}}</h6>
+
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}"
+                    <x-bootstrap::form.form class="row g-3" action="{{route('competitions.update',$competition)}}"
                                             enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
@@ -36,19 +36,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Dados Pessoais
+                                        Dados do Concurso
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-2">
                                         <span class="num">2</span>
-                                        Dados Profissionais
+                                        Garantias
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-3">
                                         <span class="num">3</span>
-                                        Contactos
+                                        Responsáveis
                                     </a>
                                 </li>
                             </ul>
@@ -56,153 +56,150 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="person_prefix_id" label="Prefixo"
-                                                                      :options="$personPrefixes" :default="$employee->person->person_prefix_id"/>
-                                        </div>
-
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="last_name" label="Apelido" :value="$employee->person->last_name"/>
-                                        </div>
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="first_name" label="Primeiros Nomes"  :value="$employee->person->first_name"/>
+                                            <x-bootstrap::form.select
+                                                name="customer_id"
+                                                label="Nome da Instituição"
+                                                :options="$companies"
+                                            />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <x-bootstrap::form.select name="gender_id" label="Sexo"
-                                                                      :options="$genders"  :default="$employee->person->gender_id"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_type_id"
+                                                                      label="Tipo de Concurso"
+                                                                      :options="$competitionTypes"
+                                            default="{{old('competition_type_id',$competition->competition_type_id)}}"
+                                            />
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="birth_date"
-                                                                           label="Data de Nascimento"  :default="$employee->person->birth_date"/>
-                                        </div>
-                                        <div class="col-2">
-                                            <x-bootstrap::form.select name="civil_state_id" label="Estado Civil"
-                                                                      :options="$civilStates"  :default="old('civil_state_id',$employee->person->civil_state_id)"/>
-                                        </div>
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="image" label="Foto do colaborador"
-                                                                     type="file" accept="image/*"/>
+                                            <x-bootstrap::form.input name="competition_reference"
+                                                                     label="Referência do Concurso"
+                                                                     value="{{old('competition_reference', $competition->competition_reference)}}"/>
+
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_country_id" label="Pais de Nascimento"
-                                                                      :options="$countries" :default="old('birth_country_id',$employee->person->birth_country_id)"/>
+                                        <div class="col-6">
+                                            <x-bootstrap::form.select name="product_category_id"
+                                                                      label="Indústria do Concurso"
+                                                                      :options="$productCategories"
+                                                                      default="{{old('product_category_id',$competition->product_category_id)}}"/>
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_province_id"
-                                                                      label="Provincia de Nascimento"
-                                                                      :options="$provinces"   :default="old('birth_province_id',$employee->person->birth_province_id)"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="birth_district_id"
-                                                                      label="Distrito de Nascimento"
-                                                                      :options="$districts"   :default="old('birth_district_id',$employee->person->birth_district_id)"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="identity_document_type_id"
-                                                                      label="Tipo de Documento"
-                                                                      :options="$identityDocumentTypes"   :default="old('identity_document_type_id',$employee->person->identity_document_type_id)"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="identity_document_number"
-                                                                     label="Número de Documento"   :value="old('identity_document_number',$employee->person->identity_document_number)"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="identity_document_emission_date"
-                                                                           label="Data de Emissão"   :value="old('identity_document_emission_date',$employee->person->identity_document_emission_date)"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.date-picker name="identity_document_expiry_date"
-                                                                           label="Data de Validade"   :value="old('identity_document_number',$employee->person->identity_document_expiry_date)"/>
+                                        <div class="col-6">
+                                            <x-bootstrap::form.input name="product" label="Tipo de Produto"
+                                            value="{{old('product', $competition->product)}}"    />
                                         </div>
 
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-time-picker name="proposal_delivery_date"
+                                                                                label="Data e hora da Entrega da Proposta"
+                                            value="{{old('proposal_delivery_date', $competition->proposal_delivery_date)}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="bidding_documents_value"
+                                                                     label="Preço do Caderno.Enc"
+                                            value="{{old('bidding_documents_value', $competition->bidding_documents_value)}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="proposal_value"
+                                                                     label="Valor da Proposta"
+                                                                     value="{{old('proposal_value', $competition->proposal_value)}}"
+                                            />
+
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.date-picker name="start_date" label="Data de Admissão"   :value="old('start_date',$employee->start_date)"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="provisional_bank_guarantee"
+                                                                     label="Garantia Bancária Provisoria"
+                                                                     value="{{old('provisional_bank_guarantee', $competition->provisional_bank_guarantee)}}"/>
+
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="department_id" label="Departamento"
-                                                                      :options="$departments"    :default="old('department_id',$employee->department_id)" />
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="employee_position_id" label="Cargo"
-                                                                      :options="$employeePositions"   :default="old('employee_position_id',$employee->employee_position_id)"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="provisional_bank_guarantee_award"
+                                                                     label="Prémio da Garantia"
+                                                                     value="{{old('provisional_bank_guarantee_award', $competition->provisional_bank_guarantee_award)}}"/>
+
+
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="contract_type_id"
-                                                                      label="Tipo de Colaborador"
-                                                                      :options="$contractTypes"    :default="old('contract_type_id',$employee->contract_type_id)"/>
+                                            <x-bootstrap::form.input name="definitive_guarantee"
+                                                                     label="Garantia Definitiva"
+                                            value="{{old('definite_guarantee', $competition->definitive_guarantee)}}"/>
+
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="base_salary" label="Salário"    :value="old('base_salary',$employee->base_salary)"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"    :value="old('nuit',$employee->nuit)"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="corporate_email" label="Email Corporativo"    :value="old('corporate_email',$employee->person->user->email)"/>
+                                            <x-bootstrap::form.input name="definitive_guarantee_award"
+                                                                     label="Prémio da Garantia"
+                                                                     value="{{old('definite_guarantee_award', $competition->definitive_guarantee_award)}}"/>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_name"
-                                                                     label="Nome para Emergencia"    :value="old('emergency_name',$employee->person->emergency_name)"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="advance_guarantee"
+                                                                     label="Garantia de Adiatamento"
+                                                                     value="{{old('advance_guarantee', $competition->advance_guarantee)}}"/>
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="emergency_phone"
-                                                                     label="Telemóvel para Emergencias"    :value="old('emergency_phone',$employee->person->emergency_phone)"/>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="advance_guarantee_award"
+                                                                     label="Prémio da Garantia"
+                                                                     value="{{old('advance_guarantee_award', $competition->advance_guarantee_award)}}"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <x-bootstrap::form.input name="address" label="Endereço de Morada"   :value="old('address',$employee->person->address)"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso"
+                                                                      :options="$employees"
+                                                                      default="{{old('responsible',$competition->responsible)}}"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="address_country_id"
-                                                                      label="Pais de Morada" :options="$countries"
-                                                                      :default="old('address_country_id',$employee->person->address_country_id)"/>
+                                            <x-bootstrap::form.select name="technical_proposal_review"
+                                                                      label="Responsável pela revisão da Proposta"
+                                                                      :options="$employees"
+                                                                      default="{{old('technical_proposal_review',$competition->technical_proposal_review)}}"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="address_province_id"
-                                                                      label="Provincia de Nascimento"
-                                                                      :options="$provinces"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="address_district_id"
-                                                                      label="Distrito de Nascimento"
-                                                                      :options="$districts"/>
+                                            <x-bootstrap::form.select name="documentary_review"
+                                                                      label="Responsável pela Revisão Documental"
+                                                                      :options="$employees"
+                                                                      default="{{old('documentary_review',$competition->documentary_review)}}"/>
+
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="cellphone" label="Telemovel Pessoal"/>
+                                            <x-bootstrap::form.select name="competition_status_id" label="Por Fazer"
+                                                                      :options="$competitionStatuses"
+                                                                      default="{{old('competition_status_id',$competition->competition_status_id)}}"/>
+
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="personal_email" label="Email Pessoal"/>
+                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de Derrota"
+                                                                      :options="$competitionReasons"
+                                                                      default="{{old('competition_reason_id',$competition->competition_reason_id)}}"/>
+
                                         </div>
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Gravar</button>
+                                            <button class="btn btn-success" type="submit">Actualizar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
+
 
                             <!-- Include optional progressbar HTML -->
                             <div class="progress">

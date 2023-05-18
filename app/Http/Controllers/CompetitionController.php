@@ -33,6 +33,7 @@ class CompetitionController extends Controller
             ]
         )->orderBy('created_at', 'desc')->paginate(1000);
         return view('competitions.index', compact('competitions'));
+
     }
 
     /**
@@ -126,9 +127,31 @@ class CompetitionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Competition $competition)
     {
-        //
+        $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
+
+        $companies = Company::pluck('name', 'id');
+
+        $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
+        $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
+        $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
+        $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
+        $productCategories = ProductCategory::orderBy('name')->pluck('name', 'id');
+        $competition=Competition::where('id',$competition->id)->first();
+
+        return view(
+            'competitions.edit',
+            compact(
+                'competition','competitionTypes',
+                'companyTypes',
+                'companies',
+                'competitionReasons',
+                'employees',
+                'competitionStatuses',
+                'productCategories'
+            )
+        );
     }
 
     /**
