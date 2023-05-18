@@ -28,7 +28,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('competitions.update',$competition)}}"
+                    <x-bootstrap::form.form  method='PUT' action="{{route('competitions.update',$competition)}}"
                                             enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
@@ -63,31 +63,28 @@
                                                 :options="$companies"
                                             />
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <x-bootstrap::form.select name="competition_type_id"
                                                                       label="Tipo de Concurso"
                                                                       :options="$competitionTypes"
                                             default="{{old('competition_type_id',$competition->competition_type_id)}}"
                                             />
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="competition_reference"
-                                                                     label="Referência do Concurso"
-                                                                     value="{{old('competition_reference', $competition->competition_reference)}}"/>
 
-                                        </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="product_category_id"
                                                                       label="Indústria do Concurso"
                                                                       :options="$productCategories"
                                                                       default="{{old('product_category_id',$competition->product_category_id)}}"/>
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="product" label="Tipo de Produto"
-                                            value="{{old('product', $competition->product)}}"    />
+                                         <div class="col-4">
+                                            <x-bootstrap::form.input name="competition_reference"
+                                                                     label="Referência do Concurso"
+                                                                     value="{{old('competition_reference', $competition->competition_reference)}}"/>
+
                                         </div>
 
                                     </div>
@@ -96,7 +93,8 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.date-time-picker name="proposal_delivery_date"
                                                                                 label="Data e hora da Entrega da Proposta"
-                                            value="{{old('proposal_delivery_date', $competition->proposal_delivery_date)}}"/>
+                                            default="{{old('proposal_delivery_date', $competition->proposal_delivery_date)}}"/>
+
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="bidding_documents_value"
@@ -158,24 +156,24 @@
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso"
-                                                                      :options="$employees"
-                                                                      default="{{old('responsible',$competition->responsible)}}"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="technical_proposal_review"
-                                                                      label="Responsável pela revisão da Proposta"
-                                                                      :options="$employees"
-                                                                      default="{{old('technical_proposal_review',$competition->technical_proposal_review)}}"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="documentary_review"
-                                                                      label="Responsável pela Revisão Documental"
-                                                                      :options="$employees"
-                                                                      default="{{old('documentary_review',$competition->documentary_review)}}"/>
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.select name="responsible" label="Responsável do concurso"--}}
+{{--                                                                      :options="$employees"--}}
+{{--                                                                      default="{{old('responsible',$competition->responsible)}}"/>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.select name="technical_proposal_review"--}}
+{{--                                                                      label="Responsável pela revisão da Proposta"--}}
+{{--                                                                      :options="$employees"--}}
+{{--                                                                      default="{{old('technical_proposal_review',$competition->technical_proposal_review)}}"/>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.select name="documentary_review"--}}
+{{--                                                                      label="Responsável pela Revisão Documental"--}}
+{{--                                                                      :options="$employees"--}}
+{{--                                                                      default="{{old('documentary_review',$competition->documentary_review)}}"/>--}}
 
-                                        </div>
+{{--                                        </div>--}}
                                     </div>
                                     <div class="row">
                                         <div class="col-6">

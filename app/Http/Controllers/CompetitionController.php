@@ -29,7 +29,8 @@ class CompetitionController extends Controller
                 'competitionType',
                 'competitionReason',
                 'competitionStatus',
-                'product.productCategory'
+                'product.productCategory',
+
             ]
         )->orderBy('created_at', 'desc')->paginate(1000);
         return view('competitions.index', compact('competitions'));
@@ -157,9 +158,14 @@ class CompetitionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CompetitionRequest $request, Competition $competition)
     {
-        //
+        $competitionData = $request->except('_token', '_method');
+        $competition->update($competitionData);
+
+        flash('Concurso editado com sucesso')->success();
+
+        return redirect()->route('competitions.index');
     }
 
     /**
