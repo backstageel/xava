@@ -32,7 +32,7 @@ class CompetitionController extends Controller
                 'product.productCategory',
 
             ]
-        )->orderBy('created_at', 'desc')->paginate(1000);
+        )->orderBy('created_at', 'desc')->paginate();
         return view('competitions.index', compact('competitions'));
 
     }
