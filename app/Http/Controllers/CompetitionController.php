@@ -30,6 +30,7 @@ class CompetitionController extends Controller
                 'competitionReason',
                 'competitionStatus',
                 'product.productCategory',
+                'companyType'
 
             ]
         )->orderBy('created_at', 'desc')->paginate();
@@ -90,6 +91,7 @@ class CompetitionController extends Controller
         $competition->competition_month = Date::now()->format('F');
         $competition->internal_reference = ('XV' . (1 + $last_Id));
         $competition->customer_id = $request->input('customer_id');
+        $competition->company_type_id=$request->input('company_type_id');
         $competition->competition_reference = $request->input('competition_reference');
         $competition->product_category_id = $request->input('product_category_id');
         $competition->product_id = $product->id;

@@ -27,6 +27,10 @@ class Competition extends Model
     public function product(){
         return $this->belongsTo(Product::class);
     }
+    public function companyType()
+    {
+        return $this->belongsTo(CompanyType::class);
+    }
 
     public function productcategory()
     {

@@ -56,7 +56,7 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select
                                                 name="customer_id"
                                                 label="Nome da Instituição"
@@ -66,23 +66,34 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="competition_type_id"
                                                                       label="Tipo de Concurso"
+
                                                                       :options="$competitionTypes"/>
                                         </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.select name="company_type_id"
+                                                                      label="Tipo de Instituição"
+                                                                      :options="$competitionTypes"/>
+
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="competition_reference"
                                                                      label="Referência do Concurso"/>
                                         </div>
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="product_category_id"
                                                                       label="Indústria do Concurso"
                                                                       :options="$productCategories"
                                                                       :value="$selected_nature_name ?? null"/>
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="product" label="Tipo de Produto"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="product"
+                                                                     label="Tipo Produto"/>
                                         </div>
 
                                     </div>
@@ -96,7 +107,7 @@
                                             <x-bootstrap::form.input name="bidding_documents_value"
                                                                      label="Preço do Caderno.Enc"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.input name="proposal_value"
                                                                      label="Valor da Proposta"/>
                                         </div>

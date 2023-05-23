@@ -56,11 +56,12 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-6">
                                             <x-bootstrap::form.select
                                                 name="customer_id"
                                                 label="Nome da Instituição"
                                                 :options="$companies"
+                                                default="{{old('customer_id',$competition->customer_id)}}"
                                             />
                                         </div>
                                         <div class="col-6">
@@ -84,6 +85,13 @@
                                             <x-bootstrap::form.input name="competition_reference"
                                                                      label="Referência do Concurso"
                                                                      value="{{old('competition_reference', $competition->competition_reference)}}"/>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="company_type_id"
+                                                                     label="Tipo de Instituição"
+                                                                      :options="$competitionTypes"
+                                                                     default="{{old('company_type_id', $competition->company_type_id)}}"/>
 
                                         </div>
 

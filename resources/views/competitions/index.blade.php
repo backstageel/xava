@@ -28,9 +28,12 @@
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Lista de Concursos</h6>
     <hr/>
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
+                <div style="overflow-x: auto;">
+
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
@@ -56,6 +59,7 @@
                         <th>Responsável</th>
                         <th>Responsável Rev.Proposta Técnica</th>
                         <th>Responsável Rev.Documental</th>
+                        <th><p style="display: none;">.</p></th>
 
 
 
@@ -67,7 +71,7 @@
                         <tr>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
-                            <td>{{$competition->customer?->customerable->companyType?->name}}</td>
+                            <td>{{$competition->companyType->name}}</td>
                             <td>{{$competition->customer?->customerable->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
@@ -102,6 +106,7 @@
                     <tfoot>
                     </tfoot>
                 </table>
+                </div>
 
             </div>
         </div>
@@ -113,6 +118,7 @@
     <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
+
             var table = $('#example2').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
