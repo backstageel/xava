@@ -32,6 +32,7 @@
                         <th>Valor do Pagamento</th>
                         <th>Meses</th>
                         <th>Estado do Pagamento</th>
+                        <th><p style="display: none;">.</p></th>
 
 
                     </tr>

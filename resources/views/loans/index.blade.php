@@ -34,6 +34,7 @@
                         <th>Valor de Emprestimo</th>
                         <th>Valor da Divida</th>
                         <th>Estado do Emprestimo</th>
+                        <th><p style="display: none;">.</p></th>
 
 
                     </tr>

@@ -37,6 +37,7 @@
                         <th>NUIT</th>
                         <th>Contacto</th>
                         <th>Data da Criação</th>
+                        <th><p style="display: none;">.</p></th>
 
 
                     </tr>

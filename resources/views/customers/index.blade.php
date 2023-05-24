@@ -38,6 +38,8 @@
                         <th>E-mail</th>
                         <th>NUIT</th>
                         <th>contacto</th>
+                        <th><p style="display: none;">.</p></th>
+
 
 
                     </tr>
@@ -52,9 +54,8 @@
                             @endif
                             <td>{{$customer->customerable->email}}</td>
                             <td>{{$customer->customerable->nuit}}</td>
-                            <td>{{$customer->customerable->phone}}
-                            <td>
-                            <td>{{$customer->created_at}}</td>
+                            <td>{{$customer->customerable->phone}} </td>
+
                             <td>
                                 <a href="{{route('customers.show', $customer)}}"> ver detalhes </a>
                             </td>
