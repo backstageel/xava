@@ -45,8 +45,8 @@ class CompetitionController extends Controller
     {
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
-        $companies = Company::pluck('name', 'id');
 
+        $companies = Company::orderBy('name')->pluck('name', 'id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
