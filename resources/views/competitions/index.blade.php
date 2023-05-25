@@ -67,7 +67,7 @@
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
-                            <td>{{$competition->customer?->customerable->name}}</td>
+                            <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
                             <td>{{$competition->product->productCategory->name}}</td>

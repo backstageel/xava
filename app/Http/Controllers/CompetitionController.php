@@ -24,7 +24,7 @@ class CompetitionController extends Controller
     {
         $competitions = Competition::with(
             [
-                'customer.customerable.companyType',
+                'customer.customerable',
                 'ProductCategory',
                 'competitionType',
                 'competitionReason',
