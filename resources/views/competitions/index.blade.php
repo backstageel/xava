@@ -32,8 +32,6 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-
-
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
@@ -51,18 +49,15 @@
                         <th>Prémio</th>
                         <th>Garantia Adiatamento</th>
                         <th>Prémio</th>
-                        <th>Data e hora Entrega Proposta</th>
+                        <th>Data Entrega Proposta</th>
                         <th>Valor do Caderno.Enc</th>
                         <th>Motivo</th>
                         <th>Por Fazer</th>
                         <th>Valor Proposta</th>
                         <th>Responsável</th>
-                        <th>Responsável Rev.Proposta Técnica</th>
+                        <th>Responsável Rev.Prop.Técnica</th>
                         <th>Responsável Rev.Documental</th>
                         <th><p style="display: none;">.</p></th>
-
-
-
 
                     </tr>
                     </thead>
@@ -91,9 +86,6 @@
                             <td>{{$competition->responsible}}</td>
                             <td>{{$competition->technical_proposal_review}}</td>
                             <td>{{$competition->documentary_review}}</td>
-
-
-
                             <td>
                                 <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
                             </td>

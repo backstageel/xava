@@ -90,7 +90,7 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="company_type_id"
                                                                      label="Tipo de Instituição"
-                                                                      :options="$competitionTypes"
+                                                                      :options="$companyTypes"
                                                                      default="{{old('company_type_id', $competition->company_type_id)}}"/>
 
                                         </div>
