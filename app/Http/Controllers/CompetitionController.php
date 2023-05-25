@@ -33,7 +33,7 @@ class CompetitionController extends Controller
                 'companyType'
 
             ]
-        )->orderBy('update_at', 'desc')->paginate(500);
+        )->orderBy('created_at', 'desc')->paginate(500);
         return view('competitions.index', compact('competitions'));
 
     }

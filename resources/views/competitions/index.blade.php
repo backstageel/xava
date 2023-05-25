@@ -32,7 +32,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <div style="overflow-x: auto;">
+
 
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
@@ -106,7 +106,7 @@
                     <tfoot>
                     </tfoot>
                 </table>
-                </div>
+
 
             </div>
         </div>
