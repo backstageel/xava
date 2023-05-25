@@ -72,7 +72,7 @@
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="company_type_id"
                                                                       label="Tipo de Instituição"
-                                                                      :options="$competitionTypes"/>
+                                                                      :options="$companyTypes"/>
 
                                         </div>
 
