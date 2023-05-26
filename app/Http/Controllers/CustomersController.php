@@ -62,7 +62,7 @@ class CustomersController extends Controller
 
         if(strlen($customerable->nuit)!=9){
             flash('Nuit invalido, o campo Nuit deve ser composto por 9 dígitos')->error();
-            return redirect()->route('suppliers.create');
+            return redirect()->route('customers.create');
         }else {
             $customerable->save();
         }
