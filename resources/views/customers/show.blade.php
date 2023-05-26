@@ -23,11 +23,7 @@
                     $province = \App\Models\Province::find($customer->customerable->address_province_id);
                     $country=\App\Models\Country::find($customer->customerable->address_country_id);
                     $district=\App\Models\District::find($customer->customerable->address_district_id);
-                    if($customer->customerable_type=="App\Models\Company"){
-                        $customer_type="Empresa";
-                    }else{
-                        $customer_type="Individual";
-                    }
+
                      if( ($customer->customerable->gender_id) !== null){
                          $gender= \App\Models\Gender::find($customer->customerable->gender_id);}
 
@@ -115,7 +111,7 @@
                                            value="{{$customer->customerable->phone}}">
                                 </div>
                             </div>
-                            @if($customer_type =="Empresa")
+                            @if($customer->customer_type !="Particular")
                                 <div class="mb-3 row">
                                     <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina
                                         Web</label>
@@ -130,7 +126,7 @@
                                     Cliente</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$customer_type}}">
+                                           value="{{$customer->customer_type}}">
                                 </div>
                             </div>
 

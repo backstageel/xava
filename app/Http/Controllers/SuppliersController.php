@@ -30,7 +30,8 @@ class SuppliersController extends Controller
         $provinces = Province::pluck('name', 'id');
         $districts = District::pluck('name', 'id');
 
-        $supplierTypes = [1 => 'Empresal', 2 => 'Individual'];
+        $supplierTypes = [1 => 'Empresa', 2 => 'Individual'];
+
         return view('suppliers.create', compact('countries', 'provinces', 'districts', 'supplierTypes'));
     }
 
@@ -40,7 +41,7 @@ class SuppliersController extends Controller
     public function store(CreateSupplierRequest $request)
     {
         $supplierType = $request->input(['supplier_type']);
-        if ($supplierType == 1) {
+        if ($supplierType == 1 ) {
             $supplierable = new Company();
             $supplierable->name = $request->input('name');
             $supplierable->website = $request->input('website');

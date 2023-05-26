@@ -19,7 +19,7 @@ class LoanController extends Controller
     public function index()
     {
 
-        $loans = Loan::with(['employee'])->paginate(20);
+        $loans = Loan::with(['employee'])->paginate(500);
         return view('loans.index', compact('loans'));
     }
 

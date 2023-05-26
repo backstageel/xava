@@ -31,7 +31,7 @@ class CustomersController extends Controller
         $countries = Country::pluck('name', 'id');
         $provinces = Province::pluck('name', 'id');
         $districts = District::pluck('name', 'id');
-        $customerTypes = [1 => 'Empresa', 2 => 'Individual'];
+        $customerTypes = [1 => 'Estado', 2 => 'ONG', 3 => 'Privado', 4 => 'Particular'];
         $genders = Gender::pluck('name', 'id');
 
 
@@ -41,11 +41,12 @@ class CustomersController extends Controller
     public function store(CustomerRequest $request)
     {
         $customerType = $request->input(['customer_type']);
-        if ($customerType == 1) {
+        if ($customerType == 1 || $customerType == 2 || $customerType == 3) {
             $customerable = new Company();
             $customerable->name = $request->input('name');
             $customerable->website = $request->input('website');
             $customerableType = Company::class;
+
         } else {
             $customerable = new Person();
             [$customerable->first_name, $customerable->last_name] = split_name($request->input('name'));
@@ -58,11 +59,27 @@ class CustomersController extends Controller
         $customerable->address_country_id = $request->input('country_id');
         $customerable->address_province_id = $request->input('province_id');
         $customerable->address_district_id = $request->input('district_id');
-        $customerable->save();
+
+        if(strlen($customerable->nuit)!=9){
+            flash('Nuit invalido, o campo Nuit deve ser composto por 9 dígitos')->error();
+            return redirect()->route('suppliers.create');
+        }else {
+            $customerable->save();
+        }
+
 
         $customer = new Customer();
         $customer->customerable_id = $customerable->id;
         $customer->customerable_type = $customerableType;
+        if($customerType == 1){
+            $customer->customer_type = "Estado";
+        } else if($customerType == 2){
+            $customer->customer_type = "ONG";
+        } else if($customerType == 3){
+            $customer->customer_type = "Privado";
+        }else{
+            $customer->customer_type = "Particular";
+        }
         $customer->save();
         flash('Fornecedor registado com sucesso')->success();
         return redirect()->route('customers.index');

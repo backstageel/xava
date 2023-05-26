@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("style")
-    <
+
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -70,11 +70,7 @@
                                                                       :options="$genders"/>
                                         </div>
 
-                                        {{--  @if ($customerTypes[$_POST['customer_type']]== " Individual")
-                                              <div class = "col-3">
-                                                  <x-bootstrap::form.select name="gender_id" label="genero2" :options="$genders"/>
-                                              </div>
-                                          @ndif --}}
+
 
 
                                     </div>
@@ -132,17 +128,17 @@
                 </div>
 
                 <!--end row-->
-                @endsection
+@endsection
 
-                @section("script")
-                    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
-                            type="text/javascript"></script>
-                    <script>
-                        $(function () {
-                            $('#smartwizard').smartWizard({
-                                theme: 'arrows',
-                            })
-                        });
-                    </script>
+@section("script")
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
+         type="text/javascript"></script>
+    <script>
+         $(function () {
+             $('#smartwizard').smartWizard({
+                  theme: 'arrows',
+             })
+         });
+    </script>
 @endsection
 

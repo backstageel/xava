@@ -19,7 +19,7 @@ class SaleController extends Controller
     {
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
-                    ->orderBy('created_at', 'desc')->paginate(100);
+                    ->orderBy('created_at', 'desc')->paginate(1000);
 
         return view('sales.index', compact('sales'));
     }
