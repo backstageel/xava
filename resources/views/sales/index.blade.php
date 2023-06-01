@@ -66,7 +66,7 @@
                             <td>{{$sale->amount_received}}</td>
                             <td>{{$sale->receipt_id}}</td>
                             <td>{{$sale->transport_value}} </td>
-                            <td>{{$sale->intermediary_committe}} </td>
+                            <td>{{$sale->intermediary_committee}} </td>
                             <td>{{$sale->other_expenses}} </td>
                             <td>{{$sale->debt_amount}} </td>
                             <td>{{$sale->payment_date}} </td>

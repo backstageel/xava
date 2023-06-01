@@ -66,7 +66,6 @@ class SaleController extends Controller
             $sale = new Sale();
             $sale->sale_ref = $request->input(['sale_ref']);
             $sale->customer_id = $request->input('customer_id');
-
             $customer= Customer::where('id', $sale->customer_id)->first();
 
             if ($customer->customerable_type == Company::class) {
@@ -85,10 +84,38 @@ class SaleController extends Controller
             $sale->invoice_id = $request->input('invoice_id');
             $sale->receipt_id = $request->input(['receipt_id']);
             $sale->payment_date = $request->input('payment_date');
-            $sale->amount_received = $request->input('amount_received');
-            $sale->transport_value = $request->input('transport_value');
-            $sale->other_expenses = $request->input('other_expenses');
-            $sale->intermediary_committee = $request->input('intermediary_committee');
+
+            if(is_numeric( $request->input('amount_received'))) {
+                $sale->amount_received = $request->input('amount_received');
+            }else{
+                flash('Formatação do campo "Valor Recebido" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
+            if(is_numeric( $request->input('transport_value'))) {
+                $sale->transport_value = $request->input('transport_value');
+            }else{
+                flash('Formatação do campo "Valor do Transporte" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
+            if(is_numeric($request->input('other_expenses'))) {
+                $sale->other_expenses = $request->input('other_expenses');
+            }else{
+                flash('Formatação do campo "Outras Despesas" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
+            if(is_numeric( $request->input('intermediary_committee'))) {
+                $sale->intermediary_committee = $request->input('intermediary_committee');
+            }else{
+                flash('Formatação do campo "Comissão de Intermediários" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
 
             $sale->save();
 
@@ -159,16 +186,43 @@ class SaleController extends Controller
             $sale->payment_date = $request->input('payment_date');
         }
         if(($request->input('amount_received')) != null){
-            $sale->amount_received = $request->input('amount_received');
+            if(is_numeric( $request->input('amount_received'))) {
+                $sale->amount_received = $request->input('amount_received');
+            }else{
+                flash('Formatação do campo "Valor Recebido" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
         }
         if(($request->input('transport_value')) != null){
-            $sale->transport_value = $request->input('transport_value');
-        }
+            if(is_numeric( $request->input('transport_value'))) {
+                $sale->transport_value = $request->input('transport_value');
+            }            }else{
+                flash('Formatação do campo "Valor do Transporte" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
         if(($request->input('other_expenses')) != null){
-            $sale->other_expenses = $request->input('other_expenses');
+            if(is_numeric($request->input('other_expenses'))) {
+                $sale->other_expenses = $request->input('other_expenses');
+            }else{
+                flash('Formatação do campo "Outras Despesas" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
         }
         if(($request->input('intermediary_committee')) != null){
-            $sale->intermediary_committee = $request->input('intermediary_committee');
+            if(is_numeric( $request->input('intermediary_committee'))) {
+                $sale->intermediary_committee = $request->input('intermediary_committee');
+            }else{
+                flash('Formatação do campo "Comissão de Intermediários" incorrecto.
+                Formatação correcta(20.00)')->error();
+                return redirect()->back()->withInput();
+            }
+
+
         }
 
 
