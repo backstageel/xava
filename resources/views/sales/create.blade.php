@@ -120,7 +120,7 @@
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
                                         </div>
                                         <div>
-                                            <p style="color: red;"> Formatação para campos númericos = (20.00)</p>
+                                            <p style="color: red;"> Separação de casas decimais para campos númericos: 0.0</p>
                                         </div>
                                         </div>
                                          <div class="row float-end">

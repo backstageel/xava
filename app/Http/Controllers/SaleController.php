@@ -85,37 +85,54 @@ class SaleController extends Controller
             $sale->receipt_id = $request->input(['receipt_id']);
             $sale->payment_date = $request->input('payment_date');
 
-            if(is_numeric( $request->input('amount_received'))) {
+            if(($request->input('amount_received')) != null){
+                if(is_numeric( $request->input('amount_received'))) {
+                    $sale->amount_received = $request->input('amount_received');
+                }else{
+                    flash('Formatação do campo "Valor Recebido" incorrecto.
+                Separação de casas decimais para campos númericos: (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+            } else{
                 $sale->amount_received = $request->input('amount_received');
-            }else{
-                flash('Formatação do campo "Valor Recebido" incorrecto.
-                Formatação correcta(20.00)')->error();
-                return redirect()->back()->withInput();
             }
 
-            if(is_numeric( $request->input('transport_value'))) {
-                $sale->transport_value = $request->input('transport_value');
-            }else{
+            if(($request->input('transport_value')) != null){
+                if(is_numeric( $request->input('transport_value'))) {
+                    $sale->transport_value = $request->input('transport_value');
+                }else{
                 flash('Formatação do campo "Valor do Transporte" incorrecto.
-                Formatação correcta(20.00)')->error();
+                Separação de casas decimais para campos númericos: (0.0)')->error();
                 return redirect()->back()->withInput();
+                }
+            } else {
+                    $sale->transport_value = $request->input('transport_value');
             }
 
-            if(is_numeric($request->input('other_expenses'))) {
+            if(($request->input('other_expenses')) != null){
+                if(is_numeric($request->input('other_expenses'))) {
+                    $sale->other_expenses = $request->input('other_expenses');
+                }else{
+                    flash('Formatação do campo "Outras Despesas" incorrecto.
+                Separação de casas decimais para campos númericos: 0.0')->error();
+                    return redirect()->back()->withInput();
+                }
+            } else {
                 $sale->other_expenses = $request->input('other_expenses');
-            }else{
-                flash('Formatação do campo "Outras Despesas" incorrecto.
-                Formatação correcta(20.00)')->error();
-                return redirect()->back()->withInput();
             }
 
-            if(is_numeric( $request->input('intermediary_committee'))) {
+            if(($request->input('intermediary_committee')) != null){
+                if(is_numeric( $request->input('intermediary_committee'))) {
+                    $sale->intermediary_committee = $request->input('intermediary_committee');
+                }else{
+                    flash('Formatação do campo "Comissão de Intermediários" incorrecto.
+                Separação de casas decimais para campos númericos: 0.0')->error();
+                    return redirect()->back()->withInput();
+                }
+            } else {
                 $sale->intermediary_committee = $request->input('intermediary_committee');
-            }else{
-                flash('Formatação do campo "Comissão de Intermediários" incorrecto.
-                Formatação correcta(20.00)')->error();
-                return redirect()->back()->withInput();
             }
+
 
             $sale->save();
 
@@ -190,7 +207,7 @@ class SaleController extends Controller
                 $sale->amount_received = $request->input('amount_received');
             }else{
                 flash('Formatação do campo "Valor Recebido" incorrecto.
-                Formatação correcta(20.00)')->error();
+                Separação de casas decimais para campos númericos = (0.0)')->error();
                 return redirect()->back()->withInput();
             }
 
@@ -200,7 +217,7 @@ class SaleController extends Controller
                 $sale->transport_value = $request->input('transport_value');
             }            }else{
                 flash('Formatação do campo "Valor do Transporte" incorrecto.
-                Formatação correcta(20.00)')->error();
+                Separação de casas decimais para campos númericos = (0.0)')->error();
                 return redirect()->back()->withInput();
             }
 
@@ -209,7 +226,7 @@ class SaleController extends Controller
                 $sale->other_expenses = $request->input('other_expenses');
             }else{
                 flash('Formatação do campo "Outras Despesas" incorrecto.
-                Formatação correcta(20.00)')->error();
+                Separação de casas decimais para campos númericos = (0.0)')->error();
                 return redirect()->back()->withInput();
             }
         }
@@ -218,7 +235,7 @@ class SaleController extends Controller
                 $sale->intermediary_committee = $request->input('intermediary_committee');
             }else{
                 flash('Formatação do campo "Comissão de Intermediários" incorrecto.
-                Formatação correcta(20.00)')->error();
+                Separação de casas decimais para campos númericos = (0.0)')->error();
                 return redirect()->back()->withInput();
             }
 
