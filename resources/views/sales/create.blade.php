@@ -119,6 +119,9 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
                                         </div>
+                                        <div>
+                                            <p style="color: red;"> Formatação para campos númericos = (20.00)</p>
+                                        </div>
                                         </div>
                                          <div class="row float-end">
                                              <div class="col-12">
