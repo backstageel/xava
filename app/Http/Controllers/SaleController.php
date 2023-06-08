@@ -132,7 +132,7 @@ class SaleController extends Controller
             } else {
                 $sale->intermediary_committee = $request->input('intermediary_committee');
             }
-
+            $sale->debt_amount = $sale->total_amount - $sale->amount_received;
 
             $sale->save();
 
@@ -150,7 +150,8 @@ class SaleController extends Controller
             $sale = Sale::where('id', $sale_items->sale_id)->first();
             $sale->total_amount=$sale->total_amount + $sale_items->sub_total;
             $products = Product::pluck('name', 'id');
-            $sale->debt_amount = $sale->total_amount - $sale->receipt_id;
+
+            $sale->save();
 
             flash('Produto Adicionado')->success();
             return view('sales.choose_products', compact('sale', 'products'));
