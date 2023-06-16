@@ -181,11 +181,7 @@ class SaleController extends Controller
 
     public function update(SaleRequest $request, Sale $sale)
     {
-        if($request->has(['addProduct'])){
-            $products = Product::pluck('name', 'id');
-            return view('sales.choose_products', compact('sale', 'products'));
 
-        }
 
         if(($request->input('sale_status_id')) != null){
             $sale->sale_status_id = $request->input('sale_status_id');
@@ -253,10 +249,15 @@ class SaleController extends Controller
 
 
 
-        $sale->total_amount =  $sale->transport_value + $sale->other_expenses +
-            $sale->intermediary_committee;
+        #$sale->total_amount =  $sale->transport_value + $sale->other_expenses + $sale->intermediary_committee;
         $sale->debt_amount = $sale->total_amount - $sale->receipt_id;
         $sale->save();
+        if($request->has(['addProduct'])){
+
+            $products = Product::pluck('name', 'id');
+            return view('sales.choose_products', compact('sale', 'products'));
+
+        }
         return redirect()->route('sales.index');
     }
 
