@@ -103,7 +103,7 @@ class Vendas2022Import implements OnEachRow, WithHeadingRow, WithCalculatedFormu
         $product = Product::firstOrCreate([
             'name' => $row['descricao_duto'],
             'sale_price' => $row['preco_venda'],
-            'purchase_price' => $row['preco_de_compra'],
+            'purchase_price' => $row['preco_de_compra']
                 ]
         );
         $invoiceItem = SaleItem::firstOrCreate([

@@ -12,7 +12,7 @@ class ProductCategoriesController extends Controller
     {
         //
 
-        $categorysProducts = ProductCategory::paginate();
+        $categorysProducts = ProductCategory::paginate(1000);
         return view('product_categories.index', compact('categorysProducts'));
     }
 
