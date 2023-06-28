@@ -46,7 +46,6 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->brand = $request->input('brand');
 
-        $product->purchase_price = $request->input('purchase_price');
         $product->category_id = $request->input('category_id');
 
 
@@ -69,15 +68,31 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = ProductCategory::pluck('name', 'id');
+
+        return view('products.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        if(($request->input('description')) != null){
+            $product->description = $request->input('description');
+        }
+
+
+
+        if(($request->input('brand')) != null){
+            $product->brand = $request->input('brand');
+        }
+        if(( $request->input('category_id')) != null){
+            $product->category_id = $request->input('category_id');
+        }
+
+
+        $product->save();
     }
 
     /**

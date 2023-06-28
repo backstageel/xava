@@ -38,12 +38,7 @@
                                         Dados do Produto
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#step-2">
-                                        <span class="num">2</span>
-                                        Preços do Produto
-                                    </a>
-                                </li>
+
 
                             </ul>
 
@@ -74,22 +69,15 @@
 
                                 </div>
 
-                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                    <div class="row">
-
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="purchase_price" label="Preço de Compra"/>
-                                        </div>
 
 
-                                    </div>
                                     <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-                                </div>
+
                             </div>
 
                         </div>

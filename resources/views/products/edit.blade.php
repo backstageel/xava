@@ -43,9 +43,19 @@
                                     <div class="row">
                                         <div class="col-5">
 
-                                            <x-bootstrap::form.select name="order_status" label="Estado do Pedido"
-                                                                      :options="$order_status"/>
+                                            <x-bootstrap::form.select name="category_id" label="Categoria do Produto"
+                                                                      :options="$category"/>
                                         </div>
+                                        <div class="col-4">
+
+                                            <x-bootstrap::form.select name="description" label="Descrição do Produto"
+                                                                      :options="$category"/>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <x-bootstrap::form.select name="brand" label="Marca do Produto"
+                                                                      :options="$category"/>
+                                        </div
 
                                     </div>
                                     <div class="row float-end">

@@ -38,7 +38,7 @@
                         <th>Descrição</th>
                         <th>Categoria</th>
                         <th>Marca</th>
-                        <th>Preço compra</th>
+
                         <th>Data a criação</th>
                         <th><p style="display: none;">.</p></th>
                     </tr>
@@ -51,7 +51,7 @@
                             <td>{{$product->description}}</td>
                             <td>{{ isset($product->ProductCategory) ? $product->ProductCategory->name : '' }}</td>
                             <td>{{$product->brand}}</td>
-                            <td>{{$product->purchase_price}}</td>
+
                             <td>{{$product->created_at}}</td>
                             <td>
                                 <a href="{{route('products.edit', $product)}}"> editar </a>
