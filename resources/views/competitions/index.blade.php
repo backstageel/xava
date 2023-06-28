@@ -58,7 +58,7 @@
                         <th>Responsável</th>
                         <th>Responsável Rev.Prop.Técnica</th>
                         <th>Responsável Rev.Documental</th>
-                        <th><p style="display: none;">.</p></th>
+{{--                        <th><p style="display: none;">.</p></th>--}}
 
                     </tr>
                     </thead>
