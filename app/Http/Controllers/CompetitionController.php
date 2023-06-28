@@ -51,7 +51,14 @@ class CompetitionController extends Controller
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $productCategories = ProductCategory::orderBy('name')->pluck('name', 'id');
+        $ids = [1,2,3,4,6,7,8,11,12,16,19,25,26,29,30,31,32]; // Lista de IDs desejados
+        $minId = 34; // ID mínimo desejado
+
+        $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name', 'id');
+
 
 
         return view(
