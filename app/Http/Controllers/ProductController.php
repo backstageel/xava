@@ -66,11 +66,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
         $category = ProductCategory::pluck('name', 'id');
 
-        return view('products.edit', compact('category'));
+        return view('products.edit', compact('category', 'product'));
     }
 
     /**
