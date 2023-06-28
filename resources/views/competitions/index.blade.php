@@ -43,7 +43,6 @@
                         <th>Tipo Concurso</th>
                         <th>Referência</th>
                         <th>Natureza</th>
-                        <th>Tipo Produto</th>
                         <th>Garantia B.Provisoria</th>
                         <th>Prémio</th>
                         <th>Garantia Definitiva</th>
@@ -74,7 +73,6 @@
                             <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
                             <td>{{$competition->product->productCategory->name}}</td>
-                            <td>{{$competition->product_type}}</td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
                             <td>{{$competition->definitive_guarantee}}</td>
@@ -116,7 +114,7 @@
 
             var table = $('#example2').DataTable({
                 language: {
-                    //url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
                 lengthChange: false,
             });

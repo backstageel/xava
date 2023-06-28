@@ -45,14 +45,14 @@ class CompetitionController extends Controller
     {
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
-
+        $competitionResult=[1=>'Perdido',2=>'Pendente',3=>'Concluido'];
         $companies = Company::orderBy('name')->pluck('name', 'id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $ids = [1,2,3,4,6,7,8,11,12,16,19,25,26,29,30,31,32]; // Lista de IDs desejados
-        $minId = 34; // ID mínimo desejado
+        $ids = [1,3,4,6,7,8,11,12,16,19,25,26,29,30,31,32]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
             $query->whereIn('id', $ids)
@@ -70,7 +70,8 @@ class CompetitionController extends Controller
                 'competitionReasons',
                 'employees',
                 'competitionStatuses',
-                'productCategories'
+                'productCategories',
+                'competitionResult'
             )
         );
     }

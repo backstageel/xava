@@ -80,22 +80,17 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-5">
                                             <x-bootstrap::form.input name="competition_reference"
                                                                      label="Referência do Concurso"/>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <x-bootstrap::form.select name="product_category_id"
                                                                       label="Indústria do Concurso"
                                                                       :options="$productCategories"
                                                                       :value="$selected_nature_name ?? null"/>
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="product"
-                                                                     label="Tipo Produto"/>
-                                        </div>
-
                                     </div>
 
                                     <div class="row">
@@ -166,12 +161,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.select name="competition_status_id" label="Por Fazer"
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
                                                                       :options="$competitionStatuses"/>
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de Derrota"
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="product"
+                                                                     label="Resultado"
+                                                                     :options="$competitionResult"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
                                                                       :options="$competitionReasons"/>
                                         </div>
                                     </div>
