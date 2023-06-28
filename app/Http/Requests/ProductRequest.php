@@ -23,8 +23,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:products|max:255',
-            'reference' => 'required|unique:products|max:255',
-            'description' => 'required:products|max:255',
+
+
         ];
     }
 }

@@ -45,9 +45,7 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-2">
-                                            <x-bootstrap::form.input name="reference" label="Referência"/>
-                                        </div>
+
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="name" label="Nome do Produto"/>
                                         </div>
@@ -67,7 +65,7 @@
 
                                     </div>
 
-                                </div>
+
 
 
 

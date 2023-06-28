@@ -40,9 +40,9 @@ class ProductController extends Controller
 
         $product = new Product();
 
-
+        $last_Id = Product::latest()->value('id');
         $product->name = $request->input('name');
-        $product->reference = $request->input('reference');
+        $product->reference = ('PXV' . (1 + $last_Id));
         $product->description = $request->input('description');
         $product->brand = $request->input('brand');
 
@@ -78,11 +78,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if(($request->input('name')) != null){
+            $product->name = $request->input('name');
+        }
         if(($request->input('description')) != null){
             $product->description = $request->input('description');
         }
-
-
 
         if(($request->input('brand')) != null){
             $product->brand = $request->input('brand');
@@ -93,6 +94,8 @@ class ProductController extends Controller
 
 
         $product->save();
+        flash('Produto actualizado  com sucesso')->success();
+        return redirect()->route('products.index');
     }
 
     /**
