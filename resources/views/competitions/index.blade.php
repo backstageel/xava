@@ -35,6 +35,7 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>#</th>
                         <th>Mês</th>
                         <th>Tipo Instituição</th>
@@ -64,8 +65,10 @@
                     <tbody>
                     @foreach($competitions as $competition)
                         <tr>
-                            <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
+                            <td>{{$competition->id}}</td>
+                            <td>{{$competition->internal_reference}}</td>
+
                             <td>{{$competition->companyType->name?? ''}}</td>
                             <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
