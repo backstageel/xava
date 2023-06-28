@@ -65,9 +65,10 @@
                     <tbody>
                     @foreach($competitions as $competition)
                         <tr>
+                            <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->id}}</td>
                             <td>{{$competition->internal_reference}}</td>
-                            <td>{{$competition->competition_month}}</td>
+
                             <td>{{$competition->companyType->name?? ''}}</td>
                             <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
@@ -115,7 +116,7 @@
 
             var table = $('#example2').DataTable({
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                    //url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
                 lengthChange: false,
             });
