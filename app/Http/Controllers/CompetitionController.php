@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\CompanyType;
 use App\Models\Competition;
 use App\Models\CompetitionReason;
+use App\Models\CompetitionResult;
 use App\Models\CompetitionStatus;
 use App\Models\CompetitionType;
 use App\Models\Person;
