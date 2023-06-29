@@ -36,7 +36,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
+                        <th>Código</th>
                         <th>Mês</th>
                         <th>Tipo Instituição</th>
                         <th>Instituição</th>
