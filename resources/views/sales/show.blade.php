@@ -1,4 +1,3 @@
-'
 
 @extends("layouts.app")
 @section("wrapper")
@@ -26,14 +25,14 @@
 
     </div>
     <!--end breadcrumb-->
-    <div class="container">
+    <div >
         <div class="main-body">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body"> <h5 class="d-flex align-items-center mb-3">Dados da Venda</h5>
 
-                        </div>
+
                         <hr class="my-4"/>
 
                         <ul class="list-group list-group-flush">
@@ -57,14 +56,17 @@
                             </li>
 
                         </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example2" class="table table-striped table-bordered">
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example2" class="table table-striped table-bordered">
+
                                 <thead>
                                 <tr>
                                     <th>Produto</th>
@@ -83,8 +85,9 @@
                                         <td>{{$saleitem->quantity}}</td>
                                         <td>{{$saleitem->unit_price}}</td>
                                         <td>{{$saleitem->sub_total}}</td>
-                                        <td>{{$saleitem->product->purchase_price}}</td>
-                                        <td>{{$saleitem->product->purchase_price * $saleitem->quantity}}</td>
+                                        <td>{{$saleitem->purchase_price}}</td>
+                                        <td>{{$saleitem->purchase_price * $saleitem->quantity}}</td>
+                                        <td>{{" "}}</td>
                                     </tr>
                                 @endforeach
 
@@ -95,9 +98,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
 
 @endsection
 

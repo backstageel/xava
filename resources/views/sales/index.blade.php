@@ -5,6 +5,44 @@
 @endsection
 
 @section("wrapper")
+    <div class="row">
+
+        <div class="col-12 col-lg-4">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h6 class="mb-0">Total Vendas </h6>
+                        </div>
+                    </div>
+                    <div class="chart-container-2 mt-4">
+                        <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"draft"}}
+                        <span class="badge bg-success rounded-pill">{{$sale_draft}}</span>
+                    </li>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"Cotação"}}
+                        <span class="badge bg-success rounded-pill">{{$sale_cotacao}}</span>
+                    </li>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"Facturado"}}
+                        <span class="badge bg-success rounded-pill">{{$sale_facturado}}</span>
+                    </li>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"Pago"}}
+                        <span class="badge bg-success rounded-pill">{{$sale_pago}}</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div><!--end row-->
+
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Vendas</div>

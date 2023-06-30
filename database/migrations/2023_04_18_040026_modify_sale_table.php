@@ -22,10 +22,13 @@ return new class extends Migration
             $table->string('invoice_id')->nullable();
             $table->string('customer_name');
 
+
             $table->double('intermediary_committee')->nullable();
             $table->date('payment_date')->nullable();
             $table->double('profit')->nullable();
             $table->double('debt_amount')->nullable();
+
+
 
 
     });

@@ -18,10 +18,15 @@ class SaleController extends Controller
     public function index()
     {
 
+
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
                     ->orderBy('created_at', 'desc')->paginate(1000);
+        $sale_draft = Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))->count();
+        $sale_facturado = Sale::where('sale_status_id', SaleStatus::where('name', 'Facturado')->value('id'))->count();
+        $sale_cotacao = Sale::where('sale_status_id', SaleStatus::where('name', 'Cotação')->value('id'))->count();
+        $sale_pago = Sale::where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))->count();
 
-        return view('sales.index', compact('sales'));
+        return view('sales.index', compact('sales', 'sale_draft'));
     }
 
 
@@ -144,11 +149,13 @@ class SaleController extends Controller
             $sale_items->product_id = $request->input('product_id');
             $sale_items->quantity = $request->input('quantity');
             $sale_items->unit_price = $request->input('unit_price');
+            $sale_items->purchase_price = $request->input('purchase_price');
             $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
             $sale_items->save();
 
             $sale = Sale::where('id', $sale_items->sale_id)->first();
-            $sale->total_amount=$sale->total_amount + $sale_items->sub_total;
+            $sale->total_amount = $sale->total_amount + $sale_items->sub_total;
+            $sale->debt_amount = $sale->total_amount - $sale->amount_received;
             $products = Product::pluck('name', 'id');
 
             $sale->save();

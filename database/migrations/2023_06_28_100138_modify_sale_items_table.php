@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->decimal('sale_price', 10, 2)->nullable();
+        Schema::table('sale_items', function (Blueprint $table){
+            $table->double('purchase_price')->nullable();
+
         });
     }
+
+
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

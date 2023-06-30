@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerInvoice;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use Illuminate\Support\Facades\Date;
@@ -100,10 +101,11 @@ class Vendas2022Import implements OnEachRow, WithHeadingRow, WithCalculatedFormu
             'invoice_number' => $row['factura'],
             'invoice_date' => $invoiceDate,
         ]);
+
         $product = Product::firstOrCreate([
             'name' => $row['descricao_duto'],
-            'sale_price' => $row['preco_venda'],
-            'purchase_price' => $row['preco_de_compra']
+            'sale_price' => $row['preco_venda']
+
                 ]
         );
         $invoiceItem = SaleItem::firstOrCreate([
@@ -111,6 +113,7 @@ class Vendas2022Import implements OnEachRow, WithHeadingRow, WithCalculatedFormu
             'product_id' => $product->id,
             'quantity' => $row['qty'],
             'unit_price' => $row['preco_venda'],
+            'purchase_price' => $row['preco_de_compra'],
             'sub_total' => $row['valor_venda'] ?? $row['qty'] * $row['preco_venda'],
         ]);
         dump($rowIndex);

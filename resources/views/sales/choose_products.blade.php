@@ -50,6 +50,9 @@
                                             <div class="col-2">
                                                 <x-bootstrap::form.input name="notes" class="form-control" label="Descrição do Produto"/>
                                             </div>
+                                            <div class="col-2">
+                                                <x-bootstrap::form.input name="purchase_price" class="form-control" label="Preco de Compra"/>
+                                            </div>
                                             <div class="col-3">
                                                 <x-bootstrap::form.select name="product_id" label="Produtos"
                                                                           class="form-control" :options="$products" required/>
