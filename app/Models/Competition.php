@@ -19,6 +19,9 @@ class Competition extends Model
     public function competitionStatus(){
         return $this->belongsTo(CompetitionStatus::class);
     }
+    public function competitionResult(){
+        return $this->belongsTo(CompetitionResult::class);
+    }
 
     public function competitionReason(){
         return $this->belongsTo(CompetitionReason::class);

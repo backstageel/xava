@@ -31,7 +31,8 @@ class CompetitionController extends Controller
                 'competitionReason',
                 'competitionStatus',
                 'product.productCategory',
-                'companyType'
+                'companyType',
+                'competitionResult'
 
             ]
         )->orderBy('id')->paginate(1000);
@@ -52,7 +53,7 @@ class CompetitionController extends Controller
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $ids = [11,3]; // Lista de IDs desejados
+        $ids = [1,2]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
@@ -96,6 +97,7 @@ class CompetitionController extends Controller
         $last_Id = Competition::latest()->value('id');
 
         $competition->competition_type_id = $request->input('competition_type_id');
+        $competition->competition_result_id = $request->input('competition_result_id');
         $competition->competition_reason_id = $request->input('competition_reason_id');
         $competition->competition_month = Date::now()->format('F');
         $competition->internal_reference = ('XV' . (1 + $last_Id));
@@ -144,7 +146,7 @@ class CompetitionController extends Controller
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
         $companies = Company::orderBy('name')->pluck('name', 'id');
-
+        $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
@@ -161,7 +163,8 @@ class CompetitionController extends Controller
                 'competitionReasons',
                 'employees',
                 'competitionStatuses',
-                'productCategories'
+                'productCategories',
+                'competitionResult'
             )
         );
     }

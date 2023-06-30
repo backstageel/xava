@@ -166,9 +166,9 @@
                                                                       :options="$competitionStatuses"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="product"
+                                            <x-bootstrap::form.select name="competition_result_id"
                                                                      label="Resultado"
-                                                                     :options="$competitionResult"/>
+                                                                     :options="$competitionResult" :default="1"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="competition_reason_id" label="Motivo"

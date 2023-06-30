@@ -184,14 +184,20 @@
 {{--                                        </div>--}}
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.select name="competition_status_id" label="Por Fazer"
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
                                                                       :options="$competitionStatuses"
                                                                       default="{{old('competition_status_id',$competition->competition_status_id)}}"/>
 
                                         </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo de Derrota"
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_result_id" label="Resultado"
+                                                                      :options="$competitionResult"
+                                                                      default="{{old('competition_result_id',$competition->competition_result_id)}}"/>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
                                                                       :options="$competitionReasons"
                                                                       default="{{old('competition_reason_id',$competition->competition_reason_id)}}"/>
 

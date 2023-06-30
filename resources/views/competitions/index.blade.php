@@ -51,6 +51,7 @@
                         <th>Prémio</th>
                         <th>Data Entrega Proposta</th>
                         <th>Valor do Caderno.Enc</th>
+                        <th>Resultado</th>
                         <th>Motivo</th>
                         <th>Por Fazer</th>
                         <th>Valor Proposta</th>
@@ -81,7 +82,8 @@
                             <td>{{$competition->advance_guarantee_award}}</td>
                             <td>{{$competition->proposal_delivery_date}}</td>
                             <td>{{$competition->bidding_documents_value}}</td>
-                            <td>{{$competition->competitionReason->name}}</td>
+                            <td>{{$competition->competitionResult->name?? ''}}</td>
+                            <td>{{$competition->competitionReason->name?? ''}}</td>
                             <td>{{$competition->competitionStatus->name}}</td>
                             <td>{{$competition->proposal_value}}</td>
                             <td>{{$competition->responsible}}</td>
