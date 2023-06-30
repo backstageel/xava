@@ -121,5 +121,6 @@
                 lengthChange: false,
             });
         });
+
     </script>
 @endsection

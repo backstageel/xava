@@ -190,13 +190,13 @@
                                                                       default="{{old('competition_status_id',$competition->competition_status_id)}}"/>
 
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" >
                                             <x-bootstrap::form.select name="competition_result_id" label="Resultado"
-                                                                      :options="$competitionResult"
+                                                                      :options="$competitionResult" onchange="verify_result()" id="status"
                                                                       default="{{old('competition_result_id',$competition->competition_result_id)}}"/>
 
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display: none" id="reason">
                                             <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
                                                                       :options="$competitionReasons"
                                                                       default="{{old('competition_reason_id',$competition->competition_reason_id)}}"/>
@@ -236,5 +236,26 @@
                 theme: 'arrows',
             })
         });
+        $(function () {
+            $('#smartwizard').smartWizard({
+                theme: 'arrows',
+            })
+        });
+        function verify_result() {
+            var status = document.getElementById("status").value;
+            var reason_field = document.getElementById("reason");
+
+
+
+            if (status==2) {
+                reason_field.style.display = "block";
+            } else if(status==3){
+                reason_field.style.display = "block";
+            }else{
+                reason_field.style.display = "none"
+            }
+        }
+
+
     </script>
 @endsection

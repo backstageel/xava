@@ -161,19 +161,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-4" >
                                             <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
                                                                       :options="$competitionStatuses"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="competition_result_id"
-                                                                     label="Resultado"
-                                                                     :options="$competitionResult" :default="1"/>
+                                            <x-bootstrap::form.select name="competition_result_id " onchange="verify_result()"
+                                                                      label="Resultado"
+                                                                      :options="$competitionResult" id="status" :default="1"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" id="reason" style="display: none">
                                             <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
-                                                                      :options="$competitionReasons"/>
+                                                                      :options="$competitionReasons" />
                                         </div>
+
                                     </div>
                                     <div class="row float-end">
                                         <div class="col-12">
@@ -201,11 +202,26 @@
 @section("script")
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
             type="text/javascript"></script>
+
+
     <script>
         $(function () {
             $('#smartwizard').smartWizard({
                 theme: 'arrows',
             })
         });
+        function verify_result() {
+            var status = document.getElementById("status").value;
+            var reason_field = document.getElementById("reason");
+
+            if (status==3) {
+                reason_field.style.display = "block";
+            } else if(status==2){
+                reason_field.style.display = "block";
+            }else{
+                reason_field.style.display = "none"
+            }
+        }
+
     </script>
 @endsection
