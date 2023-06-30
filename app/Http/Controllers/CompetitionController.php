@@ -53,7 +53,7 @@ class CompetitionController extends Controller
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $ids = [1,2]; // Lista de IDs desejados
+        $ids = [11,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
@@ -93,7 +93,7 @@ class CompetitionController extends Controller
             'category_id' => $request->input('product_category_id'),
         ]);
 
-        Date::setLocale('pt-BR');
+        Date::setLocale('pt-pt');
         $last_Id = Competition::latest()->value('id');
 
         $competition->competition_type_id = $request->input('competition_type_id');
@@ -143,6 +143,13 @@ class CompetitionController extends Controller
      */
     public function edit(Competition $competition)
     {
+        $ids = [11,3]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo desejado
+
+        $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name', 'id');
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
         $companies = Company::orderBy('name')->pluck('name', 'id');
@@ -151,7 +158,6 @@ class CompetitionController extends Controller
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $productCategories = ProductCategory::orderBy('name')->pluck('name', 'id');
         $competition=Competition::where('id',$competition->id)->first();
 
         return view(
