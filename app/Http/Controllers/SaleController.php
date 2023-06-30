@@ -26,7 +26,8 @@ class SaleController extends Controller
         $sale_cotacao = Sale::where('sale_status_id', SaleStatus::where('name', 'Cotação')->value('id'))->count();
         $sale_pago = Sale::where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))->count();
 
-        return view('sales.index', compact('sales', 'sale_draft'));
+        return view('sales.index', compact('sales', 'sale_draft', 'sale_facturado',
+        'sale_cotacao', 'sale_pago'));
     }
 
 
