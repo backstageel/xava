@@ -214,12 +214,14 @@
             var status = document.getElementById("status").value;
             var reason_field = document.getElementById("reason");
 
-            if (status==3) {
+            if (status==2) {
                 reason_field.style.display = "block";
-            } else if(status==2){
+            } else if(status==3){
+                reason_field.style.display = "block";
+            }else if(status==4){
                 reason_field.style.display = "block";
             }else{
-                reason_field.style.display = "none"
+                reason_field.style.display = "none";
             }
         }
 
