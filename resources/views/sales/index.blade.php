@@ -165,6 +165,7 @@
             </div>
         </div>
     </div>
+
     <hr class="dropdown-divider">
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Vendas Registados</h6>
@@ -172,7 +173,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example2" class="table table-striped table-bordered">
+                <table id="example3" class="table table-striped table-bordered">
                     <thead>
                     <tr>
 
@@ -243,6 +244,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#example2').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example3').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
