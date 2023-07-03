@@ -251,8 +251,10 @@
                 reason_field.style.display = "block";
             } else if(status==3){
                 reason_field.style.display = "block";
+            }else if(status==4){
+                reason_field.style.display = "block";
             }else{
-                reason_field.style.display = "none"
+                reason_field.style.display = "none";
             }
         }
 
