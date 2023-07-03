@@ -21,7 +21,7 @@ class SaleController extends Controller
 
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
-                    ->orderBy('created_at', 'desc')->paginate(1000);
+                    ->orderBy('id')->paginate(1000);
 
         #quantidade de vendar por estado
         $sale_draft = Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))->count();

@@ -166,7 +166,6 @@
         </div>
     </div>
 
-    <hr class="dropdown-divider">
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Vendas Registados</h6>
     <hr/>

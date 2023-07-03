@@ -33,6 +33,7 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
+                        <th>#</th>
                         <th>Referencia</th>
                         <th>Nome</th>
                         <th>Descrição</th>
@@ -46,6 +47,7 @@
                     <tbody>
                     @foreach($products as $product)
                         <tr>
+                            <td>{{$product->id}}</td>
                             <td>{{$product->reference}}</td>
                             <td>{{$product->name}}</td>
                             <td>{{$product->description}}</td>
