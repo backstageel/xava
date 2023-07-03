@@ -36,19 +36,19 @@
 
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"draft"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_draft}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sale_status["Draft"]}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Cotação"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_quotation}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sale_status["Cotação"]}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Facturado"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_billed}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sale_status["Facturado"]}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Pago"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_paid}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sale_status["Pago"]}}</span>
                     </li>
 
                 </ul>
@@ -66,9 +66,16 @@
                                     class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatorio</a>
+                                <li >
+                                    <a class="dropdown-item dropdown-toggle" href="javascript:;" >Escolher Ano</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Opção 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Opção 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Opção 3</a></li>
+                                    </ul>
                                 </li>
-                                <li><a class="dropdown-item" href="javascript:;"></a>
+
+                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatorio</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -86,20 +93,61 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                        Geral <span class="badge bg-gradient-quepal rounded-pill">{{$total_sales}}</span>
+                        Geral <span class="badge bg-gradient-quepal rounded-pill">@money($total_sales)</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Meios Circulantes
-                        <span class="badge bg-gradient-ibiza rounded-pill">{{$total_bikes}}</span>
+                        <span class="badge bg-gradient-ibiza rounded-pill">@money($total_bikes)</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Equipamento Informático
-                        <span class="badge bg-gradient-deepblue rounded-pill">{{$total_computer_equipment}}</span>
+                        <span class="badge bg-gradient-deepblue rounded-pill">@money($total_computer_equipment)</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center"> Total Pago
-                        <span class="badge bg-gradient-deepblue rounded-pill">{{$total_paid}}</span>
+                        <span class="badge bg-gradient-deepblue rounded-pill">@money($total_paid)</span>
                     </li>
                 </ul>
             </div>
         </div>
+
+            <div class="col-12 col-lg-8">
+                <div class="card radius-10">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">Vendas Mensais</h6>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
+                        <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
+                                                                            style="color: #14abef"></i>Facturado</span>
+                            <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1"
+                                                                                style="color: #ffc107"></i>Pago</span>
+                        </div>
+                        <div class="chart-container-1">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
+{{--                        <div class="col">--}}
+{{--                            <div class="p-3">--}}
+{{--                                <h5 class="mb-0">@money($totalInvoicesAmount)</h5>--}}
+{{--                                <small class="mb-0">Total de Vendas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="p-3">--}}
+{{--                                <h5 class="mb-0">{{$totalInvoices}}</h5>--}}
+{{--                                <small class="mb-0">Total de Facturas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="p-3">--}}
+{{--                                <h5 class="mb-0">639.82</h5>--}}
+{{--                                <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                    </div>
+                </div>
+            </div>
 
     </div><!--end row-->
     <br>
@@ -264,6 +312,89 @@
         $(function () {
             "use strict";
 
+            var ctx = document.getElementById("chart1").getContext('2d');
+
+            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke1.addColorStop(0, '#6078ea');
+            gradientStroke1.addColorStop(1, '#17c5ea');
+
+            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke2.addColorStop(0, '#ff8359');
+            gradientStroke2.addColorStop(1, '#ffdf40');
+
+            var gradientStroke3 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke3.addColorStop(0, '#ee0979');
+            gradientStroke3.addColorStop(1, '#ff6a00');
+
+            var gradientStroke4 = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientStroke4.addColorStop(0, '#42e695');
+            gradientStroke4.addColorStop(1, '#3bb2b8');
+
+
+
+        var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($sales_by_month1->pluck('month')),
+                    datasets: [{
+                        label: 'Draft',
+                        data: @json($sales_by_month['Draft']->pluck('total')),
+                        borderColor: gradientStroke1,
+                        backgroundColor: gradientStroke1,
+                        hoverBackgroundColor: gradientStroke1,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }, {
+                        label: 'Pago',
+                        data: @json($sales_by_month['Pago']->pluck('total')),
+                        borderColor: gradientStroke2,
+                        backgroundColor: gradientStroke2,
+                        hoverBackgroundColor: gradientStroke2,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }, {
+                        label: 'Facturado',
+                        data: @json($sales_by_month['Facturado']->pluck('total')),
+                        borderColor: gradientStroke3,
+                        backgroundColor: gradientStroke3,
+                        hoverBackgroundColor: gradientStroke3,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }, {
+                        label: 'Cotação',
+                        data: @json($sales_by_month['Cotação']->pluck('total')),
+                        borderColor: gradientStroke4,
+                        backgroundColor: gradientStroke4,
+                        hoverBackgroundColor: gradientStroke4,
+                        pointRadius: 0,
+                        fill: false,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        labels: {
+                            boxWidth: 8
+                        }
+                    },
+                    tooltips: {
+                        displayColors: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            barPercentage: .5
+                        }]
+                    }
+                }
+            });
+
+
 // chart 2
 
             var ctx = document.getElementById("chart2").getContext('2d');
@@ -319,7 +450,8 @@
                             gradientStroke3,
                             gradientStroke4
                         ],
-                        data: [{{$sale_paid}}, {{$sale_billed}}, {{$sale_draft}}, {{$sale_quotation}}],
+                        data: [{{$sale_status["Pago"]}}, {{$sale_status["Facturado"]}}, {{$sale_status["Draft"]}},
+                            {{$sale_status["Cotação"]}}],
                         borderWidth: 1
                     }]
                 },
