@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Person;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\SaleStatus;
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
@@ -21,20 +22,42 @@ class SaleController extends Controller
 
         $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
                     ->orderBy('created_at', 'desc')->paginate(1000);
-        $sale_draft = Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))->count();
-        $sale_facturado = Sale::where('sale_status_id', SaleStatus::where('name', 'Facturado')->value('id'))->count();
-        $sale_cotacao = Sale::where('sale_status_id', SaleStatus::where('name', 'Cotação')->value('id'))->count();
-        $sale_pago = Sale::where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))->count();
 
-        return view('sales.index', compact('sales', 'sale_draft', 'sale_facturado',
-        'sale_cotacao', 'sale_pago'));
+        #quantidade de vendar por estado
+        $sale_draft = Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))->count();
+        $sale_billed = Sale::where('sale_status_id', SaleStatus::where('name', 'Facturado')->value('id'))->count();
+        $sale_quotation = Sale::where('sale_status_id', SaleStatus::where('name', 'Cotação')->value('id'))->count();
+        $sale_paid = Sale::where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))->count();
+
+        #valor de vendas por categoria
+        $total_sales = Sale::sum('total_amount');
+
+        # id de produtos por categoria
+        $computer_equipment_id = Product::where('category_id',
+            ProductCategory::where('name', 'Equipamento electronico')->value('id'))->pluck('id');
+        $bikes_id = Product::where('category_id',
+            ProductCategory::where('name', 'Meios circulantes')->value('id'))->pluck('id');
+        $others_id = Product::where('category_id',
+            ProductCategory::where('name', 'outros')->value('id'))->pluck('id');
+
+
+        $total_bikes = SaleItem::whereIn('product_id', $bikes_id)->sum('sub_total');
+        $total_computer_equipment = SaleItem::whereIn('product_id', $computer_equipment_id)->sum('sub_total');
+        $total_others = SaleItem::whereIn('product_id', $others_id)->sum('sub_total');
+        $total_paid = Sale::where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))->sum('total_amount');
+
+        $limit = 1000000.00;
+
+        return view('sales.index', compact('sales', 'sale_draft', 'sale_billed',
+        'sale_quotation', 'sale_paid', 'total_bikes', 'total_computer_equipment', 'total_others', 'total_paid',
+        'total_sales', 'limit'));
     }
 
 
     public function create()
     {
         #busca customerable_id da tabela customer para poder comparar com id das companias
-        $customers_company =Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
+        $customers_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
         # busca todos nomes de companias que sejam clientes
         $company_names = Company::whereIn('id', $customers_company)->pluck('name');
         # busca id de clientes que pertencam
@@ -217,14 +240,15 @@ class SaleController extends Controller
             }
 
         }
-        if(($request->input('transport_value')) != null){
-            if(is_numeric( $request->input('transport_value'))) {
+        if(($request->input('transport_value')) != null) {
+            if (is_numeric($request->input('transport_value'))) {
                 $sale->transport_value = $request->input('transport_value');
-            }            }else{
+            } else {
                 flash('Formatação do campo "Valor do Transporte" incorrecto.
                 Separação de casas decimais para campos númericos = (0.0)')->error();
                 return redirect()->back()->withInput();
             }
+        }
 
         if(($request->input('other_expenses')) != null){
             if(is_numeric($request->input('other_expenses'))) {
