@@ -118,7 +118,7 @@
                                                 <strong>Indústria do Concurso</strong>
                                             </legend><br><br>
 
-                                            <div class="col-6">
+                                            <div class="col-9">
                                                 @foreach($productCategories as $category)
                                                     <div>
 
