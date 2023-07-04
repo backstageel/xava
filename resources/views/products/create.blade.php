@@ -106,5 +106,7 @@
                 theme: 'arrows',
             })
         });
+
+
     </script>
 @endsection

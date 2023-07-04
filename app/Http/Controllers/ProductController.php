@@ -27,7 +27,14 @@ class ProductController extends Controller
     public function create()
     {
 
-        $category = ProductCategory::pluck('name', 'id');
+
+        $ids = [11,3]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo desejado
+
+        $category = ProductCategory::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
         return view('products.create', compact('category', 'countries'));
     }
@@ -68,7 +75,14 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $category = ProductCategory::pluck('name', 'id');
+
+        $ids = [11,3]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo desejado
+
+        $category = ProductCategory::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name', 'id');
 
         return view('products.edit', compact('category', 'product'));
     }

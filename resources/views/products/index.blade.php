@@ -77,7 +77,7 @@
         $(document).ready(function () {
             var table = $('#example2').DataTable({
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                   // url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
                 lengthChange: false,
             });

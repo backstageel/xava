@@ -53,41 +53,42 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-8">
                                             <x-bootstrap::form.input name="name" label="Nome"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="email" label="Email"/>
                                         </div>
-                                        <div class="col-3">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="customer_type" id="tipo"
                                                                       label="Tipo de Cliente"
                                                                       :options="$customerTypes"/>
 
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="gender_id" label="Gênero"
                                                                       :options="$genders"/>
                                         </div>
-
-
-
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="nuit" label="NUIT"/>
                                         </div>
-                                        <div class="col-3">
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="country_id" label="Nacionalidade"
                                                                       :options="$countries" :default="152"/>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="province_id" label="Província"
                                                                       :options="$provinces"/>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="district_id" label="Distrito"
                                                                       :options="$districts"/>
                                         </div>

@@ -28,7 +28,7 @@ class SaleController extends Controller
         $endDate = Date::now()->endOfMonth();
 
         $sale_status = [
-            'Draft' => Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))
+            'Draft' => Sale::where('sale_status_id', SaleStatus::where('name', 'Draft')->value('id'))
                 ->whereBetween('sale_date', [$startDate, $endDate])
                 ->count(),
             'Facturado' => Sale::where('sale_status_id', SaleStatus::where('name', 'Facturado')->value('id'))
@@ -49,7 +49,7 @@ class SaleController extends Controller
         )->groupBy('month');
 
         $sales_by_month = [
-            'Draft' => Sale::where('sale_status_id', SaleStatus::where('name', 'draft')->value('id'))
+            'Draft' => Sale::where('sale_status_id', SaleStatus::where('name', 'Draft')->value('id'))
                 ->whereBetween('sale_date', [$startDate, $endDate])->selectRaw(
                     'MONTHNAME(sale_date) as month, SUM(total_amount) as total, COUNT(*) as count'
                 )->groupBy('month'),
@@ -77,11 +77,11 @@ class SaleController extends Controller
 
         # id de produtos por categoria
         $computer_equipment_id = Product::where('category_id',
-            ProductCategory::where('name', 'Equipamento electronico')->value('id'))->pluck('id');
+            ProductCategory::where('name', 'Equipamento electrónico')->value('id'))->pluck('id');
         $bikes_id = Product::where('category_id',
             ProductCategory::where('name', 'Meios circulantes')->value('id'))->pluck('id');
         $others_id = Product::where('category_id',
-            ProductCategory::where('name', 'outros')->value('id'))->pluck('id');
+            ProductCategory::where('name', 'Outros')->value('id'))->pluck('id');
 
 
         $total_bikes = SaleItem::whereIn('sale_id', $current_year_sales)->whereIn('product_id', $bikes_id)->sum('sub_total');
@@ -249,15 +249,48 @@ class SaleController extends Controller
 
     public function edit(Sale $sale)
     {
+
+        $customers_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
+        $company_names = Company::whereIn('id', $customers_company)->pluck('name');
+        $id_customer_company =DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
+        $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
+        $customers_person =Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('customerable_id');
+        $id_customer_person =DB::table('customers')->where('customerable_type', 'App\Models\Person')->get()->pluck('id');
+        $person_names =DB::table('people')->whereIn('id', $customers_person)
+            ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
+        $person = array_combine( $id_customer_person->toArray(), $person_names->toArray());
+
+        $customers = $person + $company;
         $sale_statuses = SaleStatus::pluck('name', 'id');
         $products = Product::pluck('name', 'id');
-        return view('sales.edit', compact('sale', 'products', 'sale_statuses'));
+        return view('sales.edit', compact('sale', 'products','customers', 'sale_statuses'));
     }
 
 
     public function update(SaleRequest $request, Sale $sale)
     {
 
+        $sale->customer_id = $request->input('customer_id');
+        $customer= Customer::where('id', $sale->customer_id)->first();
+
+        if ($customer->customerable_type == Company::class) {
+            $company =  Company::where('id', $customer->customerable_id)->first();
+            $sale->customer_name =$company->name;
+        } else {
+            $person =  Person::where('id', $customer->customerable_id)->first();
+            $sale->customer_name = $person->first_name.$person->last_name;
+        }
+
+        if(($request->input('sale_ref')) != null){
+            $sale->sale_ref = $request->input(['sale_ref']);
+        }
+        if(($request->input('sale_date')) != null){
+            $sale->sale_date = $request->input('sale_date');
+        }
+
+        if(($request->input('invoice_id')) != null){
+            $sale->invoice_id = $request->input('invoice_id');
+        }
 
         if(($request->input('sale_status_id')) != null){
             $sale->sale_status_id = $request->input('sale_status_id');
@@ -319,14 +352,14 @@ class SaleController extends Controller
 
 
 
-       # $sale->invoice_id = $request->input('invoice_id');
 
 
 
 
 
 
-        #$sale->total_amount =  $sale->transport_value + $sale->other_expenses + $sale->intermediary_committee;
+
+
         $sale->debt_amount = $sale->total_amount - $sale->receipt_id;
         $sale->save();
         if($request->has(['addProduct'])){

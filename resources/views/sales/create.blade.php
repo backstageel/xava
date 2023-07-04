@@ -63,7 +63,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="sale_ref" label="Referência" required/>
+                                            <x-bootstrap::form.input name="sale_ref" label="Referência" />
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
@@ -95,7 +95,7 @@
                                 </div>
 
 
-                                     <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                     <div id="step-2" value="2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="receipt_id" label="Nr do Recibo"/>
@@ -161,6 +161,34 @@
                 theme: 'arrows',
             })
         });
+        // var teste = document.getElemetById('step2').value();
+        // $(function () {
+        //     $('#smartwizard').smartWizard({
+        //         theme: 'arrows',
+        //         toolbarSettings: {
+        //             toolbarPosition: 'none', // Valor padrão
+        //         },
+        //         onShowStep: function (step) {
+        //             if (teste == "2") {
+        //                 // Definir a posição da barra de ferramentas como "none" para o passo 2
+        //                 this.toolbarSettings.toolbarPosition = 'none';
+        //             } else {
+        //                 // Definir a posição da barra de ferramentas como necessário para outros passos
+        //                 this.toolbarSettings.toolbarPosition = 'bottom'; // ou 'top' ou 'both', dependendo das suas necessidades
+        //             }
+        //         },
+        //     });
+        // });
+
+        // if (step == 2) {
+        //     // Remover os botões de "Previous" e "Next" no passo 2
+        //     $('#customPreviousButton').hide();
+        //     $('#customNextButton').hide();
+        // } else {
+        //     // Exibir os botões de "Previous" e "Next" nos outros passos
+        //     $('#customPreviousButton').show();
+        //     $('#customNextButton').show();
+        // }
     </script>
 @endsection
 

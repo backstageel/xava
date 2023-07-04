@@ -62,11 +62,8 @@
                     </a>
                 </li>-->
 
-                    <a href="{{route('customers.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Clientes
-                    </a>
-                </li>
+
+
                 <li>
                     <a href="{{route('suppliers.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
@@ -112,11 +109,18 @@
             </a>
             <ul>
                 <li>
+                    <a href="{{route('customers.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Clientes
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('sales.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
                         Vendas
                     </a>
                 </li>
+
                 <li>
                     <a href="{{route('products.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>

@@ -50,21 +50,32 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-5">
-                                            <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
+                                            <x-bootstrap::form.select name="customer_id" label="Cliente"
+                                               :options="$customers"
+                                               default="{{old('customer_id', $sale->customer_id)}}"/>
+                                        </div>
+
+                                        <div class="col-5">
+                                            <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"
+                                              value="{{old('invoice_id', isset($sale->invoice_id) ? $sale->invoice_id : '')}}" />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="notes" label="Descrição da Venda"/>
+                                            <x-bootstrap::form.input name="notes" label="Descrição da Venda"
+                                              value="{{old('notes',isset($sale->notes) ? $sale->notes : '')}}"/>
                                         </div>
 
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="sale_status_id" label="Estado da Venda"
-                                                                      :options="$sale_statuses"/>
+                                                                      :options="$sale_statuses"
+                                              default="{{old('sale_status_id', isset($sale->sale_status_id) ? $sale->sale_status_id : '')}}"
+                                                                      />
                                         </div>
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>
+                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"
+                                             value="{{old('payment_method',isset($sale->payment_method) ? $sale->payment_method : '')}}"/>
                                         </div>
 
                                     </div>
@@ -79,27 +90,32 @@
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="receipt_id" label="Nr do Recibo"/>
+                                            <x-bootstrap::form.input name="receipt_id" label="Nr do Recibo"
+                                              value="{{old('receipt_id',isset($sale->receipt_id) ? $sale->receipt_id : '')}}"/>
                                         </div>
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="amount_received" label="Valor Recebido"/>
+                                            <x-bootstrap::form.input name="amount_received" label="Valor Recebido"
+                                             value="{{old('amount_received',isset($sale->amount_received) ? $sale->amount_received : '')}}"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="transport_value" label="Valor do Transporte"
-                                            />
+                                              value="{{old('transport_value',isset($sale->transport_value) ? $sale->transport_value : '')}}"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento" />
+                                            <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento"
+                                              value="{{old('payment_date',isset($sale->payment_date) ? $sale->payment_date : '')}}"/>
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="other_expenses" label="Valor de Outras Despesas" />
+                                            <x-bootstrap::form.input name="other_expenses" label="Valor de Outras Despesas"
+                                               value="{{old('other_expenses',isset($sale->other_expenses) ? $sale->other_expenses : '')}}"/>
                                         </div>
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
+                                            <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários"
+                                               value="{{old('intermediary_committee',isset($sale->intermediary_committee) ? $sale->intermediary_committee : '')}}"/>
                                         </div>
                                     </div>
                                     <div>

@@ -1,6 +1,5 @@
 @extends("layouts.app")
 @section("style")
-    <
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -40,33 +39,32 @@
 
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-
-
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-2">
-                                                <x-bootstrap::form.input type="hidden" name="sale_id" class="form-control" value="{{$sale->id}}"/>
-                                            </div>
-                                            <div class="col-2">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-4">
                                                 <x-bootstrap::form.input name="notes" class="form-control" label="Descrição do Produto"/>
-                                            </div>
-                                            <div class="col-2">
-                                                <x-bootstrap::form.input name="purchase_price" class="form-control" label="Preco de Compra"/>
                                             </div>
                                             <div class="col-3">
                                                 <x-bootstrap::form.select name="product_id" label="Produtos"
                                                                           class="form-control" :options="$products" required/>
                                             </div>
                                             <div class="col-2">
+                                                <x-bootstrap::form.input type="hidden" name="sale_id" class="form-control" value="{{$sale->id}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <x-bootstrap::form.input name="purchase_price" class="form-control" label="Preco de Compra" required/>
+                                            </div>
+                                            <div class="col-3">
                                                 <x-bootstrap::form.input name="unit_price" label="Preco Unitário de Venda"
                                                                          class="form-control" required/>
                                             </div>
-                                            <div class="col-5">
+                                            <div class="col-3">
                                                 <x-bootstrap::form.input name="quantity"   class="form-control" label="Quantidade" required/>
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="row">
                                         <div class="col-12">
@@ -75,12 +73,12 @@
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-
+                                </div>
                                 </div>
 
 
                             </div>
-                        </div>
+
 
                         <!-- Include optional progressbar HTML -->
                         <div class="progress">

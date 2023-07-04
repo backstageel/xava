@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('payment_date')->nullable();
             $table->double('profit')->nullable();
             $table->double('debt_amount')->nullable();
+            $table->string('sale_ref')->nullable()->change();
 
 
 

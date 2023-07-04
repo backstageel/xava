@@ -60,7 +60,7 @@ class CustomersController extends Controller
         $customerable->address_province_id = $request->input('province_id');
         $customerable->address_district_id = $request->input('district_id');
 
-        if(strlen($customerable->nuit)!=9){
+        if(strlen($customerable->nuit)!=9  && ($customerable->nuit)!= null){
             flash('Nuit invalido, o campo Nuit deve ser composto por 9 dígitos')->error();
             return redirect()->route('customers.create');
         }else {

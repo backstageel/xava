@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sale_items', function (Blueprint $table){
-            $table->double('purchase_price');
-
+        Schema::table('people', function (Blueprint $table){
+           $table->string('nuit')->nullable()->change();
         });
     }
-
-
-
 
     /**
      * Reverse the migrations.

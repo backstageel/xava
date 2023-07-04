@@ -45,24 +45,19 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <x-bootstrap::form.input name="name" label="Nome do Produto"
-                                               value="{{old('name', $product->name)}}"     :options="$category"/>
+                                               value="{{old('name', $product->name)}}"/>
                                         </div>
-
-
                                     </div>
                                     <div class="row">
                                         <div class="col-5">
-
                                             <x-bootstrap::form.select name="category_id" label="Categoria do Produto"
                                                   value="{{old('category_id', isset($product->ProductCategory) ? $product->ProductCategory->name : '')}}" :options="$category"/>
                                         </div>
                                         <div class="col-4">
-
                                             <x-bootstrap::form.input name="description" label="Descrição do Produto"
                                                 value="{{old('description', $product->description)}}"/>
                                         </div>
                                         <div class="col-3">
-
                                             <x-bootstrap::form.input name="brand" label="Marca do Produto"
                                                             value="{{old('brand', $product->brand)}}"/>
                                         </div>
