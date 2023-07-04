@@ -39,6 +39,7 @@
                                         Dados do Concurso
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-2">
                                         <span class="num">2</span>
@@ -56,41 +57,42 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <x-bootstrap::form.select
                                                 name="customer_id"
                                                 label="Nome da Instituição"
                                                 :options="$companies"
                                             />
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-5">
                                             <x-bootstrap::form.select name="competition_type_id"
                                                                       label="Tipo de Concurso"
 
                                                                       :options="$competitionTypes"/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="company_type_id"
-                                                                      label="Tipo de Instituição"
-                                                                      :options="$companyTypes"/>
 
-                                        </div>
 
 
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-6">
                                             <x-bootstrap::form.input name="competition_reference"
                                                                      label="Referência do Concurso"/>
                                         </div>
+                                        <div class="col-5">
+                                            <x-bootstrap::form.select name="company_type_id"
+                                                                      label="Tipo de Instituição"
+                                                                      :options="$companyTypes" />
 
-                                        <div class="col-6">
-                                            <x-bootstrap::form.select name="product_category_id"
-                                                                      label="Indústria do Concurso"
-                                                                      :options="$productCategories"
-                                                                      :value="$selected_nature_name ?? null"/>
                                         </div>
+
+{{--                                        <div class="col-6">--}}
+{{--                                            <x-bootstrap::form.select name="product_category_id"--}}
+{{--                                                                      label="Indústria do Concurso"--}}
+{{--                                                                      :options="$productCategories"--}}
+{{--                                                                      :value="$selected_nature_name ?? null"/>--}}
+{{--                                        </div>--}}
                                     </div>
 
                                     <div class="row">
@@ -106,15 +108,48 @@
                                             <x-bootstrap::form.input name="proposal_value"
                                                                      label="Valor da Proposta"/>
                                         </div>
+
                                     </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                        <fieldset class="border p-2 position-relative">
+                                            <legend class="border-bottom mb-0 px-3 position-absolute top-0 start-50 translate-middle-x"
+                                                    style="background-color: white; font-size: 14px;">
+                                                <strong>Indústria do Concurso</strong>
+                                            </legend><br><br>
+
+                                            <div class="col-6">
+                                                @foreach($productCategories as $category)
+                                                    <div>
+
+                                                        <input type="checkbox" class="form-check-input"  name="product_category_id[]" value="{{$category->id}}">
+                                                        <label class="form-check-label">{{ $category->name }}</label>
+                                                    </div>
+
+                                                @endforeach
+                                            </div>
 
 
-                                </div>
+                                            </fieldset>
+                                        </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.select name="rolling_stock_subcategory_ids[]"
+                                                                          label="Sub-categoria de Meios Circulantes"
+                                                                          :options="$rolling_stock_subcategory" multiple />
+                                            </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.select name="electronic_subcategory_ids[]"
+                                                                      label="Sub-categoria de Electronica"
+                                                                      :options="$electronic_subcategory" multiple />
+                                        </div>
+                                        </div>
+
+                                    </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="provisional_bank_guarantee"
-                                                                     label="Garantia Bancária Provisoria"/>
+                                                                     label="Garantia Provisoria"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="provisional_bank_guarantee_award"

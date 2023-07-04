@@ -43,7 +43,7 @@
                         <th>Tipo Concurso</th>
                         <th>Referência</th>
                         <th>Natureza</th>
-                        <th>Garantia B.Provisoria</th>
+                        <th>Garantia Provisoria</th>
                         <th>Prémio</th>
                         <th>Garantia Definitiva</th>
                         <th>Prémio</th>
@@ -71,9 +71,21 @@
                             <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
                             <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
+
                             <td>{{$competition->competitionType->name}}</td>
                             <td>{{$competition->competition_reference}}</td>
-                            <td>{{$competition->product->productCategory->name}}</td>
+{{--                            <td>{{$competition->product->productCategory->name}}</td>--}}
+                            <td>
+
+                            @foreach ($competition->productCategory as $categoria)
+
+                                {{ $categoria->name .','}}
+
+                                    @foreach ($categoria->productSubcategory as $subcategoria)
+                                        {{ dd($subcategoria->name?? 'null')}}
+                                    @endforeach
+
+                                @endforeach</td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
                             <td>{{$competition->definitive_guarantee}}</td>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Competition extends Model
 {
+    protected $with = ['productCategory'];
 
     public function customer()
     {
@@ -37,7 +38,10 @@ class Competition extends Model
 
     public function productcategory()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsToMany(ProductCategory::class,'competition_product_categories');
+    }
+    public function productSubCategory(){
+        return $this->belongsToMany(ProductSubCategory::class,'competition_sub_categories')->withPivot('product_category_id');
     }
 
 

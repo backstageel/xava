@@ -75,12 +75,12 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="product_category_id"
-                                                                      label="Indústria do Concurso"
-                                                                      :options="$productCategories"
-                                                                      default="{{old('product_category_id',$competition->product_category_id)}}"/>
-                                        </div>
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.select name="product_category_id"--}}
+{{--                                                                      label="Indústria do Concurso"--}}
+{{--                                                                      :options="$productCategories"--}}
+{{--                                                                      default="{{old('product_category_id',$competition->product_category_id)}}"/>--}}
+{{--                                        </div>--}}
                                          <div class="col-4">
                                             <x-bootstrap::form.input name="competition_reference"
                                                                      label="Referência do Concurso"
