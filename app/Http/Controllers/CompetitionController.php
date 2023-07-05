@@ -49,11 +49,7 @@ class CompetitionController extends Controller
     public function create()
     {
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
-        $electronic_subcategory = ProductSubCategory::where('product_category_id', '=', 11)->pluck('name','id');
-        $rolling_stock_subcategory=ProductSubCategory::where('product_category_id', '=', 3)->pluck('name','id');
-
-
-
+        $productsubcategory = ProductSubCategory::orderBy('name')->get();
         $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
         $companies = Company::orderBy('name')->pluck('name', 'id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
@@ -81,7 +77,7 @@ class CompetitionController extends Controller
                 ->orWhere('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
 
-        $ids = [11,3]; // Lista de IDs desejados
+        $ids = [1,2,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
@@ -102,8 +98,8 @@ class CompetitionController extends Controller
                 'competitionStatuses',
                 'productCategories',
                 'competitionResult',
-                'electronic_subcategory',
-                'rolling_stock_subcategory'
+                'productsubcategory',
+
 
             )
         );

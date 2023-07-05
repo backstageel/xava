@@ -3,6 +3,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -132,11 +136,51 @@
 
                                             </fieldset>
                                         </div>
-                                            <div class="col-4">
-                                                <x-bootstrap::form.select name="rolling_stock_subcategory_ids[]"
-                                                                          label="Sub-categoria de Meios Circulantes"
-                                                                          :options="$rolling_stock_subcategory" multiple />
+{{--                                            <div class="col-4">--}}
+{{--                                                <x-bootstrap::form.select name="rolling_stock_subcategory_ids[]"--}}
+{{--                                                                          label="Sub-categoria de Meios Circulantes"--}}
+{{--                                                                          :options="$rolling_stock_subcategory" multiple />--}}
+{{--                                            </div>--}}
+
+                                        <div class="col-4">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Sub-Categoria Meios Circulantes
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                @foreach($productsubcategory as $subcategory)
+                                                <a class="dropdown-item" href="#">
+
+                                                    <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}">
+                                                    <label for="item1">{{ $subcategory->name }}</label>
+                                                </a>@endforeach
+
+                                                                                        </div>
+                                        </div>
+                                            <br>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Sub-Categoria Meios Circulantes
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    @foreach($productCategories as $category)
+                                                        <a class="dropdown-item" href="#">
+
+                                                            <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$category->id}}">
+                                                            <label for="item1">{{ $category->name }}</label>
+                                                        </a>@endforeach
+
+                                                </div>
                                             </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                        </div>
+
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="electronic_subcategory_ids[]"
                                                                       label="Sub-categoria de Electronica"
