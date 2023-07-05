@@ -10,10 +10,12 @@ class ProductSubCategory extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function productcategory()
+    public function ProductCategory()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class,'product_category_id');
     }
+
+
 
 
 //    public function competitions()

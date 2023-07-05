@@ -133,6 +133,12 @@
                         Categoria de Produtos
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('product_sub_categories.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Sub Categoria de Produtos
+                    </a>
+                </li>
 
             </ul>
         </li>

@@ -52,7 +52,7 @@ class ConcursosImport implements OnEachRow, WithHeadingRow, WithCalculatedFormul
         ]);
 
         $competitionNumber = $row['numero_do_concurso'];
-        $productCategory = ProductCategory::firstOrCreate([
+        $productCategory = Pro-ductCategory::firstOrCreate([
             'name' => $row['naturezaindustria_do_concurso']??'Diversos',
         ]);
         $product = Product::firstOrCreate([

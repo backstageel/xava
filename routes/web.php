@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('create_pdf', \App\Http\Controllers\CreatePdfController::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('contacts', \App\Http\Controllers\ContactController::class);
+    Route::resource('product_sub_categories', \App\Http\Controllers\ProductSubCategoryController::class);
+
 });
 
 require __DIR__ . '/auth.php';
