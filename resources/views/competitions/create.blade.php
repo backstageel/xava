@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-4" >
-                                            <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
+                                            <x-bootstrap::form.select name="competition_status_id" label="Fase/Estágio do Concurso"
                                                                       :options="$competitionStatuses"/>
                                         </div>
                                         <div class="col-4">

@@ -49,17 +49,38 @@ class CompetitionController extends Controller
     public function create()
     {
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
-        $electronic_subcategory = ProductSubCategory::where('product_category_id', '=', 1)->pluck('name','id');
-        $rolling_stock_subcategory=ProductSubCategory::where('product_category_id', '=', 2)->pluck('name','id');
+        $electronic_subcategory = ProductSubCategory::where('product_category_id', '=', 11)->pluck('name','id');
+        $rolling_stock_subcategory=ProductSubCategory::where('product_category_id', '=', 3)->pluck('name','id');
 
 
 
         $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
         $companies = Company::orderBy('name')->pluck('name', 'id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
-        $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
-        $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
-        $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
+
+        $ids = [1,2,3,4,5,6,7,8,9]; // Lista de IDs desejados
+        $minId = 36; // ID mínimo desejado
+        $competitionReasons = CompetitionReason::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name','id');
+
+        $ids = [1,2,3,4]; // Lista de IDs desejados
+        $minId = 32; // ID mínimo desejado
+
+        $competitionStatuses = CompetitionStatus::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name','id');
+
+        $ids = [1,3,4,5,9]; // Lista de IDs desejados
+        $minId = 9; // ID mínimo desejado
+
+        $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);
+        })->orderBy('name')->pluck('name','id');
+
         $ids = [1,2,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
