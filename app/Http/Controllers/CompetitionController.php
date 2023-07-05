@@ -24,6 +24,7 @@ class CompetitionController extends Controller
      */
     public function index()
     {
+
         $competitions = Competition::with(
             [
                 'customer.customerable',
@@ -34,7 +35,7 @@ class CompetitionController extends Controller
                 'product.productCategory',
                 'companyType',
                 'competitionResult',
-                'ProductCategory.productSubcategory'
+                'ProductCategory.productsubcategories'
 
             ]
         )->orderBy('id')->paginate(1000);
@@ -48,8 +49,8 @@ class CompetitionController extends Controller
     public function create()
     {
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
-        $electronic_subcategory = ProductSubCategory::where('product_category_id', '=', 11)->pluck('name','id');
-        $rolling_stock_subcategory=ProductSubCategory::where('product_category_id', '=', 3)->pluck('name','id');
+        $electronic_subcategory = ProductSubCategory::where('product_category_id', '=', 1)->pluck('name','id');
+        $rolling_stock_subcategory=ProductSubCategory::where('product_category_id', '=', 2)->pluck('name','id');
 
 
 
@@ -59,7 +60,7 @@ class CompetitionController extends Controller
         $competitionTypes = CompetitionType::orderBy('name')->pluck('name', 'id');
         $competitionReasons = CompetitionReason::orderBy('name')->pluck('name', 'id');
         $competitionStatuses = CompetitionStatus::orderBy('name')->pluck('name', 'id');
-        $ids = [11,3]; // Lista de IDs desejados
+        $ids = [1,2,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
@@ -116,8 +117,8 @@ class CompetitionController extends Controller
         $competition->customer_id = $request->input('customer_id');
         $competition->company_type_id=$request->input('company_type_id');
         $competition->competition_reference = $request->input('competition_reference');
-        $competition->product_category_id = 1;
-        $competition->product_id = 1;
+        $competition->product_category_id = 1;//depreciado
+        $competition->product_id = 1;//depreciado
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
         $competition->definitive_guarantee = $request->input('definitive_guarantee');
@@ -136,16 +137,15 @@ class CompetitionController extends Controller
             $competition->save();
             flash('Concurso registado com sucesso')->success();
             //Apenas Testando
-            $selectedCategory = $request->input('product_category_id');
-            $competition->productcategory()->attach($selectedCategory);
+            $selectedcategories = $request->input('product_category_id');
+            $competition->productcategory()->sync($selectedcategories);
 
-            $selectedSubCategory = $request->input('electronic_subcategory_ids');
-            if (!empty($selectedSubCategory)) {
-                $selectedCategory= $request->input('product_category_id');
-                $associatedCategory = array_combine($selectedCategory, $selectedCategory); // para evitar duplicatas
-                foreach ($selectedSubCategory as $subCategoryId) {
-                    $categoryIds = array_keys($associatedCategory);
-                    $competition->productcategory()->updateExistingPivot($categoryIds, ['product_category_id' => $subCategoryId]);
+            $selectedsubcategories = $request->input('electronic_subcategory_ids');
+            foreach ($selectedcategories as $categoryId) {
+                $category = ProductCategory::find($categoryId);
+                if ($category) {
+                    $category->productsubcategories()->attach($selectedsubcategories, ['competition_id' => $competition->id]);
+
                 }
             }
 

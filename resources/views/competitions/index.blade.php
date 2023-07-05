@@ -81,8 +81,8 @@
 
                                 {{ $categoria->name .','}}
 
-                                    @foreach ($categoria->productSubcategory as $subcategoria)
-                                        {{ dd($subcategoria->name?? 'null')}}
+                                    @foreach ($categoria->productsubcategories as $subcategoria)
+                                        {{ $subcategoria->name?? 'null'}}
                                     @endforeach
 
                                 @endforeach</td>

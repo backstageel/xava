@@ -8,13 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class ProductSubCategory extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
     public function productcategory()
     {
-        return $this->belongsToMany(ProductCategory::class, 'product_category_sub_categories');
+        return $this->belongsTo(ProductCategory::class);
     }
 
-    public function competition()
-    {
-        return $this->belongsToMany(Competition::class, 'competition_sub_categories')->withPivot('product_category_id');
-    }
+
+//    public function competitions()
+//    {
+//        return $this->belongsToMany(Competition::class, 'competition_sub_categories');
+//    }
 }
