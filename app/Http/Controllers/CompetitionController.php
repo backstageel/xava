@@ -81,7 +81,7 @@ class CompetitionController extends Controller
                 ->orWhere('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
 
-        $ids = [1,2,3]; // Lista de IDs desejados
+        $ids = [11,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
