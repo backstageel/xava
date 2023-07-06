@@ -55,12 +55,12 @@ class CompetitionController extends Controller
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
 
 
-        $minId = 32; // ID
+        $minId = 36; // ID
         $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
             $query->Where('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
 
-        $minId = 36; // ID mínimo desejado
+        $minId = 32; // ID mínimo desejado
 
         $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
             $query->
