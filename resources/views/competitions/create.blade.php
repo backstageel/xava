@@ -124,9 +124,9 @@
 
                                             <div class="col-9">
                                                 @foreach($productCategories as $category)
-                                                    <div>
+                                                    <div onchange="verify_check()">
 
-                                                        <input type="checkbox" class="form-check-input"  name="product_category_id[]" value="{{$category->id}}">
+                                                        <input type="checkbox" class="form-check-input" id="_{{$category->id}}" name="product_category_id[]" value="{{$category->id}}">
                                                         <label class="form-check-label">{{ $category->name }}</label>
                                                     </div>
 
@@ -142,53 +142,54 @@
 {{--                                                                          :options="$rolling_stock_subcategory" multiple />--}}
 {{--                                            </div>--}}
 
-                                        <div class="col-4">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Sub-Categoria Meios Circulantes
+                                        <div class="col-3" >
+                                        <div class="dropdown" id="rolling_stock" style=" display: none">
+                                            <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc;  ">
+                                                Meios Circulantes
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                                 @foreach($productsubcategory as $subcategory)
+                                                    @if($subcategory->product_category_id==3)
                                                 <a class="dropdown-item" href="#">
 
                                                     <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}">
                                                     <label for="item1">{{ $subcategory->name }}</label>
-                                                </a>@endforeach
+                                                </a>@endif @endforeach
 
                                                                                         </div>
                                         </div>
-                                            <br>
-                                            <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Sub-Categoria Meios Circulantes
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <div class="dropdown" id="electronic" style=" display: none">
+                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
+                                                    Equipamento Electrónico
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    @foreach($productCategories as $category)
+                                                    @foreach($productsubcategory as $subcategory)
+                                                        @if($subcategory->product_category_id==11)
                                                         <a class="dropdown-item" href="#">
 
-                                                            <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$category->id}}">
-                                                            <label for="item1">{{ $category->name }}</label>
-                                                        </a>@endforeach
+                                                            <input type="checkbox" id="item1" name="electronic_subcategory_ids[]"  value="{{$subcategory->id}}">
+                                                            <label for="item1">{{ $subcategory->name }}</label>
+                                                        </a>@endif @endforeach
 
                                                 </div>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
+                                            </div><br><br><br><br><br><br><br><br><br><br><br><br>
+
                                         </div>
 
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="electronic_subcategory_ids[]"
-                                                                      label="Sub-categoria de Electronica"
-                                                                      :options="$electronic_subcategory" multiple />
-                                        </div>
-                                        </div>
+{{--                                        <div class="col-3">--}}
+{{--                                            <x-bootstrap::form.select name="electronic_subcategory_ids[]"--}}
+{{--                                                                      label="Sub-categoria de Electronica"--}}
+{{--                                                                      :options="$electronic_subcategory" multiple />--}}
+{{--                                        </div>--}}
+{{--                                        </div>--}}
 
                                     </div>
+                                </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-3">
@@ -301,6 +302,27 @@
                 reason_field.style.display = "block";
             }else{
                 reason_field.style.display = "none";
+            }
+        }
+        function verify_check() {
+
+            var checkboxElectronic = document.getElementById("_11");
+            var checkboxRollingStock = document.getElementById("_3");
+            var electronicField = document.getElementById("electronic");
+            var rollingStockField = document.getElementById("rolling_stock");
+
+            if (checkboxElectronic.checked && checkboxRollingStock.checked) {
+                electronicField.style.display = "block";
+                rollingStockField.style.display = "block";
+            } else if (checkboxElectronic.checked) {
+                electronicField.style.display = "block";
+                rollingStockField.style.display = "none";
+            } else if (checkboxRollingStock.checked) {
+                electronicField.style.display = "none";
+                rollingStockField.style.display = "block";
+            } else {
+                electronicField.style.display = "none";
+                rollingStockField.style.display = "none";
             }
         }
 

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProductSubCategory extends Model
 {
     use HasFactory;
+    protected $with = ['competitions'];
     protected $guarded = [];
+
 
     public function ProductCategory()
     {
@@ -18,8 +20,8 @@ class ProductSubCategory extends Model
 
 
 
-//    public function competitions()
-//    {
-//        return $this->belongsToMany(Competition::class, 'competition_sub_categories');
-//    }
+  public function competitions()
+   {
+        return $this->belongsToMany(Competition::class, 'competition_sub_categories');
+  }
 }

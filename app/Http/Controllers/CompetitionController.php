@@ -54,22 +54,20 @@ class CompetitionController extends Controller
         $companies = Company::orderBy('name')->pluck('name', 'id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
 
-        $ids = [1,2,3,4,5,6,7,8,9]; // Lista de IDs desejados
+
+        $minId = 32; // ID
+        $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
+            $query->Where('id', '>', $minId);
+        })->orderBy('name')->pluck('name','id');
+
         $minId = 36; // ID mínimo desejado
-        $competitionReasons = CompetitionReason::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
+
+        $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
+            $query->
+                Where('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
 
-        $ids = [1,2,3,4]; // Lista de IDs desejados
-        $minId = 32; // ID mínimo desejado
-
-        $competitionStatuses = CompetitionStatus::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
-
-        $ids = [1,3,4,5,9]; // Lista de IDs desejados
+        $ids = [1,2,3,4,5,9]; // Lista de IDs desejados
         $minId = 9; // ID mínimo desejado
 
         $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
@@ -77,7 +75,7 @@ class CompetitionController extends Controller
                 ->orWhere('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
 
-        $ids = [1,2,3]; // Lista de IDs desejados
+        $ids = [11,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
@@ -154,17 +152,23 @@ class CompetitionController extends Controller
             $competition->save();
             flash('Concurso registado com sucesso')->success();
             //Apenas Testando
-            $selectedcategories = $request->input('product_category_id');
-            $competition->productcategory()->sync($selectedcategories);
+            $selectedCategories = $request->input('product_category_id');
+            $competition->productcategory()->attach($selectedCategories);
 
-            $selectedsubcategories = $request->input('electronic_subcategory_ids');
-            foreach ($selectedcategories as $categoryId) {
+            $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids');
+//            dd($selectedSubcategories_electronic);
+            $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids');
+
+            foreach ($selectedCategories as $categoryId) {
                 $category = ProductCategory::find($categoryId);
-                if ($category) {
-                    $category->productsubcategories()->attach($selectedsubcategories, ['competition_id' => $competition->id]);
-
+                if (isset($selectedSubcategories_electronic) && $category->id == 11) {
+                    $category->productSubcategories()->attach($selectedSubcategories_electronic, ['competition_id' => $competition->id]);
+                }
+                if (isset($selectedSubcategories_rolling) && $category->id == 3) {
+                    $category->productSubcategories()->attach($selectedSubcategories_rolling, ['competition_id' => $competition->id]);
                 }
             }
+
 
 
             return redirect()->route('competitions.index');

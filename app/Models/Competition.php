@@ -37,11 +37,11 @@ class Competition extends Model
         return $this->belongsTo(CompanyType::class);
     }
 
-    public function productcategory()
+    public function productCategory()
     {
         return $this->belongsToMany(ProductCategory::class,'competition_product_categories');
     }
-//    public function productsubcategories(){
+//   public function productsubcategories(){
 //        return $this->belongsToMany(ProductSubCategory::class,'competition_sub_categories')->withPivot('product_category_id');
 //    }
 

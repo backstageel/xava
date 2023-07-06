@@ -42,7 +42,8 @@
                         <th>Instituição</th>
                         <th>Tipo Concurso</th>
                         <th>Referência</th>
-                        <th>Natureza</th>
+                        <th>Categoria</th>
+                        <th>Sub-Categoria</th>
                         <th>Garantia Provisoria</th>
                         <th>Prémio</th>
                         <th>Garantia Definitiva</th>
@@ -79,13 +80,19 @@
 
                             @foreach ($competition->productCategory as $categoria)
 
-                                {{ $categoria->name .','}}
+                                {{ '-'.$categoria->name }}<br>
+                                @endforeach</td>
+                            <td>
 
-                                    @foreach ($categoria->productsubcategories as $subcategoria)
-                                        {{ $subcategoria->name?? 'null'}}
+
+                                    @foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get()
+                                         as $subcategory)
+                                        {{'-'.\App\Models\ProductSubCategory::find($subcategory->product_sub_category_id)->name}}<br>
+
                                     @endforeach
 
-                                @endforeach</td>
+
+                            </td>
                             <td>{{$competition->provisional_bank_guarantee}}</td>
                             <td>{{$competition->provisional_bank_guarantee_award}}</td>
                             <td>{{$competition->definitive_guarantee}}</td>
