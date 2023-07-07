@@ -224,27 +224,28 @@
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.select name="responsible" label="Responsável do concurso"
                                                                       :options="$employees"
                                                                       :value="$selected_employee_name ?? null"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.select name="technical_proposal_review"
-                                                                      label="Responsável pela revisão da Proposta"
+                                                                      label="Responsável pela Rev. da Prop"
                                                                       :options="$employees"/>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.select name="documentary_review"
-                                                                      label="Responsável pela Revisão Documental"
+                                                                      label="Responsável pela Rev. Docs"
                                                                       :options="$employees"/>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-4" >
+                                        <div class="col-3" >
                                             <x-bootstrap::form.select name="competition_status_id" label="Fase/Estágio do Concurso"
                                                                       :options="$competitionStatuses"/>
                                         </div>
+                                    </div>
+                                    <div class="row">
+
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="competition_result_id " onchange="verify_result()"
                                                                       label="Resultado"
@@ -254,29 +255,18 @@
                                             <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
                                                                       :options="$competitionReasons" />
                                         </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6" id="reason_description" style="display: none">
+                                        <div class="col-4" id="reason_description" style="display: none">
                                             <x-bootstrap::form.input name="reason_description" label="Descrição do Motivo"/>
                                         </div>
-                                        <div class="row float-end">
 
-                                            <div class="col-12">
-
-                                                <button class="btn btn-success" type="submit">Gravar</button>
-                                            </div>
-                                        </div>
                                     </div>
-
-
                                     <div class="row float-end">
-
                                         <div class="col-12">
 
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </div>
                             </div>

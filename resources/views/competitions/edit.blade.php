@@ -184,37 +184,36 @@
 {{--                                        </div>--}}
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
                                                                       :options="$competitionStatuses"
                                                                       default="{{old('competition_status_id',$competition->competition_status_id)}}"/>
 
                                         </div>
-                                        <div class="col-4" >
+                                        <div class="col-6" >
                                             <x-bootstrap::form.select name="competition_result_id" label="Resultado"
                                                                       :options="$competitionResult" onchange="verify_result()" id="status"
                                                                       default="{{old('competition_result_id',$competition->competition_result_id)}}"/>
 
                                         </div>
-                                        <div class="col-4" style="display: none" id="reason">
+                                        <div class="col-6" style="display: none" id="reason">
                                             <x-bootstrap::form.select name="competition_reason_id" label="Motivo"
                                                                       :options="$competitionReasons"
                                                                       default="{{old('competition_reason_id',$competition->competition_reason_id)}}"/>
 
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-6" style="display: none" id="reason_description">
                                             <x-bootstrap::form.input name="reason_description" label="Descrição do Motivo"
 
-                                                                      default="{{old('reason_description',$competition->reason_description)}}"/>
+                                                                     default="{{old('reason_description',$competition->reason_description)}}"/>
 
                                         </div>
                                     </div>
-                                    <br><br><br><br>
+
+
                                     <div class="row float-end">
                                         <div class="col-12">
-                                            <br><br><br><br>
+
                                             <button class="btn btn-success" type="submit">Actualizar</button>
                                         </div>
                                     </div>
