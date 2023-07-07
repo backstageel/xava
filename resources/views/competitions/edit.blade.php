@@ -211,6 +211,7 @@
 
                                         </div>
                                     </div>
+                                    <br><br><br><br>
                                     <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Actualizar</button>
