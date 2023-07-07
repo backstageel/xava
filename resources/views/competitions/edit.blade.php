@@ -203,6 +203,14 @@
 
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6" style="display: none" id="reason_description">
+                                            <x-bootstrap::form.input name="reason_description" label="Descrição do Motivo"
+
+                                                                      default="{{old('reason_description',$competition->reason_description)}}"/>
+
+                                        </div>
+                                    </div>
                                     <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Actualizar</button>
@@ -244,17 +252,22 @@
         function verify_result() {
             var status = document.getElementById("status").value;
             var reason_field = document.getElementById("reason");
+            var reason_description_field=document.getElementById('reason_description');
 
 
 
             if (status==2) {
                 reason_field.style.display = "block";
+                reason_description_field.style.display="block";
             } else if(status==3){
                 reason_field.style.display = "block";
+                reason_description_field.style.display="block";
             }else if(status==4){
                 reason_field.style.display = "block";
+                reason_description_field.style.display="block";
             }else{
                 reason_field.style.display = "none";
+                reason_description_field.style.display="none";
             }
         }
 

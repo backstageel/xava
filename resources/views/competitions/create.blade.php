@@ -256,6 +256,11 @@
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6" id="reason_description" style="display: none">
+                                            <x-bootstrap::form.input name="reason_description" label="Descrição do Motivo"/>
+                                        </div>
+                                    </div>
                                     <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
@@ -293,21 +298,26 @@
         function verify_result() {
             var status = document.getElementById("status").value;
             var reason_field = document.getElementById("reason");
+            var reason_description_field =document.getElementById('reason_description');
 
             if (status==2) {
                 reason_field.style.display = "block";
+                reason_description_field.style.display="block";
             } else if(status==3){
                 reason_field.style.display = "block";
+                reason_description_field.style.display="block";
             }else if(status==4){
+                reason_description_field.style.display="block";
                 reason_field.style.display = "block";
             }else{
                 reason_field.style.display = "none";
+                reason_description_field.style.display="none";
             }
         }
         function verify_check() {
 
-            var checkboxElectronic = document.getElementById("_11");
-            var checkboxRollingStock = document.getElementById("_3");
+            var checkboxElectronic = document.getElementById("_11");//id dos eletronicos
+            var checkboxRollingStock = document.getElementById("_3");//id dos meios circulantes
             var electronicField = document.getElementById("electronic");
             var rollingStockField = document.getElementById("rolling_stock");
 
