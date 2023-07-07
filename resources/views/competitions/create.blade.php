@@ -261,9 +261,10 @@
                                             <x-bootstrap::form.input name="reason_description" label="Descrição do Motivo"/>
                                         </div>
                                     </div>
-                                    <br><br><br><br>
+
                                     <div class="row float-end">
                                         <div class="col-12">
+                                            <br><br><br><br>
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>

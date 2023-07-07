@@ -214,6 +214,7 @@
                                     <br><br><br><br>
                                     <div class="row float-end">
                                         <div class="col-12">
+                                            <br><br><br><br>
                                             <button class="btn btn-success" type="submit">Actualizar</button>
                                         </div>
                                     </div>
