@@ -36,21 +36,20 @@
 
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"draft"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_status["Draft"]}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Draft']->sum('count')}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Cotação"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_status["Cotação"]}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Cotacao']->sum('count')}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Facturado"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_status["Facturado"]}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Facturado']->sum('count')}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Pago"}}
-                        <span class="badge bg-success rounded-pill">{{$sale_status["Pago"]}}</span>
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Pago']->sum('count')}}</span>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -59,29 +58,23 @@
                 <div class="card-header bg-transparent">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h6 class="mb-0">Objectivo das Vendas</h6>
+                            <h6 class="mb-0">Objectivo das Vendas IT</h6>
                         </div>
                         <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i
-                                    class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                                <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li >
-                                    <a class="dropdown-item dropdown-toggle" href="javascript:;" >Escolher Ano</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Opção 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Opção 2</a></li>
-                                        <li><a class="dropdown-item" href="#">Opção 3</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li class="dropdown">
+                                    <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
+                                    <ul id="options_computer_equipament" class="dropdown-menu" style="position: static;">
+                                        <li><a class="dropdown-item" href="#" id="current_year_computer_equipament">Ano Actual</a></li>
+                                        <li><a class="dropdown-item" href="#" id="last_year_computer_equipament">Ano Passado</a></li>
                                     </ul>
                                 </li>
-
-                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatorio</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
+                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
                             </ul>
                         </div>
                     </div>
@@ -91,22 +84,97 @@
                         <canvas id="chart4"></canvas>
                     </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                        Geral <span class="badge bg-gradient-quepal rounded-pill">@money($total_sales)</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Meios Circulantes
-                        <span class="badge bg-gradient-ibiza rounded-pill">@money($total_bikes)</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Equipamento Informático
-                        <span class="badge bg-gradient-deepblue rounded-pill">@money($total_computer_equipment)</span>
-                    </li>
-                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center"> Total Pago
-                        <span class="badge bg-gradient-deepblue rounded-pill">@money($total_paid)</span>
-                    </li>
-                </ul>
+                <div id="current_description_computer_equipament">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                            Geral <span class="badge bg-pink rounded-pill">@money($computer_equipament_sales)</span>
+                        </li>
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
+                            <span class="badge bg-darkblue rounded-pill">@money($on_going_computer_equipament_sales)</span>
+                        </li>
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
+                            <span class="badge bg-lightblue rounded-pill">@money($paid_computer_equipament_sales)</span>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="last_description_computer_equipament" style="display: none">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                            Geral <span class="badge bg-pink rounded-pill">@money($last_computer_equipament_sales)</span>
+                        </li>
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
+                            <span class="badge bg-darkblue rounded-pill">@money($last_on_going_computer_equipament_sales)</span>
+                        </li>
+                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
+                            <span class="badge bg-lightblue rounded-pill">@money($last_paid_computer_equipament_sales)</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+            <div class="col-12 col-lg-4">
+                <div class="card radius-10 w-100">
+                    <div class="card-header bg-transparent">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">Objectivo das Vendas Meios Circulantes</h6>
+                            </div>
+                            <div class="dropdown ms-auto">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-horizontal-rounded"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                    <li class="dropdown">
+                                        <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
+                                        <ul id="options_rolling_stock" class="dropdown-menu" style="position: static;">
+                                            <li><a class="dropdown-item" href="#" id="current_year_rolling_stock">Ano Actual</a></li>
+                                            <li><a class="dropdown-item" href="#" id="last_year_rolling_stock">Ano Passado</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
+                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container-1">
+                            <canvas id="chart5"></canvas>
+                        </div>
+                    </div>
+                    <div id="current_description_rolling_stock">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                                Geral <span class="badge bg-pink rounded-pill">@money($rolling_stock_sales)</span>
+                            </li>
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
+                                <span class="badge bg-darkblue rounded-pill">@money($on_going_rolling_stock_sales)</span>
+                            </li>
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
+                                <span class="badge bg-lightblue rounded-pill">@money($paid_rolling_stock_sales)</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="last_description_rolling_stock" style="display: none">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                                Geral <span class="badge bg-pink rounded-pill">@money($last_rolling_stock_sales)</span>
+                            </li>
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
+                                <span class="badge bg-darkblue rounded-pill">@money($last_on_going_rolling_stock_sales)</span>
+                            </li>
+                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
+                                <span class="badge bg-lightblue rounded-pill">@money($last_paid_rolling_stock_sales)</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+        </div>
+
 
             <div class="col-12 col-lg-8">
                 <div class="card radius-10">
@@ -127,24 +195,7 @@
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
-{{--                        <div class="col">--}}
-{{--                            <div class="p-3">--}}
-{{--                                <h5 class="mb-0">@money($totalInvoicesAmount)</h5>--}}
-{{--                                <small class="mb-0">Total de Vendas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <div class="p-3">--}}
-{{--                                <h5 class="mb-0">{{$totalInvoices}}</h5>--}}
-{{--                                <small class="mb-0">Total de Facturas <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <div class="p-3">--}}
-{{--                                <h5 class="mb-0">639.82</h5>--}}
-{{--                                <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+
                     </div>
                 </div>
             </div>
@@ -288,6 +339,23 @@
     <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.min.js"></script>
     <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.extension.js"></script>
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-item.dropdown-toggle').on('mouseenter', function() {
+                $(this).next('.dropdown-menu').addClass('show');
+            });
+
+            $('.dropdown-menu').on('mouseleave', function() {
+                $(this).removeClass('show');
+            });
+        });
+    </script>
+
+
+
     <script>
         $(document).ready(function () {
             var table = $('#example2').DataTable({
@@ -335,7 +403,7 @@
         var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: @json($sales_by_month1->pluck('month')),
+                    labels: {!! $sales_by_month['month']->pluck('month') !!},
                     datasets: [{
                         label: 'Draft',
                         data: @json($sales_by_month['Draft']->pluck('total')),
@@ -365,7 +433,7 @@
                         borderWidth: 0
                     }, {
                         label: 'Cotação',
-                        data: @json($sales_by_month['Cotação']->pluck('total')),
+                        data: @json($sales_by_month['Cotacao']->pluck('total')),
                         borderColor: gradientStroke4,
                         backgroundColor: gradientStroke4,
                         hoverBackgroundColor: gradientStroke4,
@@ -386,11 +454,11 @@
                     tooltips: {
                         displayColors: false,
                     },
-                    scales: {
-                        xAxes: [{
-                            barPercentage: .5
-                        }]
-                    }
+                    // scales: {
+                    //     xAxes: [{
+                    //         barPercentage: .5
+                    //     }]
+                    // }
                 }
             });
 
@@ -415,24 +483,6 @@
             gradientStroke4.addColorStop(0, '#42e695');
             gradientStroke4.addColorStop(1, '#3bb2b8');
 
-            // var ctx = document.getElementById('chart2').getContext('2d');
-            //
-            // var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 250);
-            // gradientStroke1.addColorStop(0, "#FF6384");
-            // gradientStroke1.addColorStop(1, "#FF6384");
-            //
-            // var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 250);
-            // gradientStroke2.addColorStop(0, "#36A2EB");
-            // gradientStroke2.addColorStop(1, "#36A2EB");
-            //
-            // var gradientStroke3 = ctx.createLinearGradient(0, 0, 0, 250);
-            // gradientStroke3.addColorStop(0, "#FFCE56");
-            // gradientStroke3.addColorStop(1, "#FFCE56");
-            //
-            // var gradientStroke4 = ctx.createLinearGradient(0, 0, 0, 250);
-            // gradientStroke4.addColorStop(0, "#4BC0C0");
-            // gradientStroke4.addColorStop(1, "#4BC0C0");
-
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -450,8 +500,10 @@
                             gradientStroke3,
                             gradientStroke4
                         ],
-                        data: [{{$sale_status["Pago"]}}, {{$sale_status["Facturado"]}}, {{$sale_status["Draft"]}},
-                            {{$sale_status["Cotação"]}}],
+                        data: [{{$sales_by_month['Pago']->sum('count')}},
+                            {{$sales_by_month['Facturado']->sum('count')}},
+                            {{$sales_by_month['Draft']->sum('count')}},
+                            {{$sales_by_month['Cotacao']->sum('count')}}],
                         borderWidth: 1
                     }]
                 },
@@ -461,51 +513,129 @@
             });
 
 
-
+//chart4
             var ctx = document.getElementById("chart4").getContext('2d');
 
-            var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
-            gradientStroke1.addColorStop(0, '#ee0979');
-            gradientStroke1.addColorStop(1, '#ff6a00');
+            function createChartComputerEquipament(data) {
+                myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ["Geral", "Execução", "Pago"],
+                        datasets: [{
+                            backgroundColor: [
+                                data.gradientStroke1,
+                                data.gradientStroke2,
+                                data.gradientStroke3
 
-            var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
-            gradientStroke2.addColorStop(0, '#283c86');
-            gradientStroke2.addColorStop(1, '#39bd3c');
+                            ],
+                            hoverBackgroundColor: [
+                                data.gradientStroke1,
+                                data.gradientStroke2,
+                                data.gradientStroke3
 
-            var gradientStroke3 = ctx.createLinearGradient(0, 0, 0, 300);
-            gradientStroke3.addColorStop(0, '#7f00ff');
-            gradientStroke3.addColorStop(1, '#e100ff');
+                            ],
+                            data: data.chartData,
+                            borderWidth: [1, 1, 1]
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        cutoutPercentage: 0,
+                        legend: {
+                            position: 'bottom',
+                            display: false,
+                            labels: {
+                                boxWidth: 8
+                            }
+                        },
+                        tooltips: {
+                            displayColors: false,
+                        },
+                    }
+                });
 
-            var gradientStroke4 = ctx.createLinearGradient(0, 0, 0, 300);
-             gradientStroke4.addColorStop(0, "#4BC0C0");
-             gradientStroke4.addColorStop(1, "#4BC0C0");
+            }
+            // Função para criar o gráfico com dados do ano corrente
+            function createChartCurrentComputerEquipament() {
+                var data = {
+                    gradientStroke1: '#ee0979',
+                    gradientStroke2: '#283c86',
+                    gradientStroke3: '#7f00ff',
+
+                    chartData: [
+                        {{$computer_equipament_sales * 100 / $computer_equipament_limit}},
+                        {{$on_going_computer_equipament_sales * 100 / $computer_equipament_limit}},
+                        {{$paid_computer_equipament_sales * 100 / $computer_equipament_limit}}
+
+                    ]
+                };
+                createChartComputerEquipament(data);
+            }
+
+            // Função para criar o gráfico com dados do ano passado
+            function createChartLastComputerEquipament() {
+                var data = {
+                    gradientStroke1: '#ff6a00',
+                    gradientStroke2: '#39bd3c',
+                    gradientStroke3: '#e100ff',
+                    gradientStroke4: '#4BC0C0',
+                    chartData: [
+                        {{$last_computer_equipament_sales *100 / $computer_equipament_limit}},
+                        {{$last_on_going_computer_equipament_sales * 100 / $computer_equipament_limit}},
+                        {{$last_paid_computer_equipament_sales * 100 / $computer_equipament_limit}},
+
+                    ]
+                };
+                createChartComputerEquipament(data);
+            }
+
+            // Evento de clique para a opção "Corrente Ano"
+            $('#current_year_computer_equipament').on('click', function() {
+                createChartCurrentComputerEquipament();
+                var current_description_field = document.getElementById("current_description_computer_equipament");
+                var last_description_field = document.getElementById("last_description_computer_equipament");
+                current_description_field.style.display = "block";
+                last_description_field.style.display = "none";
+
+            });
+
+            // Evento de clique para a opção "Ano Passado"
+            $('#last_year_computer_equipament').on('click', function() {
+                createChartLastComputerEquipament();
+                var current_description_field = document.getElementById("current_description_computer_equipament");
+                var last_description_field = document.getElementById("last_description_computer_equipament");
+                current_description_field.style.display = "none";
+                last_description_field.style.display = "block";
+            });
+
+            // Cria o gráfico inicialmente com os dados do ano corrente
+            createChartCurrentComputerEquipament();
 
 
-            var myChart = new Chart(ctx, {
+//chart5
+        var ctx = document.getElementById("chart5").getContext('2d');
+
+
+        function createChartRollingStock(data) {
+            myChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ["Geral", "Meios Circulantes", "Equipamento Informatico", "Total Pago"],
+                    labels: ["Geral", "Execução", "Pago"],
                     datasets: [{
                         backgroundColor: [
-                            gradientStroke1,
-                            gradientStroke2,
-                            gradientStroke3,
-                            gradientStroke4
-                        ],
+                            data.gradientStroke1,
+                            data.gradientStroke2,
+                            data.gradientStroke3
 
+                        ],
                         hoverBackgroundColor: [
-                            gradientStroke1,
-                            gradientStroke2,
-                            gradientStroke3,
-                            gradientStroke4
+                            data.gradientStroke1,
+                            data.gradientStroke2,
+                            data.gradientStroke3
+
                         ],
-
-                        data: [{{$total_sales*100/$limit}}, {{$total_bikes*100/$limit}}, {{$total_computer_equipment*100/$limit}},
-                            {{$total_paid*100/$limit}}],
-                        {{--data: [`${{$total_sales*100/$limit}}%`, `${{$total_bikes*100/$limit}}%`, `${{$total_computer_equipment*100/$limit}}%`,--}}
-                        {{--    `${{$total_paid*100/$limit}}%`],--}}
-
-                        borderWidth: [1, 1, 1,1]
+                        data: data.chartData,
+                        borderWidth: [1, 1, 1]
                     }]
                 },
                 options: {
@@ -524,10 +654,63 @@
                 }
             });
 
+        }
+        // Função para criar o gráfico com dados do ano corrente
+        function createChartCurrentRollingStock() {
+            var data = {
+                gradientStroke1: '#ee0979',
+                gradientStroke2: '#283c86',
+                gradientStroke3: '#7f00ff',
 
+                chartData: [
+                    {{$rolling_stock_sales * 100 / $rolling_stock_limit}},
+                    {{$on_going_rolling_stock_sales * 100 / $rolling_stock_limit}},
+                    {{$paid_rolling_stock_sales * 100 / $rolling_stock_limit}}
 
+                ]
+            };
+            createChartRollingStock(data);
+        }
+
+        // Função para criar o gráfico com dados do ano passado
+        function createChartLastRollingStock() {
+            var data = {
+                gradientStroke1: '#ff6a00',
+                gradientStroke2: '#39bd3c',
+                gradientStroke3: '#e100ff',
+                gradientStroke4: '#4BC0C0',
+                chartData: [
+                    {{$last_rolling_stock_sales * 100 / $rolling_stock_limit}},
+                    {{$last_on_going_rolling_stock_sales * 100 / $rolling_stock_limit}},
+                    {{$last_paid_rolling_stock_sales * 100 / $rolling_stock_limit}},
+
+                ]
+            };
+            createChartRollingStock(data);
+        }
+
+        // Evento de clique para a opção "Corrente Ano"
+        $('#current_year_rolling_stock').on('click', function() {
+            createChartCorrente();
+            var current_description_field = document.getElementById("current_description_rolling_stock");
+            var last_description_field = document.getElementById("last_description_rolling_stock");
+            current_description_field.style.display = "block";
+            last_description_field.style.display = "none";
+
+        });
+
+        // Evento de clique para a opção "Ano Passado"
+        $('#last_year_rolling_stock').on('click', function() {
+            createChartPassado();
+            var current_description_field = document.getElementById("current_description_rolling_stock");
+            var last_description_field = document.getElementById("last_description_rolling_stock");
+            current_description_field.style.display = "none";
+            last_description_field.style.display = "block";
+        });
+
+        // Cria o gráfico inicialmente com os dados do ano corrente
+        createChartCurrentRollingStock();
 
         });
     </script>
-
 @endsection

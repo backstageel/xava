@@ -1605,6 +1605,17 @@ a {
 }
 
 
+.bg-pink {
+    background: #ee0979;
+}
+
+.bg-darkblue{
+    background: darkblue;
+}
+
+.bg-lightblue {
+    background: #0b5ed7;
+}
 .bg-gradient-ibiza {
     background: #ee0979;
     background: -webkit-linear-gradient(
@@ -1612,6 +1623,8 @@ a {
     background: linear-gradient(
         45deg, #ee0979, #ff6a00) !important;
 }
+
+
 
 .bg-gradient-scooter {
     background: #17ead9;
