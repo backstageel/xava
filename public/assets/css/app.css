@@ -1609,6 +1609,18 @@ a {
     background: #ee0979;
 }
 
+.bg-orange {
+    background: #fc4a1a;
+}
+
+.bg-green{
+    background: #39bd3c;
+}
+
+.bg-lilaz{
+    background: #e100ff;
+}
+
 .bg-darkblue{
     background: darkblue;
 }

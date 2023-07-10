@@ -1,5 +1,4 @@
 @extends("layouts.app")
-
 @section("style")
     <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
@@ -101,13 +100,13 @@
                 <div id="last_description_computer_equipament" style="display: none">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-pink rounded-pill">@money($last_computer_equipament_sales)</span>
+                            Geral <span class="badge bg-orange rounded-pill">@money($last_computer_equipament_sales)</span>
                         </li>
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-darkblue rounded-pill">@money($last_on_going_computer_equipament_sales)</span>
+                            <span class="badge bg-green rounded-pill">@money($last_on_going_computer_equipament_sales)</span>
                         </li>
                         <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lightblue rounded-pill">@money($last_paid_computer_equipament_sales)</span>
+                            <span class="badge bg-lilaz rounded-pill">@money($last_paid_computer_equipament_sales)</span>
                         </li>
                     </ul>
                 </div>
@@ -121,9 +120,9 @@
                                 <h6 class="mb-0">Objectivo das Vendas Meios Circulantes</h6>
                             </div>
                             <div class="dropdown ms-auto">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                </button>
+                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                                    <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                                </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                     <li class="dropdown">
                                         <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
@@ -161,13 +160,13 @@
                     <div id="last_description_rolling_stock" style="display: none">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Geral <span class="badge bg-pink rounded-pill">@money($last_rolling_stock_sales)</span>
+                                Geral <span class="badge bg-orange rounded-pill">@money($last_rolling_stock_sales)</span>
                             </li>
                             <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                                <span class="badge bg-darkblue rounded-pill">@money($last_on_going_rolling_stock_sales)</span>
+                                <span class="badge bg-green rounded-pill">@money($last_on_going_rolling_stock_sales)</span>
                             </li>
                             <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                                <span class="badge bg-lightblue rounded-pill">@money($last_paid_rolling_stock_sales)</span>
+                                <span class="badge bg-lilaz rounded-pill">@money($last_paid_rolling_stock_sales)</span>
                             </li>
 
                         </ul>
@@ -613,11 +612,11 @@
 
 
 //chart5
-        var ctx = document.getElementById("chart5").getContext('2d');
+        var ctx2 = document.getElementById("chart5").getContext('2d');
 
 
         function createChartRollingStock(data) {
-            myChart = new Chart(ctx, {
+            myChart = new Chart(ctx2, {
                 type: 'pie',
                 data: {
                     labels: ["Geral", "Execução", "Pago"],
@@ -691,21 +690,21 @@
 
         // Evento de clique para a opção "Corrente Ano"
         $('#current_year_rolling_stock').on('click', function() {
-            createChartCorrente();
-            var current_description_field = document.getElementById("current_description_rolling_stock");
-            var last_description_field = document.getElementById("last_description_rolling_stock");
-            current_description_field.style.display = "block";
-            last_description_field.style.display = "none";
+            createChartCurrentRollingStock();
+            var current_description_field_rolling_stock = document.getElementById("current_description_rolling_stock");
+            var last_description_field_rolling_stock = document.getElementById("last_description_rolling_stock");
+            current_description_field_rolling_stock.style.display = "block";
+            last_description_field_rolling_stock.style.display = "none";
 
         });
 
         // Evento de clique para a opção "Ano Passado"
         $('#last_year_rolling_stock').on('click', function() {
-            createChartPassado();
-            var current_description_field = document.getElementById("current_description_rolling_stock");
-            var last_description_field = document.getElementById("last_description_rolling_stock");
-            current_description_field.style.display = "none";
-            last_description_field.style.display = "block";
+            createChartLastRollingStock();
+            var current_description_field_rolling_stock = document.getElementById("current_description_rolling_stock");
+            var last_description_field_rolling_stock = document.getElementById("last_description_rolling_stock");
+            current_description_field_rolling_stock.style.display = "none";
+            last_description_field_rolling_stock.style.display = "block";
         });
 
         // Cria o gráfico inicialmente com os dados do ano corrente
