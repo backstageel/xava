@@ -104,8 +104,8 @@
                             <td>{{$competition->bidding_documents_value}}</td>
                             <td>{{$competition->competitionResult->name?? ''}}</td>
                             <td>{{$competition->competitionReason->name?? ''}}</td>
-                            <td>{{$competition->reason_description}}</td>
-                            <td>{{$competition->competitionStatus->name}}</td>
+                            <td>{{$competition->reason_description??''}}</td>
+                            <td>{{$competition->competitionStatus->name??''}}</td>
                             <td>{{$competition->proposal_value}}</td>
                             <td>{{$competition->responsible}}</td>
                             <td>{{$competition->technical_proposal_review}}</td>

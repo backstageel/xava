@@ -84,13 +84,13 @@
                 <li>
                     <a href="{{route('competitions.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
-                        Listar Concursos
+                        Lista de Concursos
                     </a>
                 </li>
                 <li>
                     <a href="{{route('contacts.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
-                        Listar Contactos
+                        Lista de Contactos
 
                     </a>
                 </li>
