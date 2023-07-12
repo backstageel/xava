@@ -202,7 +202,7 @@ class CompetitionController extends Controller
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
 
-        $minId = 36; // ID minimo nao desejado
+        $minId = 35; // ID minimo nao desejado
         $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
             $query->Where('id', '>', $minId);
         })->orderBy('name')->pluck('name','id');
