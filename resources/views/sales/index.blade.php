@@ -205,6 +205,7 @@
 
     <h6 class="mb-0 text-uppercase">Vendas Facturadas</h6>
     <hr/>
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -229,7 +230,6 @@
                         @if($sale->saleStatus->name == "Facturado")
                         <tr>
                             <td>{{$sale->sale_date}}</td>
-
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
@@ -250,6 +250,7 @@
             </div>
         </div>
     </div>
+
     <br>
     <br>
 
@@ -296,7 +297,6 @@
                     @foreach($sales as $sale)
                         <tr>
                             <td>{{$sale->sale_date}}</td>
-
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
@@ -313,10 +313,6 @@
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
-
-
-
-
                         </tr>
                     @endforeach
 
@@ -327,6 +323,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section("script")
@@ -339,7 +336,7 @@
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
     <script>
         $(document).ready(function() {
             $('.dropdown-item.dropdown-toggle').on('mouseenter', function() {

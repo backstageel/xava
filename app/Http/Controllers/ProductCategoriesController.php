@@ -11,8 +11,14 @@ class ProductCategoriesController extends Controller
     public function index()
     {
         //
+        $ids = [11,3]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo  nao desejado
 
-        $categorysProducts = ProductCategory::paginate(1000);
+        $categorysProducts = ProductCategory::where(function ($query) use ($ids, $minId) {
+            $query->whereIn('id', $ids)
+                ->orWhere('id', '>', $minId);})->paginate(1000);
+
+
         return view('product_categories.index', compact('categorysProducts'));
     }
 
