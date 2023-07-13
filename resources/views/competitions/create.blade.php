@@ -168,21 +168,23 @@
                                                     Equipamento Electrónico
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <div class="row">
-                                                        @foreach($productsubcategory as $index => $subcategory)
-                                                            @if($subcategory->product_category_id == 11)
-                                                                @if($index > 0 && $index % 5 === 0)
-                                                    </div><div class="row">
-                                                        @endif
-                                                        <div class="col">
-                                                            <a class="dropdown-item" href="#">
-                                                                <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}">
-                                                                <label for="item{{$index}}">{{ $subcategory->name }}</label>
-                                                            </a>
-                                                        </div>
-                                                        @endif
-                                                        @endforeach
-                                                    </div>
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            @foreach($productsubcategory as $index => $subcategory)
+                                                                @if($subcategory->product_category_id == 11)
+                                                                    @if($index > 0 && $index % 4 === 0)
+                                                        </tr><tr>
+                                                            @endif
+                                                            <td>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}">
+                                                                    <label for="item{{$index}}">{{ $subcategory->name }}</label>
+                                                                </a>
+                                                            </td>
+                                                            @endif
+                                                            @endforeach
+                                                        </tr>
+                                                    </table>
 
                                                 </div>
                                             </div><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -298,7 +300,17 @@
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
             type="text/javascript"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-menu').on('show.bs.dropdown', function () {
+                $(this).addClass('center-screen');
+            });
 
+            $('.dropdown-menu').on('hide.bs.dropdown', function () {
+                $(this).removeClass('center-screen');
+            });
+        });
+    </script>
     <script>
         $(function () {
             $('#smartwizard').smartWizard({
@@ -347,4 +359,15 @@
         }
 
     </script>
+
+
+
+
+
+
+
+
+
+
+
 @endsection
