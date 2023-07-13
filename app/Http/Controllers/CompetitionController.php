@@ -132,8 +132,8 @@ class CompetitionController extends Controller
         $competition->customer_id = $request->input('customer_id');
         $competition->company_type_id=$request->input('company_type_id');
         $competition->competition_reference = $request->input('competition_reference');
-        $competition->product_category_id = 1;//depreciado
-        $competition->product_id = 1;//depreciado
+       // $competition->product_category_id = 1;//depreciado
+      //  $competition->product_id = 1;//depreciado
         $competition->reason_description = $request->input('reason_description');
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
