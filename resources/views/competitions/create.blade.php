@@ -172,7 +172,7 @@
                                                         <tr>
                                                             @foreach($productsubcategory as $index => $subcategory)
                                                                 @if($subcategory->product_category_id == 11)
-                                                                    @if($index > 0 && $index % 4 === 0)
+                                                                    @if($index > 0 && $index % 3 === 0)
                                                         </tr><tr>
                                                             @endif
                                                             <td>
@@ -299,6 +299,7 @@
 @section("script")
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
             type="text/javascript"></script>
+
 
     <script>
         $(document).ready(function() {
