@@ -20,7 +20,7 @@
         <div class="ms-auto">
             <div class="btn-group">
                 <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
-
+{{--                <a href="{{route('competitions.printTable')}}" class="btn btn-primary">imprimir</a>--}}
             </div>
 
         </div>
@@ -105,7 +105,7 @@
                             <td>{{$competition->competitionResult->name?? ''}}</td>
                             <td>{{$competition->competitionReason->name?? ''}}</td>
                             <td>{{$competition->reason_description}}</td>
-                            <td>{{$competition->competitionStatus->name}}</td>
+                            <td>{{$competition->competitionStatus->name??''}}</td>
                             <td>{{$competition->proposal_value}}</td>
                             <td>{{$competition->responsible}}</td>
                             <td>{{$competition->technical_proposal_review}}</td>
