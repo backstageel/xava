@@ -306,7 +306,7 @@
                             <td>@money($sale->amount_received)</td>
                             <td>{{$sale->receipt_id}}</td>
                             <td>@money($sale->transport_value) </td>
-                            <td>{{$sale->intermediary_committee}} </td>
+                            <td>@money($sale->intermediary_committee) </td>
                             <td>@money($sale->other_expenses) </td>
                             <td>@money($sale->debt_amount) </td>
                             <td>{{$sale->payment_date}} </td>
