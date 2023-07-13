@@ -168,13 +168,21 @@
                                                     Equipamento Electrónico
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    @foreach($productsubcategory as $subcategory)
-                                                        @if($subcategory->product_category_id==11)
-                                                        <a class="dropdown-item" href="#">
-
-                                                            <input type="checkbox" id="item1" name="electronic_subcategory_ids[]"  value="{{$subcategory->id}}">
-                                                            <label for="item1">{{ $subcategory->name }}</label>
-                                                        </a>@endif @endforeach
+                                                    <div class="row">
+                                                        @foreach($productsubcategory as $index => $subcategory)
+                                                            @if($subcategory->product_category_id == 11)
+                                                                @if($index > 0 && $index % 5 === 0)
+                                                    </div><div class="row">
+                                                        @endif
+                                                        <div class="col">
+                                                            <a class="dropdown-item" href="#">
+                                                                <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}">
+                                                                <label for="item{{$index}}">{{ $subcategory->name }}</label>
+                                                            </a>
+                                                        </div>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
 
                                                 </div>
                                             </div><br><br><br><br><br><br><br><br><br><br><br><br>
