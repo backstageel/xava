@@ -1,6 +1,5 @@
 @extends("layouts.app")
 @section("style")
-    <
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
 @endsection
@@ -38,47 +37,39 @@
                                         Dados da Sub Categoria de Produto
                                     </a>
                                 </li>
-
-
                             </ul>
 
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="name" label="Nome da SubCategoria"/>
+                                            <x-bootstrap::form.input name="name" label="Nome da SubCategoria" required/>
                                         </div>
                                         <div class="col-5">
                                             <x-bootstrap::form.select name="category_id" label="Categoria"
                                                                       :options="$category"/>
                                         </div>
                                     </div>
-
                                     <div class="row float-end">
                                         <div class="col-12">
                                             <button class="btn btn-success" type="submit">Gravar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-
+                                </div>
                             </div>
-
                         </div>
 
-                </div>
 
-
-                <!-- Include optional progressbar HTML -->
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100"></div>
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </x-bootstrap::form.form>
                 </div>
             </div>
-            </x-bootstrap::form.form>
         </div>
-    </div>
-    </div>
     </div>
     <!--end row-->
 @endsection
@@ -92,7 +83,5 @@
                 theme: 'arrows',
             })
         });
-
-
     </script>
 @endsection

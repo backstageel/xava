@@ -19,6 +19,7 @@
 
                         <a href="{{route('sales.edit', $sale)}}" class="btn btn-primary">Editar</a>
 
+
             </div>
         </div>
 
@@ -75,19 +76,22 @@
                                     <th>Valor de Venda</th>
                                     <th>Preço de Compra</th>
                                     <th>Valor de Compra</th>
-                                    <th>Impostos</th>
+                                    <th><p style="display: none;">.</p></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($sale_items as $saleitem)
+                                @foreach($sale_items as $sale_item)
                                     <tr>
-                                        <td>{{$saleitem->product->name}}</td>
-                                        <td>{{$saleitem->quantity}}</td>
-                                        <td>{{$saleitem->unit_price}}</td>
-                                        <td>{{$saleitem->sub_total}}</td>
-                                        <td>{{$saleitem->purchase_price}}</td>
-                                        <td>{{$saleitem->purchase_price * $saleitem->quantity}}</td>
-                                        <td>{{" "}}</td>
+                                        <td>{{$sale_item->product->name}}</td>
+                                        <td>{{$sale_item->quantity}}</td>
+                                        <td>{{$sale_item->unit_price}}</td>
+                                        <td>{{$sale_item->sub_total}}</td>
+                                        <td>{{$sale_item->purchase_price}}</td>
+                                        <td>{{$sale_item->purchase_price * $sale_item->quantity}}</td>
+                                        <td>
+                                            <a href="{{route('sale_items.edit', $sale_item)}}"> editar </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

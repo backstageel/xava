@@ -122,7 +122,9 @@
                                         <p style="color: red;"> Todos campos são opcionais</p>
                                     </div>
                                     <div class="row float-end">
-                                        <button name ="addProduct" class="btn btn-primary">Adicionar Producto</button></a>
+                                        <button  name="add_products" class="btn btn-primary">Adicionar Produtos</button>
+
+
 
                                     <div class="row float-end">
                                             <button class="btn btn-success"  type="submit">Salvar</button>

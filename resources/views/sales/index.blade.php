@@ -277,6 +277,7 @@
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
+                        <th>Referencia</th>
                         <th>Estado da Venda</th>
                         <th>Preco de Venda Total</th>
                         <th>Nr da Factura</th>
@@ -299,6 +300,7 @@
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
+                            <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>{{$sale->total_amount}}</td>
                             <td>{{$sale->invoice_id}} </td>

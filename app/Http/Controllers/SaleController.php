@@ -186,104 +186,90 @@ class SaleController extends Controller
 
     public function store(SaleRequest $request)
     {
-        if($request->has('create_sale')){
-            $sale = new Sale();
-            $sale->sale_ref = $request->input(['sale_ref']);
-            $sale->customer_id = $request->input('customer_id');
-            $customer= Customer::where('id', $sale->customer_id)->first();
 
-            if ($customer->customerable_type == Company::class) {
-                $company =  Company::where('id', $customer->customerable_id)->first();
-                $sale->customer_name =$company->name;
-            } else {
-                $person =  Person::where('id', $customer->customerable_id)->first();
-                $sale->customer_name = $person->first_name.$person->last_name;
-            }
+                $sale = new Sale();
+                $sale->sale_ref = $request->input('sale_ref');
+                $sale->customer_id = $request->input('customer_id');
+                $customer = Customer::where('id', $sale->customer_id)->first();
 
-            $sale->sale_date = $request->input('sale_date');
-            $sale->sale_status_id = $request->input('sale_status_id');
-            $sale->notes = $request->input('notes');
-            $sale->payment_method= $request->input('payment_method');
-            $sale->total_amount= 0.00;
-            $sale->invoice_id = $request->input('invoice_id');
-            $sale->receipt_id = $request->input(['receipt_id']);
-            $sale->payment_date = $request->input('payment_date');
-
-            if(($request->input('amount_received')) != null){
-                if(is_numeric( $request->input('amount_received'))) {
-                    $sale->amount_received = $request->input('amount_received');
-                }else{
-                    flash('Formatação do campo "Valor Recebido" incorrecto.
-                Separação de casas decimais para campos númericos: (0.0)')->error();
-                    return redirect()->back()->withInput();
+                if ($customer->customerable_type == Company::class) {
+                    $company = Company::where('id', $customer->customerable_id)->first();
+                    $sale->customer_name = $company->name;
+                } else {
+                    $person = Person::where('id', $customer->customerable_id)->first();
+                    $sale->customer_name = $person->first_name . $person->last_name;
                 }
-            } else{
-                $sale->amount_received = $request->input('amount_received');
-            }
 
-            if(($request->input('transport_value')) != null){
-                if(is_numeric( $request->input('transport_value'))) {
-                    $sale->transport_value = $request->input('transport_value');
-                }else{
-                flash('Formatação do campo "Valor do Transporte" incorrecto.
+                $sale->sale_date = $request->input('sale_date');
+                $sale->sale_status_id = $request->input('sale_status_id');
+                $sale->notes = $request->input('notes');
+                $sale->payment_method = $request->input('payment_method');
+                $sale->total_amount = 0.00;
+                $sale->invoice_id = $request->input('invoice_id');
+                $sale->receipt_id = $request->input(['receipt_id']);
+                $sale->payment_date = $request->input('payment_date');
+
+                if (($request->input('amount_received')) != null) {
+                    if (is_numeric($request->input('amount_received'))) {
+                        $sale->amount_received = $request->input('amount_received');
+                    } else {
+                        flash('Formatação do campo "Valor Recebido" incorrecto.
                 Separação de casas decimais para campos númericos: (0.0)')->error();
-                return redirect()->back()->withInput();
+                        return redirect()->back()->withInput();
+                    }
+                } else {
+                    $sale->amount_received = 0;
                 }
-            } else {
-                    $sale->transport_value = $request->input('transport_value');
-            }
 
-            if(($request->input('other_expenses')) != null){
-                if(is_numeric($request->input('other_expenses'))) {
+                if (($request->input('transport_value')) != null) {
+                    if (is_numeric($request->input('transport_value'))) {
+                        $sale->transport_value = $request->input('transport_value');
+                    } else {
+                        flash('Formatação do campo "Valor do Transporte" incorrecto.
+                Separação de casas decimais para campos númericos: (0.0)')->error();
+                        return redirect()->back()->withInput();
+                    }
+                } else {
+                    $sale->transport_value = 0;
+                }
+
+                if (($request->input('other_expenses')) != null) {
+                    if (is_numeric($request->input('other_expenses'))) {
+                        $sale->other_expenses = $request->input('other_expenses');
+                    } else {
+                        flash('Formatação do campo "Outras Despesas" incorrecto.
+                Separação de casas decimais para campos númericos: 0.0')->error();
+                        return redirect()->back()->withInput();
+                    }
+                } else {
                     $sale->other_expenses = $request->input('other_expenses');
-                }else{
-                    flash('Formatação do campo "Outras Despesas" incorrecto.
+                }
+
+                if (($request->input('intermediary_committee')) != null) {
+                    if (is_numeric($request->input('intermediary_committee'))) {
+                        $sale->intermediary_committee = $request->input('intermediary_committee');
+                    } else {
+                        flash('Formatação do campo "Comissão de Intermediários" incorrecto.
                 Separação de casas decimais para campos númericos: 0.0')->error();
+                        return redirect()->back()->withInput();
+                    }
+                } else {
+                    $sale->intermediary_committee = 0;
+                }
+                $sale->debt_amount = $sale->total_amount - $sale->amount_received;
+
+                try {
+                    $sale->save();
+
+                    $products = Product::pluck('name', 'id');
+                    return view('sale_items.create', compact('sale', 'products'));
+                } catch (\Exception $exception) {
+                    flash('Erro ao Adicionar Venda: ' . $exception->getMessage())->error();
                     return redirect()->back()->withInput();
                 }
-            } else {
-                $sale->other_expenses = $request->input('other_expenses');
-            }
 
-            if(($request->input('intermediary_committee')) != null){
-                if(is_numeric( $request->input('intermediary_committee'))) {
-                    $sale->intermediary_committee = $request->input('intermediary_committee');
-                }else{
-                    flash('Formatação do campo "Comissão de Intermediários" incorrecto.
-                Separação de casas decimais para campos númericos: 0.0')->error();
-                    return redirect()->back()->withInput();
-                }
-            } else {
-                $sale->intermediary_committee = $request->input('intermediary_committee');
-            }
-            $sale->debt_amount = $sale->total_amount - $sale->amount_received;
 
-            $sale->save();
 
-            $products = Product::pluck('name', 'id');
-            return view('sales.choose_products', compact('sale', 'products'));
-        } else if($request->has('form_products') || $request->has('edit') ){
-            $sale_items = new SaleItem();
-            $sale_items->sale_id = $request->input('sale_id');
-            $sale_items->product_id = $request->input('product_id');
-            $sale_items->quantity = $request->input('quantity');
-            $sale_items->unit_price = $request->input('unit_price');
-            $sale_items->purchase_price = $request->input('purchase_price');
-            $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
-            $sale_items->save();
-
-            $sale = Sale::where('id', $sale_items->sale_id)->first();
-            $sale->total_amount = $sale->total_amount + $sale_items->sub_total;
-            $sale->debt_amount = $sale->total_amount - $sale->amount_received;
-            $products = Product::pluck('name', 'id');
-
-            $sale->save();
-
-            flash('Produto Adicionado')->success();
-            return view('sales.choose_products', compact('sale', 'products'));
-        }
-        flash('Erro')->error();
-        return redirect()->route('sales.index');
 
     }
 
@@ -297,128 +283,118 @@ class SaleController extends Controller
     }
 
 
-    public function edit(Sale $sale)
+    public function edit( Sale $sale)
     {
 
-        $customers_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
-        $company_names = Company::whereIn('id', $customers_company)->pluck('name');
-        $id_customer_company =DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
-        $company = array_combine( ($id_customer_company)->toArray(), $company_names->toArray());
-        $customers_person =Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('customerable_id');
-        $id_customer_person =DB::table('customers')->where('customerable_type', 'App\Models\Person')->get()->pluck('id');
-        $person_names =DB::table('people')->whereIn('id', $customers_person)
-            ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
-        $person = array_combine( $id_customer_person->toArray(), $person_names->toArray());
+            $customers_company = Customer::where('customerable_type', 'App\Models\Company')->get()->pluck('customerable_id');
+            $company_names = Company::whereIn('id', $customers_company)->pluck('name');
+            $id_customer_company = DB::table('customers')->where('customerable_type', 'App\Models\Company')->get()->pluck('id');
+            $company = array_combine(($id_customer_company)->toArray(), $company_names->toArray());
+            $customers_person = Customer::where('customerable_type', 'App\Models\Person')->get()->pluck('customerable_id');
+            $id_customer_person = DB::table('customers')->where('customerable_type', 'App\Models\Person')->get()->pluck('id');
+            $person_names = DB::table('people')->whereIn('id', $customers_person)
+                ->selectRaw("CONCAT(first_name, ' ', last_name) as full_name")->pluck('full_name');
+            $person = array_combine($id_customer_person->toArray(), $person_names->toArray());
 
-        $customers = $person + $company;
-        $sale_statuses = SaleStatus::pluck('name', 'id');
-        $products = Product::pluck('name', 'id');
-        return view('sales.edit', compact('sale', 'products','customers', 'sale_statuses'));
+            $customers = $person + $company;
+            $sale_statuses = SaleStatus::pluck('name', 'id');
+            $products = Product::pluck('name', 'id');
+            return view('sales.edit', compact('sale', 'products', 'customers', 'sale_statuses'));
+
     }
 
 
     public function update(SaleRequest $request, Sale $sale)
     {
 
-        $sale->customer_id = $request->input('customer_id');
-        $customer= Customer::where('id', $sale->customer_id)->first();
-
-        if ($customer->customerable_type == Company::class) {
-            $company =  Company::where('id', $customer->customerable_id)->first();
-            $sale->customer_name =$company->name;
-        } else {
-            $person =  Person::where('id', $customer->customerable_id)->first();
-            $sale->customer_name = $person->first_name.$person->last_name;
-        }
-
-        if(($request->input('sale_ref')) != null){
-            $sale->sale_ref = $request->input(['sale_ref']);
-        }
-        if(($request->input('sale_date')) != null){
-            $sale->sale_date = $request->input('sale_date');
-        }
-
-        if(($request->input('invoice_id')) != null){
-            $sale->invoice_id = $request->input('invoice_id');
-        }
-
-        if(($request->input('sale_status_id')) != null){
-            $sale->sale_status_id = $request->input('sale_status_id');
-        }
-
-        if(($request->input('notes')) != null){
-            $sale->notes = $request->input('notes');
-        }
-        if(( $request->input('payment_method')) != null){
-            $sale->payment_method= $request->input('payment_method');
-        }
-        if(($request->input(['receipt_id'])) != null){
-            $sale->receipt_id = $request->input(['receipt_id']);
-        }
-        if(($request->input('payment_date')) != null){
-            $sale->payment_date = $request->input('payment_date');
-        }
-        if(($request->input('amount_received')) != null){
-            if(is_numeric( $request->input('amount_received'))) {
-                $sale->amount_received = $request->input('amount_received');
-            }else{
-                flash('Formatação do campo "Valor Recebido" incorrecto.
-                Separação de casas decimais para campos númericos = (0.0)')->error();
-                return redirect()->back()->withInput();
-            }
-
-        }
-        if(($request->input('transport_value')) != null) {
-            if (is_numeric($request->input('transport_value'))) {
-                $sale->transport_value = $request->input('transport_value');
-            } else {
-                flash('Formatação do campo "Valor do Transporte" incorrecto.
-                Separação de casas decimais para campos númericos = (0.0)')->error();
-                return redirect()->back()->withInput();
-            }
-        }
-
-        if(($request->input('other_expenses')) != null){
-            if(is_numeric($request->input('other_expenses'))) {
-                $sale->other_expenses = $request->input('other_expenses');
-            }else{
-                flash('Formatação do campo "Outras Despesas" incorrecto.
-                Separação de casas decimais para campos númericos = (0.0)')->error();
-                return redirect()->back()->withInput();
-            }
-        }
-        if(($request->input('intermediary_committee')) != null){
-            if(is_numeric( $request->input('intermediary_committee'))) {
-                $sale->intermediary_committee = $request->input('intermediary_committee');
-            }else{
-                flash('Formatação do campo "Comissão de Intermediários" incorrecto.
-                Separação de casas decimais para campos númericos = (0.0)')->error();
-                return redirect()->back()->withInput();
-            }
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $sale->debt_amount = $sale->total_amount - $sale->receipt_id;
-        $sale->save();
-        if($request->has(['addProduct'])){
-
+        if($request->has('add_products')){
             $products = Product::pluck('name', 'id');
-            return view('sales.choose_products', compact('sale', 'products'));
+            return view('sale_items.create', compact('sale', 'products'));
+        } else {
+            $sale->customer_id = $request->input('customer_id');
 
+            $customer = Customer::where('id', $sale->customer_id)->first();
+
+            if ($customer->customerable_type == Company::class) {
+                $company = Company::where('id', $customer->customerable_id)->first();
+                $sale->customer_name = $company->name;
+            } else {
+                $person = Person::where('id', $customer->customerable_id)->first();
+                $sale->customer_name = $person->first_name . $person->last_name;
+            }
+
+            if (($request->input('sale_ref')) != null) {
+                $sale->sale_ref = $request->input(['sale_ref']);
+            }
+            if (($request->input('sale_date')) != null) {
+                $sale->sale_date = $request->input('sale_date');
+            }
+
+            if (($request->input('invoice_id')) != null) {
+                $sale->invoice_id = $request->input('invoice_id');
+            }
+
+            if (($request->input('sale_status_id')) != null) {
+                $sale->sale_status_id = $request->input('sale_status_id');
+            }
+
+            if (($request->input('notes')) != null) {
+                $sale->notes = $request->input('notes');
+            }
+            if (($request->input('payment_method')) != null) {
+                $sale->payment_method = $request->input('payment_method');
+            }
+            if (($request->input(['receipt_id'])) != null) {
+                $sale->receipt_id = $request->input(['receipt_id']);
+            }
+            if (($request->input('payment_date')) != null) {
+                $sale->payment_date = $request->input('payment_date');
+            }
+            if (($request->input('amount_received')) != null) {
+                if (is_numeric($request->input('amount_received'))) {
+                    $sale->amount_received = $request->input('amount_received');
+                } else {
+                    flash('Formatação do campo "Valor Recebido" incorrecto.
+                Separação de casas decimais para campos númericos = (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+
+            }
+            if (($request->input('transport_value')) != null) {
+                if (is_numeric($request->input('transport_value'))) {
+                    $sale->transport_value = $request->input('transport_value');
+                } else {
+                    flash('Formatação do campo "Valor do Transporte" incorrecto.
+                Separação de casas decimais para campos númericos = (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+            }
+
+            if (($request->input('other_expenses')) != null) {
+                if (is_numeric($request->input('other_expenses'))) {
+                    $sale->other_expenses = $request->input('other_expenses');
+                } else {
+                    flash('Formatação do campo "Outras Despesas" incorrecto.
+                Separação de casas decimais para campos númericos = (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+            }
+            if (($request->input('intermediary_committee')) != null) {
+                if (is_numeric($request->input('intermediary_committee'))) {
+                    $sale->intermediary_committee = $request->input('intermediary_committee');
+                } else {
+                    flash('Formatação do campo "Comissão de Intermediários" incorrecto.
+                Separação de casas decimais para campos númericos = (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+
+
+            }
+            $sale->debt_amount = $sale->total_amount - $sale->amount_received;
+            $sale->save();
+
+            return redirect()->route('sales.index');
         }
-        return redirect()->route('sales.index');
     }
 
 

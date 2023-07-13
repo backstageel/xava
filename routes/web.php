@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('contacts', \App\Http\Controllers\ContactController::class);
     Route::resource('product_sub_categories', \App\Http\Controllers\ProductSubCategoryController::class);
+    Route::resource('sale_items', \App\Http\Controllers\SaleItemsController::class);
 
 });
 
