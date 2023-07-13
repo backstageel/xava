@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompetitionRequest;
 use App\Models\Company;
+use Illuminate\Support\Facades\Response;
 use App\Models\CompanyType;
 use App\Models\Competition;
 use App\Models\CompetitionReason;
@@ -16,6 +17,8 @@ use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class CompetitionController extends Controller
 {
@@ -24,6 +27,8 @@ class CompetitionController extends Controller
      */
     public function index()
     {
+        //$this->printTable();
+
 
         $competitions = Competition::with(
             [
@@ -48,6 +53,8 @@ class CompetitionController extends Controller
      */
     public function create()
     {
+
+
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
         $productsubcategory = ProductSubCategory::orderBy('name')->get();
         $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
@@ -260,6 +267,51 @@ class CompetitionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
+
+    public function printTable()
+    {
+        $competitions = Competition::with([
+            'customer.customerable',
+            'ProductCategory',
+            'competitionType',
+            'competitionReason',
+            'competitionStatus',
+            'product.productCategory',
+            'companyType',
+            'competitionResult',
+            'ProductCategory.productsubcategories'
+        ])->get();
+
+        $data = $competitions->map(function ($competition) {
+            return [
+                'internal_reference' => $competition->internal_reference ?? '',
+                'reference' => $competition->competition_reference,
+                'companyType' => $competition->companyType->name ?? ''
+            ];
+        });
+
+        $headerRow = array_keys($data->first());
+        $rows = $data->toArray();
+
+        return Excel::download(function ($writer) use ($headerRow, $rows) {
+            $writer->setTitle('Competitions');
+            $writer->setCreator('Your Application');
+
+            $writer->sheet('Sheet 1', function ($sheet) use ($headerRow, $rows) {
+                $sheet->appendRow($headerRow);
+                $sheet->fromArray($rows, null, 'A2', true, false);
+            });
+        }, 'competitions.xlsx');
+    }
+
+
+
+
+
+
+
+
+
 }

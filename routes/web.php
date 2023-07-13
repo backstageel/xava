@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('contacts', \App\Http\Controllers\ContactController::class);
     Route::resource('product_sub_categories', \App\Http\Controllers\ProductSubCategoryController::class);
+    Route::get('competitions/printTable', [\App\Http\Controllers\CompetitionController::class, 'printTable'])->name('competitions.printTable') ->middleware('auth');;
+
 
 });
 
