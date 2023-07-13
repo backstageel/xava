@@ -303,7 +303,7 @@
                             <td>@money($sale->total_amount)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
-                            <td>@money(sale->amount_received)</td>
+                            <td>@money($sale->amount_received)</td>
                             <td>{{$sale->receipt_id}}</td>
                             <td>@money($sale->transport_value) </td>
                             <td>{{$sale->intermediary_committee}} </td>
