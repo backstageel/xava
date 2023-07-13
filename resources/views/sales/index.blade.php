@@ -234,8 +234,8 @@
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
-                            <td>{{$sale->amount_received}}</td>
-                            <td>{{$sale->debt_amount}} </td>
+                            <td>@money($sale->amount_received)</td>
+                            <td>@money($sale->debt_amount)</td>
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
@@ -303,12 +303,12 @@
                             <td>@money($sale->total_amount)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
-                            <td>{{$sale->amount_received}}</td>
+                            <td>@money(sale->amount_received)</td>
                             <td>{{$sale->receipt_id}}</td>
-                            <td>{{$sale->transport_value}} </td>
+                            <td>@money($sale->transport_value) </td>
                             <td>{{$sale->intermediary_committee}} </td>
-                            <td>{{$sale->other_expenses}} </td>
-                            <td>{{$sale->debt_amount}} </td>
+                            <td>@money($sale->other_expenses) </td>
+                            <td>@money($sale->debt_amount) </td>
                             <td>{{$sale->payment_date}} </td>
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
