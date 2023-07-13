@@ -300,7 +300,7 @@
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
-                            <td>{{$sale->total_amount}}</td>
+                            <td>@money($sale->total_amount)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
                             <td>{{$sale->amount_received}}</td>
