@@ -52,9 +52,9 @@
                     </thead>
                     <tbody>
                     @foreach($competitions as $competition)
-                        <tr>
-                            @if($competition->competitionStatus->name??''!=='Submeter proposta')
 
+                            @if($competition->competition_status_id!=36)
+                                <tr>
                             <td>{{$competition->id}}</td>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
