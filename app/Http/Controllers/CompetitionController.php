@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CompetitionExport;
 use App\Http\Requests\CompetitionRequest;
 use App\Models\Company;
 use Illuminate\Support\Facades\Response;
@@ -27,7 +28,7 @@ class CompetitionController extends Controller
      */
     public function index()
     {
-        //$this->printTable();
+
 
 
         $competitions = Competition::with(
@@ -159,7 +160,7 @@ class CompetitionController extends Controller
         try {
             $competition->save();
             flash('Concurso registado com sucesso')->success();
-            //Apenas Testando
+
             $selectedCategories = $request->input('product_category_id');
             $competition->productcategory()->attach($selectedCategories);
 
@@ -270,40 +271,45 @@ class CompetitionController extends Controller
 
     }
 
-    public function printTable()
+//    public function printTable()
+//    {
+//        $competitions = Competition::with([
+//            'customer.customerable',
+//            'ProductCategory',
+//            'competitionType',
+//            'competitionReason',
+//            'competitionStatus',
+//            'product.productCategory',
+//            'companyType',
+//            'competitionResult',
+//            'ProductCategory.productsubcategories'
+//        ])->get();
+//
+//        $data = $competitions->map(function ($competition) {
+//            return [
+//                'internal_reference' => $competition->internal_reference ?? '',
+//                'reference' => $competition->competition_reference,
+//                'companyType' => $competition->companyType->name ?? ''
+//            ];
+//        });
+//
+//        $headerRow = array_keys($data->first());
+//        $rows = $data->toArray();
+//
+//        return Excel::download(function ($writer) use ($headerRow, $rows) {
+//            $writer->setTitle('Competitions');
+//            $writer->setCreator('Your Application');
+//
+//            $writer->sheet('Sheet 1', function ($sheet) use ($headerRow, $rows) {
+//                $sheet->appendRow($headerRow);
+//                $sheet->fromArray($rows, null, 'A2', true, false);
+//            });
+//        }, 'competitions.xlsx');
+// }
+
+    public function export()
     {
-        $competitions = Competition::with([
-            'customer.customerable',
-            'ProductCategory',
-            'competitionType',
-            'competitionReason',
-            'competitionStatus',
-            'product.productCategory',
-            'companyType',
-            'competitionResult',
-            'ProductCategory.productsubcategories'
-        ])->get();
-
-        $data = $competitions->map(function ($competition) {
-            return [
-                'internal_reference' => $competition->internal_reference ?? '',
-                'reference' => $competition->competition_reference,
-                'companyType' => $competition->companyType->name ?? ''
-            ];
-        });
-
-        $headerRow = array_keys($data->first());
-        $rows = $data->toArray();
-
-        return Excel::download(function ($writer) use ($headerRow, $rows) {
-            $writer->setTitle('Competitions');
-            $writer->setCreator('Your Application');
-
-            $writer->sheet('Sheet 1', function ($sheet) use ($headerRow, $rows) {
-                $sheet->appendRow($headerRow);
-                $sheet->fromArray($rows, null, 'A2', true, false);
-            });
-        }, 'competitions.xlsx');
+        return Excel::download(new CompetitionExport, 'competitions.xlsx');
     }
 
 

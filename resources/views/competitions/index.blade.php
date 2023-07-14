@@ -19,8 +19,8 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
-{{--                <a href="{{route('competitions.printTable')}}" class="btn btn-primary">imprimir</a>--}}
+                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;
+                <a href="{{route('competitions.export')}}" class="btn btn-primary">imprimir</a>
             </div>
 
         </div>
