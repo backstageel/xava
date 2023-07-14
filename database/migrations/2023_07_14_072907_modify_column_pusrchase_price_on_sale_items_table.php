@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('sale_items', function (Blueprint $table){
 
-            $table->decimal('purchase_price')->nullable()->change();
-            $table->decimal('quantity')->nullable()->change();
+            $table->decimal('purchase_price', 20, 2)->nullable()->change();
+            $table->decimal('quantity' )->nullable()->change();
 
         });
     }

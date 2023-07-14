@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::table('sales', function (Blueprint $table) {
 
-            $table->decimal('amount_received')->nullable()->change();
-            $table->decimal('transport_value')->nullable()->change();
-            $table->decimal('other_expenses')->nullable()->change();
+            $table->decimal('amount_received', 20, 2)->nullable()->change();
+            $table->decimal('transport_value', 20, 2)->nullable()->change();
+            $table->decimal('other_expenses', 20, 2)->nullable()->change();
+            $table->decimal('total_amount', 20, 2)->nullable()->change();
 
+            $table->decimal('intermediary_committee', 20, 2)->nullable()->change();
 
-            $table->decimal('intermediary_committee')->nullable()->change();
-
-            $table->decimal('profit')->nullable()->change();
-            $table->decimal('debt_amount')->nullable()->change();
+            $table->decimal('profit', 20, 2)->nullable()->change();
+            $table->decimal('debt_amount',20, 2)->nullable()->change();
 
 
         });
