@@ -121,11 +121,7 @@ class CompetitionController extends Controller
         $responsible = Person::find($request->input('responsible'));
         $technicalReview = Person::find($request->input('technical_proposal_review'));
         $documentaryReview = Person::find($request->input('documentary_review'));
-   //     $product = 1;
-//        Product::firstOrCreate([
-//            'name' => $request->input('product'),
-//            'category_id' => $request->input('product_category_id'),
-//        ]);
+
 
 
 
@@ -271,45 +267,11 @@ class CompetitionController extends Controller
 
     }
 
-//    public function printTable()
-//    {
-//        $competitions = Competition::with([
-//            'customer.customerable',
-//            'ProductCategory',
-//            'competitionType',
-//            'competitionReason',
-//            'competitionStatus',
-//            'product.productCategory',
-//            'companyType',
-//            'competitionResult',
-//            'ProductCategory.productsubcategories'
-//        ])->get();
-//
-//        $data = $competitions->map(function ($competition) {
-//            return [
-//                'internal_reference' => $competition->internal_reference ?? '',
-//                'reference' => $competition->competition_reference,
-//                'companyType' => $competition->companyType->name ?? ''
-//            ];
-//        });
-//
-//        $headerRow = array_keys($data->first());
-//        $rows = $data->toArray();
-//
-//        return Excel::download(function ($writer) use ($headerRow, $rows) {
-//            $writer->setTitle('Competitions');
-//            $writer->setCreator('Your Application');
-//
-//            $writer->sheet('Sheet 1', function ($sheet) use ($headerRow, $rows) {
-//                $sheet->appendRow($headerRow);
-//                $sheet->fromArray($rows, null, 'A2', true, false);
-//            });
-//        }, 'competitions.xlsx');
-// }
+
 
     public function export()
     {
-        return Excel::download(new CompetitionExport, 'competitions.xlsx');
+        return Excel::download(new CompetitionExport, 'Concursos.xlsx');
     }
 
 
