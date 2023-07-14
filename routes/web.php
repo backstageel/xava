@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('product_sub_categories', \App\Http\Controllers\ProductSubCategoryController::class);
     Route::resource('sale_items', \App\Http\Controllers\SaleItemsController::class);
 
-    Route::get('competitions/printTable', [\App\Http\Controllers\CompetitionController::class, 'printTable'])->name('competitions.printTable') ->middleware('auth');;
+    Route::get('competition/export', [\App\Http\Controllers\CompetitionController::class, 'export'])->name('competitions.export');
 
 
 });

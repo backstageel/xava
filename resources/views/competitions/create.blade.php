@@ -20,11 +20,7 @@
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
-            </div>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
@@ -257,7 +253,7 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="competition_result_id " onchange="verify_result()"
+                                            <x-bootstrap::form.select name="competition_result_id" onchange="verify_result()"
                                                                       label="Resultado"
                                                                       :options="$competitionResult" id="status" :default="1"/>
                                         </div>
