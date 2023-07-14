@@ -88,10 +88,15 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('product_sub_categories.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        SubCategoria de Industria de Concursos
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('contacts.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
                         Lista de Contactos
-
                     </a>
                 </li>
 
@@ -133,12 +138,7 @@
                         Categoria de Produtos
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('product_sub_categories.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Sub Categoria de Produtos
-                    </a>
-                </li>
+
 
             </ul>
         </li>
