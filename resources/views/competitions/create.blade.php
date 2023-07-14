@@ -26,8 +26,8 @@
         <div class="col-xl-12 mx-auto">
             <h6 class="mb-0 text-uppercase">Registar Novo Concurso</h6>
             <hr/>
-            <div class="card">
-                <div class="card-body">
+            <div class="card" >
+                <div class="card-body" >
                     <x-bootstrap::form.form class="row g-3" action="{{route('competitions.store')}}"
                                             enctype="multipart/form-data">
                         <!-- SmartWizard html -->
@@ -54,7 +54,7 @@
                                 </li>
                             </ul>
 
-                            <div class="tab-content">
+                            <div class="tab-content" >
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-6">
@@ -167,7 +167,7 @@
                                             </div><br><br><br><br><br><br><br><br><br><br><br><br>
 
                                         </div>
-                                        <div class="col-3" >
+                                        <div class="col-xl-3" >
                                         <div class="dropdown" id="rolling_stock" style=" display: none">
                                             <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc;  ">
                                                 Meios Circulantes
