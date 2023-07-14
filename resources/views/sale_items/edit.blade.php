@@ -52,18 +52,18 @@
                                             </div>
                                             <div class="col-3">
                                                 <x-bootstrap::form.input type="number" name="quantity"   label="Quantidade"
-                                                                         default="{{old('quantity', $sale_item->quantity)}}"/>
+                                                                         default="{{old('quantity', $sale_item->quantity)}}" required/>
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="col-3">
-                                                <x-bootstrap::form.input name="purchase_price" label="Preco de Compra"
-                                                                         default="{{old('purchase_price', $sale_item->purchase_price)}}"/>
+                                                <x-bootstrap::form.input type="number" name="purchase_price" label="Preco de Compra"
+                                                                         default="{{old('purchase_price', $sale_item->purchase_price)}}" required/>
                                             </div>
                                             <div class="col-3">
-                                                <x-bootstrap::form.input name="unit_price" label="Preco Unitário de Venda"
-                                                                         default="{{old('unit_price', $sale_item->unit_price)}}"/>
+                                                <x-bootstrap::form.input type="number" name="unit_price" label="Preco Unitário de Venda"
+                                                                         default="{{old('unit_price', $sale_item->unit_price)}}" required/>
                                             </div>
 
                                         </div>

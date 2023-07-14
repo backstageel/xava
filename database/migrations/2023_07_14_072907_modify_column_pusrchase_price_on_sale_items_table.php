@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sales', function (Blueprint $table) {
-            $table->string('sale_ref')->unique(false)->nullable()->change();
+        Schema::table('sale_items', function (Blueprint $table){
+
+            $table->decimal('purchase_price')->nullable()->change();
+            $table->decimal('quantity')->nullable()->change();
+
         });
     }
 

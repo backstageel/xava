@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->string('sale_ref')->unique(false)->nullable()->change();
+
+            $table->decimal('amount_received')->nullable()->change();
+            $table->decimal('transport_value')->nullable()->change();
+            $table->decimal('other_expenses')->nullable()->change();
+
+
+            $table->decimal('intermediary_committee')->nullable()->change();
+
+            $table->decimal('profit')->nullable()->change();
+            $table->decimal('debt_amount')->nullable()->change();
+
+
         });
     }
 

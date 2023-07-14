@@ -273,7 +273,7 @@
                 <table id="example3" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-
+                        <th>#</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
@@ -297,6 +297,7 @@
                     <tbody>
                     @foreach($sales as $sale)
                         <tr>
+                            <td>{{$sale->id}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>

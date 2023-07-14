@@ -279,6 +279,8 @@
         </div>
     </div>
 
+
+
 {{--    <div class="card radius-10">--}}
 {{--        <div class="card-body">--}}
 {{--            <div class="d-flex align-items-center">--}}
@@ -443,6 +445,16 @@
     <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.extension.js"></script>
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            var table = $('#example2').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.dropdown-item.dropdown-toggle').on('mouseenter', function() {
@@ -772,7 +784,7 @@
 
 {{--        });--}}
 
-    -}}
+    // -}}
         {{--        },--}}
         {{--        options: {--}}
         {{--            maintainAspectRatio: false,--}}

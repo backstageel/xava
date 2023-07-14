@@ -33,8 +33,6 @@ class SaleItemsController extends Controller
 
     public function create(Sale $sale)
     {
-        $products = Product::pluck('name', 'id');
-        return view('sale_items.create', compact('sale', 'products'));
 
 
     }
@@ -49,7 +47,7 @@ class SaleItemsController extends Controller
             $sale_items->unit_price = $request->input('unit_price');
             $sale_items->purchase_price = $request->input('purchase_price');
             $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
-            $sale_items->save();
+
 
             $sale = Sale::where('id', $sale_items->sale_id)->first();
             $sale->total_amount = $sale->total_amount + $sale_items->sub_total;
@@ -57,7 +55,8 @@ class SaleItemsController extends Controller
             $products = Product::pluck('name', 'id');
 
             try{
-            $sale->save();
+                $sale_items->save();
+                $sale->save();
 
             flash('Produto Adicionado')->success();
             return view('sale_items.create', compact('sale', 'products'));
@@ -67,15 +66,14 @@ class SaleItemsController extends Controller
             }
 
 
+
     }
 
 
-    public function show(SaleItem $sale)
+    public function show(SaleItem $sale_item)
     {
 
-        $sale_items = SaleItem::with(['product'])->
-        where('sale_id', $sale->id)->get();
-        return view('sales.show', compact('sale', 'sale_items'));
+
     }
 
 

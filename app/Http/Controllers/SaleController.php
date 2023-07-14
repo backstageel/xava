@@ -242,7 +242,7 @@ class SaleController extends Controller
                         return redirect()->back()->withInput();
                     }
                 } else {
-                    $sale->other_expenses = $request->input('other_expenses');
+                    $sale->other_expenses = 0;
                 }
 
                 if (($request->input('intermediary_committee')) != null) {

@@ -85,10 +85,10 @@
                                     <tr>
                                         <td>{{$sale_item->product->name}}</td>
                                         <td>{{$sale_item->quantity}}</td>
-                                        <td>{{$sale_item->unit_price}}</td>
-                                        <td>{{$sale_item->sub_total}}</td>
-                                        <td>{{$sale_item->purchase_price}}</td>
-                                        <td>{{$sale_item->purchase_price * $sale_item->quantity}}</td>
+                                        <td>@money($sale_item->unit_price)</td>
+                                        <td>@money($sale_item->sub_total)</td>
+                                        <td>@money($sale_item->purchase_price)</td>
+                                        <td>@money($sale_item->purchase_price * $sale_item->quantity)</td>
                                         <td>
                                             <a href="{{route('sale_items.edit', $sale_item)}}"> editar </a>
                                         </td>
