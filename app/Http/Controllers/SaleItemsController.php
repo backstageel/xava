@@ -47,6 +47,8 @@ class SaleItemsController extends Controller
             $sale_items->unit_price = $request->input('unit_price');
             $sale_items->purchase_price = $request->input('purchase_price');
             $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
+            $sale_items->total_purchase_price = $sale_items->purchase_price * $sale_items->quantity;
+
 
 
             $sale = Sale::where('id', $sale_items->sale_id)->first();
@@ -103,6 +105,7 @@ class SaleItemsController extends Controller
         }
 
         $sale_item->sub_total = $sale_item->unit_price * $sale_item->quantity;
+        $sale_item->total_purchase_price = $sale_item->purchase_price * $sale_item->quantity;
 
         try{
             $sale_item->save();

@@ -15,6 +15,7 @@ return new class extends Migration
 
             $table->decimal('purchase_price', 20, 2)->nullable()->change();
             $table->decimal('quantity' )->nullable()->change();
+            $table->decimal('total_purchase_price' , 20, 2)->nullable();
 
         });
     }
