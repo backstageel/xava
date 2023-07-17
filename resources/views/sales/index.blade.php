@@ -260,6 +260,7 @@
         <div class="ms-auto">
             <div class="btn-group">
                 <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('sales.export')}}" class="btn btn-primary">Imprimir Lista de Vendas</a>
             </div>
         </div>
     </div>

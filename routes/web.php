@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('sale_items', \App\Http\Controllers\SaleItemsController::class);
 
     Route::get('competition/export', [\App\Http\Controllers\CompetitionController::class, 'export'])->name('competitions.export');
+    Route::get('sale/export', [\App\Http\Controllers\SaleController::class, 'export'])->name('sales.export');
 
 
 });

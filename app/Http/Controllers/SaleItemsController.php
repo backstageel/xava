@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Company;
-use App\Models\Customer;
-use App\Models\Person;
+
 use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\SaleStatus;
+
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleItemsRequest;
 use App\Http\Requests\SaleRequest;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
+
 use App\Models\Sale;
 
 
@@ -31,10 +27,8 @@ class SaleItemsController extends Controller
     }
 
 
-    public function create(Sale $sale)
+    public function create()
     {
-
-
     }
 
 
@@ -72,8 +66,10 @@ class SaleItemsController extends Controller
     }
 
 
-    public function show(SaleItem $sale_item)
+    public function show(Sale $sale)
     {
+        $products = Product::pluck('name', 'id');
+        return view('sale_items.create', compact('sale', 'products'));
 
 
     }

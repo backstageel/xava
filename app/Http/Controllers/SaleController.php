@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SaleExport;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Person;
@@ -14,6 +15,7 @@ use App\Http\Requests\SaleRequest;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
 {
@@ -267,10 +269,6 @@ class SaleController extends Controller
                     flash('Erro ao Adicionar Venda: ' . $exception->getMessage())->error();
                     return redirect()->back()->withInput();
                 }
-
-
-
-
     }
 
 
@@ -401,5 +399,10 @@ class SaleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new SaleExport, 'vendas.xlsx');
     }
 }

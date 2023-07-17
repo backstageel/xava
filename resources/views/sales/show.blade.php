@@ -16,10 +16,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-
                         <a href="{{route('sales.edit', $sale)}}" class="btn btn-primary">Editar</a>
-
-
             </div>
         </div>
 
@@ -63,6 +60,19 @@
             </div>
         </div>
     </div>
+    <x-bootstrap::form.form class="row g-3" method='PUT' action="{{route('sales.update', $sale)}}">
+        @csrf
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="ms-auto">
+        <div class="btn-group ">
+                <button name="add_products" class="btn btn-primary">Adicionar Produtos</button>
+        </div>
+    </div>
+        </div>
+    </x-bootstrap::form.form>
+    <br>
+
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -89,7 +99,7 @@
                                         <td>@money($sale_item->sub_total)</td>
                                         <td>@money($sale_item->purchase_price)</td>
 
-                                        <td>{{$sale_item->total_purchase_price}}</td>
+                                        <td>@money($sale_item->total_purchase_price)</td>
                                         <td>
                                             <a href="{{route('sale_items.edit', $sale_item)}}"> editar </a>
                                         </td>

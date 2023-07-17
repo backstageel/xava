@@ -29,7 +29,7 @@
 
                         <button class="btn btn-primary" >Ver Pagamentos</button>
                     </x-bootstrap::form.form>
-                    @endif
+               @endif
 
 
 
