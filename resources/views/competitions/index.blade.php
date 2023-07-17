@@ -19,8 +19,8 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;
-                <a href="{{route('competitions.export')}}" class="btn btn-primary">imprimir</a>
+                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;&nbsp;
+                <a href="{{route('competitions.export')}}" class="btn btn-primary">Imprimir Lista de Concursos</a>
             </div>
 
         </div>
@@ -86,7 +86,9 @@
                 </table>
             </div>
         </div>
+
     </div>
+
     <hr/>
     <h6 class="mb-0 text-uppercase">Lista de Concursos</h6>
     <hr/>
