@@ -73,7 +73,7 @@ class CompetitionController extends Controller
         $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
             $query->
                 Where('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
+        })->orderBy('id')->pluck('name','id');
 
         $ids = [1,2,3,4,5,9]; // Lista de IDs desejados
         $minId = 9; // ID mínimo nao  desejado
