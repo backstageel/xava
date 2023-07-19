@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordsController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-
+use App\Mail\competitionMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,10 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer_types', \App\Http\Controllers\CustomerTypeController::class);
     Route::resource('product_categories', \App\Http\Controllers\ProductCategoriesController::class);
     Route::resource('customers', \App\Http\Controllers\CustomersController::class);
-
     Route::resource('products', \App\Http\Controllers\ProductController::class);
     Route::resource('suppliers', \App\Http\Controllers\SuppliersController::class);
-
     Route::resource('change_passwords', ChangePasswordsController::class)->only('create', 'store');
     Route::resource('loans', \App\Http\Controllers\LoanController::class);
     Route::resource('loans_simulator', \App\Http\Controllers\LoanController::class)->only('create', 'store');
