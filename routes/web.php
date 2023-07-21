@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordsController;
+use App\Models\Competition;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Mail\competitionMail;
@@ -16,6 +18,8 @@ use App\Mail\competitionMail;
 */
 
 Route::middleware('auth')->group(function () {
+
+
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('employees', \App\Http\Controllers\EmployeesController::class);
     Route::resource('customer_types', \App\Http\Controllers\CustomerTypeController::class);

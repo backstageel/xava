@@ -2,52 +2,33 @@
 
 namespace App\Mail;
 
+use App\Models\Competition;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use function Symfony\Component\Translation\t;
 
 class competitionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $competitions;
+    public $username;
+
+    public function __construct($competitionsData,$username)
     {
-        //
+        $this->competitions = $competitionsData['competitions'];
+        $this->username= $username;
+
+
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Competition Mail',
-        );
-    }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mails.competition',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->from('isaias.n.manjate@uem.ac.mz')
+            ->view('emails.competition')
+            ->subject('Xava Intranet Notification');
     }
 }
