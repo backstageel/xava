@@ -3,6 +3,36 @@
 
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
+    <!-- Inclua o arquivo CSS do Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        /*!* Estilos personalizados para o Select2 *!*/
+        /*.select2-container .select2-selection {*/
+        /*    font-size: 14px;*/
+        /*    color: #333;*/
+        /*    !* Outros estilos personalizados que você desejar *!*/
+        /*}*/
+
+        /*!* Ajuste a largura do Select2, se necessário *!*/
+        /*.select2-container .select2-selection--single {*/
+        /*    !*width: 75%;*!*/
+        /*    display: block;*/
+        /*    !*width: 100%;*!*/
+        /*    padding: 0.375rem 0.75rem;*/
+        /*    font-size: 1rem;*/
+        /*    font-weight: 400;*/
+        /*    line-height: 1.5;*/
+        /*    color: #212529;*/
+        /*    background-color: #fff;*/
+        /*    background-clip: padding-box;*/
+        /*    border: 1px solid #ced4da;*/
+        /*    border-radius: 0.25rem;*/
+        /*    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
+        /*}*/
+
+
+    </style>
 @endsection
 
 @section("wrapper")
@@ -56,7 +86,7 @@
                                     <div class="row">
 
                                         <div class="col-3">
-                                            <x-bootstrap::form.select name="customer_id" label="Cliente"
+                                            <x-bootstrap::form.select class=" form-control " name="customer_id" label="Cliente"
                                                     :options="$customers"  required
                                            />
 
@@ -152,43 +182,34 @@
     <!--end row-->
 @endsection
 
-@section("script")
-    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
-            type="text/javascript"></script>
-    <script>
-        $(function () {
-            $('#smartwizard').smartWizard({
-                theme: 'arrows',
-            })
-        });
-        // var teste = document.getElemetById('step2').value();
-        // $(function () {
-        //     $('#smartwizard').smartWizard({
-        //         theme: 'arrows',
-        //         toolbarSettings: {
-        //             toolbarPosition: 'none', // Valor padrão
-        //         },
-        //         onShowStep: function (step) {
-        //             if (teste == "2") {
-        //                 // Definir a posição da barra de ferramentas como "none" para o passo 2
-        //                 this.toolbarSettings.toolbarPosition = 'none';
-        //             } else {
-        //                 // Definir a posição da barra de ferramentas como necessário para outros passos
-        //                 this.toolbarSettings.toolbarPosition = 'bottom'; // ou 'top' ou 'both', dependendo das suas necessidades
-        //             }
-        //         },
-        //     });
-        // });
+{{--@section("script")--}}
+{{--    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"--}}
+{{--            type="text/javascript"></script>--}}
+{{--    <script>--}}
+{{--        $(function () {--}}
+{{--            $('#smartwizard').smartWizard({--}}
+{{--                theme: 'arrows',--}}
+{{--            })--}}
+{{--        });--}}
 
-        // if (step == 2) {
-        //     // Remover os botões de "Previous" e "Next" no passo 2
-        //     $('#customPreviousButton').hide();
-        //     $('#customNextButton').hide();
-        // } else {
-        //     // Exibir os botões de "Previous" e "Next" nos outros passos
-        //     $('#customPreviousButton').show();
-        //     $('#customNextButton').show();
-        // }
-    </script>
-@endsection
+{{--    </script>--}}
+    @section("script")
+        <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+        <!-- Inclua o arquivo JS do Select2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#smartwizard').smartWizard({
+                theme: 'arrows',
+             })
+                // Inicializar o Select2 na opção de selecionar clientes
+                $('.select2').select2();
+
+
+            });
+        </script>
+    @endsection
+
+{{--@endsection--}}
 

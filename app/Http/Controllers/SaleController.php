@@ -258,7 +258,7 @@ class SaleController extends Controller
                 } else {
                     $sale->intermediary_committee = 0;
                 }
-                $sale->debt_amount = $sale->total_amount - $sale->amount_received;
+                $sale->debt_amount = 0;
 
                 try {
                     $sale->save();

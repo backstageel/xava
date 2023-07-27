@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Mail\competitionMail;
+use App\Notifications\SomeModel;
+use App\Notifications\SendSMSNotification;
+use Illuminate\Support\Facades\Notification;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +22,10 @@ use App\Mail\competitionMail;
 */
 
 Route::middleware('auth')->group(function () {
+
+
+
+
 
 
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
@@ -40,6 +48,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('competition/export', [\App\Http\Controllers\CompetitionController::class, 'export'])->name('competitions.export');
     Route::get('sale/export', [\App\Http\Controllers\SaleController::class, 'export'])->name('sales.export');
+
 
 
 });

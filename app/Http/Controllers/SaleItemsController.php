@@ -38,8 +38,27 @@ class SaleItemsController extends Controller
             $sale_items->sale_id = $request->input('sale_id');
             $sale_items->product_id = $request->input('product_id');
             $sale_items->quantity = $request->input('quantity');
-            $sale_items->unit_price = $request->input('unit_price');
-            $sale_items->purchase_price = $request->input('purchase_price');
+
+            if (($request->input('unit_price')) != null) {
+                if (is_numeric($request->input('unit_price'))) {
+                    $sale_items->unit_price = $request->input('unit_price');
+                } else {
+                    flash('Produto não adicionado. Formatação do campo "Preco Unitario de Venda" incorrecto.
+                    Separação de casas decimais para campos númericos: (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+            }
+            if (($request->input('purchase_price')) != null) {
+                if (is_numeric($request->input('purchase_price'))) {
+                    $sale_items->purchase_price = $request->input('purchase_price');
+                } else {
+                    flash('Produto não adicionado. Formatação do campo "Preco de Compra" incorrecto.
+                        Separação de casas decimais para campos númericos: (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+            }
+
+
             $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
             $sale_items->total_purchase_price = $sale_items->purchase_price * $sale_items->quantity;
 
@@ -93,12 +112,26 @@ class SaleItemsController extends Controller
             $sale_item->quantity = $request->input(['quantity']);
         }
         if (($request->input('unit_price')) != null) {
-            $sale_item->unit_price = $request->input('unit_price');
+            if (is_numeric($request->input('unit_price'))) {
+                $sale_item->unit_price = $request->input('unit_price');
+            } else {
+                flash('Produto não atualizado. Formatação do campo "Preco Unitario de Venda" incorrecto.
+                    Separação de casas decimais para campos númericos: (0.0)')->error();
+                return redirect()->back()->withInput();
+            }
+        }
+        if (($request->input('purchase_price')) != null) {
+            if (is_numeric($request->input('purchase_price'))) {
+                $sale_item->purchase_price = $request->input('purchase_price');
+            } else {
+                flash('Produto não atualizado. Formatação do campo "Preco de Compra" incorrecto.
+                    Separação de casas decimais para campos númericos: (0.0)')->error();
+                return redirect()->back()->withInput();
+            }
         }
 
-        if (($request->input('purchase_price')) != null) {
-            $sale_item->purchase_price = $request->input('purchase_price');
-        }
+
+
 
         $sale_item->sub_total = $sale_item->unit_price * $sale_item->quantity;
         $sale_item->total_purchase_price = $sale_item->purchase_price * $sale_item->quantity;
