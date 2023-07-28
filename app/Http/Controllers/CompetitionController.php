@@ -372,8 +372,6 @@ class CompetitionController extends Controller
 
     }
 
-
-
     public function export()
     {
         return Excel::download(new CompetitionExport, 'Concursos.xlsx');
