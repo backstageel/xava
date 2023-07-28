@@ -157,9 +157,9 @@ class CompetitionController extends Controller
             $competition->save();
             flash('Concurso registado com sucesso')->success();
 
+
             $selectedCategories = $request->input('product_category_id');
             $competition->productcategory()->attach($selectedCategories);
-
             $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids');
 //            dd($selectedSubcategories_electronic);
             $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids');
@@ -196,13 +196,24 @@ class CompetitionController extends Controller
      */
     public function edit(Competition $competition)
     {
+        $selectedCategories = $competition->productCategory->pluck('id')->toArray();
+        $selectedSubCategories = [];
+        foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get() as $subcategory){
+
+            $selectedSubCategories[] = $subcategory->product_sub_category_id;
+
+
+        }
         $ids = [11,3]; // Lista de IDs desejados
         $minId = 33; // ID mínimo desejado
+
+
+        $productsubcategory = ProductSubCategory::orderBy('name')->get();
 
         $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
             $query->whereIn('id', $ids)
                 ->orWhere('id', '>', $minId);
-        })->orderBy('name')->pluck('name', 'id');
+        })->orderBy('name')->pluck('name', 'id')->toArray();
         $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
 
 
@@ -241,7 +252,10 @@ class CompetitionController extends Controller
                 'employees',
                 'competitionStatuses',
                 'productCategories',
-                'competitionResult'
+                'competitionResult',
+                'productsubcategory',
+                'selectedCategories',
+                'selectedSubCategories'
             )
         );
     }
@@ -249,15 +263,94 @@ class CompetitionController extends Controller
     /**
      * Update the specified resource in storage.
      */
+//    public function update(CompetitionRequest $request, Competition $competition)
+//    {
+//        $competitionData = $request->except('_token', '_method');
+//        $competition->update($competitionData);
+//
+//        flash('Concurso editado com sucesso')->success();
+//
+//        return redirect()->route('competitions.index');
+//    }
     public function update(CompetitionRequest $request, Competition $competition)
+
     {
-        $competitionData = $request->except('_token', '_method');
-        $competition->update($competitionData);
+        Date::setLocale('pt-pt');
 
-        flash('Concurso editado com sucesso')->success();
+        $competition->competition_type_id = $request->input('competition_type_id');
+        $competition->competition_result_id = $request->input('competition_result_id');
+        $competition->competition_reason_id = $request->input('competition_reason_id');
+        $competition->competition_month = Date::now()->format('F');
+        $competition->customer_id = $request->input('customer_id');
+        $competition->company_type_id = $request->input('company_type_id');
+        $competition->competition_reference = $request->input('competition_reference');
+        $competition->reason_description = $request->input('reason_description');
+        $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
+        $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
+        $competition->definitive_guarantee = $request->input('definitive_guarantee');
+        $competition->definitive_guarantee_award = $request->input('definitive_guarantee_award');
+        $competition->advance_guarantee = $request->input('advance_guarantee');
+        $competition->advance_guarantee_award = $request->input('advance_guarantee_award');
+        $competition->proposal_delivery_date = $request->input('proposal_delivery_date');
+        $competition->bidding_documents_value = $request->input('bidding_documents_value');
+        $competition->competition_status_id = $request->input('competition_status_id');
+        $competition->proposal_value = $request->input('proposal_value');
 
-        return redirect()->route('competitions.index');
+        try {
+
+            // Atualizar as categorias e subcategorias associadas ao concurso
+            $selectedCategories = $request->input('product_category_id');
+            if(isset($selectedCategories)) {
+                $competition->productcategory()->sync($selectedCategories);
+
+                $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids')??[];
+                $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids')??[];
+
+                $electronicSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',11)->pluck('product_sub_category_id')->toArray();
+                $rollingSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',3)->pluck('product_sub_category_id')->toArray(); ;
+
+                    $electronicSubcategoriesToRemove = array_diff($electronicSubcategoriesToRemove, $selectedSubcategories_electronic);
+                    if (!empty($electronicSubcategoriesToRemove)) {
+                        \App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id', 11)
+                            ->whereIn('product_sub_category_id', $electronicSubcategoriesToRemove)
+                            ->delete();
+                    }
+                    $selectedSubcategories_electronic=array_diff($selectedSubcategories_electronic,\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',11)->pluck('product_sub_category_id')->toArray());
+
+
+                    $rollingSubcategoriesToRemove=array_diff($rollingSubcategoriesToRemove,$selectedSubcategories_rolling);
+                       if (!empty($rollingSubcategoriesToRemove)) {
+                           \App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)
+                               ->whereIn('product_sub_category_id',$rollingSubcategoriesToRemove)->where('product_category_id','=',3)
+                               ->delete();
+                       }
+                    $selectedSubcategories_rolling=array_diff($selectedSubcategories_rolling,\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',3)->pluck('product_sub_category_id')->toArray());
+
+                foreach ($selectedCategories as $categoryId) {
+                    $category = ProductCategory::find($categoryId);
+                    if (isset($selectedSubcategories_electronic) && $category->id == 11) {
+                        $category->productSubcategories()->attach($selectedSubcategories_electronic,['competition_id' => $competition->id]);
+
+                    }
+                    if (isset($selectedSubcategories_rolling) && $category->id == 3) {
+
+                        $category->productSubcategories()->attach($selectedSubcategories_rolling, ['competition_id' => $competition->id]);
+
+                    }
+                }
+
+         }
+
+
+            $competition->save();
+            flash('Concurso atualizado com sucesso')->success();
+            return redirect()->route('competitions.index');
+        } catch (\Exception $exception) {
+            flash('Erro ao atualizar concurso: ' . $exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

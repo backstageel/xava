@@ -3,6 +3,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -117,7 +121,77 @@
 
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <fieldset class="border p-2 position-relative">
+                                                <legend class="border-bottom mb-0 px-3 position-absolute top-0 start-50 translate-middle-x"
+                                                        style="background-color: white; font-size: 14px;">
+                                                    <strong>Indústria do Concurso</strong>
+                                                </legend><br><br>
 
+                                                <div class="col-9">
+                                                    @foreach($productCategories as $categoryId => $categoryName)
+                                                        <div onchange="verify_check()">
+                                                            <input type="checkbox" class="form-check-input" id="_{{$categoryId}}" name="product_category_id[]" value="{{$categoryId}}" @if(in_array($categoryId, $selectedCategories)) checked @endif>
+                                                            <label class="form-check-label">{{ $categoryName }}</label>
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="dropdown" id="electronic">
+                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
+                                                    Equipamento Electrónico
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <table class="table table-bordered" style="max-height: 200px; overflow-y: scroll;overflow-x: scroll;">
+                                                        <tr>
+
+                                                            @foreach($productsubcategory as $index => $subcategory)
+
+
+                                                                @if($subcategory->product_category_id == 11)
+
+                                                                    @if($index > 0 && $index % 3=== 0)
+                                                        </tr><tr>
+                                                            @endif
+                                                            <td>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
+                                                                    <label for="item{{$index}}">{{$subcategory->name }}</label>
+                                                                </a>
+                                                            </td>
+                                                            @endif
+                                                            @endforeach
+                                                        </tr>
+                                                    </table>
+
+                                                </div>
+                                            </div><br><br><br><br><br><br><br><br><br><br><br><br>
+
+                                        </div>
+                                        <div class="col-xl-3" >
+                                            <div class="dropdown" id="rolling_stock">
+                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc;  ">
+                                                    Meios Circulantes
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                    @foreach($productsubcategory as $subcategory)
+                                                        @if($subcategory->product_category_id==3)
+                                                            <a class="dropdown-item" href="#">
+
+                                                                <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
+                                                                <label for="item1">{{ $subcategory->name }}</label>
+                                                            </a>@endif @endforeach
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
@@ -272,6 +346,28 @@
                 reason_description_field.style.display="none";
             }
         }
+        function verify_check() {
+
+            var checkboxElectronic = document.getElementById("_11");//id dos eletronicos
+            var checkboxRollingStock = document.getElementById("_3");//id dos meios circulantes
+            var electronicField = document.getElementById("electronic");
+            var rollingStockField = document.getElementById("rolling_stock");
+
+            if (checkboxElectronic.checked && checkboxRollingStock.checked) {
+                electronicField.style.display = "block";
+                rollingStockField.style.display = "block";
+            } else if (checkboxElectronic.checked) {
+                electronicField.style.display = "block";
+                rollingStockField.style.display = "none";
+            } else if (checkboxRollingStock.checked) {
+                electronicField.style.display = "none";
+                rollingStockField.style.display = "block";
+            } else {
+                electronicField.style.display = "none";
+                rollingStockField.style.display = "none";
+            }
+        }
+
 
 
     </script>

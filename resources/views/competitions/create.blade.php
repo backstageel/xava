@@ -139,7 +139,7 @@
 {{--                                            </div>--}}
 
 
-                                        <div class="col-5">
+                                        <div class="col-4">
                                             <div class="dropdown" id="electronic" style=" display: none">
                                                 <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
                                                     Equipamento Electrónico
@@ -168,21 +168,31 @@
 
                                         </div>
                                         <div class="col-xl-3" >
-                                        <div class="dropdown" id="rolling_stock" style=" display: none">
-                                            <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc;  ">
-                                                Meios Circulantes
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <div class="dropdown" id="rolling" style=" display: none">
+                                                <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
+                                                    Meios Circulates
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <table class="table table-bordered" style="max-height: 200px; overflow-y: scroll;overflow-x: scroll;">
+                                                        <tr>
 
-                                                @foreach($productsubcategory as $subcategory)
-                                                    @if($subcategory->product_category_id==3)
-                                                <a class="dropdown-item" href="#">
-
-                                                    <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}">
-                                                    <label for="item1">{{ $subcategory->name }}</label>
-                                                </a>@endif @endforeach
-
-                                                                                        </div>
+                                                            @foreach($productsubcategory as $index => $subcategory)
+                                                                @if($subcategory->product_category_id == 3)
+                                                                    @if($index > 0 && $index % 3=== 0)
+                                                        </tr><tr>
+                                                            @endif
+                                                            <td>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}">
+                                                                    <label for="item1">{{ $subcategory->name }}</label>
+                                                                </a>
+                                                            </td>
+                                                            @endif
+                                                            @endforeach
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         </div>
@@ -197,7 +207,7 @@
 {{--                                        </div>--}}
 
                                     </div>
-                                </div>
+
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-3">
@@ -340,7 +350,7 @@
             var checkboxElectronic = document.getElementById("_11");//id dos eletronicos
             var checkboxRollingStock = document.getElementById("_3");//id dos meios circulantes
             var electronicField = document.getElementById("electronic");
-            var rollingStockField = document.getElementById("rolling_stock");
+            var rollingStockField = document.getElementById("rolling");
 
             if (checkboxElectronic.checked && checkboxRollingStock.checked) {
                 electronicField.style.display = "block";
