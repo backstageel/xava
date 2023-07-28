@@ -45,14 +45,14 @@
 
                 @foreach ($competition->productCategory as $categoria)
 
-                    {{ '-'.$categoria->name }}<br>
+                    {{$categoria->name.',' }}
                 @endforeach</td>
             <td>
 
 
                 @foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get()
                      as $subcategory)
-                    {{'-'.\App\Models\ProductSubCategory::find($subcategory->product_sub_category_id)->name}}<br>
+                    {{\App\Models\ProductSubCategory::find($subcategory->product_sub_category_id)->name.','}}
 
                 @endforeach
 
