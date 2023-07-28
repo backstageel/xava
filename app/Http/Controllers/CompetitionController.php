@@ -306,8 +306,20 @@ class CompetitionController extends Controller
                 $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids')??[];
                 $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids')??[];
 
+                if(!in_array(11,$selectedCategories)){
+                    \App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id', 11)
+                        ->whereIn('product_sub_category_id',$selectedSubcategories_electronic)
+                        ->delete();
+                }
+                if(!in_array(3,$selectedCategories)){
+                    \App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id', 3)
+                        ->whereIn('product_sub_category_id',$selectedSubcategories_rolling)
+                        ->delete();
+                }
+
                 $electronicSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',11)->pluck('product_sub_category_id')->toArray();
-                $rollingSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',3)->pluck('product_sub_category_id')->toArray(); ;
+                $rollingSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',3)->pluck('product_sub_category_id')->toArray();
+
 
                     $electronicSubcategoriesToRemove = array_diff($electronicSubcategoriesToRemove, $selectedSubcategories_electronic);
                     if (!empty($electronicSubcategoriesToRemove)) {
