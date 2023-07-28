@@ -140,7 +140,7 @@
 
 
                                         <div class="col-4">
-                                            <div class="dropdown" id="electronic" style=" display: none">
+                                            <div class="dropdown" id="electronic" >
                                                 <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
                                                     Equipamento Electrónico
                                                 </button>
