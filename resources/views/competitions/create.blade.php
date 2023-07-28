@@ -140,28 +140,42 @@
 
 
                                         <div class="col-4">
-                                            <div class="dropdown" id="electronic" >
+                                            <div class="dropdown" id="electronic" style="display: none" >
                                                 <button class="btn btn-secondary dropdown-toggle custom-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:rgb(89,192,250);color: #ffffff; border: 1px solid #cccccc; ">
                                                     Equipamento Electrónico
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <table class="table table-bordered" style="max-height: 200px; overflow-y: scroll;overflow-x: scroll;">
-                                                        <tr>
+                                                    <div style="max-height: 200px; overflow-y: scroll;">
+                                                        <table class="table table-bordered">
+                                                            @php $rowCount = 0; @endphp
                                                             @foreach($productsubcategory as $index => $subcategory)
                                                                 @if($subcategory->product_category_id == 11)
-                                                                    @if($index > 0 && $index % 3=== 0)
-                                                        </tr><tr>
-                                                            @endif
-                                                            <td>
-                                                                <a class="dropdown-item" href="#">
-                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}">
-                                                                    <label for="item{{$index}}">{{ $subcategory->name }}</label>
-                                                                </a>
-                                                            </td>
-                                                            @endif
+                                                                    @if($rowCount % 3 == 0)
+                                                                        <tr>
+                                                                            @endif
+                                                                            <td>
+                                                                                <a class="dropdown-item" href="#">
+                                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}">
+                                                                                    <label for="item{{$index}}">{{ $subcategory->name }}</label>
+                                                                                </a>
+                                                                            </td>
+                                                                            @php $rowCount++; @endphp
+                                                                            @if($rowCount % 3 == 0)
+                                                                        </tr>
+                                                                    @endif
+                                                                @endif
                                                             @endforeach
-                                                        </tr>
-                                                    </table>
+
+                                                            <!-- Se a última linha não estiver totalmente preenchida, adicione células vazias para completar o layout -->
+                                                            @if($rowCount % 3 != 0)
+                                                                @for($i = 0; $i < 3 - ($rowCount % 3); $i++)
+                                                                    <td></td>
+                                                                    @endfor
+                                                                    </tr>
+                                                                    @endif
+                                                        </table>
+                                                    </div>
+
 
                                                 </div>
                                             </div><br><br><br><br><br><br><br><br><br><br><br><br>
