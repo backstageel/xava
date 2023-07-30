@@ -1,38 +1,13 @@
 @extends("layouts.app")
 @section("style")
-
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
-    <!-- Inclua o arquivo CSS do Select2 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Biblioteca CSS do Select2 -->
+    <link href="{{asset('')}}assets/plugins/select2/css/select2.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="{{asset('')}}assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet"
+          type="text/css">
 
-    <style>
-        /*!* Estilos personalizados para o Select2 *!*/
-        /*.select2-container .select2-selection {*/
-        /*    font-size: 14px;*/
-        /*    color: #333;*/
-        /*    !* Outros estilos personalizados que você desejar *!*/
-        /*}*/
-
-        /*!* Ajuste a largura do Select2, se necessário *!*/
-        /*.select2-container .select2-selection--single {*/
-        /*    !*width: 75%;*!*/
-        /*    display: block;*/
-        /*    !*width: 100%;*!*/
-        /*    padding: 0.375rem 0.75rem;*/
-        /*    font-size: 1rem;*/
-        /*    font-weight: 400;*/
-        /*    line-height: 1.5;*/
-        /*    color: #212529;*/
-        /*    background-color: #fff;*/
-        /*    background-clip: padding-box;*/
-        /*    border: 1px solid #ced4da;*/
-        /*    border-radius: 0.25rem;*/
-        /*    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
-        /*}*/
-
-
-    </style>
 @endsection
 
 @section("wrapper")
@@ -85,11 +60,8 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
 
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select class=" form-control " name="customer_id" label="Cliente"
-                                                    :options="$customers"  required
-                                           />
-
+                                        <div class="col-3"> <!-- Adicione a classe form-select -->
+                                            <x-bootstrap::form.select class="select2-container--bootstrap4" id="i" name="customer_id" label="Cliente" :options="$customers" required/>
                                         </div>
 
                                         <div class="col-4">
@@ -182,34 +154,26 @@
     <!--end row-->
 @endsection
 
-{{--@section("script")--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"--}}
-{{--            type="text/javascript"></script>--}}
-{{--    <script>--}}
-{{--        $(function () {--}}
-{{--            $('#smartwizard').smartWizard({--}}
-{{--                theme: 'arrows',--}}
-{{--            })--}}
-{{--        });--}}
+@section("script")
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"
+            type="text/javascript"></script>
 
-{{--    </script>--}}
-    @section("script")
-        <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-        <!-- Inclua o arquivo JS do Select2 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="{{asset('')}}assets/plugins/select2/js/select2.min.js"></script>
 
-        <script>
-            $(document).ready(function () {
+
+
+
+    <script>
+
+
+            $(document).ready(function() {
                 $('#smartwizard').smartWizard({
-                theme: 'arrows',
-             })
-                // Inicializar o Select2 na opção de selecionar clientes
-                $('.select2').select2();
+                    theme: 'arrows',
+                });
 
-
+                $('#i').select2();
             });
-        </script>
-    @endsection
 
-{{--@endsection--}}
 
+    </script>
+@endsection
