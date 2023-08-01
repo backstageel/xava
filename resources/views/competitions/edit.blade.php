@@ -146,27 +146,36 @@
                                                     Equipamento Electrónico
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <table class="table table-bordered" style="max-height: 200px; overflow-y: scroll;overflow-x: scroll;">
-                                                        <tr>
-
+                                                    <div style="max-height: 200px; overflow-y: scroll;">
+                                                        <table class="table table-bordered">
+                                                            @php $rowCount = 0; @endphp
                                                             @foreach($productsubcategory as $index => $subcategory)
-
-
                                                                 @if($subcategory->product_category_id == 11)
-
-                                                                    @if($index > 0 && $index % 3=== 0)
-                                                        </tr><tr>
-                                                            @endif
-                                                            <td>
-                                                                <a class="dropdown-item" href="#">
-                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
-                                                                    <label for="item{{$index}}">{{$subcategory->name }}</label>
-                                                                </a>
-                                                            </td>
-                                                            @endif
+                                                                    @if($rowCount % 3 == 0)
+                                                                        <tr>
+                                                                            @endif
+                                                                            <td>
+                                                                                <a class="dropdown-item" href="#">
+                                                                                    <input type="checkbox" id="item{{$index}}" name="electronic_subcategory_ids[]" value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
+                                                                                    <label for="item{{$index}}">{{ $subcategory->name }}</label>
+                                                                                </a>
+                                                                            </td>
+                                                                            @php $rowCount++; @endphp
+                                                                            @if($rowCount % 3 == 0)
+                                                                        </tr>
+                                                                    @endif
+                                                                @endif
                                                             @endforeach
-                                                        </tr>
-                                                    </table>
+
+                                                            @if($rowCount % 3 != 0)
+                                                                @for($i = 0; $i < 3 - ($rowCount % 3); $i++)
+                                                                    <td></td>
+                                                                    @endfor
+                                                                    </tr>
+                                                                    @endif
+                                                        </table>
+                                                    </div>
+
 
                                                 </div>
                                             </div><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -178,15 +187,35 @@
                                                     Meios Circulantes
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <div style="max-height: 200px; overflow-y: scroll;">
+                                                        <table class="table table-bordered">
+                                                            @php $rowCount = 0; @endphp
+                                                            @foreach($productsubcategory as $index => $subcategory)
+                                                                @if($subcategory->product_category_id == 3)
+                                                                    @if($rowCount % 3 == 0)
+                                                                        <tr>
+                                                                            @endif
+                                                                            <td>
+                                                                                <a class="dropdown-item" href="#">
+                                                                                    <input type="checkbox" id="item{{$index}}" name="rolling_stock_subcategory_ids[]" value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
+                                                                                    <label for="item{{$index}}">{{ $subcategory->name }}</label>
+                                                                                </a>
+                                                                            </td>
+                                                                            @php $rowCount++; @endphp
+                                                                            @if($rowCount % 3 == 0)
+                                                                        </tr>
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
 
-                                                    @foreach($productsubcategory as $subcategory)
-                                                        @if($subcategory->product_category_id==3)
-                                                            <a class="dropdown-item" href="#">
-
-                                                                <input type="checkbox" id="item1" name="rolling_stock_subcategory_ids[]"  value="{{$subcategory->id}}" @if(in_array($subcategory->id, $selectedSubCategories)) checked @endif>
-                                                                <label for="item1">{{ $subcategory->name }}</label>
-                                                            </a>@endif @endforeach
-
+                                                            @if($rowCount % 3 != 0)
+                                                                @for($i = 0; $i < 3 - ($rowCount % 3); $i++)
+                                                                    <td></td>
+                                                                    @endfor
+                                                                    </tr>
+                                                                    @endif
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
 

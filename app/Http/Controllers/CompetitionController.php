@@ -299,8 +299,8 @@ class CompetitionController extends Controller
         try {
 
             // Atualizar as categorias e subcategorias associadas ao concurso
-            $selectedCategories = $request->input('product_category_id');
-            if(isset($selectedCategories)) {
+            $selectedCategories = $request->input('product_category_id')??[];
+
                 $competition->productcategory()->sync($selectedCategories);
 
                 $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids')??[];
@@ -316,6 +316,7 @@ class CompetitionController extends Controller
                         ->whereIn('product_sub_category_id',$selectedSubcategories_rolling)
                         ->delete();
                 }
+            if(isset($selectedCategories)) {
 
                 $electronicSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',11)->pluck('product_sub_category_id')->toArray();
                 $rollingSubcategoriesToRemove=\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->where('product_category_id','=',3)->pluck('product_sub_category_id')->toArray();
