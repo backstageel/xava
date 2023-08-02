@@ -19,6 +19,7 @@ use App\Models\ProductSubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
 
 
 class CompetitionController extends Controller
@@ -122,22 +123,23 @@ class CompetitionController extends Controller
         $technicalReview = Person::find($request->input('technical_proposal_review'));
         $documentaryReview = Person::find($request->input('documentary_review'));
 
+        //config data in PT
+        Carbon::setLocale('pt_BR');
+        $month= Carbon::now()->isoFormat('MMMM');
 
+        $year = Carbon::now()->year;
+        $lastTwoDigits = substr($year, -2);
 
-
-        Date::setLocale('pt-pt');
-        $last_Id = Competition::latest()->value('id');
+        $last_Id = Competition::count();
 
         $competition->competition_type_id = $request->input('competition_type_id');
         $competition->competition_result_id = $request->input('competition_result_id');
         $competition->competition_reason_id = $request->input('competition_reason_id');
-        $competition->competition_month = Date::now()->format('F');
-        $competition->internal_reference = ('XV' . (1 + $last_Id));
+        $competition->competition_month = ucfirst($month);
+        $competition->internal_reference = ('XV' .($lastTwoDigits).($last_Id<100?'0':'').(1 + $last_Id));
         $competition->customer_id = $request->input('customer_id');
         $competition->company_type_id=$request->input('company_type_id');
         $competition->competition_reference = $request->input('competition_reference');
-       // $competition->product_category_id = 1;//depreciado
-      //  $competition->product_id = 1;//depreciado
         $competition->reason_description = $request->input('reason_description');
         $competition->provisional_bank_guarantee = $request->input('provisional_bank_guarantee');
         $competition->provisional_bank_guarantee_award = $request->input('provisional_bank_guarantee_award');
@@ -158,11 +160,11 @@ class CompetitionController extends Controller
             flash('Concurso registado com sucesso')->success();
 
 
-            $selectedCategories = $request->input('product_category_id');
+            $selectedCategories = $request->input('product_category_id')??[];
             $competition->productcategory()->attach($selectedCategories);
-            $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids');
+            $selectedSubcategories_electronic = $request->input('electronic_subcategory_ids')??[];
 //            dd($selectedSubcategories_electronic);
-            $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids');
+            $selectedSubcategories_rolling = $request->input('rolling_stock_subcategory_ids')??[];
 
             foreach ($selectedCategories as $categoryId) {
                 $category = ProductCategory::find($categoryId);
