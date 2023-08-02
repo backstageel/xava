@@ -87,77 +87,84 @@ class DashboardController extends Controller
                 'MONTHNAME(sale_date) as month, SUM(total_amount) as total, COUNT(*) as count'
             )->groupBy('month')->get()
         ];
-
-        # id de produtos por categoria
-        $computer_equipment_ids = Product::where('category_id',
-            ProductCategory::where('name', 'Equipamento electrónico')->value('id'))->pluck('id');
-        $rolling_stock_ids = Product::where('category_id',
-            ProductCategory::where('name', 'Meios circulantes')->value('id'))->pluck('id');
-        $others_ids = Product::where('category_id',
-            ProductCategory::where('name', 'Outros')->value('id'))->pluck('id');
-
-        # vendas Ano Corrente IT(Geral, Execução, Pago)
+# vendas Ano Corrente IT(Geral, Execução, Pago)
         $current_year_sales = Sale::whereBetween('sale_date', [$startDate, $endDate])->pluck('id');
 
-        $computer_equipament_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->sum('sub_total');
+        $computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
+            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('total_amount');
 
-        $on_going_computer_equipament_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', '!=', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $on_going_computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
+            ->whereIn('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('total_amount');
 
-        $paid_computer_equipament_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id',  SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $paid_computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
+            ->whereIn('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('amount_received');
 
 
         # vendas Ano Corrente Meios Circulantes(Geral, Execução, Pago)
-        $rolling_stock_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->sum('sub_total');
+        $rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
+            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('total_amount');
 
-        $on_going_rolling_stock_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', '!=', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $on_going_rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
+            ->whereIn('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('total_amount');
 
-        $paid_rolling_stock_sales = SaleItem::whereIn('sale_id', $current_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id',  SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $paid_rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
+            ->where('sale_status_id',  [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('amount_received');
 
 
         # vendas Ano Anterior IT(Geral, Execução, Pago)
         $last_year_sales = Sale::whereBetween('sale_date', [$lastYearStartDate, $lastYearEndDate])->pluck('id');
 
-        $last_computer_equipament_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->sum('sub_total');
+        $last_computer_equipament_sales = Sale::whereIn('id', $last_year_sales)
+            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('total_amount');
 
-        $last_on_going_computer_equipament_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', '!=', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $last_on_going_computer_equipament_sales = Sale::whereIn('id', $last_year_sales)
+            ->whereIn('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 11)
+            ->sum('total_amount');
 
-        $last_paid_computer_equipament_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $computer_equipment_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $last_paid_computer_equipament_sales = Sale::whereIn('id', $last_year_sales)
+            ->where('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 11)
+            ->sum('amount_received');
 
 
         # vendas Ano Anterior Meios Circulantes(Geral, Execução, Pago)
-        $last_rolling_stock_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->sum('sub_total');
+        $last_rolling_stock_sales = Sale::whereIn('id', $last_year_sales)
+            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('total_amount');
 
-        $last_on_going_rolling_stock_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', '!=', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
 
-        $last_paid_rolling_stock_sales = SaleItem::whereIn('sale_id', $last_year_sales)
-            ->whereIn('product_id', $rolling_stock_ids)->whereHas('sale', function ($query) {
-                $query->where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'));
-            })->sum('sub_total');
+        $last_on_going_rolling_stock_sales = Sale::whereIn('id', $last_year_sales)
+            ->whereIn('sale_status_id',  [ SaleStatus::where('name', 'Facturado')->value('id'),
+                SaleStatus::where('name', 'Pago')->value('id')])
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('total_amount');
+
+        $last_paid_rolling_stock_sales = Sale::whereIn('id', $last_year_sales)
+            ->where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))
+            ->where('category_id', 3)
+            ->sum('amount_received');
 
         $computer_equipament_limit = 100000000.00;
         $rolling_stock_limit = 140000000.00;
