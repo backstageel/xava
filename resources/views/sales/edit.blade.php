@@ -55,34 +55,50 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-7">
                                             <x-bootstrap::form.select id="mySelect" name="customer_id" label="Cliente"
                                                :options="$customers"
                                                default="{{old('customer_id', $sale->customer_id)}}"/>
                                         </div>
-
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"
-                                              value="{{old('invoice_id', isset($sale->invoice_id) ? $sale->invoice_id : '')}}" />
+                                        <div class="col-5"> <!-- Adicione a classe form-select -->
+                                            <x-bootstrap::form.select   name="category_id" label="Departamento" :options="$categories"
+                                               value="{{old('category_id', isset($sale->category_id) ? $sale->category_id : '')}}"/>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="sale_ref" label="Referência"
+                                                 value="{{old('sale_ref',isset($sale->sale_ref) ? $sale->sale_ref : '')}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"
+                                                                     value="{{old('invoice_id', isset($sale->invoice_id) ? $sale->invoice_id : '')}}" />
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"
+                                                                     value="{{old('payment_method',isset($sale->payment_method) ? $sale->payment_method : '')}}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="notes" label="Descrição da Venda"
                                               value="{{old('notes',isset($sale->notes) ? $sale->notes : '')}}"/>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="sale_status_id" label="Estado da Venda"
                                                                       :options="$sale_statuses"
                                               default="{{old('sale_status_id', isset($sale->sale_status_id) ? $sale->sale_status_id : '')}}"
                                                                       />
                                         </div>
-
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"
-                                             value="{{old('payment_method',isset($sale->payment_method) ? $sale->payment_method : '')}}"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="sale_date" label="Data da Venda"
+                                                 value="{{old('sale_date',isset($sale->sale_date) ? $sale->sale_date : '')}}"/>
                                         </div>
+
+
 
                                     </div>
 

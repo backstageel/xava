@@ -21,7 +21,7 @@ class SaleController extends Controller
 {
     public function index()
     {
-        $sales = Sale::with([ 'customer','saleItem.product', 'saleStatus'])
+        $sales = Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
                     ->orderBy('id')->paginate(1000);
 
         #ano actual e mes actual
@@ -187,11 +187,23 @@ class SaleController extends Controller
         $customers = $person + $company;
         $sale_statuses = SaleStatus::pluck('name', 'id');
 
+        $ids = [11,3]; // Lista de IDs desejados
+        $minId = 33; // ID mínimo  nao desejado
+
+        $categories = ProductCategory::whereIn('id', $ids)->pluck('name', 'id');
+//
+//        $categories_with_prefix = $categories->map(function ($category) {
+//            $category->name = 'Dep ' . $category->name;
+//            return $category;
+//        });
+//        $categories_with_prefix->pluck('name', 'id');
+
         return view(
             'sales.create',
             compact(
                 'customers',
-                'sale_statuses'
+                'sale_statuses',
+                'categories'
 
             )
         );
@@ -213,6 +225,7 @@ class SaleController extends Controller
                     $person = Person::where('id', $customer->customerable_id)->first();
                     $sale->customer_name = $person->first_name . $person->last_name;
                 }
+                $sale->category_id = $request->input('category_id');
 
                 $sale->sale_date = $request->input('sale_date');
                 $sale->sale_status_id = $request->input('sale_status_id');
@@ -309,7 +322,12 @@ class SaleController extends Controller
             $customers = $person + $company;
             $sale_statuses = SaleStatus::pluck('name', 'id');
             $products = Product::pluck('name', 'id');
-            return view('sales.edit', compact('sale', 'products', 'customers', 'sale_statuses'));
+
+            $ids = [11,3]; // Lista de IDs desejados
+            $minId = 33; // ID mínimo  nao desejado
+
+           $categories = ProductCategory::whereIn('id', $ids)->pluck('name', 'id');
+            return view('sales.edit', compact('sale', 'products','categories', 'customers', 'sale_statuses'));
 
     }
 
@@ -332,7 +350,7 @@ class SaleController extends Controller
                 $person = Person::where('id', $customer->customerable_id)->first();
                 $sale->customer_name = $person->first_name . $person->last_name;
             }
-
+            $sale->category_id = $request->input('category_id');
             if (($request->input('sale_ref')) != null) {
                 $sale->sale_ref = $request->input(['sale_ref']);
             }

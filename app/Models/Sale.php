@@ -27,6 +27,10 @@ class Sale extends Model
     {
         return $this->hasMany(SaleItem::class);
     }
+    public function ProductCategory()
+    {
+        return $this->belongsTo(ProductCategory::class,'category_id');
+    }
 
     public function saleItems()
     {

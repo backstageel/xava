@@ -252,6 +252,7 @@
                         <th>#</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
+                        <th>Departamento Da Venda</th>
                         <th>Descricao</th>
                         <th>Referencia</th>
                         <th>Estado da Venda</th>
@@ -276,6 +277,7 @@
                             <td>{{$sale->id}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
+                            <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
                             <td>{{$sale->notes}}</td>
                             <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>

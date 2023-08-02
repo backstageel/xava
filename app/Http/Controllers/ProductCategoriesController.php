@@ -36,7 +36,15 @@ class ProductCategoriesController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $category = new ProductCategory();
-        $category->name = $request->input('name');
+
+        if (($request->input('name')) != null) {
+            $category->name = $request->input('name');
+        }else{
+                flash('Campo nome não pode ser nulo')->error();
+                return redirect()->back()->withInput();
+        }
+
+
         $category->save();
         flash('Tipo de Categoria Registado com sucesso')->success();
         return redirect()->route('product_categories.index');

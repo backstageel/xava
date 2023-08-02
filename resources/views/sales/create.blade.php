@@ -8,6 +8,11 @@
           type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
+    <script>
+        function addDepPrefix(categories) {
+            return categories.map(category => 'Dep' + category);
+        }
+    </script>
 @endsection
 
 @section("wrapper")
@@ -60,35 +65,41 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
 
-                                        <div class="col-3"> <!-- Adicione a classe form-select -->
-                                            <x-bootstrap::form.select class="select2-container--bootstrap4" id="i" name="customer_id" label="Cliente" :options="$customers" required/>
+                                        <div class="col-7"> <!-- Adicione a classe form-select -->
+                                            <x-bootstrap::form.select  id="i" name="customer_id" label="Cliente" :options="$customers" required/>
                                         </div>
+                                        <div class="col-5"> <!-- Adicione a classe form-select -->
+                                            <x-bootstrap::form.select   name="category_id" label="Departamento" :options="$categories" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
 
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="sale_ref" label="Referência" />
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="invoice_id" label="Nr da Factura"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>
                                         </div>
                                     </div>
 
 
 
                                     <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="notes" label="Descrição da Venda"/>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.select name="sale_status_id" label="Estado da Venda"
                                                                       :options="$sale_statuses"/>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <x-bootstrap::form.date-picker name="sale_date" label="Data da Venda" required/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="payment_method" label="Método de Pagamento"/>
-                                        </div>
+
 
                                     </div>
 
