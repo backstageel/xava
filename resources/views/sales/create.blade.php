@@ -1,13 +1,13 @@
 @extends("layouts.app")
 @section("style")
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
-          type="text/css"/>
+
     <!-- Biblioteca CSS do Select2 -->
     <link href="{{asset('')}}assets/plugins/select2/css/select2.min.css" rel="stylesheet"
           type="text/css">
     <link href="{{asset('')}}assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet"
           type="text/css">
-
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
+          type="text/css"/>
 @endsection
 
 @section("wrapper")
