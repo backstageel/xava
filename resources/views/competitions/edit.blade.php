@@ -288,7 +288,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.select name="competition_status_id" label="Estado do concurso"
+                                            <x-bootstrap::form.select name="competition_status_id" label="Estágio/Fase"
                                                                       :options="$competitionStatuses"
                                                                       default="{{old('competition_status_id',$competition->competition_status_id)}}"/>
 

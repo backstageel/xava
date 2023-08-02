@@ -220,14 +220,14 @@ class CompetitionController extends Controller
         $minId = 35; // ID minimo nao desejado
         $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
             $query->Where('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
+        })->orderBy('id')->pluck('name','id');
 
         $minId = 32; // ID mínimo  nao desejado
 
         $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
             $query->
             Where('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
+        })->orderBy('id')->pluck('name','id');
 
         $ids = [1,2,3,4,5,9]; // Lista de IDs desejados
         $minId = 9; // ID mínimo nao  desejado
@@ -238,7 +238,7 @@ class CompetitionController extends Controller
         })->orderBy('name')->pluck('name','id');
 
         $companies = Company::orderBy('name')->pluck('name', 'id');
-        $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
+        $competitionResult=CompetitionResult::orderBy('id')->pluck('name','id');
         $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
         $competition=Competition::where('id',$competition->id)->first();
 
