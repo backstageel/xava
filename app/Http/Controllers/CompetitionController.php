@@ -220,7 +220,7 @@ class CompetitionController extends Controller
         $minId = 35; // ID minimo nao desejado
         $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
             $query->Where('id', '>', $minId);
-        })->orderBy('id')->pluck('name','id');
+        })->orderBy('name')->pluck('name','id');
 
         $minId = 32; // ID mínimo  nao desejado
 
