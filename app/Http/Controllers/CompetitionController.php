@@ -282,7 +282,6 @@ class CompetitionController extends Controller
         $competition->competition_type_id = $request->input('competition_type_id');
         $competition->competition_result_id = $request->input('competition_result_id');
         $competition->competition_reason_id = $request->input('competition_reason_id');
-        $competition->competition_month = Date::now()->format('F');
         $competition->customer_id = $request->input('customer_id');
         $competition->company_type_id = $request->input('company_type_id');
         $competition->competition_reference = $request->input('competition_reference');

@@ -36,7 +36,6 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Mês</th>
                         <th>Tipo Instituição</th>
                         <th>Instituição</th>
                         <th>Tipo Concurso</th>
@@ -55,7 +54,6 @@
                             @if($competition->competition_status_id!=36)
                                 <tr>
                             <td>{{$competition->internal_reference}}</td>
-                            <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
                             <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
                             <td>{{$competition->competitionType->name}}</td>
@@ -100,7 +98,6 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Mês</th>
                         <th>Tipo Instituição</th>
                         <th>Instituição</th>
                         <th>Tipo Concurso</th>
@@ -131,7 +128,6 @@
                     @foreach($competitions as $competition)
                         <tr>
                             <td>{{$competition->internal_reference}}</td>
-                            <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
                             <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
 
