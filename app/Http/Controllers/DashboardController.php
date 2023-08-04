@@ -121,7 +121,7 @@ class DashboardController extends Controller
             ->sum('total_amount');
 
         $paid_rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
-            ->where('sale_status_id',  [ SaleStatus::where('name', 'Facturado')->value('id'),
+            ->whereIn('sale_status_id',  [ SaleStatus::where('name', 'Facturado')->value('id'),
                 SaleStatus::where('name', 'Pago')->value('id')])
             ->where('category_id', 3) //id = 3 => Meios circulantes
             ->sum('amount_received');
@@ -142,7 +142,7 @@ class DashboardController extends Controller
             ->sum('total_amount');
 
         $last_paid_computer_equipament_sales = Sale::whereIn('id', $last_year_sales)
-            ->where('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
+            ->whereIn('sale_status_id', [ SaleStatus::where('name', 'Facturado')->value('id'),
                 SaleStatus::where('name', 'Pago')->value('id')])
             ->where('category_id', 11)
             ->sum('amount_received');
@@ -162,7 +162,7 @@ class DashboardController extends Controller
             ->sum('total_amount');
 
         $last_paid_rolling_stock_sales = Sale::whereIn('id', $last_year_sales)
-            ->where('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))
+            ->whereIn('sale_status_id', SaleStatus::where('name', 'Pago')->value('id'))
             ->where('category_id', 3)
             ->sum('amount_received');
 
