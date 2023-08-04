@@ -27,7 +27,7 @@ class competitionMail extends Mailable
     public function build()
     {
 
-        return $this->from('isaias.n.manjate@uem.ac.mz')
+        return $this->from('info@xava.co.mz')
             ->view('emails.competition')
             ->subject('Xava Intranet Notification');
     }

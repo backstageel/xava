@@ -35,7 +35,6 @@
                 <table id="example3" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Código</th>
                         <th>Mês</th>
                         <th>Tipo Instituição</th>
@@ -55,7 +54,6 @@
 
                             @if($competition->competition_status_id!=36)
                                 <tr>
-                            <td>{{$competition->id}}</td>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
@@ -101,7 +99,6 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Código</th>
                         <th>Mês</th>
                         <th>Tipo Instituição</th>
@@ -133,8 +130,6 @@
                     <tbody>
                     @foreach($competitions as $competition)
                         <tr>
-
-                            <td>{{$competition->id}}</td>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->competition_month}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>

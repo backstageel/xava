@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('employees', \App\Http\Controllers\EmployeesController::class);
     Route::resource('customer_types', \App\Http\Controllers\CustomerTypeController::class);
