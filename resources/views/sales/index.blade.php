@@ -22,8 +22,8 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
             <div class="ms-auto">
                 <div class="btn-group ">
-                    <button name="objectivesIT" class="btn btn-primary">Exportar Obj IT</button>&nbsp;&nbsp;
-                    <button name="objectivesRollingStock" class="btn btn-primary">Exportar Obj Motas</button>
+                    <button name="objectivesIT" class="btn btn-primary">Imprimir Obj IT</button>&nbsp;&nbsp;
+                    <button name="objectivesRollingStock" class="btn btn-primary">Imprimir Obj Motas</button>
                 </div>
             </div>
 
@@ -108,6 +108,7 @@
                         </li>
 
                     </ul>
+
                 </div>
                 <div id="last_description_computer_equipament" style="display: none">
                     <ul class="list-group list-group-flush">
