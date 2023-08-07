@@ -19,9 +19,9 @@
     <tr>
         <th>Entidades</th>
         <th><p style="display: none;"> </p></th>
-        <th>{{$rolling_stock_sales/$limit}}%</th>
-        <th>{{$on_going_rolling_stock_sales/$limit}}%</th>
-        <th>{{$paid_rolling_stock_sales/$limit}}%</th>
+        <th>{{$rolling_stock_sales*100/$limit}}%</th>
+        <th>{{$on_going_rolling_stock_sales*100/$limit}}%</th>
+        <th>{{$paid_rolling_stock_sales*100/$limit}}%</th>
     </tr>
 
     </thead>
