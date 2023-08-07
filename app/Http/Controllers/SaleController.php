@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ObjectivesSaleRollingStockExport;
 use App\Exports\SaleExport;
+use App\Exports\ObjectivesSaleITExport;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Person;
@@ -429,8 +431,15 @@ class SaleController extends Controller
         //
     }
 
-    public function export()
+    public function export(SaleRequest $request)
     {
-        return Excel::download(new SaleExport, 'vendas.xlsx');
+        if($request->has('objectivesIT')){
+            return Excel::download(new ObjectivesSaleITExport, 'objectivosIT.xlsx');
+        } else if ($request->has('objectivesRollingStock')) {
+            return Excel::download(new ObjectivesSaleRollingStockExport, 'objectivosMotas.xlsx');
+        }else{
+            return Excel::download(new SaleExport, 'vendas.xlsx');
+        }
     }
+
 }

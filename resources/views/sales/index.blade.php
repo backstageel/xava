@@ -17,6 +17,19 @@
         </div>
     </div>
     <br>
+    <x-bootstrap::form.form class="row g-3" method='GET' action="{{route('sales.export')}}">
+        @csrf
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="ms-auto">
+                <div class="btn-group ">
+                    <button name="objectivesIT" class="btn btn-primary">Exportar Obj IT</button>&nbsp;&nbsp;
+                    <button name="objectivesRollingStock" class="btn btn-primary">Exportar Obj Motas</button>
+                </div>
+            </div>
+
+        </div>
+    </x-bootstrap::form.form>
+    <br>
     <div class="row">
         <div class="col-12 col-lg-4">
             <div class="card radius-10">
@@ -178,7 +191,7 @@
     <br>
     <hr class="dropdown-divider">
 
-    <h6 class="mb-0 text-uppercase">Vendas Facturadas</h6>
+    <h6 class="mb-0 text-uppercase">Vendas Facturadas(Não Pagas)</h6>
     <hr/>
 
     <div class="card">
@@ -225,6 +238,75 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <hr class="dropdown-divider">
+
+    <h6 class="mb-0 text-uppercase">Vendas em Cotação e Draft</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data de Venda</th>
+                        <th>Nome Cliente</th>
+                        <th>Departamento Da Venda</th>
+                        <th>Descricao</th>
+                        <th>Referencia</th>
+                        <th>Estado da Venda</th>
+                        <th>Preco de Venda Total</th>
+                        <th>Nr da Factura</th>
+                        <th>Método de Pagamento</th>
+                        <th>Valor Recebido</th>
+                        <th>Nr De Recibo</th>
+                        <th>Despesas de Transporte</th>
+                        <th>Comissão de Intermediários</th>
+                        <th>Outras Despesas</th>
+                        <th>Divida</th>
+                        <th>Data de Pagamento</th>
+                        <th><p style="display: none;">.</p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($sales as $sale)
+                        @if($sale->saleStatus->name == "Cotação" || $sale->saleStatus->name == "Draft")
+                        <tr>
+                            <td>{{$sale->id}}</td>
+                            <td>{{$sale->sale_date}}</td>
+                            <td>{{$sale->customer_name}}</td>
+                            <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
+                            <td>{{$sale->notes}}</td>
+                            <td>{{$sale->sale_ref}}</td>
+                            <td>{{$sale->saleStatus->name}}</td>
+                            <td>@money($sale->total_amount)</td>
+                            <td>{{$sale->invoice_id}} </td>
+                            <td>{{$sale->payment_method}}</td>
+                            <td>@money($sale->amount_received)</td>
+                            <td>{{$sale->receipt_id}}</td>
+                            <td>@money($sale->transport_value) </td>
+                            <td>@money($sale->intermediary_committee) </td>
+                            <td>@money($sale->other_expenses) </td>
+                            <td>@money($sale->debt_amount) </td>
+                            <td>{{$sale->payment_date}} </td>
+                            <td>
+                                <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <br>
     <br>
@@ -234,7 +316,7 @@
 
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;&nbsp;
                 <a href="{{route('sales.export')}}" class="btn btn-primary">Imprimir Lista de Vendas</a>
             </div>
         </div>

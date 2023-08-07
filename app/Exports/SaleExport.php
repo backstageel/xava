@@ -18,5 +18,7 @@ class SaleExport implements FromView
             'sales' =>  Sale::with([ 'customer','saleItem.product', 'saleStatus'])
                 ->orderBy('id')->paginate(1000)
         ]);
+
     }
+
 }
