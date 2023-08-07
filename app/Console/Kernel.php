@@ -19,29 +19,29 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune')->daily();
 
-        //Schedule to notify user about the competition proposal delivery date
-//        $schedule->call(function () {
-//            $competitions = Competition::with(  [
-//                'customer.customerable',
-//                'ProductCategory',
-//                'competitionType',
-//                'competitionReason',
-//                'competitionStatus',
-//                'product.productCategory',
-//                'companyType',
-//                'competitionResult',
-//                'ProductCategory.productsubcategories'
-//
-//            ])->where('proposal_delivery_date', '>=', now())
-//                ->where('proposal_delivery_date', '<=', now()->addDays(3)) // Notificar com 3 dias de antecedência.
-//                ->get();
-//            $users=User::where('id','>',1)->get();
-//            foreach ($users as $user) {
-//
-//                Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions'=>$competitions],$user->name));
-//
-//            }
-//        })->everyMinute();
+     //   Schedule to notify user about the competition proposal delivery date
+        $schedule->call(function () {
+            $competitions = Competition::with(  [
+                'customer.customerable',
+                'ProductCategory',
+                'competitionType',
+                'competitionReason',
+                'competitionStatus',
+                'product.productCategory',
+                'companyType',
+                'competitionResult',
+                'ProductCategory.productsubcategories'
+
+            ])->where('proposal_delivery_date', '>=', now())
+                ->where('proposal_delivery_date', '<=', now()->addDays(3)) // Notificar com 3 dias de antecedência.
+                ->get();
+            $users=User::where('id','>',1)->get();
+            foreach ($users as $user) {
+
+                Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions'=>$competitions],$user->name));
+
+            }
+        })->everyMinute();
 
     }
 
