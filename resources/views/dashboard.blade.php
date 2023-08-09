@@ -87,7 +87,7 @@
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                        {{"draft"}}
+                        {{"Draft"}}
                         <span class="badge bg-success rounded-pill">{{$sales_by_month['Draft']->sum('count')}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
@@ -101,6 +101,10 @@
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Pago"}}
                         <span class="badge bg-success rounded-pill">{{$sales_by_month['Pago']->sum('count')}}</span>
+                    </li>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"Perdido"}}
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Perdido']->sum('count')}}</span>
                     </li>
                 </ul>
             </div>

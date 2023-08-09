@@ -4,7 +4,7 @@
 @endsection
 
 @section("wrapper")
-    <div class="row">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3>
         <div class="breadcrumb-title pe-3">Vendas</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
@@ -15,21 +15,20 @@
                 </ol>
             </nav>
         </div>
-    </div>
-    <br>
-    <x-bootstrap::form.form class="row g-3" method='GET' action="{{route('sales.export')}}">
-        @csrf
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="ms-auto">
-                <div class="btn-group ">
-                    <button name="objectivesIT" class="btn btn-primary">Imprimir Obj IT</button>&nbsp;&nbsp;
-                    <button name="objectivesRollingStock" class="btn btn-primary">Imprimir Obj Motas</button>
+        <x-bootstrap::form.form class="row g-3" method='GET' action="{{route('sales.export')}}">
+            @csrf
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                <div class="ms-auto">
+                    <div class="btn-group ">
+                        <button name="objectivesIT" class="btn btn-primary">Imprimir Obj IT</button>&nbsp;&nbsp;
+                        <button name="objectivesRollingStock" class="btn btn-primary">Imprimir Obj Motas</button>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </x-bootstrap::form.form>
-    <br>
+            </div>
+        </x-bootstrap::form.form>
+    </div>
+
     <div class="row">
         <div class="col-12 col-lg-4">
             <div class="card radius-10">
@@ -60,6 +59,10 @@
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
                         {{"Pago"}}
                         <span class="badge bg-success rounded-pill">{{$sales_by_month['Pago']->sum('count')}}</span>
+                    </li>
+                    <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
+                        {{"Perdido"}}
+                        <span class="badge bg-success rounded-pill">{{$sales_by_month['Perdido']->sum('count')}}</span>
                     </li>
                 </ul>
             </div>

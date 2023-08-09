@@ -83,6 +83,10 @@ class DashboardController extends Controller
                 ->whereBetween('sale_date', [$startDate, $endDate])->selectRaw(
                     'MONTHNAME(sale_date) as month, SUM(total_amount) as total, COUNT(*) as count'
                 )->groupBy('month')->get(),
+            'Perdido' => Sale::where('sale_status_id', SaleStatus::where('name', 'Perdido')->value('id'))
+                ->whereBetween('sale_date', [$startDate, $endDate])->selectRaw(
+                    'MONTHNAME(sale_date) as month, SUM(total_amount) as total, COUNT(*) as count'
+                )->groupBy('month')->get(),
             'month' => Sale::whereBetween('sale_date', [$startDate, $endDate])->selectRaw(
                 'MONTHNAME(sale_date) as month, SUM(total_amount) as total, COUNT(*) as count'
             )->groupBy('month')->get()
@@ -91,7 +95,8 @@ class DashboardController extends Controller
         $current_year_sales = Sale::whereBetween('sale_date', [$startDate, $endDate])->pluck('id');
 
         $computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
-            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('sale_status_id', '!=', [SaleStatus::where('name', 'Cotação')->value('id'),
+                SaleStatus::where('name', 'Perdido')->value('id')])
             ->where('category_id', 11) //id = 11 => Equipamento electrónico
             ->sum('total_amount');
 
@@ -110,7 +115,8 @@ class DashboardController extends Controller
 
         # vendas Ano Corrente Meios Circulantes(Geral, Execução, Pago)
         $rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
-            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('sale_status_id', '!=', [SaleStatus::where('name', 'Cotação')->value('id'),
+                SaleStatus::where('name', 'Perdido')->value('id')])
             ->where('category_id', 3) //id = 3 => Meios circulantes
             ->sum('total_amount');
 
@@ -131,7 +137,8 @@ class DashboardController extends Controller
         $last_year_sales = Sale::whereBetween('sale_date', [$lastYearStartDate, $lastYearEndDate])->pluck('id');
 
         $last_computer_equipament_sales = Sale::whereIn('id', $last_year_sales)
-            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('sale_status_id', '!=', [SaleStatus::where('name', 'Cotação')->value('id'),
+                SaleStatus::where('name', 'Perdido')->value('id')])
             ->where('category_id', 11) //id = 11 => Equipamento electrónico
             ->sum('total_amount');
 
@@ -150,7 +157,8 @@ class DashboardController extends Controller
 
         # vendas Ano Anterior Meios Circulantes(Geral, Execução, Pago)
         $last_rolling_stock_sales = Sale::whereIn('id', $last_year_sales)
-            ->where('sale_status_id', '!=', SaleStatus::where('name', 'Cotação')->value('id'))
+            ->where('sale_status_id', '!=', [SaleStatus::where('name', 'Cotação')->value('id'),
+                SaleStatus::where('name', 'Perdido')->value('id')])
             ->where('category_id', 3) //id = 3 => Meios circulantes
             ->sum('total_amount');
 
