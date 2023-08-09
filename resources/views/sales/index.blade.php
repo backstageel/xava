@@ -4,7 +4,7 @@
 @endsection
 
 @section("wrapper")
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3>
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Vendas</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
@@ -15,18 +15,20 @@
                 </ol>
             </nav>
         </div>
+        <div class="ms-auto">
         <x-bootstrap::form.form class="row g-3" method='GET' action="{{route('sales.export')}}">
             @csrf
             <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                <div class="ms-auto">
+
                     <div class="btn-group ">
                         <button name="objectivesIT" class="btn btn-primary">Imprimir Obj IT</button>&nbsp;&nbsp;
                         <button name="objectivesRollingStock" class="btn btn-primary">Imprimir Obj Motas</button>
                     </div>
-                </div>
+
 
             </div>
         </x-bootstrap::form.form>
+        </div>
     </div>
 
     <div class="row">
@@ -205,6 +207,7 @@
                     <thead>
                     <tr>
 
+                        <th>Codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
@@ -221,6 +224,7 @@
                     @foreach($sales as $sale)
                         @if($sale->saleStatus->name == "Facturado")
                         <tr>
+                            <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->notes}}</td>
@@ -254,7 +258,7 @@
                 <table id="example3" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Departamento Da Venda</th>
@@ -280,7 +284,7 @@
                     @foreach($sales as $sale)
                         @if($sale->saleStatus->name == "Cotação" || $sale->saleStatus->name == "Draft")
                         <tr>
-                            <td>{{$sale->id}}</td>
+                            <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
@@ -332,10 +336,10 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example4" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Departamento Da Venda</th>
@@ -360,7 +364,7 @@
                     <tbody>
                     @foreach($sales as $sale)
                         <tr>
-                            <td>{{$sale->id}}</td>
+                            <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
@@ -431,6 +435,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#example3').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example4').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },

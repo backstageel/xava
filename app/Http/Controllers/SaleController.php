@@ -14,6 +14,7 @@ use App\Models\SaleStatus;
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
@@ -226,6 +227,16 @@ class SaleController extends Controller
                 $sale->customer_id = $request->input('customer_id');
                 $customer = Customer::where('id', $sale->customer_id)->first();
 
+        //config data in PT
+        Carbon::setLocale('pt_BR');
+
+        $year = Carbon::now()->year;
+        $lastTwoDigits = substr($year, -2);
+
+        $last_Id = Sale::count();
+
+
+        $sale->internal_reference = ('XV' .($lastTwoDigits).($last_Id<100?'0':'').(1 + $last_Id));
                 if ($customer->customerable_type == Company::class) {
                     $company = Company::where('id', $customer->customerable_id)->first();
                     $sale->customer_name = $company->name;

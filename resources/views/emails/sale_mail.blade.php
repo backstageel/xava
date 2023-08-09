@@ -34,7 +34,7 @@
                 @foreach($sales as $sale)
                     @if($sale->saleStatus->name == "Facturado")
                         <tr style="border-bottom: 1px solid #ddd;">
-                            <td>{{ 0 }}</td>
+                            <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->customer_name}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>{{$sale->total_amount }}</td>

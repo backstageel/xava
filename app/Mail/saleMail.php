@@ -13,41 +13,23 @@ class saleMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $sales;
+    public $username;
+
+    public function __construct($salesData ,$username)
     {
+        $this->sales = $salesData['sales'];
+        $this->username= $username;
+
 
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Sale Mail',
-        );
-    }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'view.name',
-        );
-    }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->from('info@xava.co.mz')
+            ->view('emails.sale_mail')
+            ->subject('Xava Intranet Notification');
     }
 }

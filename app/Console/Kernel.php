@@ -2,11 +2,14 @@
 
 namespace App\Console;
 
+use App\Models\Sale;
+use App\Models\SaleStatus;
 use App\Models\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Models\Competition;
 use App\Mail\competitionMail;
+use App\Mail\saleMail;
 use Illuminate\Support\Facades\Mail;
 
 class Kernel extends ConsoleKernel
@@ -16,7 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune')->daily();
 
      //   Schedule to notify user about the competition proposal delivery date
@@ -45,6 +48,21 @@ class Kernel extends ConsoleKernel
 
             }
         })->daily();
+
+//        $schedule->call(function () {
+//            $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
+//                ->where('sale_status_id',  SaleStatus::where('name', 'Facturado')->value('id'))
+//                ->get();
+//            if (!$sales->isEmpty()) {
+//                $users=User::where('id','>',1)->get();
+//                foreach ($users as $user) {
+//                    if (strcasecmp($user->email, 'isaltinabrizito@gmail.com') === 0) {
+//                        Mail::to($user->email)->send(new saleMail(['sales' => $sales], $user->name));
+//                    }
+//                }
+//
+//            }
+//        })->everyMinute();
 
     }
 

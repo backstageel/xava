@@ -245,6 +245,7 @@
                     <thead>
                     <tr>
 
+                        <th>Codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Descricao</th>
@@ -261,6 +262,7 @@
                     @foreach($sales as $sale)
                         @if($sale->saleStatus->name == "Facturado")
                             <tr>
+                                <td>{{$sale->internal_reference}}</td>
                                 <td>{{$sale->sale_date}}</td>
                                 <td>{{$sale->customer_name}}</td>
                                 <td>{{$sale->notes}}</td>

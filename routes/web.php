@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordsController;
+use App\Mail\saleMail;
 use App\Models\Competition;
+use App\Models\Sale;
+use App\Models\SaleStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\Notification;
 */
 
 Route::middleware('auth')->group(function () {
+
 
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('employees', \App\Http\Controllers\EmployeesController::class);
