@@ -206,16 +206,25 @@
                 <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-
                         <th>Codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
+                        <th>Departamento Da Venda</th>
                         <th>Descricao</th>
+                        <th>Referencia</th>
                         <th>Estado da Venda</th>
                         <th>Preco de Venda Total</th>
+                        <th>Nr da Factura</th>
+                        <th>Método de Pagamento</th>
                         <th>Valor Recebido</th>
+                        <th>Nr De Recibo</th>
+                        <th>Despesas de Transporte</th>
+                        <th>Comissão de Intermediários</th>
+                        <th>Outras Despesas</th>
                         <th>Divida</th>
+                        <th>Data de Pagamento</th>
                         <th><p style="display: none;">.</p></th>
+
 
 
                     </tr>
@@ -227,11 +236,20 @@
                             <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->sale_date}}</td>
                             <td>{{$sale->customer_name}}</td>
+                            <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
                             <td>{{$sale->notes}}</td>
+                            <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
+                            <td>{{$sale->invoice_id}} </td>
+                            <td>{{$sale->payment_method}}</td>
                             <td>@money($sale->amount_received)</td>
-                            <td>@money($sale->debt_amount)</td>
+                            <td>{{$sale->receipt_id}}</td>
+                            <td>@money($sale->transport_value) </td>
+                            <td>@money($sale->intermediary_committee) </td>
+                            <td>@money($sale->other_expenses) </td>
+                            <td>@money($sale->debt_amount) </td>
+                            <td>{{$sale->payment_date}} </td>
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
