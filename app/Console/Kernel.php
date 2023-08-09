@@ -35,13 +35,13 @@ class Kernel extends ConsoleKernel
             ])->where('proposal_delivery_date', '>=', now())
                 ->where('proposal_delivery_date', '<=', now()->addDays(3)) // Notificar com 3 dias de antecedência.
                 ->get();
+            if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
             foreach ($users as $user) {
-                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0 ) {
+                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0) {
                     Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
                 }
-
-
+            }
 
             }
         })->daily();
