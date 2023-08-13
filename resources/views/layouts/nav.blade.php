@@ -32,19 +32,26 @@
                     </a>
                 </li>
 
-                    <li>
-                        <a href="{{route('loans.index')}}">
-                            <i class="bx bx-right-arrow-alt"></i>
-                            Ver Empréstimos
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="{{route('loans.index')}}">--}}
+{{--                            <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                            Ver Empréstimos--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
-                    <li>
-                        <a href="{{route('loans_simulator.create')}}">
-                            <i class="bx bx-right-arrow-alt"></i>
-                            Simular Emprestimos
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="{{route('loans_simulator.create')}}">--}}
+{{--                            <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                            Simular Emprestimos--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
+                <li>
+                    <a href="{{route('expense_requests.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Requisição de Despesas
+                    </a>
+                </li>
 
 
             </ul>

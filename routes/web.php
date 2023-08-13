@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('competition/export', [\App\Http\Controllers\CompetitionController::class, 'export'])->name('competitions.export');
     Route::get('sale/export', [\App\Http\Controllers\SaleController::class, 'export'])->name('sales.export');
+    Route::resource('expense_requests',\App\Http\Controllers\ExpenseRequestController::class);
 
 
 

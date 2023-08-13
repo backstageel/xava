@@ -30,8 +30,6 @@ class CompetitionController extends Controller
     public function index()
     {
 
-
-
         $competitions = Competition::with(
             [
                 'customer.customerable',
