@@ -46,40 +46,40 @@
 {{--                        </a>--}}
 {{--                    </li>--}}
 
-                <li>
-                    <a href="{{route('expense_requests.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Requisição de Despesas
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{route('expense_requests.index')}}">--}}
+{{--                        <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                        Requisição de Despesas--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
 
             </ul>
         </li>
-        <li>
-            <a href="#" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
-                <div class="menu-title">Parceiros</div>
-            </a>
-            <ul>
-                <!--<li>
-                    <a href="{{route('customer_types.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Tipos de Clientes
-                    </a>
-                </li>-->
+{{--        <li>--}}
+{{--            <a href="#" class="has-arrow">--}}
+{{--                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>--}}
+{{--                <div class="menu-title">Parceiros</div>--}}
+{{--            </a>--}}
+{{--            <ul>--}}
+{{--                <!--<li>--}}
+{{--                    <a href="{{route('customer_types.index')}}">--}}
+{{--                        <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                        Tipos de Clientes--}}
+{{--                    </a>--}}
+{{--                </li>-->--}}
 
 
 
-                <li>
-                    <a href="{{route('suppliers.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Fornecedores
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{route('suppliers.index')}}">--}}
+{{--                        <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                        Fornecedores--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
-            </ul>
-        </li>
+{{--            </ul>--}}
+{{--        </li>--}}
 
         <li>
             <a href="#" class="has-arrow">
@@ -128,6 +128,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('suppliers.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Fornecedores
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('sales.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
                         Vendas
@@ -151,19 +157,43 @@
             </ul>
         </li>
 
+
         <li>
-            <a href="javascript:;">
+            <a href="#" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-repeat"></i>
                 </div>
                 <div class="menu-title">Administração</div>
             </a>
+            <ul>
+                <li>
+                    <a href="{{route('expense_requests.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Requisição de Despesas
+                    </a>
+                </li>
+            </ul>
         </li>
+
         <li>
-            <a href="javascript:;">
+            <a href="#" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-donate-blood"></i>
                 </div>
                 <div class="menu-title">Relatórios</div>
             </a>
+            <ul>
+                <li>
+                    <a href="{{route('sales.export')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Imprimir Lista de Vendas
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('competitions.export')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Imprimir Lista de Concursos
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
     <!--end navigation-->
