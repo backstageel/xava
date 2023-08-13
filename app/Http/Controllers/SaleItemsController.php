@@ -67,6 +67,10 @@ class SaleItemsController extends Controller
             $sale = Sale::where('id', $sale_items->sale_id)->first();
             $sale->total_amount = $sale->total_amount + $sale_items->sub_total;
             $sale->debt_amount = $sale->total_amount - $sale->amount_received;
+            $sale->purchase_price = $sale->purchase_price + $sale_items->total_purchase_price;
+
+            $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
+            $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
             $products = Product::pluck('name', 'id');
 
             try{

@@ -122,16 +122,19 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                                <div class="col-4">
-                                                    <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento" />
-                                                </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento" />
+                                        </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.input name="other_expenses" label="Valor de Outras Despesas" />
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários" />
+                                        </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="tax" label="Imposto" />
                                         </div>
                                         <div>
                                             <p style="color: red;"> Separação de casas decimais para campos númericos: 0.0</p>

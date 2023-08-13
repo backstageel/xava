@@ -235,7 +235,7 @@
     <br>
     <hr class="dropdown-divider">
 
-    <h6 class="mb-0 text-uppercase">Vendas Facturadas</h6>
+    <h6 class="mb-0 text-uppercase">Vendas Facturadas(Não Pagas)</h6>
     <hr/>
 
     <div class="card">

@@ -125,17 +125,22 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.date-picker name="payment_date" label="Data de Pagamento"
                                               value="{{old('payment_date',isset($sale->payment_date) ? $sale->payment_date : '')}}"/>
                                         </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.input name="tax" label="Imposto"
+                                              value="{{old('tax',isset($sale->tax) ? $sale->tax : '')}}"/>
+                                            />
+                                        </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.input name="other_expenses" label="Valor de Outras Despesas"
                                                value="{{old('other_expenses',isset($sale->other_expenses) ? $sale->other_expenses : '')}}"/>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <x-bootstrap::form.input name="intermediary_committee" label="Comissão de Intermediários"
                                                value="{{old('intermediary_committee',isset($sale->intermediary_committee) ? $sale->intermediary_committee : '')}}"/>
                                         </div>

@@ -302,6 +302,17 @@ class SaleController extends Controller
                 } else {
                     $sale->intermediary_committee = 0;
                 }
+                if (($request->input('tax')) != null) {
+                    if (is_numeric($request->input('intermediary_committee'))) {
+                        $sale->tax = $request->input('tax');
+                    } else {
+                        flash('Formatação do campo "Imposto" incorrecto.
+                        Separação de casas decimais para campos númericos = (0.0)')->error();
+                        return redirect()->back()->withInput();
+                    }
+                }else{
+                    $sale->tax = 0;
+                }
                 $sale->debt_amount = 0;
 
                 try {
@@ -437,6 +448,19 @@ class SaleController extends Controller
 
 
             }
+            if (($request->input('tax')) != null) {
+                if (is_numeric($request->input('intermediary_committee'))) {
+                    $sale->tax = $request->input('tax');
+                } else {
+                    flash('Formatação do campo "Imposto" incorrecto.
+                Separação de casas decimais para campos númericos = (0.0)')->error();
+                    return redirect()->back()->withInput();
+                }
+
+
+            }
+            $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
+                $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
             $sale->debt_amount = $sale->total_amount - $sale->amount_received;
             $sale->save();
 

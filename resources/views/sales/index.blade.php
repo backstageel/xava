@@ -191,7 +191,70 @@
                     </div>
             </div>
         </div>
+    </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="col d-flex">
+                    <div class="card radius-10 w-100">
+                        <div class="card-header bg-transparent">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h6 class="mb-0">Equipamento Electrónico</h6>
+                                </div>
+{{--                                <div class="dropdown ms-auto">--}}
+{{--                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i--}}
+{{--                                            class='bx bx-dots-horizontal-rounded font-22 text-option'></i>--}}
+{{--                                    </a>--}}
+{{--                                    <ul class="dropdown-menu">--}}
+{{--                                        <li><a class="dropdown-item" href="javascript:;">Action</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <hr class="dropdown-divider">--}}
+{{--                                        </li>--}}
+{{--                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container-0">
+                                <canvas id="chart6"></canvas>
+                            </div>
+                        </div>
+{{--                        <div class="row row-group border-top g-0">--}}
+{{--                            <div class="col">--}}
+{{--                                <div class="p-3 text-center">--}}
+{{--                                    <h4 class="mb-0 text-danger">$45,216</h4>--}}
+{{--                                    <p class="mb-0">Clothing</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            --}}
+{{--                        </div><!--end row-->--}}
+                    </div>
+                </div>
+            </div><!--end row-->
+            <div class="col-12 col-lg-4">
+                <div class="col d-flex">
+                    <div class="card radius-10 w-100">
+                        <div class="card-header bg-transparent">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h6 class="mb-0">Meios circulantes</h6>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container-0">
+                                <canvas id="chart7"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end row-->
     </div><!--end row-->
     <br>
     <br>
@@ -203,7 +266,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example2" class="table table-striped table-bordered">
+                <table id="example1" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Codigo</th>
@@ -273,7 +336,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example2" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>codigo</th>
@@ -336,28 +399,15 @@
 
     <br>
     <br>
-
-    <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;&nbsp;
-                <a href="{{route('sales.export')}}" class="btn btn-primary">Imprimir Lista de Vendas</a>
-            </div>
-        </div>
-    </div>
-
-    <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">Vendas Registados</h6>
+    <h6 class="mb-0 text-uppercase">Vendas Pagas</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example4" class="table table-striped table-bordered">
+                <table id="example3" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Codigo</th>
+                        <th>codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
                         <th>Departamento Da Venda</th>
@@ -381,6 +431,155 @@
                     </thead>
                     <tbody>
                     @foreach($sales as $sale)
+                        @if($sale->saleStatus->name == "Pago" )
+                            <tr>
+                                <td>{{$sale->internal_reference}}</td>
+                                <td>{{$sale->sale_date}}</td>
+                                <td>{{$sale->customer_name}}</td>
+                                <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
+                                <td>{{$sale->notes}}</td>
+                                <td>{{$sale->sale_ref}}</td>
+                                <td>{{$sale->saleStatus->name}}</td>
+                                <td>@money($sale->total_amount)</td>
+                                <td>{{$sale->invoice_id}} </td>
+                                <td>{{$sale->payment_method}}</td>
+                                <td>@money($sale->amount_received)</td>
+                                <td>{{$sale->receipt_id}}</td>
+                                <td>@money($sale->transport_value) </td>
+                                <td>@money($sale->intermediary_committee) </td>
+                                <td>@money($sale->other_expenses) </td>
+                                <td>@money($sale->debt_amount) </td>
+                                <td>{{$sale->payment_date}} </td>
+                                <td>
+                                    <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h6 class="mb-0 text-uppercase">Vendas Perdidas</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example4" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>codigo</th>
+                        <th>Data de Venda</th>
+                        <th>Nome Cliente</th>
+                        <th>Departamento Da Venda</th>
+                        <th>Descricao</th>
+                        <th>Referencia</th>
+                        <th>Estado da Venda</th>
+                        <th>Preco de Venda Total</th>
+                        <th>Nr da Factura</th>
+                        <th>Método de Pagamento</th>
+                        <th>Valor Recebido</th>
+                        <th>Nr De Recibo</th>
+                        <th>Despesas de Transporte</th>
+                        <th>Comissão de Intermediários</th>
+                        <th>Outras Despesas</th>
+                        <th>Divida</th>
+                        <th>Data de Pagamento</th>
+                        <th><p style="display: none;">.</p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($sales as $sale)
+                        @if($sale->saleStatus->name == "Perdido")
+                            <tr>
+                                <td>{{$sale->internal_reference}}</td>
+                                <td>{{$sale->sale_date}}</td>
+                                <td>{{$sale->customer_name}}</td>
+                                <td>{{ isset($sale->ProductCategory) ? $sale->ProductCategory->name : '' }}</td>
+                                <td>{{$sale->notes}}</td>
+                                <td>{{$sale->sale_ref}}</td>
+                                <td>{{$sale->saleStatus->name}}</td>
+                                <td>@money($sale->total_amount)</td>
+                                <td>{{$sale->invoice_id}} </td>
+                                <td>{{$sale->payment_method}}</td>
+                                <td>@money($sale->amount_received)</td>
+                                <td>{{$sale->receipt_id}}</td>
+                                <td>@money($sale->transport_value) </td>
+                                <td>@money($sale->intermediary_committee) </td>
+                                <td>@money($sale->other_expenses) </td>
+                                <td>@money($sale->debt_amount) </td>
+                                <td>{{$sale->payment_date}} </td>
+                                <td>
+                                    <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+
+        <div class="ms-auto">
+            <div class="btn-group">
+                <a href="{{route('sales.create')}}" class="btn btn-primary">Adicionar</a>&nbsp;&nbsp;
+                <a href="{{route('sales.export')}}" class="btn btn-primary">Imprimir Lista de Vendas</a>
+            </div>
+        </div>
+    </div>
+
+    <!--end breadcrumb-->
+    <h6 class="mb-0 text-uppercase">Vendas Registados</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example5" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Data de Venda</th>
+                        <th>Nome Cliente</th>
+                        <th>Departamento Da Venda</th>
+                        <th>Descricao</th>
+                        <th>Referencia</th>
+                        <th>Estado da Venda</th>
+                        <th>Preco de Venda Total</th>
+                        <th>Preco total da Compra</th>
+                        <th>Nr da Factura</th>
+                        <th>Método de Pagamento</th>
+                        <th>Valor Recebido</th>
+                        <th>Nr De Recibo</th>
+                        <th>Despesas de Transporte</th>
+                        <th>Comissão de Intermediários</th>
+                        <th>Imposto</th>
+                        <th>Outras Despesas</th>
+                        <th>Divida</th>
+                        <th>Data de Pagamento</th>
+                        <th>Lucro</th>
+                        <th><p style="display: none;">.</p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($sales as $sale)
                         <tr>
                             <td>{{$sale->internal_reference}}</td>
                             <td>{{$sale->sale_date}}</td>
@@ -390,15 +589,18 @@
                             <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
+                            <td>{{$sale->purchase_price}}</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
                             <td>@money($sale->amount_received)</td>
                             <td>{{$sale->receipt_id}}</td>
                             <td>@money($sale->transport_value) </td>
                             <td>@money($sale->intermediary_committee) </td>
+                            <td>{{$sale->tax}}</td>
                             <td>@money($sale->other_expenses) </td>
                             <td>@money($sale->debt_amount) </td>
                             <td>{{$sale->payment_date}} </td>
+                            <td>{{$sale->profit}}</td>
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
@@ -437,9 +639,16 @@
             });
         });
     </script>
-
-
-
+    <script>
+        $(document).ready(function () {
+            var table = $('#example1').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             var table = $('#example2').DataTable({
@@ -463,6 +672,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#example4').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example5').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
@@ -724,5 +943,140 @@
         createChartCurrentRollingStock();
 
         });
+
+        var ctx = document.getElementById("chart6").getContext('2d');
+
+        var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStroke1.addColorStop(0, '#f54ea2');
+        gradientStroke1.addColorStop(1, '#ff7676');
+
+        var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStroke2.addColorStop(0, '#42e695');
+        gradientStroke2.addColorStop(1, '#3bb2b8');
+
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Geral", "Facturado", "Pago", "Lucro"],
+                datasets: [{
+                    label: 'Valor',
+                    data: [{{$computer_equipament_sales}}, {{$on_going_computer_equipament_sales}},
+                        {{$paid_computer_equipament_sales}}, 0],
+                    borderColor: gradientStroke1,
+                    backgroundColor: gradientStroke1,
+                    hoverBackgroundColor: gradientStroke1,
+                    pointRadius: 0,
+                    fill: false,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: { display: false },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        barPercentage: 0.5
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100000000//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Valor'
+                        }
+                    }]
+                },
+                annotation: {
+                    annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y-axis-0',
+                        value: 100000000,
+                        borderColor: 'red',
+                        borderWidth: 4,
+                        borderDash: [5, 5],
+                        label: {
+                            content: 'Limite: 140000000',
+                            enabled: true
+                        }
+                    }]
+                },
+                tooltips: {
+                    displayColors: false,
+                }
+            }
+        });
+
+
+
+        var ctx = document.getElementById("chart7").getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Geral", "Facturado", "Pago", "Lucro"],
+                datasets: [{
+                    label: 'Vendas',
+                    data: [{{$rolling_stock_sales}}, {{$on_going_rolling_stock_sales}},
+                        {{$paid_rolling_stock_sales}}, 0],
+                    borderColor: gradientStroke2,
+                    backgroundColor: gradientStroke2,
+                    hoverBackgroundColor: gradientStroke2,
+                    pointRadius: 0,
+                    fill: false,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {display: false},
+
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    display: false,
+                    labels: {
+                        boxWidth: 8
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        barPercentage: .5
+                    }],
+                    yAxes: [{
+                        // ticks: {
+                        //     beginAtZero: true,
+                        //     stepSize: 20000000 // Define o tamanho do intervalo entre os ticks no eixo y
+                        // },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Valor'
+                        }
+                    }]
+                },
+                annotation: {
+                    annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: '-axis-0',
+                        value: 140000000, // Valor onde a linha será desenhada
+                        borderColor: 'red', // Cor da linha
+                        borderWidth: 4, // Largura da linha
+                        borderHeight: 2,
+                        borderDash: [5, 5], // Estilo de traço da linha
+                        label: {
+                            content: 'Limite: 140000000', // Rótulo da linha
+                            enabled: true // Se o rótulo deve ser exibido
+                        }
+                    }]
+                },
+                tooltips: {
+                    displayColors: false,
+                }
+            }
+        });
+
     </script>
 @endsection
