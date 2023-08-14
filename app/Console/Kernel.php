@@ -49,20 +49,21 @@ class Kernel extends ConsoleKernel
             }
         })->daily();
 
-//        $schedule->call(function () {
-//            $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
-//                ->where('sale_status_id',  SaleStatus::where('name', 'Facturado')->value('id'))
-//                ->get();
-//            if (!$sales->isEmpty()) {
-//                $users=User::where('id','>',1)->get();
-//                foreach ($users as $user) {
-//                    if (strcasecmp($user->email, 'isaltinabrizito@gmail.com') === 0) {
-//                        Mail::to($user->email)->send(new saleMail(['sales' => $sales], $user->name));
-//                    }
-//                }
-//
-//            }
-//        })->everyMinute();
+        $schedule->call(function () {
+            $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
+                ->get();
+            if (!$sales->isEmpty()) {
+                $users=User::where('id','>',1)->get();
+                foreach ($users as $user) {
+                    if (strcasecmp($user->email, 'zmussa@xava.co.mz') === 0
+                        || strcasecmp($user->email, 'etsamba@xava.co.mz') === 0
+                        || strcasecmp($user->email, 'smacamo@xava.co.mz') === 0) {
+                        Mail::to($user->email)->send(new saleMail(['sales' => $sales], $user->name));
+                    }
+                }
+
+            }
+        })->mondays()->daily();
 
     }
 
