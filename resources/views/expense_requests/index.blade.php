@@ -62,7 +62,7 @@
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
                             <td>
-                                <a href="{{route('suppliers.show', $expense)}}"> mostrar </a>
+                                <a href="{{route('expense_requests.show', $expense->id)}}"> mostrar </a>
                             </td>
                         </tr>
                     @endforeach

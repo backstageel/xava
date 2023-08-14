@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::get('competition/export', [\App\Http\Controllers\CompetitionController::class, 'export'])->name('competitions.export');
     Route::get('sale/export', [\App\Http\Controllers\SaleController::class, 'export'])->name('sales.export');
     Route::resource('expense_requests',\App\Http\Controllers\ExpenseRequestController::class);
+    Route::post('/expense_requests/{expenseRequest}/approve', [\App\Http\Controllers\ExpenseRequestController::class, 'approve'])->name('expense_requests.approve');
+    Route::post('/expense_requests/{expenseRequest}/reject', [\App\Http\Controllers\ExpenseRequestController::class, 'reject'])->name('expense_requests.reject');
 
 
 

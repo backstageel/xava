@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\AccountingStatus;
 use App\Models\ApprovalStatus;
+use App\Models\Employee;
+use App\Models\EmployeePosition;
 use App\Models\ExpenseRequest;
 use App\Models\ExpenseRequestType;
+use App\Models\Person;
 use App\Models\RequestStatus;
 use App\Models\TransactionAccount;
 use App\Models\User;
@@ -20,20 +23,36 @@ class ExpenseRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
+    private $userID,$personID,$employee_position_id;
+
+    public function __construct()
+    {
+
+    }
+
     public function index()
     {
-    $expenses=ExpenseRequest::with(
-        [
-            'accountingStatus',
-            'expenseRequestType',
-            'requestStatus',
-            'transactionAccount',
-            'approvalStatus',
-            'user'
-        ]
-    )->orderBy('id')->paginate(1000);
-    return view('expense_requests.index',compact('expenses'));
+        $this->userID = Auth::user()->id;
+        $this->personID = Person::where('user_id',$this->userID)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
+
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
+        $expenses = ExpenseRequest::with(
+            [
+                'accountingStatus',
+                'expenseRequestType',
+                'requestStatus',
+                'transactionAccount',
+                'approvalStatus',
+                'user'
+            ]
+        )->orderBy('id')->paginate(1000);
+        return view('expense_requests.index', compact('expenses'));
+    }else{
+        return $this->create();
     }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -84,6 +103,9 @@ class ExpenseRequestController extends Controller
         $expenseRequest->transaction_account_id = $request->input('transaction_account_id');
         $expenseRequest->transfer_account_number = $request->input('transfer_account_number');
         $expenseRequest->request_date = ucfirst($month);
+        $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'pendente')->value('id'); // Obtenha o ID correspondente ao nome "pendente"
+        $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
+        $expenseRequest->accounting_status_id = AccountingStatus::where('name','Requisitado')->value('id');
 
         try{
             $expenseRequest->save();
@@ -101,9 +123,9 @@ class ExpenseRequestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ExpenseRequest $expenseRequest)
     {
-        //
+        return view('expense_requests.show',compact('expenseRequest'));
     }
 
     /**
@@ -111,7 +133,7 @@ class ExpenseRequestController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -119,7 +141,24 @@ class ExpenseRequestController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+    }
+    public function approve(ExpenseRequest $expenseRequest)
+    {
+        $newApprovalStatusId = ApprovalStatus::where('name', 'Aprovado')->value('id');
+
+        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
+
+        flash('Requisição Aprovado com sucesso')->success();
+        return redirect()->route('expense_requests.index');
+    }
+    public function reject(ExpenseRequest $expenseRequest){
+        $newApprovalStatusId = ApprovalStatus::where('name', 'Recusado')->value('id');
+
+        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
+
+        flash('Requisição Recusada com sucesso')->message();
+        return redirect()->route('expense_requests.index');
     }
 
     /**

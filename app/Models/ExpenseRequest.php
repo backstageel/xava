@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ExpenseRequest extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'approval_status_id',
+    ];
 
 
     public function accountingStatus(){
