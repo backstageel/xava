@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/expense_requests/{expenseRequest}/approve', [\App\Http\Controllers\ExpenseRequestController::class, 'approve'])->name('expense_requests.approve');
     Route::post('/expense_requests/{expenseRequest}/reject', [\App\Http\Controllers\ExpenseRequestController::class, 'reject'])->name('expense_requests.reject');
     Route::get('/expense_request/myRequest', [\App\Http\Controllers\ExpenseRequestController::class, 'myRequest'])->name('expense_request.myRequest');
+    Route::post('/expense_requests/{expenseRequest}/accountingStatus', [\App\Http\Controllers\ExpenseRequestController::class, 'accountingStatus'])->name('expense_requests.accountingStatus');
 
 
 

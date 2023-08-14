@@ -36,7 +36,7 @@ class ExpenseRequestController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO){
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
@@ -139,6 +139,7 @@ class ExpenseRequestController extends Controller
      */
     public function show(ExpenseRequest $expenseRequest)
     {
+
         return view('expense_requests.show',compact('expenseRequest'));
     }
 
@@ -166,6 +167,15 @@ class ExpenseRequestController extends Controller
         flash('Requisição Aprovado com sucesso')->success();
         return redirect()->route('expense_requests.index');
     }
+    public function accountingStatus(Request $request)
+    {
+//        $newApprovalStatusId = AccountingStatus::
+//
+//        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
+//
+//        flash('Requisição Aprovado com sucesso')->success();
+//        return redirect()->route('expense_requests.index');
+    }
     public function reject(ExpenseRequest $expenseRequest){
         $newApprovalStatusId = ApprovalStatus::where('name', 'Recusado')->value('id');
 
@@ -189,7 +199,7 @@ class ExpenseRequestController extends Controller
                 'user'
             ]
         )->where('requester_user_id',$this->userID)->orderBy('id')->paginate(1000);
-        return view('expense_requests.index', compact('expenses'));
+        return view('expense_requests.myRequest', compact('expenses'));
     }
 
     /**

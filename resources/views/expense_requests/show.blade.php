@@ -1,9 +1,31 @@
-'
 
 @extends("layouts.app")
+@section("style")
+    <style>
+        .custom-select {
+
+            height: 45px; /* Ajuste a altura desejada */
+            font-size: 10px;
+        }
+        .opt{
+            font-size: 13px;
+        }
+        .custom-select ::selection {
+            background-color: #007bff; /* Cor de fundo da seleção */
+            color: white; /* Cor do texto selecionado */
+            font-size: 12px; /* Ajuste o tamanho da fonte desejado para o texto selecionado */
+        }
+    </style>
+@endsection
 @section("wrapper")
 
     <!--breadcrumb-->
+    @php
+        $userID = Auth::user()->id;
+        $personID = \App\Models\Person::where('user_id',$userID)->value('id');
+        $employee_position_id = \App\Models\Employee::where('person_id',$personID)->value('employee_position_id');
+        $accounting_statuses=\App\Models\AccountingStatus::get();
+    @endphp
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Requisição</div>
         <div class="ps-3">
@@ -70,8 +92,35 @@
                                            value="{{$expenseRequest->amount.' MT'}}">
                                 </div>
                             </div>
+                            <div class="mb-3 row">
+                                <label for="staticEmail"
+                                       class="col-sm-3 col-form-label text-end fw-bold">Estado da Requisição</label>
+                                <div class="col-sm-9">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$expenseRequest->approvalStatus->name??''}}">
+                                </div>
+
+                            </div>
+                            <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">
+                                @csrf
+                            <div class="mb-1 row">
+                                <label for="staticEmail"
+                                       class="col-sm-3 col-form-label text-end fw-bold">Estado Contabilistico</label>
+                                <div class="col-sm-6">
+                                    <select name="accounting_status_id" class="form-select form-select-lg mb-1 custom-select" aria-label=".form-select-lg example">
+                                        @foreach($accounting_statuses as $status)
+                                            <option class ="opt" value="{{ $status->id }}">{{ $status->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                        @csrf
+                                    <button class="btn btn-success" type="submit">Gravar</button></div>
+                            </form>
 
                             <div class="row">
+                                @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
 
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">
@@ -84,7 +133,7 @@
                                     <button class="btn btn-danger" type="submit">Recusar</button>
                                     </form>
                                 </div>
-
+                                @endif
                             </div>
                             </form>
                         </div>

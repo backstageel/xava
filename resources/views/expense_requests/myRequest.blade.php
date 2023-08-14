@@ -7,13 +7,13 @@
 @section("wrapper")
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Requesições de Despesas</div>
+        <div class="breadcrumb-title pe-3">Requesições</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Requisições</li>
+                    <li class="breadcrumb-item active" aria-current="page">Requisições de Despesas</li>
                 </ol>
             </nav>
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">Requisições Registadas</h6>
+    <h6 class="mb-0 text-uppercase">Minhas Requisições</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
@@ -33,7 +33,6 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Data</th>
                         <th>Requerente</th>
                         <th>Tipo Despesa</th>
                         <th>Descrição</th>
@@ -42,7 +41,7 @@
                         <th>Número Conta</th>
                         <th>Estado da requisicão</th>
                         <th>Estado Contabilistico</th>
-                        <th><p style="display: none;">.</p></th>
+
 
 
                     </tr>
@@ -52,7 +51,6 @@
                         <tr>
 
                             <td>{{$expense->internal_reference}}</td>
-                            <td>{{$expense->request_date}}</td>
                             <td>{{\App\Models\User::find($expense->requester_user_id)->name}}</td>
                             <td>{{\App\Models\ExpenseRequestType::find($expense->type_id)->name??''}}</td>
                             <td>{{$expense->description}}</td>
@@ -61,9 +59,7 @@
                             <td>{{$expense->transfer_account_number}}</td>
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
-                            <td>
-                                <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
-                            </td>
+
                         </tr>
                     @endforeach
 
