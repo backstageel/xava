@@ -596,11 +596,11 @@
                             <td>{{$sale->receipt_id}}</td>
                             <td>@money($sale->transport_value) </td>
                             <td>@money($sale->intermediary_committee) </td>
-                            <td>{{$sale->tax}}</td>
+                            <td>@money($sale->tax)}</td>
                             <td>@money($sale->other_expenses) </td>
                             <td>@money($sale->debt_amount) </td>
                             <td>{{$sale->payment_date}} </td>
-                            <td>{{$sale->profit}}</td>
+                            <td>@money($sale->profit)</td>
                             <td>
                                 <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                             </td>
@@ -618,6 +618,9 @@
 @endsection
 
 @section("script")
+{{--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+{{--    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>--}}
+
     <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{asset('')}}assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
@@ -944,6 +947,7 @@
 
         });
 
+
         var ctx = document.getElementById("chart6").getContext('2d');
 
         var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
@@ -962,7 +966,7 @@
                 datasets: [{
                     label: 'Valor',
                     data: [{{$computer_equipament_sales}}, {{$on_going_computer_equipament_sales}},
-                        {{$paid_computer_equipament_sales}}, 0],
+                        {{$paid_computer_equipament_sales}}, 100000000],
                     borderColor: gradientStroke1,
                     backgroundColor: gradientStroke1,
                     hoverBackgroundColor: gradientStroke1,
@@ -981,7 +985,8 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: 100000000//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
+                            stepSize: 20000000,
+                            max: 110000000//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
                         },
                         scaleLabel: {
                             display: true,
@@ -994,13 +999,14 @@
                         type: 'line',
                         mode: 'horizontal',
                         scaleID: 'y-axis-0',
-                        value: 100000000,
-                        borderColor: 'red',
-                        borderWidth: 4,
-                        borderDash: [5, 5],
+                        value: 100000000, // Valor onde a linha será desenhada
+                        borderColor: 'red', // Cor da linha
+                        borderWidth: 2, // Largura da linha
+                        borderHeight: 20,
+                        borderDash: [5, 5], // Estilo de traço da linha
                         label: {
-                            content: 'Limite: 140000000',
-                            enabled: true
+                            content: 'Limite: 100000000', // Rótulo da linha
+                            enabled: true // Se o rótulo deve ser exibido
                         }
                     }]
                 },
@@ -1046,10 +1052,11 @@
                         barPercentage: .5
                     }],
                     yAxes: [{
-                        // ticks: {
-                        //     beginAtZero: true,
-                        //     stepSize: 20000000 // Define o tamanho do intervalo entre os ticks no eixo y
-                        // },
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 20000000,
+                            max: 150000000// Define o tamanho do intervalo entre os ticks no eixo y
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Valor'
@@ -1060,10 +1067,10 @@
                     annotations: [{
                         type: 'line',
                         mode: 'horizontal',
-                        scaleID: '-axis-0',
+                        scaleID: 'y-axis-0',
                         value: 140000000, // Valor onde a linha será desenhada
                         borderColor: 'red', // Cor da linha
-                        borderWidth: 4, // Largura da linha
+                        borderWidth: 4000, // Largura da linha
                         borderHeight: 2,
                         borderDash: [5, 5], // Estilo de traço da linha
                         label: {
