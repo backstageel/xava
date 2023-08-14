@@ -171,6 +171,12 @@
                         Requisição de Despesas
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('expense_request.myRequest')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Minhas Requisições
+                    </a>
+                </li>
             </ul>
         </li>
 

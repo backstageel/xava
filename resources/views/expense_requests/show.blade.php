@@ -5,113 +5,97 @@
 
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Clientes</div>
+        <div class="breadcrumb-title pe-3">Requisição</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Perfil do Fornecedor</li>
+                    <li class="breadcrumb-item active" aria-current="page">Informação da Dispesa</li>
+
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('suppliers.edit', $supplier)}}" class="btn btn-primary">Editar</a>
-                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Remover</a>
-                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Adicionar</a>
-                @php
-                    $province = \App\Models\Province::find($supplier->supplierable->address_province_id);
-                    $country=\App\Models\Country::find($supplier->supplierable->address_country_id);
-                    $district=\App\Models\District::find($supplier->supplierable->address_district_id);
-                @endphp
-            </div>
-        </div>
+{{--        <div class="ms-auto">--}}
+{{--            <div class="btn-group">--}}
+{{--                <a href="{{route('expense_requests.edit', $expense)}}" class="btn btn-primary">Editar</a>--}}
+{{--                <a href="{{route('expense_requests.create')}}" class="btn btn-primary">Adicionar</a>--}}
+{{--                @php--}}
+{{--                    $province = \App\Models\Province::find($supplier->supplierable->address_province_id);--}}
+{{--                    $country=\App\Models\Country::find($supplier->supplierable->address_country_id);--}}
+{{--                    $district=\App\Models\District::find($supplier->supplierable->address_district_id);--}}
+{{--                @endphp--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
     <!--end breadcrumb-->
     <div class="container">
         <div class="main-body">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{asset('assets/images/avatars/avatar-10.png')}}" alt="Admin"
-                                     class="rounded-circle p-1 bg-primary" width="110">
-                                <div class="mt-3">
-                                    <h4> {{$supplier->supplierable->name}}</h4>
 
-                                    <button class="btn btn-primary">Ligar</button>
-                                    <button class="btn btn-outline-primary">Enviar Mensagem</button>
-                                </div>
-                            </div>
-                            <hr class="my-4"/>
-                            <h5 class="d-flex align-items-center mb-3">Dados do Fornecedor</h5>
-                            <ul class="list-group list-group-flush">
-
-
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Email</h6>
-                                    <span class="text-secondary">{{$supplier->supplierable->email}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">NUIT</h6>
-                                    <span class="text-secondary">{{$supplier->supplierable->nuit}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Nacionalidade</h6>
-
-                                    <span class="text-secondary">{{$country->name}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Provincia</h6>
-                                    <span class="text-secondary">{{$province->name}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Distrito</h6>
-                                    <span class="text-secondary">{{$district->name}}</span>
-                                </li>
-
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="d-flex align-items-center mb-3">Contactos</h5>
+
+                            <h5 class="d-flex align-items-center mb-3">Dados da Requisição</h5>
                             <div class="mb-3 row">
                                 <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Contacto</label>
+                                       class="col-sm-3 col-form-label text-end fw-bold">Requerente</label>
                                 <div class="col-sm-9">
+
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$supplier->supplierable->phone}}">
+                                           value="{{\App\Models\User::find($expenseRequest->requester_user_id)->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Pagina
-                                    Web</label>
+                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo da Requisição</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$supplier->supplierable->website}}">
+                                           value="{{\App\Models\ExpenseRequestType::find($expenseRequest->type_id)->name}}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Fornecedor</label>
+                                       class="col-sm-3 col-form-label text-end fw-bold">Descrição</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$supplier->supplierable->name}}">
+                                           value="{{$expenseRequest->description}}">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="staticEmail"
+                                       class="col-sm-3 col-form-label text-end fw-bold">Valor Requisitado</label>
+                                <div class="col-sm-9">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                           value="{{$expenseRequest->amount.' MT'}}">
                                 </div>
                             </div>
 
+                            <div class="row">
 
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">
+                                        @csrf
+                                    <button class="btn btn-success" type="submit">Aprovar</button>
+                                    </form>
+                                    &nbsp;
+                                    <form method="POST" action="{{ route('expense_requests.reject', $expenseRequest) }}">
+                                        @csrf
+                                    <button class="btn btn-danger" type="submit">Recusar</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            </form>
                         </div>
+
+
                     </div>
 
                 </div>
+
             </div>
+
         </div>
     </div>
 @endsection
