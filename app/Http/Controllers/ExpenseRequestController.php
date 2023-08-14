@@ -36,6 +36,21 @@ class ExpenseRequestController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO){
+            $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
+            $expenses = ExpenseRequest::with(
+                [
+                    'accountingStatus',
+                    'expenseRequestType',
+                    'requestStatus',
+                    'transactionAccount',
+                    'approvalStatus',
+                    'user'
+                ]
+            )->where('approval_status_id',$approvalStatus)->orderBy('id')->paginate(1000);
+            return view('expense_requests.index', compact('expenses'));
+        }
+
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
         $expenses = ExpenseRequest::with(
             [
@@ -59,7 +74,6 @@ class ExpenseRequestController extends Controller
      */
     public function create()
     {
-
        $users=User::where('id','>','1')->orderBy('name')->pluck('name','id');
        $accountingStatus=AccountingStatus::orderBy('name')->pluck('name','id');
        $approvalStatus=ApprovalStatus::orderBy('name')->pluck('name','id');
@@ -110,7 +124,7 @@ class ExpenseRequestController extends Controller
         try{
             $expenseRequest->save();
             flash('Requisição registada com sucesso')->success();
-           return redirect()->route('expense_requests.index');
+           return redirect()->route('expense_request.myRequest');
         }catch (\Exception $exception){
             flash('Erro ao tentar registar a requisição '. $exception->getMessage())->error();
            return redirect()->back()->withInput();
@@ -159,6 +173,23 @@ class ExpenseRequestController extends Controller
 
         flash('Requisição Recusada com sucesso')->message();
         return redirect()->route('expense_requests.index');
+    }
+    public function myRequest(){
+        $this->userID = Auth::user()->id;
+        $this->personID = Person::where('user_id',$this->userID)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
+
+        $expenses = ExpenseRequest::with(
+            [
+                'accountingStatus',
+                'expenseRequestType',
+                'requestStatus',
+                'transactionAccount',
+                'approvalStatus',
+                'user'
+            ]
+        )->where('requester_user_id',$this->userID)->orderBy('id')->paginate(1000);
+        return view('expense_requests.index', compact('expenses'));
     }
 
     /**
