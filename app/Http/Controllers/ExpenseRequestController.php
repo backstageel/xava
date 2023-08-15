@@ -25,10 +25,6 @@ class ExpenseRequestController extends Controller
      */
     private $userID,$personID,$employee_position_id;
 
-    public function __construct()
-    {
-
-    }
 
     public function index()
     {
@@ -36,7 +32,7 @@ class ExpenseRequestController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
@@ -48,6 +44,22 @@ class ExpenseRequestController extends Controller
                     'user'
                 ]
             )->where('approval_status_id',$approvalStatus)->orderBy('id')->paginate(1000);
+
+            return view('expense_requests.index', compact('expenses'));
+        }
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
+            $accountingStatus= AccountingStatus::where('name', 'Aprovado')->value('id');
+            $expenses = ExpenseRequest::with(
+                [
+                    'accountingStatus',
+                    'expenseRequestType',
+                    'requestStatus',
+                    'transactionAccount',
+                    'approvalStatus',
+                    'user'
+                ]
+            )->where('accounting_status_id',$accountingStatus)->orderBy('id')->paginate(1000);
+//dd($expenses);
             return view('expense_requests.index', compact('expenses'));
         }
 
@@ -162,24 +174,31 @@ class ExpenseRequestController extends Controller
     {
         $newApprovalStatusId = ApprovalStatus::where('name', 'Aprovado')->value('id');
 
-        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
+        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>Auth::user()->id]);
 
         flash('Requisição Aprovado com sucesso')->success();
         return redirect()->route('expense_requests.index');
     }
-    public function accountingStatus(Request $request)
+    public function confirm(ExpenseRequest $expenseRequest)
     {
-//        $newApprovalStatusId = AccountingStatus::
-//
-//        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
-//
-//        flash('Requisição Aprovado com sucesso')->success();
-//        return redirect()->route('expense_requests.index');
+        $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
+        $expenseRequest->update(['request_status_id' => $newRequestStatusId,'treasurer_user_id'=>Auth::user()->id]);
+
+        flash('Requisição Confirmada com sucesso')->success();
+        return redirect()->route('expense_requests.index');
+    }
+    public function accountingStatus(ExpenseRequest $expenseRequest,Request $request,)
+    {
+        $newAccountingStatusId = $request->input('accounting_status_id');
+        $expenseRequest->update(['accounting_status_id' => $newAccountingStatusId,'accountant_user_id'=>Auth::user()->id]);
+
+        flash('Requisição Actualizada com sucesso')->success();
+        return redirect()->route('expense_requests.index');
     }
     public function reject(ExpenseRequest $expenseRequest){
         $newApprovalStatusId = ApprovalStatus::where('name', 'Recusado')->value('id');
 
-        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>$this->userID]);
+        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>Auth::user()->id]);
 
         flash('Requisição Recusada com sucesso')->message();
         return redirect()->route('expense_requests.index');

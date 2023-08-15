@@ -101,7 +101,8 @@
                                 </div>
 
                             </div>
-                            <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">
+                            @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO)
+                            <form method="POST" action="{{ route('expense_requests.accountingStatus', $expenseRequest) }}">
                                 @csrf
                             <div class="mb-1 row">
                                 <label for="staticEmail"
@@ -118,6 +119,27 @@
                                         @csrf
                                     <button class="btn btn-success" type="submit">Gravar</button></div>
                             </form>
+                            @endif
+                            @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO)
+                                <div class="mb-3 row">
+                                    <label for="staticEmail"
+                                           class="col-sm-3 col-form-label text-end fw-bold">Estado Contabilistico</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                               value="{{$expenseRequest->accountingStatus->name??''}}">
+                                    </div>
+
+                                </div>
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form method="POST" action="{{ route('expense_requests.confirm', $expenseRequest) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Confirmar</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            @endif
 
                             <div class="row">
                                 @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)

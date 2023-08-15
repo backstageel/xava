@@ -10,6 +10,11 @@ class ExpenseRequest extends Model
     use HasFactory;
     protected $fillable = [
         'approval_status_id',
+        'approved_by_user_id',
+        'accountant_user_id',
+        'accounting_status_id',
+        'treasurer_user_id',
+        'request_status_id'
     ];
 
 

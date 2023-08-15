@@ -39,8 +39,9 @@
                         <th>Valor</th>
                         <th>Conta Transação</th>
                         <th>Número Conta</th>
-                        <th>Estado da requisicão</th>
+                        <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
+                        <th>Estado da Requisição</th>
 
 
 
@@ -59,6 +60,7 @@
                             <td>{{$expense->transfer_account_number}}</td>
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
+                            <td>{{$expense->requestStatus->name}}</td>
 
                         </tr>
                     @endforeach
