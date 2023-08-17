@@ -24,7 +24,7 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">Minhas Requisições</h6>
+    <h6 class="mb-0 text-uppercase">Requisições Abertas</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
@@ -42,14 +42,58 @@
                         <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($expenses as $expense)
 
+                            @if($expense->requestStatus->name=='Aberto')
+                                <tr>
+                            <td>{{$expense->internal_reference}}</td>
+                            <td>{{\App\Models\User::find($expense->requester_user_id)->name}}</td>
+                            <td>{{\App\Models\ExpenseRequestType::find($expense->type_id)->name??''}}</td>
+                            <td>{{$expense->description}}</td>
+                            <td>{{$expense->amount}}</td>
+                            <td>{{$expense->transactionAccount->name??''}}</td>
+                            <td>{{$expense->transfer_account_number}}</td>
+                            <td>{{$expense->approvalStatus->name??''}}</td>
+                            <td>{{$expense->accountingStatus->name??''}}</td>
+                            <td>{{$expense->requestStatus->name}}</td>
+                        </tr>
+                            @endif
+                    @endforeach
 
-
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <h6 class="mb-0 text-uppercase">Requisições Fechadas</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Requerente</th>
+                        <th>Tipo Despesa</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Conta Transação</th>
+                        <th>Número Conta</th>
+                        <th>Estado da Aprovação</th>
+                        <th>Estado Contabilistico</th>
+                        <th>Estado da Requisição</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($expenses as $expense)
                         <tr>
+                            @if($expense->requestStatus->name=='Fechado')
 
                             <td>{{$expense->internal_reference}}</td>
                             <td>{{\App\Models\User::find($expense->requester_user_id)->name}}</td>
@@ -61,6 +105,7 @@
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
                             <td>{{$expense->requestStatus->name}}</td>
+                            @endif
 
                         </tr>
                     @endforeach

@@ -59,7 +59,7 @@ class ExpenseRequestController extends Controller
                     'user'
                 ]
             )->where('accounting_status_id',$accountingStatus)->orderBy('id')->paginate(1000);
-//dd($expenses);
+
             return view('expense_requests.index', compact('expenses'));
         }
 
@@ -196,9 +196,13 @@ class ExpenseRequestController extends Controller
         return redirect()->route('expense_requests.index');
     }
     public function reject(ExpenseRequest $expenseRequest){
+        $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
         $newApprovalStatusId = ApprovalStatus::where('name', 'Recusado')->value('id');
 
-        $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>Auth::user()->id]);
+        $expenseRequest->update(
+            ['approval_status_id' => $newApprovalStatusId,
+                'approved_by_user_id'=>Auth::user()->id,
+                'request_status_id'=>$newRequestStatusId]);
 
         flash('Requisição Recusada com sucesso')->message();
         return redirect()->route('expense_requests.index');
@@ -217,7 +221,7 @@ class ExpenseRequestController extends Controller
                 'approvalStatus',
                 'user'
             ]
-        )->where('requester_user_id',$this->userID)->orderBy('id')->paginate(1000);
+        )->where('requester_user_id',$this->userID)->orderBy('id','desc')->paginate(1000);
         return view('expense_requests.myRequest', compact('expenses'));
     }
 

@@ -24,7 +24,61 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">Requisições Registadas</h6>
+    <h6 class="mb-0 text-uppercase">Requisições Abertas</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Data</th>
+                        <th>Requerente</th>
+                        <th>Tipo Despesa</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Conta Transação</th>
+                        <th>Número Conta</th>
+                        <th>Estado da Aprovação</th>
+                        <th>Estado Contabilistico</th>
+                        <th>Estado da Requisição</th>
+                        <th><p style="display: none;">.</p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($expenses as $expense)
+
+                            @if($expense->requestStatus->name=='Aberto')
+                                <tr>
+                            <td>{{$expense->internal_reference}}</td>
+                            <td>{{$expense->request_date}}</td>
+                            <td>{{\App\Models\User::find($expense->requester_user_id)->name}}</td>
+                            <td>{{\App\Models\ExpenseRequestType::find($expense->type_id)->name??''}}</td>
+                            <td>{{$expense->description}}</td>
+                            <td>{{$expense->amount}}</td>
+                            <td>{{$expense->transactionAccount->name??''}}</td>
+                            <td>{{$expense->transfer_account_number}}</td>
+                            <td>{{$expense->approvalStatus->name??''}}</td>
+                            <td>{{$expense->accountingStatus->name??''}}</td>
+                            <td>{{$expense->requestStatus->name}}</td>
+                            <td>
+                                <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
+                            </td>
+                        </tr>
+                            @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <h6 class="mb-0 text-uppercase">Requisições Fechadas</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
@@ -50,6 +104,7 @@
                     </thead>
                     <tbody>
                     @foreach($expenses as $expense)
+                        @if($expense->requestStatus->name=='Fechado')
                         <tr>
 
                             <td>{{$expense->internal_reference}}</td>
@@ -67,6 +122,7 @@
                                 <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
                             </td>
                         </tr>
+                        @endif
                     @endforeach
 
                     </tbody>
@@ -84,6 +140,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#example2').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example3').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
