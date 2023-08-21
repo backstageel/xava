@@ -184,13 +184,13 @@ class ExpenseRequestController extends Controller
     public function confirm(ExpenseRequest $expenseRequest)
     {
         $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
-        try {
+
 
             $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
 
             flash('Requisição Confirmada com sucesso')->success();
             return redirect()->route('expense_requests.index');
-        }
+
     }
     public function accountingStatus(ExpenseRequest $expenseRequest,Request $request,)
     {
