@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AccountingStatus;
 use App\Models\ApprovalStatus;
+use App\Models\CardLoad;
 use App\Models\Employee;
 use App\Models\EmployeePosition;
 use App\Models\ExpenseRequest;
@@ -31,7 +32,7 @@ class ExpenseRequestController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-
+        $balance = CardLoad::value('balance');
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
@@ -45,7 +46,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('approval_status_id',$approvalStatus)->orderBy('id')->paginate(1000);
 
-            return view('expense_requests.index', compact('expenses'));
+            return view('expense_requests.index', compact('expenses','balance'));
         }
         if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
             $accountingStatus= AccountingStatus::where('name', 'Aprovado')->value('id');
@@ -60,7 +61,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('accounting_status_id',$accountingStatus)->orderBy('id')->paginate(1000);
 
-            return view('expense_requests.index', compact('expenses'));
+            return view('expense_requests.index', compact('expenses','balance'));
         }
 
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
@@ -74,7 +75,7 @@ class ExpenseRequestController extends Controller
                 'user'
             ]
         )->orderBy('id')->paginate(1000);
-        return view('expense_requests.index', compact('expenses'));
+        return view('expense_requests.index', compact('expenses','balance'));
     }else{
         return $this->create();
     }
@@ -176,16 +177,20 @@ class ExpenseRequestController extends Controller
 
         $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>Auth::user()->id]);
 
+
         flash('Requisição Aprovado com sucesso')->success();
         return redirect()->route('expense_requests.index');
     }
     public function confirm(ExpenseRequest $expenseRequest)
     {
         $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
-        $expenseRequest->update(['request_status_id' => $newRequestStatusId,'treasurer_user_id'=>Auth::user()->id]);
+        try {
 
-        flash('Requisição Confirmada com sucesso')->success();
-        return redirect()->route('expense_requests.index');
+            $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
+
+            flash('Requisição Confirmada com sucesso')->success();
+            return redirect()->route('expense_requests.index');
+        }
     }
     public function accountingStatus(ExpenseRequest $expenseRequest,Request $request,)
     {

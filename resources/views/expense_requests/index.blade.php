@@ -21,6 +21,11 @@
             <div class="btn-group">
                 <a href="{{route('expense_requests.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
+            <br>
+            <br>
+            <div class="btn-group" readonly>
+                <a href="" class="btn btn-info">Saldo: {{$balance}} MT </a>
+            </div>
         </div>
     </div>
     <!--end breadcrumb-->

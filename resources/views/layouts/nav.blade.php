@@ -177,6 +177,12 @@
                         Minhas Requisições
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('card_loads.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Recarregar Cartão
+                    </a>
+                </li>
             </ul>
         </li>
 
