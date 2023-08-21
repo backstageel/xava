@@ -966,7 +966,7 @@
                 datasets: [{
                     label: 'Valor',
                     data: [{{$computer_equipament_sales}}, {{$on_going_computer_equipament_sales}},
-                        {{$paid_computer_equipament_sales}}, 100000000],
+                        {{$paid_computer_equipament_sales}}, {{$profit_computer_equipament_sales}}],
                     borderColor: gradientStroke1,
                     backgroundColor: gradientStroke1,
                     hoverBackgroundColor: gradientStroke1,
@@ -1027,7 +1027,7 @@
                 datasets: [{
                     label: 'Vendas',
                     data: [{{$rolling_stock_sales}}, {{$on_going_rolling_stock_sales}},
-                        {{$paid_rolling_stock_sales}}, 0],
+                        {{$paid_rolling_stock_sales}}, {{$profit_rolling_stock_sales}}],
                     borderColor: gradientStroke2,
                     backgroundColor: gradientStroke2,
                     hoverBackgroundColor: gradientStroke2,
