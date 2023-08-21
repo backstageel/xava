@@ -94,6 +94,10 @@ class SaleController extends Controller
             ->where('category_id', 11) //id = 11 => Equipamento electrónico
             ->sum('amount_received');
 
+        $profit_computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('profit');
+
 
         # vendas Ano Corrente Meios Circulantes(Geral, Execução, Pago)
         $rolling_stock_sales = Sale::whereIn('id', $current_year_sales)
@@ -113,6 +117,10 @@ class SaleController extends Controller
                 SaleStatus::where('name', 'Pago')->value('id')])
             ->where('category_id', 3) //id = 3 => Meios circulantes
             ->sum('amount_received');
+
+        $profit_rolling_stock_sales  = Sale::whereIn('id', $current_year_sales)
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('profit');
 
 
         # vendas Ano Anterior IT(Geral, Execução, Pago)
@@ -168,7 +176,8 @@ class SaleController extends Controller
         'paid_computer_equipament_sales', 'rolling_stock_sales', 'on_going_rolling_stock_sales', 'paid_rolling_stock_sales',
         'last_computer_equipament_sales', 'last_on_going_computer_equipament_sales', 'sales_by_month', 'sales_by_month1',
         'last_year_sales', 'last_paid_computer_equipament_sales', 'last_rolling_stock_sales', 'last_on_going_rolling_stock_sales',
-        'last_paid_rolling_stock_sales', 'computer_equipament_limit', 'rolling_stock_limit'));
+        'last_paid_rolling_stock_sales', 'computer_equipament_limit', 'rolling_stock_limit',
+        'profit_rolling_stock_sales', 'profit_computer_equipament_sales'));
     }
 
 

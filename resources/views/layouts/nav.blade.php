@@ -31,6 +31,12 @@
                         Colaboradores
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('documents.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Procedimentos Internos
+                    </a>
+                </li>
 
 {{--                    <li>--}}
 {{--                        <a href="{{route('loans.index')}}">--}}
@@ -199,6 +205,7 @@
                         Imprimir Lista de Vendas
                     </a>
                 </li>
+
                 <li>
                     <a href="{{route('competitions.export')}}">
                         <i class="bx bx-right-arrow-alt"></i>

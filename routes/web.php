@@ -54,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/expense_requests/{expenseRequest}/accountingStatus', [\App\Http\Controllers\ExpenseRequestController::class, 'accountingStatus'])->name('expense_requests.accountingStatus');
     Route::post('/expense_requests/{expenseRequest}/confirm', [\App\Http\Controllers\ExpenseRequestController::class, 'confirm'])->name('expense_requests.confirm');
     Route::resource('card_loads',\App\Http\Controllers\CardLoadController::class);
+    Route::get('/view-document/{filename}', [\App\Http\Controllers\DocumentController::class, 'viewDocument'])->name('documents.view');
+    Route::resource('documents', \App\Http\Controllers\DocumentController::class);
+    Route::post('/documents/upload', [\App\Http\Controllers\DocumentController::class, 'uploadDocument'])->name('documents.upload');
+
 
 
 
