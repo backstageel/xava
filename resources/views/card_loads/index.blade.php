@@ -20,7 +20,7 @@
         <div class="ms-auto">
 {{--            @if(\App\Models\CardLoad::count() == 0)--}}
                 <div class="btn-group">
-                    <a href="{{route('card_loads.create')}}" class="btn btn-primary">Adicionar</a>
+                    <a href="{{route('card_loads.create')}}" class="btn btn-primary">Recarregar</a>
                 </div>
 {{--            @endif--}}
             <br>

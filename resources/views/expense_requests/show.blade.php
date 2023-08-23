@@ -110,7 +110,9 @@
                                 <div class="col-sm-6">
                                     <select name="accounting_status_id" class="form-select form-select-lg mb-1 custom-select" aria-label=".form-select-lg example">
                                         @foreach($accounting_statuses as $status)
+                                            @if($status->name=="Contabilizado")
                                             <option class ="opt" value="{{ $status->id }}">{{ $status->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

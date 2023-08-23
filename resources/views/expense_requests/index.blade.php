@@ -24,7 +24,7 @@
             <br>
             <br>
             <div class="btn-group" readonly>
-                <a href="" class="btn btn-info">Saldo: {{$balance}} MT </a>
+                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo: {{$balance}} MT </a>
             </div>
         </div>
     </div>

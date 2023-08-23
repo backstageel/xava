@@ -49,7 +49,7 @@ class ExpenseRequestController extends Controller
             return view('expense_requests.index', compact('expenses','balance'));
         }
         if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1){
-            $accountingStatus= AccountingStatus::where('name', 'Aprovado')->value('id');
+            $accountingStatus = AccountingStatus::where('name', 'Contabilizado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
                     'accountingStatus',
