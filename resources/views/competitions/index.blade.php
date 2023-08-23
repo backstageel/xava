@@ -51,7 +51,7 @@
                     <tbody>
                     @foreach($competitions as $competition)
 
-                            @if($competition->competition_status_id!=36 && $competition->competitionResult->name!=='Perdido')
+                            @if($competition->competitionResult->name=='Pendente')
                                 <tr>
                             <td>{{$competition->internal_reference}}</td>
                             <td>{{$competition->companyType->name?? ''}}</td>
