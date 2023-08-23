@@ -93,7 +93,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example5" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Código</th>
@@ -104,6 +104,7 @@
                         <th>Categoria</th>
                         <th>Sub-Categoria</th>
                         <th>Fase/Estágio</th>
+                        <th>Resultado</th>
                         <th>Data Entrega Proposta</th>
                         <th><p style="display: none;">.</p></th>
 
@@ -132,6 +133,7 @@
 
                                 @endforeach
                                 <td>{{$competition->competitionStatus->name??''}}</td>
+                                <td>{{$competition->competitionResult->name?? ''}}</td>
                                 <td>{{$competition->proposal_delivery_date}}</td>
                                 <td>
                                     <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
@@ -154,7 +156,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example4" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Código</th>
@@ -165,6 +167,7 @@
                         <th>Categoria</th>
                         <th>Sub-Categoria</th>
                         <th>Fase/Estágio</th>
+                        <th>Resultado</th>
                         <th>Data Entrega Proposta</th>
                         <th><p style="display: none;">.</p></th>
 
@@ -193,6 +196,7 @@
 
                                 @endforeach
                                 <td>{{$competition->competitionStatus->name??''}}</td>
+                                <td>{{$competition->competitionResult->name?? ''}}</td>
                                 <td>{{$competition->proposal_delivery_date}}</td>
                                 <td>
                                     <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
@@ -326,6 +330,30 @@
         $(document).ready(function () {
 
             var table = $('#example3').DataTable({
+                language: {
+                    //url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example4').DataTable({
+                language: {
+                    //url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example5').DataTable({
                 language: {
                     //url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
