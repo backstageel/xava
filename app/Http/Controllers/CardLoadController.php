@@ -14,12 +14,13 @@ class CardLoadController extends Controller
     /**
      * Display a listing of the resource.
      */
+    private $userID,$personID,$employee_position_id;
     public function index()
     {
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
             $card_loads = CardLoad::paginate(10);
             return view('card_loads.index', compact('card_loads'));
         }else{
@@ -37,7 +38,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
             return view('card_loads.create');
         }
     }
@@ -78,7 +79,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
             return view('card_loads.edit', compact('cardLoad'));
         }
     }
