@@ -142,7 +142,7 @@
                             @endif
 
                             <div class="row">
-                                @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
+                                @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO||$userID==1)
 
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">

@@ -102,7 +102,7 @@
                         <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
-                        <th><p style="display: none;">.</p></th>
+
 
 
                     </tr>
@@ -123,9 +123,6 @@
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
                             <td>{{$expense->requestStatus->name}}</td>
-                            <td>
-                                <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
-                            </td>
                         </tr>
                         @endif
                     @endforeach

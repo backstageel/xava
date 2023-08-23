@@ -186,7 +186,7 @@
                 <li>
                     <a href="{{route('card_loads.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>
-                        Recarregar Cartão
+                        Recarregar Caixa
                     </a>
                 </li>
             </ul>

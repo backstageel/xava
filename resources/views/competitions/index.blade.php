@@ -87,7 +87,128 @@
         </div>
 
     </div>
+    <hr/>
+    <h6 class="mb-0 text-uppercase">Lista de Concursos Ganhos</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Tipo Instituição</th>
+                        <th>Instituição</th>
+                        <th>Tipo Concurso</th>
+                        <th>Referência</th>
+                        <th>Categoria</th>
+                        <th>Sub-Categoria</th>
+                        <th>Fase/Estágio</th>
+                        <th>Data Entrega Proposta</th>
+                        <th><p style="display: none;">.</p></th>
 
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($competitions as $competition)
+
+                        @if($competition->competitionResult->name=='Ganho')
+                            <tr>
+                                <td>{{$competition->internal_reference}}</td>
+                                <td>{{$competition->companyType->name?? ''}}</td>
+                                <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
+                                <td>{{$competition->competitionType->name}}</td>
+                                <td>{{$competition->competition_reference}}</td>
+                                <td>
+                                    @foreach ($competition->productCategory as $categoria)
+                                        {{$categoria->name.',' }}
+                                    @endforeach</td>
+                                <td>
+
+
+                                @foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get()
+                                     as $subcategory)
+                                    {{\App\Models\ProductSubCategory::find($subcategory->product_sub_category_id)->name.','}}
+
+                                @endforeach
+                                <td>{{$competition->competitionStatus->name??''}}</td>
+                                <td>{{$competition->proposal_delivery_date}}</td>
+                                <td>
+                                    <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
+                                </td>
+
+                            </tr>
+                        @endif
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <hr/>
+    <h6 class="mb-0 text-uppercase">Lista de Concursos Perdidos</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Tipo Instituição</th>
+                        <th>Instituição</th>
+                        <th>Tipo Concurso</th>
+                        <th>Referência</th>
+                        <th>Categoria</th>
+                        <th>Sub-Categoria</th>
+                        <th>Fase/Estágio</th>
+                        <th>Data Entrega Proposta</th>
+                        <th><p style="display: none;">.</p></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($competitions as $competition)
+
+                        @if($competition->competitionResult->name=='Perdido')
+                            <tr>
+                                <td>{{$competition->internal_reference}}</td>
+                                <td>{{$competition->companyType->name?? ''}}</td>
+                                <td>{{\App\Models\Company::find($competition->customer_id)->name}}</td>
+                                <td>{{$competition->competitionType->name}}</td>
+                                <td>{{$competition->competition_reference}}</td>
+                                <td>
+                                    @foreach ($competition->productCategory as $categoria)
+                                        {{$categoria->name.',' }}
+                                    @endforeach</td>
+                                <td>
+
+
+                                @foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get()
+                                     as $subcategory)
+                                    {{\App\Models\ProductSubCategory::find($subcategory->product_sub_category_id)->name.','}}
+
+                                @endforeach
+                                <td>{{$competition->competitionStatus->name??''}}</td>
+                                <td>{{$competition->proposal_delivery_date}}</td>
+                                <td>
+                                    <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
+                                </td>
+
+                            </tr>
+                        @endif
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
     <hr/>
     <h6 class="mb-0 text-uppercase">Lista de Concursos</h6>
     <hr/>

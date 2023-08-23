@@ -183,10 +183,13 @@ class ExpenseRequestController extends Controller
     }
     public function confirm(ExpenseRequest $expenseRequest)
     {
+        $lastBalance = CardLoad::latest()->first();
+
         $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
 
 
             $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
+            $lastBalance->update(['balance'=>$lastBalance->balance-$expenseRequest->amount]);
 
             flash('Requisição Confirmada com sucesso')->success();
             return redirect()->route('expense_requests.index');

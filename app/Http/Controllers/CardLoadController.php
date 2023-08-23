@@ -21,10 +21,11 @@ class CardLoadController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
-            $card_loads = CardLoad::paginate(10);
-            return view('card_loads.index', compact('card_loads'));
+            $card_loads = CardLoad::paginate(1000);
+            $lastBalance = CardLoad::latest()->first()->balance;
+            return view('card_loads.index', compact('card_loads','lastBalance'));
         }else{
-            flash('Sem acesso ao Modulo, contacte o administrador do Sistema ')->error();
+            flash('Sem acesso, contacte o administrador do Sistema ')->error();
             return redirect()->back()->withInput();
         }
 
@@ -49,9 +50,9 @@ class CardLoadController extends Controller
     public function store(CardLoadRequest $request)
     {
         $cardLoad=new CardLoad();
-        $lastBalance=CardLoad::value('balance');
+        $lastBalance=CardLoad::latest()->first();
 
-        $cardLoad->balance=($lastBalance+$request->input('balance'));
+        $cardLoad->balance=($lastBalance->balance+$request->input('balance'));
         try{
             $cardLoad->save();
             flash('Cartão recarregado com sucesso')->success();
@@ -100,8 +101,6 @@ class CardLoadController extends Controller
             return redirect()->back()->withInput();
 
         }
-
-
 
     }
 

@@ -18,11 +18,17 @@
             </nav>
         </div>
         <div class="ms-auto">
-            @if(\App\Models\CardLoad::count() == 0)
+{{--            @if(\App\Models\CardLoad::count() == 0)--}}
                 <div class="btn-group">
                     <a href="{{route('card_loads.create')}}" class="btn btn-primary">Adicionar</a>
                 </div>
-            @endif
+{{--            @endif--}}
+            <br>
+            <br>
+            <br>
+            <div class="btn-group" readonly>
+                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo Disponivel: {{$lastBalance}} MT</a>
+            </div>
         </div>
     </div>
     <!--end breadcrumb-->
@@ -37,7 +43,7 @@
                         <th>Código</th>
                         <th>Saldo</th>
                         <th>Data da Ultima Actualização</th>
-                        <th><p style="display: none;">.</p></th>
+{{--                        <th><p style="display: none;">.</p></th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -46,9 +52,9 @@
                             <td>{{$card_load->id}}</td>
                             <td>{{$card_load->balance}}</td>
                             <td>{{$card_load->updated_at}}</td>
-                            <td>
-                                <a href="{{route('card_loads.edit', $card_load->id)}}"> Recarregar </a>
-                            </td>
+{{--                            <td>--}}
+{{--                                <a href="{{route('card_loads.edit', $card_load->id)}}"> Recarregar </a>--}}
+{{--                            </td>--}}
                         </tr>
                     @endforeach
 
