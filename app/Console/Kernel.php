@@ -40,11 +40,11 @@ class Kernel extends ConsoleKernel
                 ->get();
             if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
-            foreach ($users as $user) {
-                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0) {
-                    Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
-                }
-            }
+            //foreach ($users as $user) {
+//                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0) {
+                    Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions' => $competitions], $user->name));
+//                }
+           // }
 
             }
         })->daily();
@@ -54,13 +54,13 @@ class Kernel extends ConsoleKernel
                 ->get();
             if (!$sales->isEmpty()) {
                 $users=User::where('id','>',1)->get();
-                foreach ($users as $user) {
-                    if (strcasecmp($user->email, 'zmussa@xava.co.mz') === 0
-                        || strcasecmp($user->email, 'etsamba@xava.co.mz') === 0
-                        || strcasecmp($user->email, 'smacamo@xava.co.mz') === 0) {
-                        Mail::to($user->email)->send(new saleMail(['sales' => $sales], $user->name));
-                    }
-                }
+//                foreach ($users as $user) {
+//                    if (strcasecmp($user->email, 'zmussa@xava.co.mz') === 0
+//                        || strcasecmp($user->email, 'etsamba@xava.co.mz') === 0
+//                        || strcasecmp($user->email, 'smacamo@xava.co.mz') === 0) {
+                        Mail::to('isaias.naftal.manjate@gmail.com')->send(new saleMail(['sales' => $sales], $user->name));
+                  //  }
+               // }
 
             }
         })->mondays()->daily();
