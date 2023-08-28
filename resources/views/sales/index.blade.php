@@ -466,7 +466,7 @@
                             <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
-                            <td>@money($sale->debt)</td>
+                            <td>@money($sale->profit)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
                             <td>@money($sale->amount_received)</td>
