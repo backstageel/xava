@@ -12,13 +12,7 @@ class DocumentController extends Controller
 {
 
 
-//    public function index()
-//    {
-//        $documents = Storage::files('documents');
-//
-//
-//        return view('documents.index', compact('documents'));
-//    }
+
     public function index($path)
     {
         if ($path != 'IT' && $path != 'motas'){
