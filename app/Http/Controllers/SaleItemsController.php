@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 
 use App\Models\SaleItem;
+use App\Models\SaleStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleItemsRequest;
 use App\Http\Requests\SaleRequest;
@@ -69,8 +70,13 @@ class SaleItemsController extends Controller
             $sale->debt_amount = $sale->total_amount - $sale->amount_received;
             $sale->purchase_price = $sale->purchase_price + $sale_items->total_purchase_price;
 
-            $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
-            $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
+            if ($sale->sale_status_id ==  SaleStatus::where('name', 'Facturado')->value('id')
+                || $sale->sale_status_id == SaleStatus::where('name', 'Pago')->value('id'))
+            {
+                $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
+                    $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
+            }
+
             $products = Product::pluck('name', 'id');
 
             try{

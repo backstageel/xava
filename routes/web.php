@@ -57,7 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/view-document/{filename}', [\App\Http\Controllers\DocumentController::class, 'viewDocument'])->name('documents.view');
     Route::resource('documents', \App\Http\Controllers\DocumentController::class);
     Route::post('/documents/upload', [\App\Http\Controllers\DocumentController::class, 'uploadDocument'])->name('documents.upload');
-
+    Route::get('/documents/index/{path}', [\App\Http\Controllers\DocumentController::class, 'index'])->name('documents.index');
+    Route::get('/documents/create/{path}', [\App\Http\Controllers\DocumentController::class, 'create'])->name('documents.create');
 
 
 

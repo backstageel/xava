@@ -175,6 +175,14 @@ class DashboardController extends Controller
             ->where('category_id', 3)
             ->sum('amount_received');
 
+        $profit_rolling_stock_sales  = Sale::whereIn('id', $current_year_sales)
+            ->where('category_id', 3) //id = 3 => Meios circulantes
+            ->sum('profit');
+
+        $profit_computer_equipament_sales = Sale::whereIn('id', $current_year_sales)
+            ->where('category_id', 11) //id = 11 => Equipamento electrónico
+            ->sum('profit');
+
         $computer_equipament_limit = 100000000.00;
         $rolling_stock_limit = 140000000.00;
 
@@ -186,7 +194,7 @@ class DashboardController extends Controller
 
         return view('dashboard', compact(
                 'totalEmployees','totalCustomers', 'invoicesByMonth', 'mostSoldProducts', 'lastSoldProducts',
-                    'sales',  'computer_equipament_sales', 'on_going_computer_equipament_sales',
+                    'profit_computer_equipament_sales', 'profit_rolling_stock_sales', 'sales',  'computer_equipament_sales', 'on_going_computer_equipament_sales',
                     'paid_computer_equipament_sales', 'rolling_stock_sales', 'on_going_rolling_stock_sales', 'paid_rolling_stock_sales',
                     'last_computer_equipament_sales', 'last_on_going_computer_equipament_sales', 'sales_by_month', 'total_amount_sales',
                     'last_year_sales', 'last_paid_computer_equipament_sales', 'last_rolling_stock_sales', 'last_on_going_rolling_stock_sales',

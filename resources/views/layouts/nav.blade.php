@@ -32,10 +32,48 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('documents.index')}}">
+                    <a href="{{route('documents.index', 'Procedimentos Internos')}}">
                         <i class="bx bx-right-arrow-alt"></i>
                         Procedimentos Internos
                     </a>
+                </li>
+                <li>
+                    <a href="{{route('documents.index', 'Legislação Moçambicana')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Legislação Moçambicana
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('documents.index', 'Documentos Actualizados')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Documentos Actualizados
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('documents.index', 'Inventario do RH')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Inventario do RH
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="has-arrow">
+                        <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
+                        <div class="menu-title">Actas</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('documents.index', 'IT')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Departamento de Equipamento Informático
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('documents.index', 'motas')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Departamento de Motas e Bicicletas
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
 {{--                    <li>--}}

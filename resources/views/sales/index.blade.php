@@ -30,10 +30,154 @@
         </x-bootstrap::form.form>
         </div>
     </div>
+    <div style="position: relative; z-index: 1; font-size: 20px;  border-radius: 10px 10px 0 0; padding: 10px;">
+        Equipamento Informático
+    </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Vendas Gerais<br></p><br>
+                                <h4 class="my-1 text-info">@money($computer_equipament_sales)</h4>
+                                <p class="mb-0 font-13"> </p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Vendas em Execução<br></p><br>
+                                <h4 class="my-1 text-info">@money($on_going_computer_equipament_sales)</h4>
+                                <p class="mb-0 font-13"> </p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Vendas Pagas</p><br>
+                                <h4 class="my-1 text-info">@money($paid_computer_equipament_sales)</h4>
+                                <p class="mb-0 font-13"></p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Lucro</p><br>
+                                <h4 class="my-1 text-info">@money($profit_computer_equipament_sales)</h4>
+                                <p class="mb-0 font-13"></p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--end row-->
+
+
+    <div style="position: relative; z-index: 1; font-size: 20px;  border-radius: 10px 10px 0 0; padding: 10px;">
+        Meios Circulantes
+    </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Vendas Gerais/p>
+                                <h4 class="my-1 text-info">@money($rolling_stock_sales)</h4>
+                                <p class="mb-0 font-13">.</p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Vendas em Execução<br></p><br>
+                                <h4 class="my-1 text-info">@money($on_going_rolling_stock_sales)</h4>
+                                <p class="mb-0 font-13"></p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="col">
+                    <div class="card radius-10 border-start border-0 border-3 border-info">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">Vendas Pagas</p>
+                                    <h4 class="my-1 text-info">@money($paid_rolling_stock_sales)</h4>
+                                    <p class="mb-0 font-13">.</p>
+                                </div>
+                                <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                        class='bx bxs-cart'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Lucro<br></p><br>
+                                <h4 class="my-1 text-info">@money($profit_rolling_stock_sales)</h4>
+                                <p class="mb-0 font-13"></p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                    class='bx bxs-cart'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!--end row-->
 
     <div class="row">
+
         <div class="col-12 col-lg-4">
-            <div class="card radius-10">
+            <div class="card radius-10 d-flex">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
@@ -69,130 +213,131 @@
                 </ul>
             </div>
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="card radius-10 w-100">
-                <div class="card-header bg-transparent">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h6 class="mb-0">Objectivo das Vendas IT</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                                <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                <li class="dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
-                                    <ul id="options_computer_equipament" class="dropdown-menu" style="position: static;">
-                                        <li><a class="dropdown-item" href="#" id="current_year_computer_equipament">Ano Actual</a></li>
-                                        <li><a class="dropdown-item" href="#" id="last_year_computer_equipament">Ano Passado</a></li>
-                                    </ul>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container-1">
-                        <canvas id="chart4"></canvas>
-                    </div>
-                </div>
-                <div id="current_description_computer_equipament">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-pink rounded-pill">@money($computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-darkblue rounded-pill">@money($on_going_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lightblue rounded-pill">@money($paid_computer_equipament_sales)</span>
-                        </li>
+{{--        <div class="col-12 col-lg-4">--}}
+{{--            <div class="card radius-10 w-100">--}}
+{{--                <div class="card-header bg-transparent">--}}
+{{--                    <div class="d-flex align-items-center">--}}
+{{--                        <div>--}}
+{{--                            <h6 class="mb-0">Objectivo das Vendas IT</h6>--}}
+{{--                        </div>--}}
+{{--                        <div class="dropdown ms-auto">--}}
+{{--                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">--}}
+{{--                                <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>--}}
+{{--                            </a>--}}
+{{--                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">--}}
+{{--                                <li class="dropdown">--}}
+{{--                                    <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>--}}
+{{--                                    <ul id="options_computer_equipament" class="dropdown-menu" style="position: static;">--}}
+{{--                                        <li><a class="dropdown-item" href="#" id="current_year_computer_equipament">Ano Actual</a></li>--}}
+{{--                                        <li><a class="dropdown-item" href="#" id="last_year_computer_equipament">Ano Passado</a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                                <li><hr class="dropdown-divider"></li>--}}
+{{--                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>--}}
+{{--                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="card-body">--}}
+{{--                    <div class="chart-container-1">--}}
+{{--                        <canvas id="chart4"></canvas>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div id="current_description_computer_equipament">--}}
+{{--                    <ul class="list-group list-group-flush">--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">--}}
+{{--                            Geral <span class="badge bg-pink rounded-pill">@money($computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução--}}
+{{--                            <span class="badge bg-darkblue rounded-pill">@money($on_going_computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago--}}
+{{--                            <span class="badge bg-lightblue rounded-pill">@money($paid_computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
 
-                    </ul>
+{{--                    </ul>--}}
 
-                </div>
-                <div id="last_description_computer_equipament" style="display: none">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-orange rounded-pill">@money($last_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-green rounded-pill">@money($last_on_going_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lilaz rounded-pill">@money($last_paid_computer_equipament_sales)</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-4">
-            <div class="card radius-10 w-100">
-                <div class="card-header bg-transparent">
-                    <div class="d-flex align-items-center">
-                            <div>
-                                <h6 class="mb-0">Objectivo das Vendas Meios Circulantes</h6>
-                            </div>
-                            <div class="dropdown ms-auto">
-                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                                    <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li class="dropdown">
-                                        <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
-                                        <ul id="options_rolling_stock" class="dropdown-menu" style="position: static;">
-                                            <li><a class="dropdown-item" href="#" id="current_year_rolling_stock">Ano Actual</a></li>
-                                            <li><a class="dropdown-item" href="#" id="last_year_rolling_stock">Ano Passado</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
-                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                                </ul>
-                            </div>
-                    </div>
-                </div>
-                    <div class="card-body">
-                        <div class="chart-container-1">
-                            <canvas id="chart5"></canvas>
-                        </div>
-                    </div>
-                    <div id="current_description_rolling_stock">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Geral <span class="badge bg-pink rounded-pill">@money($rolling_stock_sales)</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                                <span class="badge bg-darkblue rounded-pill">@money($on_going_rolling_stock_sales)</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                                <span class="badge bg-lightblue rounded-pill">@money($paid_rolling_stock_sales)</span>
-                            </li>
+{{--                </div>--}}
+{{--                <div id="last_description_computer_equipament" style="display: none">--}}
+{{--                    <ul class="list-group list-group-flush">--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">--}}
+{{--                            Geral <span class="badge bg-orange rounded-pill">@money($last_computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução--}}
+{{--                            <span class="badge bg-green rounded-pill">@money($last_on_going_computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
+{{--                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago--}}
+{{--                            <span class="badge bg-lilaz rounded-pill">@money($last_paid_computer_equipament_sales)</span>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-12 col-lg-4">--}}
+{{--            <div class="card radius-10 w-100">--}}
+{{--                <div class="card-header bg-transparent">--}}
+{{--                    <div class="d-flex align-items-center">--}}
+{{--                            <div>--}}
+{{--                                <h6 class="mb-0">Objectivo das Vendas Meios Circulantes</h6>--}}
+{{--                            </div>--}}
+{{--                            <div class="dropdown ms-auto">--}}
+{{--                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">--}}
+{{--                                    <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>--}}
+{{--                                </a>--}}
+{{--                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">--}}
+{{--                                    <li class="dropdown">--}}
+{{--                                        <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>--}}
+{{--                                        <ul id="options_rolling_stock" class="dropdown-menu" style="position: static;">--}}
+{{--                                            <li><a class="dropdown-item" href="#" id="current_year_rolling_stock">Ano Actual</a></li>--}}
+{{--                                            <li><a class="dropdown-item" href="#" id="last_year_rolling_stock">Ano Passado</a></li>--}}
+{{--                                        </ul>--}}
+{{--                                    </li>--}}
+{{--                                    <li><hr class="dropdown-divider"></li>--}}
+{{--                                    <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>--}}
+{{--                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="chart-container-1">--}}
+{{--                            <canvas id="chart5"></canvas>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div id="current_description_rolling_stock">--}}
+{{--                        <ul class="list-group list-group-flush">--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">--}}
+{{--                                Geral <span class="badge bg-pink rounded-pill">@money($rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução--}}
+{{--                                <span class="badge bg-darkblue rounded-pill">@money($on_going_rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago--}}
+{{--                                <span class="badge bg-lightblue rounded-pill">@money($paid_rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
 
-                        </ul>
-                    </div>
-                    <div id="last_description_rolling_stock" style="display: none">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Geral <span class="badge bg-orange rounded-pill">@money($last_rolling_stock_sales)</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                                <span class="badge bg-green rounded-pill">@money($last_on_going_rolling_stock_sales)</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                                <span class="badge bg-lilaz rounded-pill">@money($last_paid_rolling_stock_sales)</span>
-                            </li>
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                    <div id="last_description_rolling_stock" style="display: none">--}}
+{{--                        <ul class="list-group list-group-flush">--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">--}}
+{{--                                Geral <span class="badge bg-orange rounded-pill">@money($last_rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução--}}
+{{--                                <span class="badge bg-green rounded-pill">@money($last_on_going_rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago--}}
+{{--                                <span class="badge bg-lilaz rounded-pill">@money($last_paid_rolling_stock_sales)</span>--}}
+{{--                            </li>--}}
 
-                        </ul>
-                    </div>
-            </div>
-        </div>
-    </div>
-        <div class="row">
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--        <div class="row">--}}
+
             <div class="col-12 col-lg-4">
                 <div class="col d-flex">
                     <div class="card radius-10 w-100">
@@ -200,6 +345,9 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <h6 class="mb-0">Equipamento Electrónico</h6>
+                                    <br>
+                                    <spam><strong>meta:</strong> @money($computer_equipament_limit)</spam>
+                                    <br>
                                 </div>
 {{--                                <div class="dropdown ms-auto">--}}
 {{--                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i--}}
@@ -224,6 +372,10 @@
                                 <canvas id="chart6"></canvas>
                             </div>
                         </div>
+                        <div>
+                            <br>
+                            <br>
+                        </div>
 {{--                        <div class="row row-group border-top g-0">--}}
 {{--                            <div class="col">--}}
 {{--                                <div class="p-3 text-center">--}}
@@ -236,6 +388,7 @@
                     </div>
                 </div>
             </div><!--end row-->
+
             <div class="col-12 col-lg-4">
                 <div class="col d-flex">
                     <div class="card radius-10 w-100">
@@ -243,14 +396,22 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <h6 class="mb-0">Meios circulantes</h6>
+                                    <br>
+                                    <spam><strong>meta:</strong> @money($rolling_stock_limit)</spam>
+                                    <br>
                                 </div>
 
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="chart-container-0">
+                                <br>
                                 <canvas id="chart7"></canvas>
                             </div>
+                        </div>
+                        <div>
+                            <br>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -277,6 +438,7 @@
                         <th>Referencia</th>
                         <th>Estado da Venda</th>
                         <th>Preco de Venda Total</th>
+                        <th>Lucro</th>
                         <th>Nr da Factura</th>
                         <th>Método de Pagamento</th>
                         <th>Valor Recebido</th>
@@ -304,6 +466,7 @@
                             <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
+                            <td>@money($sale->debt)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
                             <td>@money($sale->amount_received)</td>
@@ -958,6 +1121,18 @@
         gradientStroke2.addColorStop(0, '#42e695');
         gradientStroke2.addColorStop(1, '#3bb2b8');
 
+        var max_data_value_computer_equipament = Math.max(
+            {{$computer_equipament_sales}},
+            {{$on_going_computer_equipament_sales}},
+            {{$paid_computer_equipament_sales}},
+            {{$profit_computer_equipament_sales}}
+        );
+
+        // Arredonde para cima para o próximo múltiplo de 20 milhões
+        var max_y_value_computer_equipament = Math.ceil(max_data_value_computer_equipament / 20000000) * 20000000;
+
+        // Defina um valor máximo para o eixo Y, mas apenas se for maior que 100 milhões
+        var y_max_computer_equipament = Math.max({{$computer_equipament_limit}}, max_y_value_computer_equipament);
 
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -986,7 +1161,10 @@
                         ticks: {
                             beginAtZero: true,
                             stepSize: 20000000,
-                            max: 110000000//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
+                            max: y_max_computer_equipament,//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
+                            callback: function(value, index, values) {
+                                return value.toLocaleString(); // Formata os valores com separadores de milhares
+                            }
                         },
                         scaleLabel: {
                             display: true,
@@ -994,22 +1172,7 @@
                         }
                     }]
                 },
-                annotation: {
-                    annotations: [{
-                        type: 'line',
-                        mode: 'horizontal',
-                        scaleID: 'y-axis-0',
-                        value: 100000000, // Valor onde a linha será desenhada
-                        borderColor: 'red', // Cor da linha
-                        borderWidth: 2, // Largura da linha
-                        borderHeight: 20,
-                        borderDash: [5, 5], // Estilo de traço da linha
-                        label: {
-                            content: 'Limite: 100000000', // Rótulo da linha
-                            enabled: true // Se o rótulo deve ser exibido
-                        }
-                    }]
-                },
+
                 tooltips: {
                     displayColors: false,
                 }
@@ -1019,6 +1182,19 @@
 
 
         var ctx = document.getElementById("chart7").getContext('2d');
+
+        var max_data_value_rolling_stock = Math.max(
+            {{$rolling_stock_sales}},
+            {{$on_going_rolling_stock_sales}},
+            {{$paid_rolling_stock_sales}},
+            {{$profit_rolling_stock_sales}}
+        );
+
+        // Arredonde para cima para o próximo múltiplo de 20 milhões
+        var max_y_value_rolling_stock = Math.ceil(max_data_value_rolling_stock / 20000000) * 20000000;
+
+        // Defina um valor máximo para o eixo Y, mas apenas se for maior que 100 milhões
+        var y_max_rolling_stock = Math.max({{$rolling_stock_limit}}, max_y_value_rolling_stock);
 
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -1055,27 +1231,14 @@
                         ticks: {
                             beginAtZero: true,
                             stepSize: 20000000,
-                            max: 150000000// Define o tamanho do intervalo entre os ticks no eixo y
+                            max: y_max_rolling_stock,// Define o tamanho do intervalo entre os ticks no eixo y
+                            callback: function(value, index, values) {
+                                return value.toLocaleString(); // Formata os valores com separadores de milhares
+                            }
                         },
                         scaleLabel: {
                             display: true,
                             labelString: 'Valor'
-                        }
-                    }]
-                },
-                annotation: {
-                    annotations: [{
-                        type: 'line',
-                        mode: 'horizontal',
-                        scaleID: 'y-axis-0',
-                        value: 140000000, // Valor onde a linha será desenhada
-                        borderColor: 'red', // Cor da linha
-                        borderWidth: 4000, // Largura da linha
-                        borderHeight: 2,
-                        borderDash: [5, 5], // Estilo de traço da linha
-                        label: {
-                            content: 'Limite: 140000000', // Rótulo da linha
-                            enabled: true // Se o rótulo deve ser exibido
                         }
                     }]
                 },

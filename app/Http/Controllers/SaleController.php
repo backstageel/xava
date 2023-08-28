@@ -468,8 +468,13 @@ class SaleController extends Controller
 
 
             }
-            $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
-                $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
+            if ($sale->sale_status_id ==  SaleStatus::where('name', 'Facturado')->value('id')
+                || $sale->sale_status_id == SaleStatus::where('name', 'Pago')->value('id'))
+            {
+                $sale->profit = $sale->total_amount - $sale->purchase_price - $sale->transport_value-
+                    $sale->other_expenses - $sale->tax - $sale->intermediary_committee;
+            }
+
             $sale->debt_amount = $sale->total_amount - $sale->amount_received;
             $sale->save();
 

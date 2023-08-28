@@ -35,7 +35,7 @@
 
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('documents.create')}}" class="btn btn-primary">Carregar Documento</a>&nbsp;&nbsp;
+                <a href="{{route('documents.create', $path)}}" class="btn btn-primary">Carregar Documento</a>&nbsp;&nbsp;
             </div>
         </div>
     </div>

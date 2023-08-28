@@ -4,6 +4,8 @@
 @endsection
 
 @section("wrapper")
+
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
         <div class="col">
             <div class="card radius-10 border-start border-0 border-3 border-info">
@@ -71,9 +73,12 @@
         </div>
     </div><!--end row-->
 
+
+<br>
     <div class="row">
+
         <div class="col-12 col-lg-4">
-            <div class="card radius-10">
+            <div class="card radius-10 d-flex">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
@@ -87,7 +92,7 @@
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                        {{"Draft"}}
+                        {{"draft"}}
                         <span class="badge bg-success rounded-pill">{{$sales_by_month['Draft']->sum('count')}}</span>
                     </li>
                     <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
@@ -109,127 +114,60 @@
                 </ul>
             </div>
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="card radius-10 w-100">
-                <div class="card-header bg-transparent">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h6 class="mb-0">Objectivo das Vendas IT</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                                <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                <li class="dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
-                                    <ul id="options_computer_equipament" class="dropdown-menu" style="position: static;">
-                                        <li><a class="dropdown-item" href="#" id="current_year_computer_equipament">Ano Actual</a></li>
-                                        <li><a class="dropdown-item" href="#" id="last_year_computer_equipament">Ano Passado</a></li>
-                                    </ul>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container-1">
-                        <canvas id="chart4"></canvas>
-                    </div>
-                </div>
-                <div id="current_description_computer_equipament">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-pink rounded-pill">@money($computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-darkblue rounded-pill">@money($on_going_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lightblue rounded-pill">@money($paid_computer_equipament_sales)</span>
-                        </li>
 
-                    </ul>
-                </div>
-                <div id="last_description_computer_equipament" style="display: none">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-orange rounded-pill">@money($last_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-green rounded-pill">@money($last_on_going_computer_equipament_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lilaz rounded-pill">@money($last_paid_computer_equipament_sales)</span>
-                        </li>
-                    </ul>
+        <div class="col-12 col-lg-4">
+            <div class="col d-flex">
+                <div class="card radius-10 w-100">
+                    <div class="card-header bg-transparent">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">Equipamento Electrónico</h6>
+                                <br>
+                                <spam><strong>meta:</strong> @money($computer_equipament_limit)</spam>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container-0">
+                            <canvas id="chart6"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <br>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div><!--end row-->
+
         <div class="col-12 col-lg-4">
-            <div class="card radius-10 w-100">
-                <div class="card-header bg-transparent">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h6 class="mb-0">Objectivo das Vendas Meios Circulantes</h6>
-                        </div>
-                        <div class="dropdown ms-auto">
-                            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                                <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                <li class="dropdown">
-                                    <a class="dropdown-item dropdown-toggle" href="javascript:;">Escolher Ano</a>
-                                    <ul id="options_rolling_stock" class="dropdown-menu" style="position: static;">
-                                        <li><a class="dropdown-item" href="#" id="current_year_rolling_stock">Ano Actual</a></li>
-                                        <li><a class="dropdown-item" href="#" id="last_year_rolling_stock">Ano Passado</a></li>
-                                    </ul>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="javascript:;">Imprimir Relatório</a></li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                            </ul>
+            <div class="col d-flex">
+                <div class="card radius-10 w-100">
+                    <div class="card-header bg-transparent">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">Meios circulantes</h6>
+                                <br>
+                                <spam><strong>meta:</strong> @money($rolling_stock_limit)</spam>
+                                <br>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container-1">
-                        <canvas id="chart5"></canvas>
+                    <div class="card-body">
+                        <div class="chart-container-0">
+                            <br>
+                            <canvas id="chart7"></canvas>
+                        </div>
                     </div>
-                </div>
-                <div id="current_description_rolling_stock">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-pink rounded-pill">@money($rolling_stock_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-darkblue rounded-pill">@money($on_going_rolling_stock_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lightblue rounded-pill">@money($paid_rolling_stock_sales)</span>
-                        </li>
-
-                    </ul>
-                </div>
-                <div id="last_description_rolling_stock" style="display: none">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                            Geral <span class="badge bg-orange rounded-pill">@money($last_rolling_stock_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Em Execução
-                            <span class="badge bg-green rounded-pill">@money($last_on_going_rolling_stock_sales)</span>
-                        </li>
-                        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Pago
-                            <span class="badge bg-lilaz rounded-pill">@money($last_paid_rolling_stock_sales)</span>
-                        </li>
-
-                    </ul>
+                    <div>
+                        <br>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div><!--end row-->
     </div><!--end row-->
     <br>
     <br>
@@ -1061,6 +999,143 @@
         // Cria o gráfico inicialmente com os dados do ano corrente
         createChartCurrentRollingStock();
 
+        });
+
+        var ctx = document.getElementById("chart6").getContext('2d');
+
+        var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStroke1.addColorStop(0, '#f54ea2');
+        gradientStroke1.addColorStop(1, '#ff7676');
+
+        var gradientStroke2 = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStroke2.addColorStop(0, '#42e695');
+        gradientStroke2.addColorStop(1, '#3bb2b8');
+
+        var max_data_value_computer_equipament = Math.max(
+            {{$computer_equipament_sales}},
+            {{$on_going_computer_equipament_sales}},
+            {{$paid_computer_equipament_sales}},
+            {{$profit_computer_equipament_sales}}
+        );
+
+        // Arredonde para cima para o próximo múltiplo de 20 milhões
+        var max_y_value_computer_equipament = Math.ceil(max_data_value_computer_equipament / 20000000) * 20000000;
+
+        // Defina um valor máximo para o eixo Y, mas apenas se for maior que 100 milhões
+        var y_max_computer_equipament = Math.max({{$computer_equipament_limit}}, max_y_value_computer_equipament);
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Geral", "Facturado", "Pago", "Lucro"],
+                datasets: [{
+                    label: 'Valor',
+                    data: [{{$computer_equipament_sales}}, {{$on_going_computer_equipament_sales}},
+                        {{$paid_computer_equipament_sales}}, {{$profit_computer_equipament_sales}}],
+                    borderColor: gradientStroke1,
+                    backgroundColor: gradientStroke1,
+                    hoverBackgroundColor: gradientStroke1,
+                    pointRadius: 0,
+                    fill: false,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: { display: false },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        barPercentage: 0.5
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 20000000,
+                            max: y_max_computer_equipament,//maxValue + (maxValue * 0.1) // Defina uma margem de 10% acima do maior valor
+                            callback: function(value, index, values) {
+                                return value.toLocaleString(); // Formata os valores com separadores de milhares
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Valor'
+                        }
+                    }]
+                },
+
+                tooltips: {
+                    displayColors: false,
+                }
+            }
+        });
+
+
+
+        var ctx = document.getElementById("chart7").getContext('2d');
+
+        var max_data_value_rolling_stock = Math.max(
+            {{$rolling_stock_sales}},
+            {{$on_going_rolling_stock_sales}},
+            {{$paid_rolling_stock_sales}},
+            {{$profit_rolling_stock_sales}}
+        );
+
+        // Arredonde para cima para o próximo múltiplo de 20 milhões
+        var max_y_value_rolling_stock = Math.ceil(max_data_value_rolling_stock / 20000000) * 20000000;
+
+        // Defina um valor máximo para o eixo Y, mas apenas se for maior que 100 milhões
+        var y_max_rolling_stock = Math.max({{$rolling_stock_limit}}, max_y_value_rolling_stock);
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Geral", "Facturado", "Pago", "Lucro"],
+                datasets: [{
+                    label: 'Vendas',
+                    data: [{{$rolling_stock_sales}}, {{$on_going_rolling_stock_sales}},
+                        {{$paid_rolling_stock_sales}}, {{$profit_rolling_stock_sales}}],
+                    borderColor: gradientStroke2,
+                    backgroundColor: gradientStroke2,
+                    hoverBackgroundColor: gradientStroke2,
+                    pointRadius: 0,
+                    fill: false,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {display: false},
+
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    display: false,
+                    labels: {
+                        boxWidth: 8
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        barPercentage: .5
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 20000000,
+                            max: y_max_rolling_stock,// Define o tamanho do intervalo entre os ticks no eixo y
+                            callback: function(value, index, values) {
+                                return value.toLocaleString(); // Formata os valores com separadores de milhares
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Valor'
+                        }
+                    }]
+                },
+                tooltips: {
+                    displayColors: false,
+                }
+            }
         });
     </script>
 @endsection

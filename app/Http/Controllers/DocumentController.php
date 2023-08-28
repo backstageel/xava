@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Storage;
@@ -10,16 +12,29 @@ class DocumentController extends Controller
 {
 
 
-    public function index()
+//    public function index()
+//    {
+//        $documents = Storage::files('documents');
+//
+//
+//        return view('documents.index', compact('documents'));
+//    }
+    public function index($path)
     {
-        $documents = Storage::files('documents');
+        if ($path != 'IT' && $path != 'motas'){
+            $documents = Storage::files('documents/' . $path);
+            return view('documents.index', compact('documents', 'path'));
+        } else {
+                $documents = Storage::files('documents/actas/' . $path);
+                return view('documents.index', compact('documents', 'path'));
+        }
 
-        return view('documents.index', compact('documents'));
     }
 
-    public function create()
+    public function create($path)
     {
-        return view('documents.create');
+        $departments = Department::pluck('name', 'id');
+        return view('documents.create', compact('path', 'departments'));
     }
     public function viewDocument($filename)
     {
@@ -31,25 +46,40 @@ class DocumentController extends Controller
         }
     }
 
-    public function uploadDocument(DocumentRequest $request)
+
+
+    public function uploadDocument(Request $request)
     {
-        if ($request->hasFile('document')) {
-            $desiredName = $request->input('name'); // Nome desejado fornecido pelo usuário
-            $document = $request->file('document');
+        $path = $request->input('path');
+        $file = $request->file('document');
+        $file_name = $request->input('name'); // Nome desejado fornecido pelo usuário
+        $extension = $file->getClientOriginalExtension();
+        $new_file_name = $file_name . '.' . $extension;
 
-            $extension = $document->getClientOriginalExtension();
-            $newFileName = $desiredName . '.' . $extension; // Novo nome do arquivo
 
-            $document->storeAs('documents', $newFileName); // Salva o documento com o novo nome na pasta "documents" no storage
+        if ($path != 'motas' && $path != 'IT'){
+            $file->storeAs('documents/' . $path, $new_file_name);
+        } else {
 
-            // Resto do código para salvar os detalhes do documento no banco de dados, se necessário
 
-            flash('success', 'Documento carregado com sucesso')->success();
-            return redirect()->route('documents.index');
+                $file->storeAs('documents/actas/' . $path , $new_file_name);
 
         }
 
-        return redirect()->back()->with('error', 'Erro ao carregar o documento.');
+        // Criar um novo registro de documento no banco de dados
+        $document = new Document();
+        $document->name = $new_file_name;
+        $document->path = $path;
+
+        if ($path == 'motas' || $path == 'IT') {
+            $department = $request->input('department_id');
+            $document->department_id = $department;
+            $document->meeting_date = $request->input('meeting_date');
+        }
+        $document->save();
+
+        flash('success', 'Documento carregado com sucesso')->success();
+            return redirect()->route('documents.index', $path);
     }
 
 

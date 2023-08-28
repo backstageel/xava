@@ -37,8 +37,26 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="name" label="Nome do documento" required/>
                                         </div>
+                                        <div class="col-2" style="display:none">
+                                            <x-bootstrap::form.input name="path" label="path"
+                                                                     :value="$path"/>
+                                        </div>
 
                                     </div>
+                                    @if($path == 'IT' || $path == 'motas')
+                                        <div class="row">
+
+                                            <div class="col-4">
+                                                <x-bootstrap::form.select name="department_id" label="Departamento"
+                                                                          :options="$departments"/>
+                                            </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.date-picker name="meeting_date" label="Data da Acta" required/>
+                                            </div>
+
+
+                                        </div>
+                                    @endif
 
                                     <div class="row float-end">
                                         <div class="col-12">
