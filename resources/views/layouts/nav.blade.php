@@ -57,8 +57,8 @@
                 </li>
                 <li>
                     <a href="#" class="has-arrow">
-                        <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
-                        <div class="menu-title">Actas</div>
+                        <div class="parent-icon"><i ></i></div>
+                        <div class=" bx bx-right-arrow-alt ">Actas</div>
                     </a>
                     <ul>
                         <li>
