@@ -123,7 +123,7 @@
                             <div>
                                 <h6 class="mb-0">Equipamento Electrónico</h6>
                                 <br>
-                                <spam><strong>meta:</strong> @money($computer_equipament_limit)</spam>
+                                <spam><strong>meta:</strong>100.000.000,00 MT</spam>
                                 <br>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                             <div>
                                 <h6 class="mb-0">Meios circulantes</h6>
                                 <br>
-                                <spam><strong>meta:</strong> @money($rolling_stock_limit)</spam>
+                                <spam><strong>meta:</strong>140.000.000,00 MT</spam>
                                 <br>
                             </div>
 
@@ -205,9 +205,9 @@
                                 <td>{{$sale->customer_name}}</td>
                                 <td>{{$sale->notes}}</td>
                                 <td>{{$sale->saleStatus->name}}</td>
-                                <td>{{$sale->total_amount}}</td>
-                                <td>{{$sale->amount_received}}</td>
-                                <td>{{$sale->debt_amount}} </td>
+                                <td>@money($sale->total_amount)</td>
+                                <td>@money($sale->amount_received)</td>
+                                <td>@money($sale->debt_amount)</td>
                                 <td>
                                     <a href="{{route('sales.show', $sale)}}"> mostrar detalhes </a>
                                 </td>
@@ -222,6 +222,7 @@
             </div>
         </div>
     </div>
+
 
 
 

@@ -346,7 +346,7 @@
                                 <div>
                                     <h6 class="mb-0">Equipamento Electrónico</h6>
                                     <br>
-                                    <spam><strong>meta:</strong> @money($computer_equipament_limit)</spam>
+                                    <spam><strong>meta:</strong>100.000.000,00 MT</spam>
                                     <br>
                                 </div>
 {{--                                <div class="dropdown ms-auto">--}}
@@ -397,7 +397,7 @@
                                 <div>
                                     <h6 class="mb-0">Meios circulantes</h6>
                                     <br>
-                                    <spam><strong>meta:</strong> @money($rolling_stock_limit)</spam>
+                                    <spam><strong>meta:</strong>140.000.000,00 MT</spam>
                                     <br>
                                 </div>
 
@@ -1214,7 +1214,6 @@
             },
             options: {
                 legend: {display: false},
-
                 maintainAspectRatio: false,
                 legend: {
                     position: 'bottom',

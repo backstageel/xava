@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class SaleController extends Controller
 {
     public function index()
@@ -167,9 +168,6 @@ class SaleController extends Controller
 
         $computer_equipament_limit = 100000000.00;
         $rolling_stock_limit = 140000000.00;
-
-
-
 
 
         return view('sales.index', compact('sales',  'computer_equipament_sales', 'on_going_computer_equipament_sales',
@@ -323,6 +321,7 @@ class SaleController extends Controller
                     $sale->tax = 0;
                 }
                 $sale->debt_amount = 0;
+                $sale->profit = 0;
 
                 try {
                     $sale->save();
