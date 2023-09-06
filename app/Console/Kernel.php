@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
             $users=User::where('id','>',1)->get();
             //foreach ($users as $user) {
 //                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0) {
-                    Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions' => $competitions], $user->name));
+                    Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
 //                }
            // }
 
@@ -58,12 +58,12 @@ class Kernel extends ConsoleKernel
 //                    if (strcasecmp($user->email, 'zmussa@xava.co.mz') === 0
 //                        || strcasecmp($user->email, 'etsamba@xava.co.mz') === 0
 //                        || strcasecmp($user->email, 'smacamo@xava.co.mz') === 0) {
-                        Mail::to('isaias.naftal.manjate@gmail.com')->send(new saleMail(['sales' => $sales], $user->name));
+                        Mail::to('isaias.naftal.manjate@gmail.com')->send(new saleMail(['sales' => $sales], 'Isaias Manjate'));
                   //  }
                // }
 
             }
-        })->mondays()->daily();
+        })->everyTenMinutes()->daily();
 
     }
 
