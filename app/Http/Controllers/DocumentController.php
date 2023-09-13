@@ -30,9 +30,14 @@ class DocumentController extends Controller
         $departments = Department::pluck('name', 'id');
         return view('documents.create', compact('path', 'departments'));
     }
-    public function viewDocument($filename)
+    public function viewDocument($filename, $path)
     {
-        $filePath = storage_path('app/documents/' . $filename);
+        if ($path != 'IT' && $path != 'motas'){
+            $filePath = storage_path('app/documents/'.$path. '/' . $filename);
+        } else {
+            $filePath = storage_path('app/documents/actas'.$path. '/' . $filename);
+        }
+
         if (file_exists($filePath)) {
             return response()->file($filePath);
         } else {

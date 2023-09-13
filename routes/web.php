@@ -54,10 +54,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/expense_requests/{expenseRequest}/accountingStatus', [\App\Http\Controllers\ExpenseRequestController::class, 'accountingStatus'])->name('expense_requests.accountingStatus');
     Route::post('/expense_requests/{expenseRequest}/confirm', [\App\Http\Controllers\ExpenseRequestController::class, 'confirm'])->name('expense_requests.confirm');
     Route::resource('card_loads',\App\Http\Controllers\CardLoadController::class);
-    Route::get('/view-document/{filename}', [\App\Http\Controllers\DocumentController::class, 'viewDocument'])->name('documents.view');
+    Route::get('/view-document/{filename}/{path}', [\App\Http\Controllers\DocumentController::class, 'viewDocument'])->name('documents.view');
     Route::post('/documents/upload', [\App\Http\Controllers\DocumentController::class, 'uploadDocument'])->name('documents.upload');
     Route::get('/documents/index/{path}', [\App\Http\Controllers\DocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/create/{path}', [\App\Http\Controllers\DocumentController::class, 'create'])->name('documents.create');
+    Route::resource('vacations', \App\Http\Controllers\VacationController::class);
+    Route::get('/vacation/myVacation', [\App\Http\Controllers\VacationController::class, 'myVacation'])->name('vacation.myVacation');
+    Route::post('/vacations/{vacation}/approve', [\App\Http\Controllers\VacationController::class, 'approve'])->name('vacations.approve');
+    Route::post('/vacations/{vacation}/reject', [\App\Http\Controllers\VacationController::class, 'reject'])->name('vacations.reject');
+    Route::post('/vacations/{vacation}/cancel', [\App\Http\Controllers\VacationController::class, 'cancel'])->name('vacations.cancel');
 
 
 

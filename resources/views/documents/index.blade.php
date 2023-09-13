@@ -46,7 +46,7 @@
                 <img class="card-img-top" src="/assets/images/icons/pdf.png" alt=" ">
                 <div class="card-body">
                     <h6 class="card-title"> {{basename($document) }}</h6>
-                    <a href="{{route('documents.view', ['filename' => basename($document)]) }}"
+                    <a href="{{route('documents.view', ['filename' => basename($document), 'path' =>$path])}}"
                        class="btn btn-primary" target="_blank">Visualizar PDF</a>
                 </div>
             </div>

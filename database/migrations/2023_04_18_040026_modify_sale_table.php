@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::table('sales', function (Blueprint $table){
 
-
-
             $table->string('receipt_id')->nullable();
             $table->double('amount_received')->nullable();
             $table->double('transport_value')->nullable();
@@ -28,11 +26,6 @@ return new class extends Migration
             $table->double('profit')->nullable();
             $table->double('debt_amount')->nullable();
             $table->string('sale_ref')->nullable()->change();
-
-
-
-
-
     });
     }
 

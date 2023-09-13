@@ -177,10 +177,10 @@ class ExpenseRequestController extends Controller
 
         $expenseRequest->update(['approval_status_id' => $newApprovalStatusId,'approved_by_user_id'=>Auth::user()->id]);
 
-
         flash('Requisição Aprovado com sucesso')->success();
         return redirect()->route('expense_requests.index');
     }
+
     public function confirm(ExpenseRequest $expenseRequest)
     {
         $lastBalance = CardLoad::latest()->first();
