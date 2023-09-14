@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/vacations/{vacation}/approve', [\App\Http\Controllers\VacationController::class, 'approve'])->name('vacations.approve');
     Route::post('/vacations/{vacation}/reject', [\App\Http\Controllers\VacationController::class, 'reject'])->name('vacations.reject');
     Route::post('/vacations/{vacation}/cancel', [\App\Http\Controllers\VacationController::class, 'cancel'])->name('vacations.cancel');
-    Route::get('/forgot_the_password', 'PasswordResetLinkController@create')->name('password.request');
+   
 
 
 
