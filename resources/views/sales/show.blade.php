@@ -16,6 +16,11 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
+                <form action="{{ route('sales.destroy', $sale) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta venda?')">Remover</button>
+                </form>
                         <a href="{{route('sales.edit', $sale)}}" class="btn btn-primary">Editar</a>
             </div>
         </div>

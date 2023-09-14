@@ -367,9 +367,16 @@ class CompetitionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Competition $competition)
     {
-
+        try {
+            $competition->delete();
+            flash('Concurso removido com sucesso')->success();
+            return redirect()->route('competitions.index');
+        } catch (\Exception $exception) {
+            flash('Erro ao Deletar Concurso: ' . $exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
     }
 
     public function export()

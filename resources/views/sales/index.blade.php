@@ -752,14 +752,14 @@
                             <td>{{$sale->sale_ref}}</td>
                             <td>{{$sale->saleStatus->name}}</td>
                             <td>@money($sale->total_amount)</td>
-                            <td>{{$sale->purchase_price}}</td>
+                            <td>@money($sale->purchase_price)</td>
                             <td>{{$sale->invoice_id}} </td>
                             <td>{{$sale->payment_method}}</td>
                             <td>@money($sale->amount_received)</td>
                             <td>{{$sale->receipt_id}}</td>
                             <td>@money($sale->transport_value) </td>
                             <td>@money($sale->intermediary_committee) </td>
-                            <td>@money($sale->tax)}</td>
+                            <td>@money($sale->tax)</td>
                             <td>@money($sale->other_expenses) </td>
                             <td>@money($sale->debt_amount) </td>
                             <td>{{$sale->payment_date}} </td>

@@ -11,10 +11,11 @@ use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Province;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomersController extends Controller
 {
-
+    use SoftDeletes;
 
     public function index()
     {
@@ -23,9 +24,7 @@ class CustomersController extends Controller
         return view('customers.index', compact('customers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $countries = Country::pluck('name', 'id');
@@ -130,11 +129,18 @@ class CustomersController extends Controller
         return view('customers.show', compact('customer'));
     }
 
-    public function destroy($id)
+    public function destroy(Customer $customer)
     {
-        Customer::destroy($id);
-        flash('Cliente removido com sucesso')->success();
-        return redirect()->route('customers.index');
+
+        try {
+            $customer->delete();
+            flash('Cliente removido com sucesso')->success();
+            return redirect()->route('customers.index');
+        } catch (\Exception $exception) {
+            flash('Erro ao Deletar Cliente: ' . $exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
+
     }
 }
 

@@ -19,10 +19,12 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SaleController extends Controller
 {
+
+    use SoftDeletes;
     public function index()
     {
         $sales = Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
@@ -322,6 +324,7 @@ class SaleController extends Controller
                 }
                 $sale->debt_amount = 0;
                 $sale->profit = 0;
+                $sale->purchase_price = 0;
 
                 try {
                     $sale->save();
@@ -482,9 +485,16 @@ class SaleController extends Controller
     }
 
 
-    public function destroy(string $id)
+    public function destroy(Sale $sale)
     {
-        //
+        try {
+            $sale->delete();
+            flash('Venda removida com sucesso')->success();
+            return redirect()->route('sales.index');
+        } catch (\Exception $exception) {
+            flash('Erro ao Deletar Venda: ' . $exception->getMessage())->error();
+            return redirect()->back()->withInput();
+        }
     }
 
     public function export(SaleRequest $request)

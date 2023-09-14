@@ -48,6 +48,9 @@
                                                         class='bx bx-hide'></i></a>
                                             </div>
                                         </div>
+{{--                                        <div class="col-12">--}}
+{{--                                            <a href="{{ route('password.request') }}">Esqueci minha senha</a>--}}
+{{--                                        </div>--}}
                                         <div class="col-12">
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-primary"><i

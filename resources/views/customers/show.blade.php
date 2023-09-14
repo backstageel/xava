@@ -16,8 +16,15 @@
 
         <div class="ms-auto">
             <div class="btn-group">
+
+                <form action="{{ route('customers.destroy', $customer) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Remover</button>
+                </form>
+
                 <a href="{{route('customers.edit', $customer)}}" class="btn btn-primary">Editar</a>
-                <a href="{{route('customers.destroy', $customer)}}" class="btn btn-primary">Remover</a>
+
                 <a href="{{route('customers.create')}}" class="btn btn-primary">Adicionar</a>
                 @php
                     $province = \App\Models\Province::find($customer->customerable->address_province_id);
