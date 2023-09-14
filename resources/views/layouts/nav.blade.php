@@ -210,35 +210,54 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{route('expense_requests.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Requisição de Despesas
+                    <a href="#" class="has-arrow">
+{{--                        <div class="parent-icon"><i class="bx bx-repeat"></i>--}}
+{{--                        </div>--}}
+                        <div class="menu-title">Requisições</div>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('expense_requests.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Requisição de Despesas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('expense_request.myRequest')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Minhas Requisições
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('card_loads.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Recarregar Caixa
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="{{route('expense_request.myRequest')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Minhas Requisições
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('card_loads.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Recarregar Caixa
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('vacations.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Mapa de Férias
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('vacation.myVacation')}}">
 
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Minhas Férias
+                <li>
+                    <a href="#" class="has-arrow">
+{{--                        <div class="parent-icon"><i class="bx bx-repeat"></i>--}}
+{{--                        </div>--}}
+                        <div class="menu-title">Férias</div>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('vacations.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Mapa de Férias
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('vacation.myVacation')}}">
+
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Minhas Férias
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>

@@ -54,8 +54,9 @@ class VacationController extends Controller
     public function create()
     {
         $this->user_id = Auth::user()->id;
+
         $vacations_days = Vacation::where('user_id', $this->user_id)
-                            ->whereIn('status_id', '!=', ['Rejeitado', 'Cancelado'])
+            ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
                             ->sum('number_of_days');
         if ($vacations_days >= 11){
             flash('Excedeu o numero máximo de 11 dias de Pedido de Férias ')->error();
@@ -105,8 +106,8 @@ class VacationController extends Controller
 
         $this->user_id = Auth::user()->id;
         $vacation_days = Vacation::where('user_id', $this->user_id)
-                            ->whereIn('status_id', '!=', ['Rejeitado', 'Cancelado'])
-                            ->sum('number_of_days');
+            ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+            ->sum('number_of_days');
         $vacations_days = $vacation_days + $vacation->number_of_days;
         try{
             if ($vacations_days > 11) {
