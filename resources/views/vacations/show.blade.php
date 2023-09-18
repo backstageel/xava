@@ -23,7 +23,6 @@
         $userID = Auth::user()->id;
         $personID = \App\Models\Person::where('user_id',$userID)->value('id');
         $employee_position_id = \App\Models\Employee::where('person_id',$personID)->value('employee_position_id');
-        $accounting_statuses=\App\Models\AccountingStatus::get();
     @endphp
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Férias</div>

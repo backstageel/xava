@@ -7,6 +7,7 @@ use App\Exports\SaleExport;
 use App\Exports\ObjectivesSaleITExport;
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\Person;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -15,6 +16,7 @@ use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sale;
@@ -25,6 +27,8 @@ class SaleController extends Controller
 {
 
     use SoftDeletes;
+    private $user_id, $person_id, $employee_position_id;
+
     public function index()
     {
         $sales = Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
@@ -487,12 +491,23 @@ class SaleController extends Controller
 
     public function destroy(Sale $sale)
     {
-        try {
-            $sale->delete();
-            flash('Venda removida com sucesso')->success();
-            return redirect()->route('sales.index');
-        } catch (\Exception $exception) {
-            flash('Erro ao Deletar Venda: ' . $exception->getMessage())->error();
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+
+        if($this->user_id==1 || $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
+
+            try {
+                $sale->delete();
+                flash('Venda removida com sucesso')->success();
+                return redirect()->route('sales.index');
+            } catch (\Exception $exception) {
+                flash('Erro ao Deletar Venda: ' . $exception->getMessage())->error();
+                return redirect()->back()->withInput();
+            }
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+            Por favor, entre em contato com o administrador para obter assistência.')->error();
             return redirect()->back()->withInput();
         }
     }

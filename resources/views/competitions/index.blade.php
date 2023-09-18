@@ -136,7 +136,7 @@
                                 <td>{{$competition->competitionResult->name?? ''}}</td>
                                 <td>{{$competition->proposal_delivery_date}}</td>
                                 <td>
-                                    <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
+                                    <a href="{{route('competitions.edit', $competition)}}"> Editar </a>
                                 </td>
 
                             </tr>
@@ -293,7 +293,7 @@
                             <td>{{$competition->technical_proposal_review}}</td>
                             <td>{{$competition->documentary_review}}</td>
                             <td>
-                                <a href="{{route('competitions.edit',$competition)}}"> Editar </a>
+                                <a href="{{route('competitions.show',$competition)}}"> Editar </a>
                             </td>
 
                         </tr>

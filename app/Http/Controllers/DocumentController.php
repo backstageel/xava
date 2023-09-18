@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Document;
+use App\Models\Employee;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
 
-
+    private $user_id, $person_id, $employee_position_id;
 
     public function index($path)
     {
@@ -20,22 +23,32 @@ class DocumentController extends Controller
             return view('documents.index', compact('documents', 'path'));
         } else {
                 $documents = Storage::files('documents/actas/' . $path);
-                return view('documents.index', compact('documents', 'path'));
+                $documents_in_table = Document::where('path', $path)->get();
+                return view('documents.index', compact('documents', 'documents_in_table', 'path'));
         }
 
     }
 
     public function create($path)
     {
-        $departments = Department::pluck('name', 'id');
-        return view('documents.create', compact('path', 'departments'));
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+            $departments = Department::pluck('name', 'id');
+            return view('documents.create', compact('path', 'departments'));
+        } else {
+            flash('Não tem acesso para adicionar documentos')->error();
+            return redirect()->back()->withInput();
+        }
     }
     public function viewDocument($filename, $path)
     {
         if ($path != 'IT' && $path != 'motas'){
             $filePath = storage_path('app/documents/'.$path. '/' . $filename);
         } else {
-            $filePath = storage_path('app/documents/actas'.$path. '/' . $filename);
+            $filePath = storage_path('app/documents/actas/'.$path. '/' . $filename);
         }
 
         if (file_exists($filePath)) {

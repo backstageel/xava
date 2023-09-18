@@ -32,7 +32,7 @@
                                     <div class="row">
                                         <div class="col-5">
                                             <x-bootstrap::form.input name="document" label="Documento a carregar"
-                                                                     type="file" accept="application/pdf" required/>
+                                                                     type="file"  required/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="name" label="Nome do documento" required/>

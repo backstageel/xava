@@ -13,9 +13,11 @@ use App\Models\EmployeeContractType;
 use App\Models\EmployeePosition;
 use App\Models\Gender;
 use App\Models\IdentityDocumentType;
+use App\Models\Person;
 use App\Models\PersonPrefix;
 use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class EmployeesController extends Controller
@@ -86,9 +88,6 @@ class EmployeesController extends Controller
             flash($e->getMessage())->error();
             return back()->withInput();
         }
-        //
-
-
     }
 
     /**
@@ -106,36 +105,70 @@ class EmployeesController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $genders = Gender::pluck('name', 'id');
-        $civilStates = CivilState::pluck('name', 'id');
-        $countries = Country::pluck('name', 'id');
-        $provinces = Province::pluck('name', 'id');
-        $districts = District::pluck('name', 'id');
-        $identityDocumentTypes = IdentityDocumentType::pluck('name', 'id');
-        $departments = Department::pluck('name', 'id');
-        $employeePositions = EmployeePosition::pluck('name', 'id');
-        $contractTypes = EmployeeContractType::pluck('name', 'id');
-        $personPrefixes = PersonPrefix::pluck('code', 'id');
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
-        return view('employees.edit',compact( 'employee','genders',
-            'civilStates',
-            'countries',
-            'provinces',
-            'districts',
-            'identityDocumentTypes',
-            'departments',
-            'employeePositions',
-            'contractTypes',
-            'personPrefixes'));
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+            $genders = Gender::pluck('name', 'id');
+            $civilStates = CivilState::pluck('name', 'id');
+            $countries = Country::pluck('name', 'id');
+            $provinces = Province::pluck('name', 'id');
+            $districts = District::pluck('name', 'id');
+            $identityDocumentTypes = IdentityDocumentType::pluck('name', 'id');
+            $departments = Department::pluck('name', 'id');
+            $employeePositions = EmployeePosition::pluck('name', 'id');
+            $contractTypes = EmployeeContractType::pluck('name', 'id');
+            $personPrefixes = PersonPrefix::pluck('code', 'id');
+
+            return view('employees.edit', compact('employee', 'genders',
+                'civilStates',
+                'countries',
+                'provinces',
+                'districts',
+                'identityDocumentTypes',
+                'departments',
+                'employeePositions',
+                'contractTypes',
+                'personPrefixes'));
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+             Por favor, entre em contato com o administrador para obter assistência.')->error();
+            return redirect()->back()->withInput();
+
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+        public function update(EditEmployeeRequest $request, $employeeId, EditEmployeeAction $editEmployee)
     {
-        //
+        $employee = Employee::find($employeeId);
+
+        if (!$employee) {
+            abort(404); // Colaborador não encontrado
+        }
+
+        $imagePath = null;
+        $extension = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/profile_pictures');
+            $extension = $request->file('image')->getClientOriginalExtension();
+        }
+
+        try {
+            $editEmployee->execute($request->all(), $employee, $imagePath, $extension);
+            flash('Colaborador atualizado com sucesso')->success();
+            return redirect()->route('employees.show', ['employee' => $employee->id]);
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
+            return back()->withInput();
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

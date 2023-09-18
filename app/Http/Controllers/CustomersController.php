@@ -7,15 +7,18 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\District;
+use App\Models\Employee;
 use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Province;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class CustomersController extends Controller
 {
     use SoftDeletes;
+    private $user_id, $person_id, $employee_position_id;
 
     public function index()
     {
@@ -132,15 +135,26 @@ class CustomersController extends Controller
     public function destroy(Customer $customer)
     {
 
-        try {
-            $customer->delete();
-            flash('Cliente removido com sucesso')->success();
-            return redirect()->route('customers.index');
-        } catch (\Exception $exception) {
-            flash('Erro ao Deletar Cliente: ' . $exception->getMessage())->error();
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1
+           || $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
+
+            try {
+                $customer->delete();
+                flash('Cliente removido com sucesso')->success();
+                return redirect()->route('customers.index');
+            } catch (\Exception $exception) {
+                flash('Erro ao Deletar Cliente: ' . $exception->getMessage())->error();
+                return redirect()->back()->withInput();
+            }
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+            Por favor, entre em contato com o administrador para obter assistência.')->error();
             return redirect()->back()->withInput();
         }
-
     }
 }
 

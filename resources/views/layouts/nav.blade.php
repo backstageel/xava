@@ -128,6 +128,29 @@
         <li>
             <a href="#" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
+                <div class="menu-title">Clientes</div>
+            </a>
+            <ul>
+
+                <li>
+                    <a href="{{route('customers.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Clientes Comerciais
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('contacts.index')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Lista de Consultores
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i></div>
                 <div class="menu-title">Concursos</div>
             </a>
             <ul>
@@ -145,13 +168,6 @@
                         SubCategoria de Industria de Concursos
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('contacts.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Lista de Contactos
-                    </a>
-                </li>
-
             </ul>
         </li>
 
@@ -165,12 +181,6 @@
                 <div class="menu-title">Vendas</div>
             </a>
             <ul>
-                <li>
-                    <a href="{{route('customers.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Clientes
-                    </a>
-                </li>
                 <li>
                     <a href="{{route('suppliers.index')}}">
                         <i class="bx bx-right-arrow-alt"></i>

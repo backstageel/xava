@@ -20,7 +20,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
             $card_loads = CardLoad::paginate(1000);
             $lastBalance = CardLoad::latest()->first()->balance;
             return view('card_loads.index', compact('card_loads','lastBalance'));
@@ -39,7 +39,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
             return view('card_loads.create');
         }
     }
@@ -80,7 +80,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
             return view('card_loads.edit', compact('cardLoad'));
         }
     }

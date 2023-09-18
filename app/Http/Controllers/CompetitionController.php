@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\CompetitionExport;
 use App\Http\Requests\CompetitionRequest;
 use App\Models\Company;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use App\Models\CompanyType;
 use App\Models\Competition;
@@ -24,6 +26,8 @@ use Illuminate\Support\Carbon;
 
 class CompetitionController extends Controller
 {
+    private $user_id, $person_id, $employee_position_id;
+
     /**
      * Display a listing of the resource.
      */
@@ -53,61 +57,69 @@ class CompetitionController extends Controller
      */
     public function create()
     {
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+            $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
+            $productsubcategory = ProductSubCategory::orderBy('name')->get();
+            $competitionResult = CompetitionResult::orderBy('name')->pluck('name', 'id');
+            $companies = Company::orderBy('name')->pluck('name', 'id');
+            $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
 
 
-        $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
-        $productsubcategory = ProductSubCategory::orderBy('name')->get();
-        $competitionResult=CompetitionResult::orderBy('name')->pluck('name','id');
-        $companies = Company::orderBy('name')->pluck('name', 'id');
-        $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
+            $minId = 35; // ID minimo nao desejado
+            $competitionReasons = CompetitionReason::where(function ($query) use ($minId) {
+                $query->Where('id', '>', $minId);
+            })->orderBy('name')->pluck('name', 'id');
 
+            $minId = 32; // ID mínimo  nao desejado
 
-        $minId = 35; // ID minimo nao desejado
-        $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
-            $query->Where('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
-
-        $minId = 32; // ID mínimo  nao desejado
-
-        $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
-            $query->
+            $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
+                $query->
                 Where('id', '>', $minId);
-        })->orderBy('id')->pluck('name','id');
+            })->orderBy('id')->pluck('name', 'id');
 
-        $ids = [1,2,3,4,5,9]; // Lista de IDs desejados
-        $minId = 9; // ID mínimo nao  desejado
+            $ids = [1, 2, 3, 4, 5, 9]; // Lista de IDs desejados
+            $minId = 9; // ID mínimo nao  desejado
 
-        $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
+            $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
+                $query->whereIn('id', $ids)
+                    ->orWhere('id', '>', $minId);
+            })->orderBy('name')->pluck('name', 'id');
 
-        $ids = [11,3]; // Lista de IDs desejados
-        $minId = 33; // ID mínimo  nao desejado
+            $ids = [11, 3]; // Lista de IDs desejados
+            $minId = 33; // ID mínimo  nao desejado
 
-        $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
-        })->orderBy('name')->get();
-
-
-
-        return view(
-            'competitions.create',
-            compact(
-                'competitionTypes',
-                'companyTypes',
-                'companies',
-                'competitionReasons',
-                'employees',
-                'competitionStatuses',
-                'productCategories',
-                'competitionResult',
-                'productsubcategory',
+            $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
+                $query->whereIn('id', $ids)
+                    ->orWhere('id', '>', $minId);
+            })->orderBy('name')->get();
 
 
-            )
-        );
+            return view(
+                'competitions.create',
+                compact(
+                    'competitionTypes',
+                    'companyTypes',
+                    'companies',
+                    'competitionReasons',
+                    'employees',
+                    'competitionStatuses',
+                    'productCategories',
+                    'competitionResult',
+                    'productsubcategory',
+
+
+                )
+            );
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+            Por favor, entre em contato com o administrador para obter assistência.')->error();
+            return redirect()->back()->withInput();
+
+        }
     }
 
     /**
@@ -187,8 +199,9 @@ class CompetitionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Competition $competition)
     {
+        return view('competitions.show', compact('competition'));
     }
 
     /**
@@ -196,68 +209,79 @@ class CompetitionController extends Controller
      */
     public function edit(Competition $competition)
     {
-        $selectedCategories = $competition->productCategory->pluck('id')->toArray();
-        $selectedSubCategories = [];
-        foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get() as $subcategory){
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
-            $selectedSubCategories[] = $subcategory->product_sub_category_id;
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+            $selectedCategories = $competition->productCategory->pluck('id')->toArray();
+            $selectedSubCategories = [];
+            foreach (\App\Models\ProductCategorySubCategory::where('competition_id', $competition->id)->get() as $subcategory) {
 
+                $selectedSubCategories[] = $subcategory->product_sub_category_id;
+
+
+            }
+            $ids = [11, 3]; // Lista de IDs desejados
+            $minId = 33; // ID mínimo desejado
+
+
+            $productsubcategory = ProductSubCategory::orderBy('name')->get();
+
+            $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
+                $query->whereIn('id', $ids)
+                    ->orWhere('id', '>', $minId);
+            })->orderBy('name')->pluck('name', 'id')->toArray();
+            $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
+
+
+            $minId = 35; // ID minimo nao desejado
+            $competitionReasons = CompetitionReason::where(function ($query) use ($minId) {
+                $query->Where('id', '>', $minId);
+            })->orderBy('name')->pluck('name', 'id');
+
+            $minId = 32; // ID mínimo  nao desejado
+
+            $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
+                $query->
+                Where('id', '>', $minId);
+            })->orderBy('id')->pluck('name', 'id');
+
+            $ids = [1, 2, 3, 4, 5, 9]; // Lista de IDs desejados
+            $minId = 9; // ID mínimo nao  desejado
+
+            $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
+                $query->whereIn('id', $ids)
+                    ->orWhere('id', '>', $minId);
+            })->orderBy('name')->pluck('name', 'id');
+
+            $companies = Company::orderBy('name')->pluck('name', 'id');
+            $competitionResult = CompetitionResult::orderBy('id')->pluck('name', 'id');
+            $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
+            $competition = Competition::where('id', $competition->id)->first();
+
+            return view(
+                'competitions.edit',
+                compact(
+                    'competition', 'competitionTypes',
+                    'companyTypes',
+                    'companies',
+                    'competitionReasons',
+                    'employees',
+                    'competitionStatuses',
+                    'productCategories',
+                    'competitionResult',
+                    'productsubcategory',
+                    'selectedCategories',
+                    'selectedSubCategories'
+                )
+            );
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+             Por favor, entre em contato com o administrador para obter assistência.')->error();
+            return redirect()->back()->withInput();
 
         }
-        $ids = [11,3]; // Lista de IDs desejados
-        $minId = 33; // ID mínimo desejado
-
-
-        $productsubcategory = ProductSubCategory::orderBy('name')->get();
-
-        $productCategories = ProductCategory::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
-        })->orderBy('name')->pluck('name', 'id')->toArray();
-        $employees = Person::whereNotNull('user_id')->pluck('first_name', 'id');
-
-
-        $minId = 35; // ID minimo nao desejado
-        $competitionReasons = CompetitionReason::where(function ($query) use ( $minId) {
-            $query->Where('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
-
-        $minId = 32; // ID mínimo  nao desejado
-
-        $competitionStatuses = CompetitionStatus::where(function ($query) use ($minId) {
-            $query->
-            Where('id', '>', $minId);
-        })->orderBy('id')->pluck('name','id');
-
-        $ids = [1,2,3,4,5,9]; // Lista de IDs desejados
-        $minId = 9; // ID mínimo nao  desejado
-
-        $competitionTypes = CompetitionType::where(function ($query) use ($ids, $minId) {
-            $query->whereIn('id', $ids)
-                ->orWhere('id', '>', $minId);
-        })->orderBy('name')->pluck('name','id');
-
-        $companies = Company::orderBy('name')->pluck('name', 'id');
-        $competitionResult=CompetitionResult::orderBy('id')->pluck('name','id');
-        $companyTypes = CompanyType::orderBy('name')->pluck('name', 'id');
-        $competition=Competition::where('id',$competition->id)->first();
-
-        return view(
-            'competitions.edit',
-            compact(
-                'competition','competitionTypes',
-                'companyTypes',
-                'companies',
-                'competitionReasons',
-                'employees',
-                'competitionStatuses',
-                'productCategories',
-                'competitionResult',
-                'productsubcategory',
-                'selectedCategories',
-                'selectedSubCategories'
-            )
-        );
     }
 
     /**
@@ -369,14 +393,27 @@ class CompetitionController extends Controller
      */
     public function destroy(Competition $competition)
     {
-        try {
-            $competition->delete();
-            flash('Concurso removido com sucesso')->success();
-            return redirect()->route('competitions.index');
-        } catch (\Exception $exception) {
-            flash('Erro ao Deletar Concurso: ' . $exception->getMessage())->error();
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+
+            try {
+                $competition->delete();
+                flash('Concurso removido com sucesso')->success();
+                return redirect()->route('competitions.index');
+            } catch (\Exception $exception) {
+                flash('Erro ao Deletar Concurso: ' . $exception->getMessage())->error();
+                return redirect()->back()->withInput();
+            }
+        } else {
+            flash('Desculpe, você não tem permissão para realizar esta ação.
+            Por favor, entre em contato com o administrador para obter assistência.')->error();
             return redirect()->back()->withInput();
+
         }
+
     }
 
     public function export()

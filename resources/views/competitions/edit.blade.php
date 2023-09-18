@@ -9,6 +9,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 @endsection
 @section("wrapper")
+    @php
+        $userID = Auth::user()->id;
+        $personID = \App\Models\Person::where('user_id',$userID)->value('id');
+        $employee_position_id = \App\Models\Employee::where('person_id',$personID)->value('employee_position_id');
+    @endphp
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Concursos</div>
         <div class="ps-3">
@@ -20,11 +25,14 @@
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
+        @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
+                                   || $userID == 1)
+            <div class="ms-auto">
+                <div class="btn-group">
+                    <a href="{{route('competitions.create')}}" class="btn btn-primary">Adicionar</a>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">

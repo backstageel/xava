@@ -14,7 +14,12 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('employees.edit',$employee->id)}}" class="btn btn-primary">Editar</a>
+{{--                <form action="{{ route('employee.destroy', $employee) }}" method="POST">--}}
+{{--                    @csrf--}}
+{{--                    @method('DELETE')--}}
+{{--                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este colaborador?')">Remover</button>--}}
+{{--                </form>--}}
+                <a href="{{route('employees.edit', $employee)}}" class="btn btn-primary">Editar</a>
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Remover</a>
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
 
