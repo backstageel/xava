@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\EmployeeCreating;
 use App\Events\EmployeeSaved;
+use App\Events\EmployeeEditing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,8 @@ class Employee extends Model
 
     protected $dispatchesEvents = [
         'saved' => EmployeeSaved::class,
-        'creating'=>EmployeeCreating::class
+        'creating'=>EmployeeCreating::class,
+        'editing' => EmployeeEditing::class
     ];
 
     protected $casts = [

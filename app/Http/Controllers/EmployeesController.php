@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreateEmployeeAction;
+use App\Actions\EditEmployeeAction;
 use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\EditEmployeeRequest;
 use App\Models\CivilState;
 use App\Models\Country;
 use App\Models\Department;
@@ -76,6 +78,7 @@ class EmployeesController extends Controller
     public function store(CreateEmployeeRequest $request, CreateEmployeeAction $createEmployee)
     {
         $imagePath = null;
+        $extension = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/profile_pictures');
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -143,12 +146,13 @@ class EmployeesController extends Controller
      * Update the specified resource in storage.
      */
 
-        public function update(EditEmployeeRequest $request, $employeeId, EditEmployeeAction $editEmployee)
+        public function update(EditEmployeeRequest $request, Employee $employee, EditEmployeeAction $editEmployee)
     {
-        $employee = Employee::find($employeeId);
+
 
         if (!$employee) {
-            abort(404); // Colaborador não encontrado
+            flash('Colaborador não encontrado')->error();
+            return redirect()->route('employees.show', $employee);
         }
 
         $imagePath = null;
@@ -162,7 +166,7 @@ class EmployeesController extends Controller
         try {
             $editEmployee->execute($request->all(), $employee, $imagePath, $extension);
             flash('Colaborador atualizado com sucesso')->success();
-            return redirect()->route('employees.show', ['employee' => $employee->id]);
+            return redirect()->route('employees.show', $employee);
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
             return back()->withInput();

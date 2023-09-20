@@ -24,7 +24,7 @@ class CustomersController extends Controller
 
     public function index()
     {
-        $customers = Customer::withCustomerable()->orderByDesc('created_at')->paginate();
+        $customers = Customer::withCustomerable()->orderByDesc('created_at')->paginate(1000);
 
         return view('customers.index', compact('customers'));
     }

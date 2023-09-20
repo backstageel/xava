@@ -60,11 +60,12 @@ class CreateEmployeeAction
             'identity_document_expiry_date' => $data['identity_document_expiry_date'],
         ]);
 
-
-        $newPath = 'profile_pictures/' . $person->id . '.' . $extension;
-        Storage::move($imagePath, 'public/' . $newPath);
-        $person->profile_picture = $newPath;
-        $person->save();
+        if ($extension != null) {
+            $newPath = 'profile_pictures/' . $person->id . '.' . $extension;
+            Storage::move($imagePath, 'public/' . $newPath);
+            $person->profile_picture = $newPath;
+            $person->save();
+        }
 
         $employee = Employee::create([
             'person_id' => $person->id,
@@ -75,7 +76,6 @@ class CreateEmployeeAction
             'start_date' => $data['start_date'],
             'base_salary' => $data['base_salary'],
             'contract_type_id' => $data['contract_type_id'],
-
         ]);
 
         $contract = EmployeeContract::create([

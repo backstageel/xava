@@ -28,7 +28,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('employees.store')}}"
+                    <x-bootstrap::form.form method='PUT' class="row g-3" action="{{route('employees.update', $employee)}}"
                                             enctype="multipart/form-data">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
@@ -75,7 +75,8 @@
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.date-picker name="birth_date"
-                                                                           label="Data de Nascimento"  :default="$employee->person->birth_date"/>
+                                                                           label="Data de Nascimento"
+                                                                           :default="$employee->person->birth_date"/>
                                         </div>
                                         <div class="col-2">
                                             <x-bootstrap::form.select name="civil_state_id" label="Estado Civil"
@@ -111,15 +112,18 @@
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="identity_document_number"
-                                                                     label="Número de Documento"   :value="old('identity_document_number',$employee->person->identity_document_number)"/>
+                                                                     label="Número de Documento"
+                                                                     :default="old('identity_document_number',$employee->person->identity_document_number)"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.date-picker name="identity_document_emission_date"
-                                                                           label="Data de Emissão"   :value="old('identity_document_emission_date',$employee->person->identity_document_emission_date)"/>
+                                                                           label="Data de Emissão"
+                                                                           :default="old('identity_document_emission_date',$employee->person->identity_document_emission_date)"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.date-picker name="identity_document_expiry_date"
-                                                                           label="Data de Validade"   :value="old('identity_document_number',$employee->person->identity_document_expiry_date)"/>
+                                                                           label="Data de Validade"
+                                                                           :default="old('identity_document_number',$employee->person->identity_document_expiry_date)"/>
                                         </div>
 
                                     </div>
@@ -128,7 +132,8 @@
                                 <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <div class="row">
                                         <div class="col-4">
-                                            <x-bootstrap::form.date-picker name="start_date" label="Data de Admissão"   :value="old('start_date',$employee->start_date)"/>
+                                            <x-bootstrap::form.date-picker name="start_date" label="Data de Admissão"
+                                                                           :default="old('start_date', $employee->start_date)"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="department_id" label="Departamento"
@@ -158,11 +163,12 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="emergency_name"
-                                                                     label="Nome para Emergencias"    :value="old('emergency_name',$employee->person->emergency_name)"/>
+                                                                     label="Nome para Emergencias"
+                                                                     :value="old('emergency_name',$employee->emergency_name)"/>
                                         </div>
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="emergency_phone"
-                                                                     label="Telemóvel para Emergencias"    :value="old('emergency_phone',$employee->person->emergency_phone)"/>
+                                                                     label="Telemóvel para Emergencias"    :value="old('emergency_phone',$employee->emergency_phone)"/>
                                         </div>
                                     </div>
                                 </div>

@@ -1,85 +1,94 @@
 <?php
 
 namespace App\Actions;
+use App\Models\Employee;
+use App\Models\EmployeeContract;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class EditEmployeeAction
 {
 
     public function execute(array $data, Employee $employee, $imagePath = null, $extension = null)
     {
-        // Atualize os campos do usuário (se necessário)
-        if (isset($data['corporate_email'])) {
-            $employee->user->email = $data['corporate_email'];
-        } elseif (isset($data['personal_email'])) {
-            $employee->user->email = $data['personal_email'];
-        }
-        if (isset($data['first_name']) && isset($data['last_name'])) {
-            $employee->user->name = $data['first_name'] . ' ' . $data['last_name'];
-        }
 
-        // Atualize os campos da pessoa
-        $employee->person->fill([
-            'person_prefix_id' => $data['person_prefix_id'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'birth_date' => $data['birth_date'],
-            'gender_id' => $data['gender_id'],
-            'address' => $data['address'],
-            'address_district_id' => $data['address_district_id'],
-            'address_province_id' => $data['address_province_id'],
-            'address_country_id' => $data['address_country_id'],
-            'birth_district_id' => $data['birth_district_id'],
-            'birth_province_id' => $data['birth_province_id'],
-            'birth_country_id' => $data['birth_country_id'],
-            'phone' => $data['cellphone'],
-            'email' => $data['personal_email'],
-            'civil_state_id' => $data['civil_state_id'],
-            'nuit' => $data['nuit'],
-            'identity_document_type_id' => $data['identity_document_type_id'],
-            'identity_document_number' => $data['identity_document_number'],
-            'identity_document_emission_date' => $data['identity_document_emission_date'],
-            'identity_document_expiry_date' => $data['identity_document_expiry_date'],
-        ]);
+        $person = Person::find($employee->person_id);
+        $user = User::find($person->user_id);
 
-        // Se uma nova imagem for fornecida, atualize o caminho da imagem
-        if ($imagePath && $extension) {
-            // Lidar com o upload da nova imagem e atualizar o caminho da imagem no banco de dados
-            $newPath = 'profile_pictures/' . $employee->person->id . '.' . $extension;
+        $user->email = $data['corporate_email'] ?? $data['personal_email'];
+        $user->name = $data['first_name'] . ' ' . $data['last_name'];
+
+        $person->person_prefix_id = $data['person_prefix_id'];
+        $person->first_name = $data['first_name'];
+        $person->last_name = $data['last_name'];
+        $person->birth_date = $data['birth_date'];
+        $person->gender_id = $data['gender_id'];
+        $person->address = $data['address'];
+        $person->address_district_id = $data['address_district_id'];
+        $person->address_province_id = $data['address_province_id'];
+        $person->address_country_id = $data['address_country_id'];
+        $person->birth_district_id = $data['birth_district_id'];
+        $person->birth_province_id = $data['birth_province_id'];
+        $person->birth_country_id = $data['birth_country_id'];
+        $person->phone = $data['cellphone'];
+        $person->email = $data['personal_email'];
+        $person->civil_state_id = $data['civil_state_id'];
+        $person->nuit = $data['nuit'];
+        $person->identity_document_type_id = $data['identity_document_type_id'];
+        $person->identity_document_number = $data['identity_document_number'];
+        $person->identity_document_emission_date = $data['identity_document_emission_date'];
+        $person->identity_document_expiry_date = $data['identity_document_expiry_date'];
+
+
+        if($extension != null){
+            $newPath = 'profile_pictures/' . $person->id . '.' . $extension;
             Storage::move($imagePath, 'public/' . $newPath);
-            $employee->person->profile_picture = $newPath;
+            $person->profile_picture = $newPath;
+            $person->save();
         }
 
-        // Atualize os campos do colaborador
-        $employee->fill([
-            'emergency_name' => $data['emergency_name'],
-            'emergency_phone' => $data['emergency_phone'],
-            'employee_position_id' => $data['employee_position_id'],
-            'department_id' => $data['department_id'],
-            'start_date' => $data['start_date'],
-            'base_salary' => $data['base_salary'],
-            'contract_type_id' => $data['contract_type_id'],
-        ]);
 
-        // Salvar as alterações
-        $employee->user->save();
-        $employee->person->save();
+        $employee->emergency_name = $data['emergency_name'];
+        $employee->emergency_phone = $data['emergency_phone'];
+        $employee->employee_position_id = $data['employee_position_id'];
+        $employee->department_id = $data['department_id'];
+        $employee->start_date = $data['start_date'];
+        $employee->base_salary = $data['base_salary'];
+        $employee->contract_type_id = $data['contract_type_id'];
+
+
+        $id = $employee->id;
+
+        // Extrai o ano e o mês da data do contrato
+
+
+        $startDate = Carbon::parse($employee->start_date); // Converte a data de início em um objeto Carbon
+
+        $year = $startDate->format('y');
+        $month = $startDate->format('m');
+
+
+        // Monta a referência do funcionário
+        $employeeCode = null;
+        if ($id < 10) {
+            $employeeCode = 'XV000' . $id . $month . $year;
+        } elseif ($id < 100) {
+            $employeeCode = 'XV00' . $id . $month . $year;
+        } elseif ($id < 1000) {
+            $employeeCode = 'XV0' . $id . $month . $year;
+        } else {
+            $employeeCode = 'XV' . $id . $month . $year;
+        }
+
+        $employee->employee_code = $employeeCode;
+
+
+        $user->save();
+        $person->save();
         $employee->save();
-
-        // Atualize o contrato do colaborador (se necessário)
-        $contract = $employee->contract;
-        if ($contract) {
-            $contract->fill([
-                'contract_type_id' => $data['contract_type_id'],
-                'start_date' => $data['start_date'],
-                'base_salary' => $data['base_salary'],
-                'weekly_hours' => $data['weekly_hours'] ?? null,
-                'benefits' => $data['benefits'] ?? null,
-                'department_id' => $data['department_id'],
-                'employee_position_id' => $data['employee_position_id'],
-            ]);
-            $contract->save();
-        }
+//        $contract->save();
 
         return $employee;
     }
