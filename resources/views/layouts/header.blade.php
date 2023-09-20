@@ -61,7 +61,9 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Perfil</span></a>
+                    <li>
+                        <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="bx bx-user">
+                            </i><span>Perfil</span></a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{route('change_passwords.create')}}">

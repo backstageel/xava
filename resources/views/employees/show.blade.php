@@ -20,7 +20,7 @@
 {{--                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este colaborador?')">Remover</button>--}}
 {{--                </form>--}}
                 <a href="{{route('employees.edit', $employee)}}" class="btn btn-primary">Editar</a>
-                <a href="{{route('employees.create')}}" class="btn btn-primary">Remover</a>
+{{--                <a href="{{route('employees.create')}}" class="btn btn-primary">Remover</a>--}}
                 <a href="{{route('employees.create')}}" class="btn btn-primary">Adicionar</a>
 
             </div>

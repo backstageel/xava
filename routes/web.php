@@ -63,7 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/vacations/{vacation}/approve', [\App\Http\Controllers\VacationController::class, 'approve'])->name('vacations.approve');
     Route::post('/vacations/{vacation}/reject', [\App\Http\Controllers\VacationController::class, 'reject'])->name('vacations.reject');
     Route::post('/vacations/{vacation}/cancel', [\App\Http\Controllers\VacationController::class, 'cancel'])->name('vacations.cancel');
-   
+    Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/destroy', [\App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
 
