@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Company;
+use App\Models\Competition;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\District;
@@ -11,6 +12,7 @@ use App\Models\Employee;
 use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Province;
+use App\Models\Sale;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -142,6 +144,17 @@ class CustomersController extends Controller
         if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1
            || $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
 
+            // Verificar se existem vendas relacionadas a este cliente
+            $hasSales = Sale::where('customer_id', $customer->id)->exists();
+
+            // Verificar se existem concursos relacionados a este cliente
+            $hasCompetition = Competition::where('customer_id', $customer->id)->exists();
+
+            if ($hasSales || $hasCompetition) {
+                flash('Este cliente possui vendas ou concursos relacionados e não pode ser excluído.')->error();
+                return redirect()->back();
+            }
+
             try {
                 $customer->delete();
                 flash('Cliente removido com sucesso')->success();
@@ -150,6 +163,7 @@ class CustomersController extends Controller
                 flash('Erro ao Deletar Cliente: ' . $exception->getMessage())->error();
                 return redirect()->back()->withInput();
             }
+
         } else {
             flash('Desculpe, você não tem permissão para realizar esta ação.
             Por favor, entre em contato com o administrador para obter assistência.')->error();
