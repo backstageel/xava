@@ -42,9 +42,18 @@ class EditEmployeeAction
         $person->identity_document_expiry_date = $data['identity_document_expiry_date'];
 
 
-        if($extension != null){
+
+        if ($extension != null) {
             $newPath = 'profile_pictures/' . $person->id . '.' . $extension;
+            // Verifique se um arquivo com o mesmo nome já existe
+            if (Storage::exists('public/' . $newPath)) {
+                // Se existe, exclua o arquivo antigo
+                Storage::delete('public/' . $newPath);
+            }
+
+            // Mova o novo arquivo
             Storage::move($imagePath, 'public/' . $newPath);
+
             $person->profile_picture = $newPath;
             $person->save();
         }

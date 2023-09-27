@@ -6,6 +6,8 @@ use App\Models\Department;
 use App\Models\Document;
 use App\Models\Employee;
 use App\Models\Person;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,17 +16,22 @@ use Illuminate\Support\Facades\Storage;
 class DocumentController extends Controller
 {
 
+
     private $user_id, $person_id, $employee_position_id;
 
     public function index($path)
     {
-        if ($path != 'IT' && $path != 'motas'){
+        if ($path != 'IT' && $path != 'motas') {
             $documents = Storage::files('documents/' . $path);
             return view('documents.index', compact('documents', 'path'));
         } else {
-                $documents = Storage::files('documents/actas/' . $path);
-                $documents_in_table = Document::where('path', $path)->get();
-                return view('documents.index', compact('documents', 'documents_in_table', 'path'));
+            $documents = Storage::files('documents/actas/' . $path);
+
+            $threeMonthsAgo = Carbon::now()->subMonths(3);
+            $documents_in_table = Document::where('path', $path)
+                ->whereDate('meeting_date', '>', $threeMonthsAgo)
+                ->get();
+            return view('documents.index', compact('documents', 'documents_in_table', 'path'));
         }
 
     }
@@ -32,10 +39,10 @@ class DocumentController extends Controller
     public function create($path)
     {
         $this->user_id = Auth::user()->id;
-        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
-        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+        $this->person_id = Person::where('user_id', $this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id', $this->person_id)->value('employee_position_id');
 
-        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+        if ($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id == 1) {
             $departments = Department::pluck('name', 'id');
             return view('documents.create', compact('path', 'departments'));
         } else {
@@ -43,12 +50,13 @@ class DocumentController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
     public function viewDocument($filename, $path)
     {
-        if ($path != 'IT' && $path != 'motas'){
-            $filePath = storage_path('app/documents/'.$path. '/' . $filename);
+        if ($path != 'IT' && $path != 'motas') {
+            $filePath = storage_path('app/documents/' . $path . '/' . $filename);
         } else {
-            $filePath = storage_path('app/documents/actas/'.$path. '/' . $filename);
+            $filePath = storage_path('app/documents/actas/' . $path . '/' . $filename);
         }
 
         if (file_exists($filePath)) {
@@ -57,7 +65,6 @@ class DocumentController extends Controller
             abort(404);
         }
     }
-
 
 
     public function uploadDocument(Request $request)
@@ -69,13 +76,10 @@ class DocumentController extends Controller
         $new_file_name = $file_name . '.' . $extension;
 
 
-        if ($path != 'motas' && $path != 'IT'){
+        if ($path != 'motas' && $path != 'IT') {
             $file->storeAs('documents/' . $path, $new_file_name);
         } else {
-
-
-                $file->storeAs('documents/actas/' . $path , $new_file_name);
-
+            $file->storeAs('documents/actas/' . $path, $new_file_name);
         }
 
         // Criar um novo registro de documento no banco de dados
@@ -91,9 +95,38 @@ class DocumentController extends Controller
         $document->save();
 
         flash('success', 'Documento carregado com sucesso')->success();
-            return redirect()->route('documents.index', $path);
+        return redirect()->route('documents.index', $path);
     }
 
+    public function destroy($filename, $path)
+    {
+        $this->user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id', $this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id', $this->person_id)->value('employee_position_id');
 
+        if ($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id == 1) {
+            if ($path != 'IT' && $path != 'motas') {
+                $filePath = storage_path('app/documents/' . $path . '/' . $filename);
+            } else {
+                $filePath = storage_path('app/documents/actas/' . $path . '/' . $filename);
+            }
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+                Document::where('name', $filename)->where('path', $path)->delete();
+
+
+                flash('success', 'Documento excluído com sucesso')->success();
+            } else {
+                flash('error', 'Documento não excluido')->error();
+            }
+            return redirect()->route('documents.index', $path);
+
+        } else {
+            flash('Não tem acesso para eliminar documentos')->error();
+            return redirect()->back()->withInput();
+        }
+
+    }
 
 }

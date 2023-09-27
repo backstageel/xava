@@ -33,9 +33,9 @@
                     <div class="card-body text-center">
                         <div class="p-1 border radius-15">
                             @if ($employee->person->profile_picture)
-                                <img src="{{ asset('storage/'.$employee->person->profile_picture) }}" width="110"
+                                <img src="{{  asset('storage/'.$employee->person->profile_picture)}}" width="110"
                                      height="110" class="rounded-circle shadow"
-                                     alt="{{ $employee->name }}'s Profile Picture">
+                                     alt="s Profile Picture">
                             @else
                                 <img src="{{ asset('assets/images/default-profile-picture.png') }}" width="110"
                                      height="110" class="rounded-circle shadow" alt="Default Profile Picture">

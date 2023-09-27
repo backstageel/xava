@@ -9,7 +9,16 @@
             vertical-align: top;
             margin-right: 20px;
         }
+        .document-card {
+            position: relative; /* Certifique-se de que a posição do cartão seja relativa */
+        }
 
+        .close-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px; /* Adapte o espaçamento conforme necessário */
+        }
         .document-card img {
             width: 50%;
             height: 50%;
@@ -58,6 +67,7 @@
                                 <th>Nome</th>
                                 <th>Data da Reunião</th>
                                 <th><p style="display: none;">. </p></th>
+                                <th><p style="displey: none"> </p> </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,6 +77,13 @@
                                         <td>{{$document->meeting_date}}</td>
                                         <td>
                                             <a href="{{route('documents.view', ['filename' => $document->name,'path' => $path])}}"> Visualizar </a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('documents.destroy', ['filename' => $document->name,'path' => $path]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este Documento?')">Remover</button>
+                                            </form>
                                         </td>
                                     </tr>
                             @endforeach
@@ -79,9 +96,18 @@
             </div>
         @else
 
-        @foreach($documents as $document)
             <div class="d-flex flex-wrap">
+        @foreach($documents as $document)
+
             <div class="card document-card">
+                <div class="close-button">
+
+                    <form action="{{ route('documents.destroy', ['filename' => basename($document),'path' => $path]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este Documento?')">X</button>
+                    </form>
+                </div>
                 @php
                     $extension = pathinfo($document, PATHINFO_EXTENSION);
                     $icon = '';
@@ -116,8 +142,9 @@
                        class="btn btn-primary" target="_blank">Visualizar {{ strtoupper($extension) }}</a>
                 </div>
             </div>
-            </div>
+
         @endforeach
+            </div>
         @endif
 @endsection
 

@@ -62,7 +62,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="bx bx-user">
+                        <a class="dropdown-item" href="{{route('profile.show')}}"><i class="bx bx-user">
                             </i><span>Perfil</span></a>
                     </li>
                     <li>

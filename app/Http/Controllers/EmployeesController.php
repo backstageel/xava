@@ -112,7 +112,8 @@ class EmployeesController extends Controller
         $this->person_id = Person::where('user_id',$this->user_id)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
-        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1
+        || $this->user_id ==2) {
             $genders = Gender::pluck('name', 'id');
             $civilStates = CivilState::pluck('name', 'id');
             $countries = Country::pluck('name', 'id');

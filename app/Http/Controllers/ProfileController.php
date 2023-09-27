@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Employee;
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +24,13 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function show(){
+
+        $user_id = Auth::user()->id;
+        $person_id = Person::where('user_id', $user_id)->value('id');
+        $employee = Employee::where('person_id', $person_id)->first();
+        return view('profile.show', compact('employee'));
+    }
     /**
      * Update the user's profile information.
      */
