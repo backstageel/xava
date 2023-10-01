@@ -154,10 +154,13 @@
                                             <x-bootstrap::form.input name="base_salary" label="Salário"    :value="old('base_salary',$employee->base_salary)"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"    :value="old('nuit',$employee->nuit)"/>
+                                            <x-bootstrap::form.input name="nuit" label="NUIT"
+                                                                     :value="old('nuit',$employee->person->nuit)"/>
                                         </div>
                                         <div class="col-3">
-                                            <x-bootstrap::form.input name="corporate_email" label="Email Corporativo"    :value="old('corporate_email',$employee->person->user->email)"/>
+                                            <x-bootstrap::form.input name="corporate_email"
+                                                                     label="Email Corporativo"
+                                                                     :value="old('corporate_email',$employee->person->user->email)"/>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -185,20 +188,26 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="address_province_id"
                                                                       label="Provincia de Morada"
-                                                                      :options="$provinces"/>
+                                                                      :options="$provinces"
+                                                                      :default="old('address_province_id',$employee->person->address_province_id)"/>
                                         </div>
                                         <div class="col-4">
                                             <x-bootstrap::form.select name="address_district_id"
                                                                       label="Distrito de Morada"
-                                                                      :options="$districts"/>
+                                                                      :options="$districts"
+                                                                      :default="old('address_district_id',$employee->person->address_district_id)"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="cellphone" label="Telemovel Pessoal"/>
+                                            <x-bootstrap::form.input name="cellphone" label="Telemovel Pessoal"
+                                                                     :default="old('cellphone',$employee->person->phone)"/>
+
                                         </div>
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="personal_email" label="Email Pessoal"/>
+                                            <x-bootstrap::form.input name="personal_email" label="Email Pessoal"
+                                                                     :default="old('personal_email', $employee->person->email)"/>
+
                                         </div>
                                     </div>
                                     <div class="row float-end">

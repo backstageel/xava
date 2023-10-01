@@ -64,10 +64,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/vacations/{vacation}/reject', [\App\Http\Controllers\VacationController::class, 'reject'])->name('vacations.reject');
     Route::post('/vacations/{vacation}/cancel', [\App\Http\Controllers\VacationController::class, 'cancel'])->name('vacations.cancel');
     Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/destroy', [\App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/show', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::delete('/documents/destroy/{filename}/{path}', [\App\Http\Controllers\DocumentController::class, 'destroy'])->name('documents.destroy');
+    Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::post('/profile/', \App\Http\Controllers\ProfileController::class);
 
 
 });
