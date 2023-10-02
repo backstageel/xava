@@ -20,8 +20,6 @@ class saleMail extends Mailable
     {
         $this->sales = $salesData['sales'];
         $this->username= $username;
-
-
     }
 
 

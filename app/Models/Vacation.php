@@ -20,4 +20,11 @@ class Vacation extends Model
     public function vacationStatus(){
         return  $this->belongsTo(VacationStatus::class, 'status_id');
     }
+
+    public function hasVacationOnDate($date)
+    {
+        return $this->vacations->filter(function ($vacation) use ($date) {
+            return $vacation->start_date <= $date && $vacation->end_date >= $date && $vacation->status === 'approved';
+        })->isNotEmpty();
+    }
 }

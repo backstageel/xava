@@ -90,7 +90,8 @@
 
                             </div>
 
-                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
+                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
+                                    $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO
                                     || $userID == 1) &&
                                     $userID != $vacation->user_id  &&
                                     $vacation->vacationStatus->name == "Pendente")
@@ -98,6 +99,10 @@
                                     <form method="POST" action="{{ route('vacations.approve', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-success" type="submit">Aprovar</button>
+                                    </form>
+                                    <form method="GET" action="{{ route('vacations.edit', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Editar</button>
                                     </form>
                                     &nbsp;
                                     <form method="POST" action="{{ route('vacations.reject', $vacation) }}">
@@ -107,13 +112,44 @@
                                 </div>
                             @endif
                             @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
-                                    || $userID == 1)  &&
-                                    $vacation->vacationStatus->name == "Aprovado" &&
-                                    $userID != $vacation->user_id)
+                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
+                                     && $vacation->vacationStatus->name == "Aprovado" && $userID != $vacation->user_id)
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-success" type="submit">Cancelar</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('vacations.reject', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit">Recusar</button>
+                                    </form>
+                                </div>
+                            @endif
+                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
+                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
+                                     && $vacation->vacationStatus->name == "Rejeitado" && $userID != $vacation->user_id)
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Cancelar</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('vacations.approve', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Aprovar</button>
+                                    </form>
+                                </div>
+                            @endif
+                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
+                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
+                                     && $vacation->vacationStatus->name == "Cancelado" && $userID != $vacation->user_id)
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form method="POST" action="{{ route('vacations.approve', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Aprovar</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('vacations.reject', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit">Recusar</button>
                                     </form>
                                 </div>
                             @endif
@@ -125,7 +161,7 @@
                                         <button class="btn btn-success" type="submit">Cancelar</button>
                                     </form>
                                     &nbsp;
-                                    <form method="POST" action="{{route('vacations.edit', $vacation) }}">
+                                    <form method="GET" action="{{route('vacations.edit', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-success" type="submit">Actualizar datas</button>
                                     </form>
@@ -137,6 +173,51 @@
 
                 </div>
 
+
+            </div>
+            <div calss="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="d-flex align-items-center mb-3">Férias Conflitantes</h5>
+                            <div class="table-responsive">
+                                <table id="example3" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome do Colaborador</th>
+                                        <th>Data Inicio</th>
+                                        <th>Data Fim</th>
+                                        <th>Nr de Dias</th>
+                                        <th>Estado</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($conflict_vacations as $conflict_vacation)
+
+                                        @if($conflict_vacation->vacationStatus->name == 'Pendente')
+                                            <tr>
+                                                <td>{{$conflict_vacation->internal_reference}}</td>
+                                                <td>{{$conflict_vacation->user->name}}</td>
+                                                <td>{{$conflict_vacation->start_date}}</td>
+                                                <td>{{$conflict_vacation->end_date}}</td>
+                                                <td>{{$conflict_vacation->number_of_days}}</td>
+                                                <td>{{isset($conflict_vacation->vacationStatus) ? $conflict_vacation->vacationStatus->name : '' }}</td>
+
+                                            </tr>
+                                        @endif
+                                    @endforeach
+
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

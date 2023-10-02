@@ -254,10 +254,16 @@
                         <div class="menu-title">Férias</div>
                     </a>
                     <ul>
+{{--                        <li>--}}
+{{--                            <a href="{{ route('vacation.vacationsMap') }}">--}}
+{{--                            <i class="bx bx-right-arrow-alt"></i>--}}
+{{--                                Mapa de Férias--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                         <li>
                             <a href="{{route('vacations.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
-                                Mapa de Férias
+                                lista de Férias
                             </a>
                         </li>
                         <li>

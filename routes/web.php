@@ -69,7 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/show', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::delete('/documents/destroy/{filename}/{path}', [\App\Http\Controllers\DocumentController::class, 'destroy'])->name('documents.destroy');
     Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::post('/profile/', \App\Http\Controllers\ProfileController::class);
+    Route::get('/vacation/vacationsMap', [\App\Http\Controllers\VacationController::class, 'vacationsMap'])->name('vacation.vacationsMap');
+
 
 
 });

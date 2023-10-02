@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Mail;
 
 class Kernel extends ConsoleKernel
 {
-    /**
+   /**
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
     {
          $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune')->daily();
+        $schedule->command('ProcessVacationStatus')->everyMinute();
 
      //   Schedule to notify user about the competition proposal delivery date
         $schedule->call(function () {
@@ -42,7 +43,7 @@ class Kernel extends ConsoleKernel
             $users=User::where('id','>',1)->get();
             //foreach ($users as $user) {
 //                if (strcasecmp($user->email, 'sviegas@xava.co.mz') === 0) {
-                    Mail::to('isaias.naftal.manjate@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
+                    Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
 //                }
            // }
 
@@ -53,17 +54,18 @@ class Kernel extends ConsoleKernel
             $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
                 ->get();
             if (!$sales->isEmpty()) {
-                $users=User::where('id','>',1)->get();
+//                $users=User::where('id','>',1)->get();
 //                foreach ($users as $user) {
 //                    if (strcasecmp($user->email, 'zmussa@xava.co.mz') === 0
 //                        || strcasecmp($user->email, 'etsamba@xava.co.mz') === 0
 //                        || strcasecmp($user->email, 'smacamo@xava.co.mz') === 0) {
-                        Mail::to('isaias.naftal.manjate@gmail.com')->send(new saleMail(['sales' => $sales], 'Isaias Manjate'));
+                Mail::to('isaltinabrizito@gmail.com')->send(new saleMail(['sales' => $sales],
+                            'Isaltina Pepete'));
                   //  }
                // }
 
             }
-        })->everyTenMinutes()->daily();
+        })->everySecond();
 
     }
 
