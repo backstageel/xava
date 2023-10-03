@@ -102,41 +102,46 @@ class VacationController extends Controller
         $vacation->end_date = $request->input('end_date');
         $vacation->status_id = VacationStatus::where('name', 'Pendente')->value('id');
 
-        $holiday = Holiday::pluck('holiday_date');
-        $holiday = $holiday->toArray();
-        $vacation->number_of_days = 0;
-        $start_date = Carbon::parse($vacation->start_date);
-        $end_date = Carbon::parse($vacation->end_date);
+        if ($vacation->start_date <= $vacation->end_date) {
+            $holiday = Holiday::pluck('holiday_date');
+            $holiday = $holiday->toArray();
+            $vacation->number_of_days = 0;
+            $start_date = Carbon::parse($vacation->start_date);
+            $end_date = Carbon::parse($vacation->end_date);
 
-        while ($start_date <= $end_date) {
-            if ($start_date->dayOfWeek !== Carbon::SATURDAY && $start_date->dayOfWeek !== Carbon::SUNDAY) {
-                $dataString = $start_date->toDateString();
-                if (!in_array($dataString, $holiday)) {
-                    $vacation->number_of_days++;
+            while ($start_date <= $end_date) {
+                if ($start_date->dayOfWeek !== Carbon::SATURDAY && $start_date->dayOfWeek !== Carbon::SUNDAY) {
+                    $dataString = $start_date->toDateString();
+                    if (!in_array($dataString, $holiday)) {
+                        $vacation->number_of_days++;
+                    }
                 }
+                $start_date->addDay();
             }
-            $start_date->addDay();
-        }
 
 
-        $this->user_id = Auth::user()->id;
-        $vacation_days = Vacation::where('user_id', $this->user_id)
-            ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
-            ->sum('number_of_days');
-        $vacations_days = $vacation_days + $vacation->number_of_days;
-        try{
-            if ($vacations_days > 11) {
-                flash('Erro ao tentar registar o pedido, Limite de dias atingido. Tem somente '
-                    . (11 - $vacation_days). ' restantes')->error();
-                return view('vacations.create')->with('inputData', $request->input());
-            } else {
-                $vacation->save();
-                flash('Pedido registado com sucesso')->success();
-                return redirect()->route('vacation.myVacation');
+            $this->user_id = Auth::user()->id;
+            $vacation_days = Vacation::where('user_id', $this->user_id)
+                ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+                ->sum('number_of_days');
+            $vacations_days = $vacation_days + $vacation->number_of_days;
+            try{
+                if ($vacations_days > 11) {
+                    flash('Erro ao tentar registar o pedido, Limite de dias atingido. Tem somente '
+                        . (11 - $vacation_days). ' restantes')->error();
+                    return view('vacations.create')->with('inputData', $request->input());
+                } else {
+                    $vacation->save();
+                    flash('Pedido registado com sucesso')->success();
+                    return redirect()->route('vacation.myVacation');
+                }
+            }catch (\Exception $exception){
+                flash('Erro ao tentar registar o pedido '. $exception->getMessage())->error();
+                return redirect()->back()->withInput();
             }
-        }catch (\Exception $exception){
-            flash('Erro ao tentar registar o pedido '. $exception->getMessage())->error();
-            return redirect()->back()->withInput();
+        } else {
+            flash('Erro ao tentar actualizar o pedido, Dia de inicio não pode ser depois do dia do fim')->error();
+            return view('vacations.create')->with('inputData', $request->input());
         }
     }
 
@@ -168,7 +173,7 @@ class VacationController extends Controller
         $vacation->start_date = $request->input('start_date');
         $vacation->end_date = $request->input('end_date');
 
-        if ($vacation->start_date < $vacation->end_date) {
+        if ($vacation->start_date <= $vacation->end_date) {
 
             $holidayDates = Holiday::pluck('holiday_date')->map(function ($date) {
                 return Carbon::parse($date)->format('m-d'); // Formate a data para "mês-dia"
@@ -260,7 +265,7 @@ class VacationController extends Controller
     public function reject(Vacation $vacation){
         $vacation->status_id = VacationStatus::where('name', 'Rejeitado')->value('id');
         $vacation->save();
-        flash('Pedido de Férias Aprovado com sucesso')->success();
+        flash('Pedido de Férias Rejeitado')->success();
         return redirect()->route('vacations.index');
     }
 
