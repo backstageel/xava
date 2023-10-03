@@ -226,6 +226,7 @@ class VacationController extends Controller
     {
         $vacation_days = Vacation::where('user_id', $vacation->user_id)
             ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+            ->where('id', '!=', $vacation->id)
             ->sum('number_of_days');
         if (($vacation_days + $vacation->number_of_days) <= 11) {
             $vacation->status_id = VacationStatus::where('name', 'Aprovado')->value('id');
