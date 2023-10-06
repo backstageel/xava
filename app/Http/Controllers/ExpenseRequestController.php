@@ -32,7 +32,8 @@ class ExpenseRequestController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        $balance = CardLoad::value('balance');
+
+        $balance = CardLoad::latest()->first()->balance;
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(

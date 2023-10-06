@@ -52,7 +52,7 @@ class CardLoadController extends Controller
         $cardLoad=new CardLoad();
         $lastBalance=CardLoad::latest()->first();
 
-        $cardLoad->balance=($lastBalance->balance+$request->input('balance'));
+        $cardLoad->balance = ($lastBalance->balance + $request->input('balance'));
         try{
             $cardLoad->save();
             flash('Cartão recarregado com sucesso')->success();

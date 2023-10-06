@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        $table->unsignedBigInteger('sender_id');
+        $table->unsignedBigInteger('receiver_id');
     }
 
     /**
