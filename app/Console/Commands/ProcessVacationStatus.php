@@ -11,7 +11,7 @@ class ProcessVacationStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'app:process-vacation-status';
+    protected $signature = 'process-vacation-status';
 
     /**
      * The console command description.
@@ -34,17 +34,17 @@ class ProcessVacationStatus extends Command
 
         foreach ($vacations as $vacation) {
             // Altera o status para "Em Andamento"
-            $vacation->status_id = VacationStatus::where('name', 'Em Andamento')->value('id');
+            $vacation->status_id = VacationStatus::where('name', 'Em andamento')->value('id');
             $vacation->save();
-            $this->info('Status de férias alterado para Em Andamento: ID ' . $vacation->id);
+//            $this->info('Status de férias alterado para Em Andamento: ID ' . $vacation->id);
         }
 
-        $this->info('Processo de atualização de status de férias concluído.');
+//        $this->info('Processo de atualização de status de férias concluído.');
 
         $today = Carbon::today();
 
         // Obtém todas as férias aprovadas com data de início igual ao dia de hoje
-        $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em Andamento')->value('id'))
+        $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em andamento')->value('id'))
             ->whereDate('end_date', $today)
             ->get();
 
@@ -52,10 +52,10 @@ class ProcessVacationStatus extends Command
             // Altera o status para "Em Andamento"
             $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
             $vacation->save();
-            $this->info('Status de férias alterado para Concluido: ID ' . $vacation->id);
+//            $this->info('Status de férias alterado para Concluido: ID ' . $vacation->id);
         }
 
-        $this->info('Processo de atualização de status de férias concluído.');
+//        $this->info('Processo de atualização de status de férias concluído.');
 
     }
 }

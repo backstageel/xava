@@ -93,12 +93,11 @@ class CreateEmployeeAction
                 'employee_position_id' => $data['employee_position_id'],
 
             ]);
-
-            return $employee;
-
             DB::commit();
 
             return $employee;
+
+
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;
