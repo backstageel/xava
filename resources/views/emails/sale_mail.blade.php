@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<h3>Notificação de Vendas</h3>
+<h3>Actualização do Resumo de Vendas Facturadas(Não Pagas) e Cotações</h3>
 <p>Olá <strong>{{$username}}!</strong></p>
 <p>Lembramos que as seguintes vendas estao no estado de facturadas :</p>
 <div class="card">

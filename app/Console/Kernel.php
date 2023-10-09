@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\CompetitionResult;
+use App\Models\CompetitionStatus;
 use App\Models\Sale;
 use App\Models\SaleStatus;
 use App\Models\User;
@@ -68,6 +70,8 @@ class Kernel extends ConsoleKernel
             ])
                 ->orWhere('proposal_delivery_date', '>=', Carbon::now())
                 ->orWhere('proposal_delivery_date', '<=', Carbon::now()->addDays(3)) // Notificar com 3 dias de antecedência.
+                ->whereNot('competition_status_id', CompetitionStatus::where('name', 'Submeter proposta')->value('id'))
+                ->where('competition_result_id', CompetitionResult::where('neme', 'Pendente')->value('id'))
                 ->get();
             if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
