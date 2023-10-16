@@ -175,6 +175,7 @@
 
 
             </div>
+            @if( $userID != $vacation->user_id)
             <div calss="row">
                 <div class="col-lg-8">
                     <div class="card">
@@ -219,6 +220,7 @@
                     </div>
                 </div>
             </div>
+                @endif
 
         </div>
 

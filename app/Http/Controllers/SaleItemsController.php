@@ -8,6 +8,7 @@ use App\Models\Product;
 
 use App\Models\SaleItem;
 use App\Models\SaleStatus;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleItemsRequest;
 use App\Http\Requests\SaleRequest;
@@ -59,6 +60,9 @@ class SaleItemsController extends Controller
                 }
             }
 
+            if (($request->input('supplier_id')) != null) {
+                    $sale_items->supplier_id = $request->input('supplier_id');
+            }
 
             $sale_items->sub_total = $sale_items->unit_price * $sale_items->quantity;
             $sale_items->total_purchase_price = $sale_items->purchase_price * $sale_items->quantity;
@@ -82,9 +86,10 @@ class SaleItemsController extends Controller
             try{
                 $sale_items->save();
                 $sale->save();
+                $suppliers = Supplier::with('supplierable')->get()->pluck('supplierable.name', 'id');
+                flash('Produto Adicionado')->success();
+                return view('sale_items.create', compact('sale', 'products', 'suppliers'));
 
-            flash('Produto Adicionado')->success();
-            return view('sale_items.create', compact('sale', 'products'));
             } catch (\Exception $exception) {
                 flash('Erro ao Adicionar Produto: ' . $exception->getMessage())->error();
                 return redirect()->back()->withInput();
@@ -107,7 +112,8 @@ class SaleItemsController extends Controller
     public function edit(SaleItem $sale_item)
     {
         $products = Product::pluck('name', 'id');
-        return view('sale_items.edit', compact('sale_item', 'products'));
+        $suppliers = Supplier::with('supplierable')->get()->pluck('supplierable.name', 'id');
+        return view('sale_items.edit', compact('sale_item', 'products', 'suppliers'));
     }
 
 
@@ -120,6 +126,9 @@ class SaleItemsController extends Controller
 
         if (($request->input('quantity')) != null) {
             $sale_item->quantity = $request->input(['quantity']);
+        }
+        if (($request->input('supplier_id')) != null) {
+            $sale_item->supplier_id = $request->input('supplier_id');
         }
         if (($request->input('unit_price')) != null) {
             if (is_numeric($request->input('unit_price'))) {
@@ -164,9 +173,6 @@ class SaleItemsController extends Controller
             return redirect()->back()->withInput();
         }
 
-
-
-        return redirect()->route('sales.index');
     }
 
 

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table->unsignedBigInteger('sender_id');
-        $table->unsignedBigInteger('receiver_id');
+        Schema::table('sale_items', function (Blueprint $table){
+            $table->unsignedTinyInteger('supplier_id')->nullable();
+
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+        });
     }
 
     /**

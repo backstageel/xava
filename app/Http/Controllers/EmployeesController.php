@@ -135,8 +135,8 @@ class EmployeesController extends Controller
                 'contractTypes',
                 'personPrefixes'));
         } else {
-            flash('Desculpe, você não tem permissão para realizar esta ação.
-             Por favor, entre em contato com o administrador para obter assistência.')->error();
+            flash('Desculpe, você não tem permissão para realizar esta acção.
+             Por favor, entre em contacto com o administrador para obter assistência.')->error();
             return redirect()->back()->withInput();
 
         }

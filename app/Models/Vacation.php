@@ -13,6 +13,7 @@ class Vacation extends Model
 //        'status_id'
 //    ];
 
+
     public function user(){
         return  $this->belongsTo(User::class);
     }

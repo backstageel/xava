@@ -7,6 +7,12 @@
           type="text/css">
     <link href="{{asset('')}}assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet"
           type="text/css">
+    <style>
+        .sw-btn-next,
+        .sw-btn-prev {
+            display: none !important;
+        }
+    </style>
 
 @endsection
 @section("wrapper")
@@ -52,10 +58,14 @@
                                                 <x-bootstrap::form.select id="mySelect" name="product_id" label="Produtos"
                                                                          :options="$products" required/>
                                             </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.select  name="supplier_id" label="Fornecedor"
+                                                                          :options="$suppliers" />
+                                            </div>
                                             <div class="col-3">
                                                 <x-bootstrap::form.input type="number" name="quantity"   label="Quantidade" required/>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <x-bootstrap::form.input type="hidden" name="sale_id" class="form-control" value="{{$sale->id}}"/>
                                             </div>
                                         </div>
@@ -86,10 +96,10 @@
 
 
                         <!-- Include optional progressbar HTML -->
-{{--                        <div class="progress">--}}
-{{--                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"--}}
-{{--                                 aria-valuemin="0" aria-valuemax="100"></div>--}}
-{{--                        </div>--}}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
 
                     </x-bootstrap::form.form>
                 </div>

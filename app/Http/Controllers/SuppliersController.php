@@ -48,7 +48,8 @@ class SuppliersController extends Controller
             $supplierableType = Company::class;
         } else {
             $supplierable = new Person();
-            [$supplierable->first, $supplierable->last_name] = split_name($request->input('name'));
+            [$supplierable->first_name, $supplierable->last_name] = split_name($request->input('name'));
+            $supplierable->gender_id = 1;
             $supplierableType = Person::class;
         }
         $supplierable->email = $request->input('email');
@@ -57,10 +58,10 @@ class SuppliersController extends Controller
         $supplierable->address_country_id = $request->input('country_id');
         $supplierable->address_province_id = $request->input('province_id');
         $supplierable->address_district_id = $request->input('district_id');
-        if(strlen($supplierable->nuit)!=9){
+        if (strlen($supplierable->nuit) != 9){
             flash('Nuit invalido, o campo Nuit deve ser composto por 9 dígitos')->error();
             return redirect()->route('suppliers.create');
-        }else {
+        } else {
             $supplierable->save();
         }
         $supplier = new Supplier();

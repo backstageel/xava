@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/documents/destroy/{filename}/{path}', [\App\Http\Controllers\DocumentController::class, 'destroy'])->name('documents.destroy');
     Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/vacation/vacationsMap', [\App\Http\Controllers\VacationController::class, 'vacationsMap'])->name('vacation.vacationsMap');
+    Route::resource('vacation_collectives', \App\Http\Controllers\VacationCollectiveController::class);
 
 
 

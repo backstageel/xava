@@ -91,6 +91,7 @@
                                     <th>Valor de Venda</th>
                                     <th>Preço de Compra</th>
                                     <th>Valor de Compra</th>
+                                    <th>Fornecedor</th>
                                     <th><p style="display: none;">.</p></th>
 
                                 </tr>
@@ -103,8 +104,8 @@
                                         <td>@money($sale_item->unit_price)</td>
                                         <td>@money($sale_item->sub_total)</td>
                                         <td>@money($sale_item->purchase_price)</td>
-
                                         <td>@money($sale_item->total_purchase_price)</td>
+                                        <td>{{isset($sale_item->supplier->supplierable) ? $sale_item->supplier->supplierable->name: '' }}</td>
                                         <td>
                                             <a href="{{route('sale_items.edit', $sale_item)}}"> editar </a>
                                         </td>

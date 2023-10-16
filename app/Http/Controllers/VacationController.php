@@ -8,6 +8,8 @@ use App\Models\ExpenseRequest;
 use App\Models\Holiday;
 use App\Models\Person;
 use App\Models\Vacation;
+use App\Models\VacationAccumulation;
+use App\Models\VacationCollective;
 use App\Models\VacationStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +29,9 @@ class VacationController extends Controller
 
         if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1){
             $vacations = Vacation::with('user', 'vacationStatus')->whereNot('user_id',  $this->user_id)->get();
-
             return view('vacations.index', compact('vacations'));
-        }else if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
+        }else
+            if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
             $employee_position_ids = Employee::where('employee_position_id',  5)->pluck('person_id');
             $user_ids = Person::whereIn('id', $employee_position_ids)->pluck('user_id');
             $vacations = Vacation::with('user', 'vacationStatus')->whereIn('user_id',  $user_ids)->get();
@@ -50,7 +52,7 @@ class VacationController extends Controller
                 'user',
                 'vacationStatus'
             ]
-        )->where('user_id',$this->user_id)->orderBy('user_id','desc')->paginate(1000);
+        )->where('user_id',$this->user_id)->orderBy('user_id','desc')->get();
         return view('vacations.myVacation', compact('vacations'));
     }
     public function vacationsMap()
@@ -70,14 +72,19 @@ class VacationController extends Controller
     public function create()
     {
         $this->user_id = Auth::user()->id;
+        $year = Carbon::now()->year;
         $vacations_days = Vacation::where('user_id', $this->user_id)
-            ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
-                            ->sum('number_of_days');
-        if ($vacations_days >= 11){
-            flash('Excedeu o numero máximo de 11 dias de Pedido de Férias ')->error();
+            ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
+                VacationStatus::where('name', 'Cancelado')->value('id')])
+            ->whereRaw('YEAR(start_date) = ?', [$year])
+            ->sum('number_of_days');
+        $vacation_accumulation = VacationAccumulation::where('user_id', $this->user_id)->value('number_of_days');
+
+        if ($vacations_days >= $vacation_accumulation){
+            flash('Excedeu o numero máximo de dias de Pedido de Férias ')->error();
             return redirect()->route('vacation.myVacation');
         } else {
-            flash('Dias Restantes: '. (11 - $vacations_days). ' dias')->success();
+            flash('Dias Restantes: '. ($vacation_accumulation - $vacations_days). ' dias')->success();
             return view('vacations.create');
         }
     }
@@ -89,46 +96,81 @@ class VacationController extends Controller
     {
         $vacation = new Vacation();
         Carbon::setLocale('pt_BR');
-        $month= Carbon::now()->isoFormat('MMMM');
         $year = Carbon::now()->year;
         $lastTwoDigits = substr($year, -2);
 
         $last_Id = Vacation::count();
-        $requester_user_id = Auth::user()->id;
+        $this->user_id = Auth::user()->id;
 
         $vacation->internal_reference=('VC'.$lastTwoDigits.($last_Id<10?'0':'').(1+$last_Id));
-        $vacation->user_id = $requester_user_id;
+        $vacation->user_id = $this->user_id;
         $vacation->start_date = $request->input('start_date');
         $vacation->end_date = $request->input('end_date');
         $vacation->status_id = VacationStatus::where('name', 'Pendente')->value('id');
 
-        if ($vacation->start_date <= $vacation->end_date) {
-            $holiday = Holiday::pluck('holiday_date');
-            $holiday = $holiday->toArray();
+
+
+        $startYear = Carbon::parse($vacation->start_date)->year;
+        $endYear = Carbon::parse($vacation->end_date)->year;
+
+        if (($vacation->start_date <= $vacation->end_date) ) {
+
+            if(($startYear != $year) || ($endYear != $year)){
+//                dd($startYear, $endYear, $currentYear);
+                flash('Não pode registrar férias de outros anos')->error();
+                return view('vacations.create')->with('inputData', $request->input());
+            }
+
+            $vacation_collective = VacationCollective::whereYear('start_date', $year)->get();
+
+            $overlap = $vacation_collective->filter(function($commun) use ($vacation) {
+                $collectiveStart = Carbon::parse($commun->start_date);
+                $collectiveEnd = Carbon::parse($commun->end_date);
+                $vacationStart = Carbon::parse($vacation->start_date);
+                $vacationEnd = Carbon::parse($vacation->end_date);
+
+                return ($vacationStart->between($collectiveStart, $collectiveEnd) || $vacationEnd->between($collectiveStart, $collectiveEnd));
+            });
+
+            if ($overlap->count() > 0) {
+                flash('Erro ao tentar registrar o pedido, Um dos dias é dia de Férias comum')->error();
+                return view('vacations.create')->with('inputData', $request->input());
+            }
+
+            $holidayDates = Holiday::pluck('holiday_date')->map(function ($date) {
+                return Carbon::parse($date)->format('m-d'); // Formate a data para "mês-dia"
+            })->toArray();
+
             $vacation->number_of_days = 0;
             $start_date = Carbon::parse($vacation->start_date);
             $end_date = Carbon::parse($vacation->end_date);
 
             while ($start_date <= $end_date) {
-                if ($start_date->dayOfWeek !== Carbon::SATURDAY && $start_date->dayOfWeek !== Carbon::SUNDAY) {
-                    $dataString = $start_date->toDateString();
-                    if (!in_array($dataString, $holiday)) {
-                        $vacation->number_of_days++;
-                    }
+                $currentDate = $start_date->format('m-d');
+                if (!in_array($currentDate, $holidayDates) &&
+                    $start_date->dayOfWeek !== Carbon::SATURDAY &&
+                    $start_date->dayOfWeek !== Carbon::SUNDAY ) {
+                    $vacation->number_of_days++;
                 }
-                $start_date->addDay();
+                if ((in_array($currentDate, $holidayDates) && $start_date->dayOfWeek === Carbon::SUNDAY)){
+                    $vacation->number_of_days--;
+                }
+                $start_date->addDay(); // Avance para o próximo dia
             }
 
 
-            $this->user_id = Auth::user()->id;
             $vacation_days = Vacation::where('user_id', $this->user_id)
-                ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+                ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
+                    VacationStatus::where('name', 'Cancelado')->value('id')])
+                ->whereRaw('YEAR(start_date) = ?', [$year])
                 ->sum('number_of_days');
             $vacations_days = $vacation_days + $vacation->number_of_days;
+
+            $vacation_accumulation = VacationAccumulation::where('user_id', $this->user_id)->value('number_of_days');
             try{
-                if ($vacations_days > 11) {
+                if ($vacations_days > $vacation_accumulation) {
                     flash('Erro ao tentar registar o pedido, Limite de dias atingido. Tem somente '
-                        . (11 - $vacation_days). ' restantes')->error();
+                        . ($vacation_accumulation - $vacation_days). ' restantes')->error();
                     return view('vacations.create')->with('inputData', $request->input());
                 } else {
                     $vacation->save();
@@ -140,7 +182,7 @@ class VacationController extends Controller
                 return redirect()->back()->withInput();
             }
         } else {
-            flash('Erro ao tentar actualizar o pedido, Dia de inicio não pode ser depois do dia do fim')->error();
+            flash('Erro ao tentar actualizar o pedido, Dia de inicio não pode ser depois do dia do fim ou o Ano não é o actual')->error();
             return view('vacations.create')->with('inputData', $request->input());
         }
     }
@@ -150,8 +192,12 @@ class VacationController extends Controller
      */
     public function show(Vacation $vacation)
     {
-        $conflict_vacations = Vacation::where('start_date', '<=', $vacation->end_date)
-            ->where('end_date', '>=', $vacation->start_date)->where('id', '!=', $vacation->id)
+        $currentYear = Carbon::now()->year;
+        $conflict_vacations = Vacation::with(['user', 'vacationStatus'])
+            ->where('start_date', '<=', $vacation->end_date)
+            ->where('end_date', '>=', $vacation->start_date)
+            ->where('id', '!=', $vacation->id)
+            ->whereRaw('YEAR(start_date) = ?', [$currentYear])
             ->get();
 
         return view('vacations.show',compact('vacation', 'conflict_vacations'));
@@ -173,7 +219,31 @@ class VacationController extends Controller
         $vacation->start_date = $request->input('start_date');
         $vacation->end_date = $request->input('end_date');
 
-        if ($vacation->start_date <= $vacation->end_date) {
+        $year = Carbon::now()->year;
+        $startYear = Carbon::parse($vacation->start_date)->year;
+        $endYear = Carbon::parse($vacation->end_date)->year;
+        if (($vacation->start_date <= $vacation->end_date)) {
+
+            if (($startYear != $year) || ($endYear != $year)) {
+                flash('Não pode registrar férias de outros anos')->error();
+                return view('vacations.create')->with('inputData', $request->input());
+            }
+            $vacation_communs = VacationCollective::whereYear('start_date', $year)->get();
+
+            $overlap = $vacation_communs->filter(function($commun) use ($vacation) {
+                $communStart = Carbon::parse($commun->start_date);
+                $communEnd = Carbon::parse($commun->end_date);
+                $vacationStart = Carbon::parse($vacation->start_date);
+                $vacationEnd = Carbon::parse($vacation->end_date);
+
+                return ($vacationStart->between($communStart, $communEnd) || $vacationEnd->between($communStart, $communEnd));
+            });
+
+            if ($overlap->count() > 0) {
+                flash('Erro ao tentar registrar o pedido, Um dos dias é dia de Férias comum')->error();
+                return view('vacations.create')->with('inputData', $request->input());
+            }
+
 
             $holidayDates = Holiday::pluck('holiday_date')->map(function ($date) {
                 return Carbon::parse($date)->format('m-d'); // Formate a data para "mês-dia"
@@ -184,25 +254,31 @@ class VacationController extends Controller
             $end_date = Carbon::parse($vacation->end_date);
 
             while ($start_date <= $end_date) {
-                // Verifique se o dia e o mês não estão em um feriado
                 $currentDate = $start_date->format('m-d');
                 if (!in_array($currentDate, $holidayDates) &&
                     $start_date->dayOfWeek !== Carbon::SATURDAY &&
                     $start_date->dayOfWeek !== Carbon::SUNDAY) {
                     $vacation->number_of_days++;
                 }
-
+                if ((in_array($currentDate, $holidayDates) && $start_date->dayOfWeek === Carbon::SUNDAY)){
+                    $vacation->number_of_days--;
+                }
                 $start_date->addDay(); // Avance para o próximo dia
             }
 
-
             $vacation_days = Vacation::where('user_id', $vacation->user_id)
-                ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+                ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
+                    VacationStatus::where('name', 'Cancelado')->value('id')])
+                ->where('id', '!=', $vacation->id)
+                ->whereRaw('YEAR(start_date) = ?', [$year])
                 ->sum('number_of_days');
             $vacations_days = $vacation_days + $vacation->number_of_days;
-            if ($vacations_days > 11) {
-                flash('Erro ao tentar actualizar o pedido, Limite de dias atingido. Tem somente '
-                    . (11 - $vacation_days) . ' restantes')->error();
+
+            $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->value('number_of_days');
+
+            if ($vacations_days > $vacation_accumulation) {
+                flash('Erro ao tentar actualizar o Pedido, Limite de dias atingido. Tem somente '
+                    . ($vacation_accumulation - $vacation_days) . ' restantes')->error();
                 return redirect()->back()->withInput();
             }
             try {
@@ -229,11 +305,17 @@ class VacationController extends Controller
 
     public function approve(Vacation $vacation)
     {
+
+        $currentYear = Carbon::now()->year;
         $vacation_days = Vacation::where('user_id', $vacation->user_id)
-            ->whereNotIn('status_id', ['Rejeitado', 'Cancelado'])
+            ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
+                VacationStatus::where('name', 'Cancelado')->value('id')])
             ->where('id', '!=', $vacation->id)
+            ->whereRaw('YEAR(start_date) = ?', [$currentYear])
             ->sum('number_of_days');
-        if (($vacation_days + $vacation->number_of_days) <= 11) {
+        $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->value('number_of_days');
+
+        if (($vacation_days + $vacation->number_of_days) <= $vacation_accumulation) {
             $vacation->status_id = VacationStatus::where('name', 'Aprovado')->value('id');
             $vacation->save();
             flash('Pedido de Férias Aprovado com sucesso')->success();

@@ -273,6 +273,13 @@
                                 Minhas Férias
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('vacation_collectives.index')}}">
+
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Ferias Coletivas
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
