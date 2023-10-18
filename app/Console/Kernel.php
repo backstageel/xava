@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\VacationController;
 use App\Models\CompetitionResult;
 use App\Models\CompetitionStatus;
 use App\Models\Sale;
@@ -26,33 +27,10 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('inspire')->hourly();
          $schedule->command('telescope:prune')->daily();
-//        $schedule->command('process-vacation-status')->everySecond();
 
-//        $schedule->call(function () {
-////            $command = new ProcessVacationStatus();
-////            $command->handle();
-//            $today = Carbon::today();
-//
-//            $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Aprovado')->value('id'))
-//                ->whereDate('start_date', $today)
-//                ->get();
-//
-//            foreach ($vacations as $vacation) {
-//                $vacation->status_id = VacationStatus::where('name', 'Em andamento')->value('id');
-//                $vacation->save();
-//            }
-//
-//            $today = Carbon::today();
-//
-//            $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em andamento')->value('id'))
-//                ->whereDate('end_date', $today)
-//                ->get();
-//
-//            foreach ($vacations as $vacation) {
-//                $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
-//                $vacation->save();
-//            }
-//        })->dailyAt('6:00');
+        $schedule->call(function () {
+            (new VacationController())->inProgress();
+        })->dailyAt('15:00');
 
      //   Schedule to notify user about the competition proposal delivery date
         $schedule->call(function () {
@@ -68,7 +46,7 @@ class Kernel extends ConsoleKernel
                 'ProductCategory.productsubcategories'
 
             ])
-                ->orWhere('proposal_delivery_date', '>=', Carbon::now())
+                ->orWhere('proposal_delivery_date', '<=', Carbon::now())
                 ->orWhere('proposal_delivery_date', '<=', Carbon::now()->addDays(3)) // Notificar com 3 dias de antecedência.
                 ->whereNot('competition_status_id', CompetitionStatus::where('name', 'Submeter proposta')->value('id'))
                 ->where('competition_result_id', CompetitionResult::where('neme', 'Pendente')->value('id'))
@@ -76,8 +54,7 @@ class Kernel extends ConsoleKernel
             if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
             foreach ($users as $user) {
-                if ($user->email ==='sviegas@xava.co.mz'
-                || $user->email === 'isa@gmail.com') {
+                if ($user->email ==='sviegas@xava.co.mz') {
                     Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
                     Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
 
@@ -91,17 +68,14 @@ class Kernel extends ConsoleKernel
                 ->get();
             if (!$sales->isEmpty()) {
                 $users = User::where('id','>',1)->get();
-                foreach ($users as $user) {
+                foreach ($users as $user)
+                {
                     if ($user->email === 'zmussa@xava.co.mz'
                         || $user->email ==='etsamba@xava.co.mz'
-                        || $user->email === 'smacamo@xava.co.mz'
-                    || $user->email === 'isa@gmail.com') {
-
-                Mail::to($user->email)->send(new saleMail(['sales' => $sales],
-                            $user->name));
-                Mail::to('isaltinabrizito@gmail.com')->send(
-                    new saleMail(['sales' => $sales],
-                            'Isaltina Pepete'));
+                        || $user->email === 'smacamo@xava.co.mz')
+                    {
+                        Mail::to($user->email)->send(new saleMail(['sales' => $sales], $user->name));
+                        Mail::to('isaltinabrizito@gmail.com')->send(new saleMail(['sales' => $sales],'Isaltina Pepete'));
                     }
                 }
             }

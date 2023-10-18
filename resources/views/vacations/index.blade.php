@@ -128,6 +128,7 @@
                         <th>Data Inicio</th>
                         <th>Data Fim</th>
                         <th>Nr de Dias</th>
+                        <th>Dias Gozados</th>
                         <th>Estado</th>
                         <th><p style="display: none;"> </p></th>
 
@@ -144,6 +145,7 @@
                                 <td>{{$vacation->start_date}}</td>
                                 <td>{{$vacation->end_date}}</td>
                                 <td>{{$vacation->number_of_days}}</td>
+                                <td>{{$vacation->used_days}}</td>
                                 <td>{{isset($vacation->vacationStatus) ? $vacation->vacationStatus->name : '' }}</td>
                                 <td>
                                     <a href="{{route('vacations.show', $vacation)}}"> editar </a>
@@ -218,6 +220,7 @@
                         <th>Data Inicio</th>
                         <th>Data Fim</th>
                         <th>Nr de Dias</th>
+                        <th>Dias Gozados</th>
                         <th>Estado</th>
                         <th><p style="display: none;"> </p></th>
 
@@ -234,6 +237,7 @@
                                 <td>{{$vacation->start_date}}</td>
                                 <td>{{$vacation->end_date}}</td>
                                 <td>{{$vacation->number_of_days}}</td>
+                                <td>{{$vacation->used_days}}</td>
                                 <td>{{isset($vacation->vacationStatus) ? $vacation->vacationStatus->name : '' }}</td>
                                 <td>
                                     <a href="{{route('vacations.show', $vacation)}}"> editar </a>
