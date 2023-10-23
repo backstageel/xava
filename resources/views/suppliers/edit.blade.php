@@ -48,35 +48,40 @@
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
                                         <div class="col-6">
-                                            <x-bootstrap::form.input name="name" label="Nome da Empresa"
-                                                                     value="{{old('name', $company->name)}}"/>
+                                            <x-bootstrap::form.input name="name" label="Nome do fornecedor"
+                                                                     value="{{old('name', $supplier->supplierable->name ?:
+                                                                    $supplier->supplierable->first_name . ' ' . $supplier->supplierable->last_name)}}"/>
                                         </div>
 
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="email" label="Email"
-                                                                     value="{{old('email', $company->email)}}"/>
+                                                                     value="{{old('email', $supplier->supplierable->email)}}"/>
+                                        </div>
+                                        <div class="col-3">
+                                            <x-bootstrap::form.select name="supplier_type" label="Tipo de Fornecedor"
+                                                                      :options="$supplierTypes"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
                                             <x-bootstrap::form.input name="nuit" label="NUIT"
-                                                                     value="{{old('nuit', $company->nuit)}}"/>
+                                                                     value="{{old('nuit',$supplier->supplierable->nuit)}}"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="address_country_id" label="Nacionalidade"
                                                                       :options="$countries"
-                                                                      default="{{old('country_id', $company->address_country_id)}}"/>
+                                                                      default="{{old('country_id', $supplier->supplierable->address_country_id)}}"/>
                                         </div>
 
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="address_province_id" label="Província"
                                                                       :options="$provinces"
-                                                                      default="{{old('province_id', $company->address_province_id)}}"/>
+                                                                      default="{{old('province_id', $supplier->supplierable->address_province_id)}}"/>
                                         </div>
                                         <div class="col-3">
                                             <x-bootstrap::form.select name="address_district_id" label="Distrito"
                                                                       :options="$districts"
-                                                                      default="{{old('district_id', $company->address_district_id)}}"/>
+                                                                      default="{{old('district_id', $supplier->supplierable->address_district_id)}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -84,11 +89,11 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="phone" label="Telemovel"
-                                                                     value="{{old('phone', $company->phone)}}"/>
+                                                                     value="{{old('phone', $supplier->supplierable->phone)}}"/>
                                         </div>
                                         <div class="col-6">
                                             <x-bootstrap::form.input name="website" label="Pagina WEB"
-                                                                     value="{{old('website', $company->website)}}"/>
+                                                                     value="{{old('website', $supplier->supplierable->website)}}"/>
                                         </div>
                                     </div>
                                     <div class="row float-end">

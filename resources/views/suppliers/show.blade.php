@@ -17,8 +17,8 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('suppliers.edit', $supplier)}}" class="btn btn-primary">Editar</a>
-                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Remover</a>
+{{--                <a href="{{route('suppliers.edit', $supplier)}}" class="btn btn-primary">Editar</a>--}}
+{{--                <a href="{{route('suppliers.create')}}" class="btn btn-primary">Remover</a>--}}
                 <a href="{{route('suppliers.create')}}" class="btn btn-primary">Adicionar</a>
                 @php
                     $province = \App\Models\Province::find($supplier->supplierable->address_province_id);
@@ -39,8 +39,12 @@
                                 <img src="{{asset('assets/images/avatars/avatar-10.png')}}" alt="Admin"
                                      class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
-                                    <h4> {{$supplier->supplierable->name}}</h4>
 
+                                    @if( ($supplier->supplierable->name) == null)
+                                        <h4> {{$supplier->supplierable->first_name}} {{$supplier->supplierable->last_name}}</h4>
+                                    @else
+                                        <h4>{{$supplier->supplierable->name}} </h4>
+                                    @endif
                                     <button class="btn btn-primary">Ligar</button>
                                     <button class="btn btn-outline-primary">Enviar Mensagem</button>
                                 </div>

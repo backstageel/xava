@@ -45,7 +45,11 @@
                     <tbody>
                     @foreach($suppliers as $supplier)
                         <tr>
-                            <td>{{$supplier->supplierable->name}}</td>
+                            @if( (($supplier->supplierable->name) == null ))
+                                <td> {{$supplier->supplierable->first_name}} {{$supplier->supplierable->last_name}}</td>
+                            @else
+                                <td>{{$supplier->supplierable->name}} </td>
+                            @endif
                             <td>{{$supplier->supplierable->email}}</td>
                             <td>{{$supplier->supplierable->nuit}}</td>
                             <td>{{$supplier->supplierable->phone}}</td>

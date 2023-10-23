@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\Models\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,5 +22,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::preventLazyLoading(!app()->isProduction());
+
+//        view()->composer('layout.header', function ($view) {
+//
+//            $data = 'Dado que você quer compartilhar';
+//            $view->with('data', $data);
+//        });
     }
+
 }

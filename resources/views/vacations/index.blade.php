@@ -207,6 +207,52 @@
         </div>
     </div>
     <br>
+    <h6 class="mb-0 text-uppercase">Férias Tiradas</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example3" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome do Colaborador</th>
+                        <th>Data Inicio</th>
+                        <th>Data Fim</th>
+                        <th>Nr de Dias</th>
+                        <th>Dias Gozados</th>
+                        <th>Estado</th>
+                        <th><p style="display: none;"> </p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($vacations as $vacation)
+
+                        @if($vacation->vacationStatus->name == 'Concluido')
+                            <tr>
+                                <td>{{$vacation->internal_reference}}</td>
+                                <td>{{$vacation->user->name}}</td>
+                                <td>{{$vacation->start_date}}</td>
+                                <td>{{$vacation->end_date}}</td>
+                                <td>{{$vacation->number_of_days}}</td>
+                                <td>{{$vacation->used_days}}</td>
+                                <td>{{isset($vacation->vacationStatus) ? $vacation->vacationStatus->name : '' }}</td>
+                                <td>
+                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
     <h6 class="mb-0 text-uppercase">Férias Canceladas</h6>
     <hr/>
     <div class="card">

@@ -27,7 +27,8 @@ class VacationCollectiveController extends Controller
         $this->person_id = Person::where('user_id',$this->user_id)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
-        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1) {
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
+            $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->user_id==1) {
 
             $year = Carbon::now()->year;
             $vacation_collectives = VacationCollective::whereRaw('YEAR(start_date) = ?', [$year])

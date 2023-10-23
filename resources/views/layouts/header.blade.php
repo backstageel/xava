@@ -25,6 +25,7 @@
                             </div>
                             <a href="javascript:;">
                                 <div class="text-center msg-footer">Ver todas notificações</div>
+{{--                                <p>{{$data}}</p>--}}
                             </a>
                         </div>
                     </li>

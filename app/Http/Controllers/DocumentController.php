@@ -21,9 +21,14 @@ class DocumentController extends Controller
 
     public function index($path)
     {
-        if ($path != 'IT' && $path != 'motas') {
+        if ($path != 'IT' && $path != 'motas' && $path != 'Documentos Actualizados') {
             $documents = Storage::files('documents/' . $path);
             return view('documents.index', compact('documents', 'path'));
+        } else if ($path == 'Documentos Actualizados'){
+            $documents = Storage::files('documents/Documentos Actualizados' . $path);
+            $documents_in_table = Document::where('path', $path)
+                ->get();
+            return view('documents.index', compact('documents', 'documents_in_table', 'path'));
         } else {
             $documents = Storage::files('documents/actas/' . $path);
 
@@ -65,7 +70,18 @@ class DocumentController extends Controller
             abort(404);
         }
     }
+    public function edit(Document $document, $path){
+        return view('documents.edit', compact( 'document', 'path'));
+    }
+    public function update(Document $document, Request $request, ){
+        $path = $request->input('path');
+        $document->meeting_date = $request->input('meeting_date');
+        $document->save();
 
+        flash('success', 'Documento carregado com sucesso')->success();
+        return redirect()->route('documents.index', $path);
+
+    }
 
     public function uploadDocument(Request $request)
     {
@@ -92,6 +108,7 @@ class DocumentController extends Controller
             $document->department_id = $department;
             $document->meeting_date = $request->input('meeting_date');
         }
+        $document->meeting_date = $request->input('meeting_date');
         $document->save();
 
         flash('success', 'Documento carregado com sucesso')->success();

@@ -71,6 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/vacation/vacationsMap', [\App\Http\Controllers\VacationController::class, 'vacationsMap'])->name('vacation.vacationsMap');
     Route::resource('vacation_collectives', \App\Http\Controllers\VacationCollectiveController::class);
+    Route::get('/documents/edit/{document}/{path}', [\App\Http\Controllers\DocumentController::class, 'edit'])->name('documents.edit');
+    Route::put('/documents/update/{document}', [\App\Http\Controllers\DocumentController::class, 'update'])->name('documents.update');
+
 
 
 

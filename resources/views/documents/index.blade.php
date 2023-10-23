@@ -47,7 +47,8 @@
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Documentos</div>
 
-        @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
+        @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
+            $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL
                                     || $userID == 1)
         <div class="ms-auto">
             <div class="btn-group">
@@ -94,8 +95,47 @@
                     </div>
                 </div>
             </div>
+        @elseif($path == 'Documentos Actualizados')
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data de validade</th>
+                                <th><p style="display: none;">. </p></th>
+                                <th><p style="displey: none"> </p> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($documents_in_table as $document)
+                                <tr>
+                                    <td>{{$document->name}}</td>
+                                    <td>{{$document->meeting_date}}</td>
+                                    <td>
+                                        <a href="{{route('documents.view', ['filename' => $document->name,'path' => $path])}}"> Visualizar </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('documents.edit', ['document' => $document,'path' => $path])}}"> editar </a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('documents.destroy', ['filename' => $document->name,'path' => $path]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este Documento?')">X</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
         @else
-
             <div class="d-flex flex-wrap">
         @foreach($documents as $document)
 
@@ -155,6 +195,16 @@
     <script>
         $(document).ready(function () {
             var table = $('#example1').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example2').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },

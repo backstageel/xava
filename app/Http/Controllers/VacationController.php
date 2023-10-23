@@ -27,11 +27,12 @@ class VacationController extends Controller
         $this->person_id = Person::where('user_id',$this->user_id)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
-        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->user_id==1){
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
+            $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->user_id==1){
             $vacations = Vacation::with('user', 'vacationStatus')->whereNot('user_id',  $this->user_id)->get();
             return view('vacations.index', compact('vacations'));
         }else
-            if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
+            if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO ) {
             $employee_position_ids = Employee::where('employee_position_id',  5)->pluck('person_id');
             $user_ids = Person::whereIn('id', $employee_position_ids)->pluck('user_id');
             $vacations = Vacation::with('user', 'vacationStatus')->whereIn('user_id',  $user_ids)->get();
@@ -413,6 +414,14 @@ class VacationController extends Controller
             $vacation->used_days = $vacation->number_of_days;
             $vacation->save();
         }
+    }
+
+    public function concluded(Vacation $vacation){
+        $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
+        $vacation->used_days = $vacation->number_of_days;
+        $vacation->save();
+        flash('Ferias Actualizadas para "Tiradas"')->success();
+        return redirect()->route('vacations.index');
     }
     /**
      * Remove the specified resource from storage.

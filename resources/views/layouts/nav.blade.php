@@ -260,12 +260,24 @@
 {{--                                Mapa de Férias--}}
 {{--                            </a>--}}
 {{--                        </li>--}}
-                        <li>
-                            <a href="{{route('vacations.index')}}">
-                                <i class="bx bx-right-arrow-alt"></i>
-                                lista de Férias
-                            </a>
-                        </li>
+                        @php
+                            $userID = Auth::user()->id;
+                            $personID = \App\Models\Person::where('user_id',$userID)->value('id');
+                            $employee_position_id = \App\Models\Employee::where('person_id',$personID)->value('employee_position_id');
+                        @endphp
+
+                            @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
+                                $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL ||
+                                $employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO
+                                                        || $userID == 1)
+                            <li>
+                                <a href="{{route('vacations.index')}}">
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                    lista de Férias
+                                </a>
+                            </li>
+                            @endif
+
                         <li>
                             <a href="{{route('vacation.myVacation')}}">
 

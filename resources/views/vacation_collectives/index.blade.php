@@ -53,7 +53,7 @@
                                 <td>{{$vacation_collective->end_date}}</td>
                                 <td>{{$vacation_collective->number_of_days}}</td>
                                 <td>
-                                    <a href="{{route('vacations.edit', $vacation_collective)}}"> editar </a>
+                                    <a href="{{route('vacation_collectives.edit', $vacation_collective)}}"> editar </a>
                                 </td>
                             </tr>
 
