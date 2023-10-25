@@ -381,6 +381,7 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </div><!--end row-->--}}
+
 @endsection
 
 @section("script")
@@ -1139,4 +1140,5 @@
             }
         });
     </script>
+    
 @endsection

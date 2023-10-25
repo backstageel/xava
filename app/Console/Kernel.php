@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
 
      //   Schedule to notify user about the competition proposal delivery date
         $schedule->call(function () {
-            $competitions = Competition::with(  [
+            $competitions = Competition::with([
                 'customer.customerable',
                 'ProductCategory',
                 'competitionType',
@@ -44,26 +44,28 @@ class Kernel extends ConsoleKernel
                 'companyType',
                 'competitionResult',
                 'ProductCategory.productsubcategories'
-
             ])
-                ->orWhere('proposal_delivery_date', '<=', Carbon::now())
-                ->orWhere('proposal_delivery_date', '<=', Carbon::now()->addDays(7)) // Notificar com 3 dias de antecedência.
-                ->whereNot('competition_status_id', CompetitionStatus::where('name', 'Submeter proposta')->value('id'))
                 ->where('competition_result_id', CompetitionResult::where('name', 'Pendente')->value('id'))
+                ->whereNot('competition_status_id', CompetitionStatus::where('name', 'Submeter proposta')->value('id'))
+                ->where(function ($query) {
+                    $query->where('proposal_delivery_date', '<=', Carbon::now()->addDays(7))
+                        ->orWhere('proposal_delivery_date', '<=', Carbon::now());
+                })
                 ->get();
+
             if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
-            foreach ($users as $user) {
-                if ($user->email ==='sviegas@xava.co.mz' ||
-                    $user->email ==='etsamba@xava.co.mz') {
-                    Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
-                    Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
-
-                }
+//            foreach ($users as $user) {
+//                if ($user->email ==='sviegas@xava.co.mz' ||
+//                    $user->email ==='etsamba@xava.co.mz') {
+//                    Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
+//                    Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
+//
+//                }
+//            }
+                Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'info@xava.co.mz'));
             }
-                Mail::to('info@xava.co.mz')->send(new competitionMail(['competitions' => $competitions], 'info@xava.co.mz'));
-            }
-        })->dailyAt('6:00');
+        })->everyMinute();
 
         $schedule->call(function () {
             $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])
