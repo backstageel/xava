@@ -55,17 +55,17 @@ class Kernel extends ConsoleKernel
 
             if (!$competitions->isEmpty()) {
             $users=User::where('id','>',1)->get();
-//            foreach ($users as $user) {
-//                if ($user->email ==='sviegas@xava.co.mz' ||
-//                    $user->email ==='etsamba@xava.co.mz') {
-//                    Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
-//                    Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaias'));
-//
-//                }
-//            }
-                Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'info@xava.co.mz'));
+            foreach ($users as $user) {
+                if ($user->email ==='sviegas@xava.co.mz' ||
+                    $user->email ==='etsamba@xava.co.mz') {
+                    Mail::to($user->email)->send(new competitionMail(['competitions' => $competitions], $user->name));
+
+                }
             }
-        })->everyMinute();
+                Mail::to('isaltinabrizito@gmail.com')->send(new competitionMail(['competitions' => $competitions], 'Isaltina'));
+                Mail::to('info@xava.co.mz')->send(new competitionMail(['competitions' => $competitions], 'info@xava.co.mz'));
+            }
+        })->dailyAt('6:00');
 
         $schedule->call(function () {
             $sales =  Sale::with(['ProductCategory', 'customer','saleItem.product', 'saleStatus'])

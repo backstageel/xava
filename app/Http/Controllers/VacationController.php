@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use App\Mail\vacationMail;
+use Illuminate\Support\Facades\Mail;
 
 class VacationController extends Controller
 {
@@ -300,6 +302,8 @@ class VacationController extends Controller
                         flash('Pedido Actualizado com sucesso')->success();
                         return redirect()->route('vacation.myVacation');
                     } else {
+                        $user = User::where('id', $vacation->user_id)->first();
+                        Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Actualização'));
                         $vacation->save();
                         flash('Pedido Actualizado com sucesso')->success();
                         return redirect()->route('vacations.index');
@@ -333,6 +337,8 @@ class VacationController extends Controller
 
         if (($vacation_days + $used_days +$vacation->number_of_days) <= $vacation_accumulation) {
             $vacation->status_id = VacationStatus::where('name', 'Aprovado')->value('id');
+            $user = User::where('id', $vacation->user_id)->first();
+            Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Aprovado'));
             $vacation->save();
             flash('Pedido de Férias Aprovado com sucesso')->success();
             return redirect()->route('vacations.index');
@@ -352,6 +358,8 @@ class VacationController extends Controller
             return redirect()->route('vacation.myVacation');
         } else {
             $vacation->status_id = VacationStatus::where('name', 'Cancelado')->value('id');
+            $user = User::where('id', $vacation->user_id)->first();
+            Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Canceladas'));
             $vacation->save();
             flash('Pedido de Férias Cancelado com sucesso')->success();
             return redirect()->route('vacations.index');
@@ -362,6 +370,8 @@ class VacationController extends Controller
 
     public function reject(Vacation $vacation){
         $vacation->status_id = VacationStatus::where('name', 'Rejeitado')->value('id');
+        $user = User::where('id', $vacation->user_id)->first();
+        Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Rejeitada'));
         $vacation->save();
         flash('Pedido de Férias Rejeitado')->success();
         return redirect()->route('vacations.index');
@@ -376,6 +386,8 @@ class VacationController extends Controller
             ->get();
 
         foreach ($approved_vacations as $vacation) {
+            $user = User::where('id', $vacation->user_id)->first();
+            Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Em Andamento'));
             $vacation->status_id = VacationStatus::where('name', 'Em andamento')->value('id');
             $vacation->save();
         }
