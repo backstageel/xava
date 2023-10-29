@@ -21,6 +21,9 @@
             <div class="btn-group">
                 <a href="{{route('vacation_collectives.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
+            <div class="btn-group">
+                <a href="{{route('holidays.create')}}" class="btn btn-primary">Adicionar dia de folga</a>
+            </div>
             <br>
             <br>
         </div>
@@ -45,8 +48,6 @@
                     </thead>
                     <tbody>
                     @foreach($vacation_collectives as $vacation_collective)
-
-
                             <tr>
                                 <td>{{$vacation_collective->id}}</td>
                                 <td>{{$vacation_collective->start_date}}</td>
@@ -67,6 +68,38 @@
         </div>
     </div>
 
+    <h6 class="mb-0 text-uppercase">Férias Coletivas</h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example2" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Dia de folga</th>
+                        <th><p style="display: none;"> </p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($holidays as $holiday)
+                        <tr>
+                            <td>{{$holiday->holiday_date}}</td>
+{{--                            <td>--}}
+{{--                                <a href="{{route('holidays.edit', $holiday)}}"> editar </a>--}}
+{{--                            </td>--}}
+                        </tr>
+
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section("script")

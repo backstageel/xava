@@ -29,10 +29,35 @@ class VacationController extends Controller
         $this->person_id = Person::where('user_id',$this->user_id)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
 
+        $year = Carbon::now()->year;
+        $vacations_data = Vacation::select('user_id', \DB::raw('SUM(used_days) as total_used_days'))
+            ->where(function($query) {
+                $query->whereNotIn('status_id', [
+                    VacationStatus::where('name', 'Pendente')->value('id'),
+                    VacationStatus::where('name', 'Aprovado')->value('id'),
+                    VacationStatus::where('name', 'Rejeitado')->value('id')
+                ])
+                    ->orWhereNull('status_id'); // Inclui também registros com status nulo, se houver
+            })
+            ->whereYear('start_date', $year)
+            ->groupBy('user_id')
+            ->get();
+
+        // Mapeia os dados para o formato necessário para o gráfico
+        $employees = [];
+        $used_days = [];
+
+
+        foreach ($vacations_data as $data) {
+            $employee = User::find($data->user_id)->name;
+            $employees[] = $employee;
+            $used_days[] = $data->total_used_days;
+        }
+//        dd($used_days, $employees);
         if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
             $this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->user_id==1){
             $vacations = Vacation::with('user', 'vacationStatus')->whereNot('user_id',  $this->user_id)->get();
-            return view('vacations.index', compact('vacations'));
+            return view('vacations.index', compact('vacations', 'employees', 'used_days'));
         }else
             if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_OPERATIVO ) {
             $employee_position_ids = Employee::where('employee_position_id',  5)->pluck('person_id');
@@ -74,26 +99,39 @@ class VacationController extends Controller
      */
     public function create()
     {
+
         $this->user_id = Auth::user()->id;
-        $year = Carbon::now()->year;
-        $vacations_days = Vacation::where('user_id', $this->user_id)
-            ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
-                VacationStatus::where('name', 'Cancelado')->value('id')])
-            ->whereYear('start_date', $year)
-            ->sum('number_of_days');
+        $this->person_id = Person::where('user_id',$this->user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+        $is_admin = false;
 
-        $used_days = Vacation::where('user_id', $this->user_id)
-            ->where('status_id', VacationStatus::where('name', 'Cancelado')->value('id'))
-            ->whereYear('start_date', $year)
-            ->sum('used_days');
-        $vacation_accumulation = VacationAccumulation::where('user_id', $this->user_id)->value('number_of_days');
 
-        if (($vacations_days + $used_days) >= $vacation_accumulation){
-            flash('Excedeu o numero máximo de dias de Pedido de Férias ')->error();
-            return redirect()->route('vacation.myVacation');
+        if($this->employee_position_id != \App\Enums\EmployeePosition::GESTOR_ESCRITORIO && $this->user_id != 1) {
+            $year = Carbon::now()->year;
+            $vacations_days = Vacation::where('user_id', $this->user_id)
+                ->whereNotIn('status_id', [VacationStatus::where('name', 'Rejeitado')->value('id'),
+                    VacationStatus::where('name', 'Cancelado')->value('id')])
+                ->whereYear('start_date', $year)
+                ->sum('number_of_days');
+
+            $used_days = Vacation::where('user_id', $this->user_id)
+                ->where('status_id', VacationStatus::where('name', 'Cancelado')->value('id'))
+                ->whereYear('start_date', $year)
+                ->sum('used_days');
+            $vacation_accumulation = VacationAccumulation::where('user_id', $this->user_id)->value('number_of_days');
+
+
+            if (($vacations_days + $used_days) >= $vacation_accumulation){
+                flash('Excedeu o numero máximo de dias de Pedido de Férias ')->error();
+                return redirect()->route('vacation.myVacation');
+            } else {
+                flash('Dias Restantes: '. ($vacation_accumulation - $vacations_days - $used_days). ' dias')->success();
+                return view('vacations.create', compact('is_admin'));
+            }
         } else {
-            flash('Dias Restantes: '. ($vacation_accumulation - $vacations_days - $used_days). ' dias')->success();
-            return view('vacations.create');
+            $users = User::pluck('name', 'id');
+            $is_admin = true;
+            return view('vacations.create', compact('is_admin', 'users'));
         }
     }
 
@@ -108,7 +146,22 @@ class VacationController extends Controller
         $lastTwoDigits = substr($year, -2);
 
         $last_Id = Vacation::count();
-        $this->user_id = Auth::user()->id;
+        if($request->input('user_id') == null) {
+            $this->user_id = Auth::user()->id;
+        } else {
+            $this->user_id = $request->input('user_id');
+        }
+
+
+        $auth_user_id = Auth::user()->id;
+        $this->person_id = Person::where('user_id',$auth_user_id)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->person_id)->value('employee_position_id');
+        $is_admin = false;
+
+
+        if($this->employee_position_id == \App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $auth_user_id == 1) {
+            $is_admin = true;
+        }
 
         $vacation->internal_reference=('VC'.$lastTwoDigits.($last_Id<10?'0':'').(1+$last_Id));
         $vacation->user_id = $this->user_id;
@@ -177,23 +230,29 @@ class VacationController extends Controller
 
             $vacations_days = $vacation_days + $vacation->number_of_days + $used_days;
             $vacation_accumulation = VacationAccumulation::where('user_id', $this->user_id)->value('number_of_days');
+//            dd($vacation_days, $used_days, $vacation->number_of_days,$vacations_days);
             try{
                 if ($vacations_days > $vacation_accumulation) {
                     flash('Erro ao tentar registar o pedido, Limite de dias atingido. Tem somente '
                         . ($vacation_accumulation - $vacation_days). ' restantes')->error();
-                    return view('vacations.create')->with('inputData', $request->input());
+                    return redirect()->back()->withInput()->with('is_admin', $is_admin);
                 } else {
                     $vacation->save();
-                    flash('Pedido registado com sucesso')->success();
-                    return redirect()->route('vacation.myVacation');
+                    if ($is_admin && $auth_user_id != $this->user_id) {
+                        flash('Pedido registado com sucesso')->success();
+                        return redirect()->route('vacations.index');
+                    } else {
+                        flash('Pedido registado com sucesso')->success();
+                        return redirect()->route('vacation.myVacation');
+                    }
                 }
             }catch (\Exception $exception){
                 flash('Erro ao tentar registar o pedido '. $exception->getMessage())->error();
-                return redirect()->back()->withInput();
+                return redirect()->back()->withInput()->with('is_admin', $is_admin);
             }
         } else {
             flash('Erro ao tentar actualizar o pedido, Dia de inicio não pode ser depois do dia do fim')->error();
-            return view('vacations.create')->with('inputData', $request->input());
+            return redirect()->back()->withInput()->with('is_admin', $is_admin);
         }
     }
 
@@ -348,7 +407,6 @@ class VacationController extends Controller
         }
     }
 
-
     public function cancel(Vacation $vacation){
 
         if (Auth::user()->id == $vacation->user_id){
@@ -366,7 +424,6 @@ class VacationController extends Controller
         }
 
     }
-
 
     public function reject(Vacation $vacation){
         $vacation->status_id = VacationStatus::where('name', 'Rejeitado')->value('id');

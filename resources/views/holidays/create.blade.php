@@ -12,13 +12,12 @@
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Pedido de Férias</div>
+        <div class="breadcrumb-title pe-3">Dia de Folga</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-{{--                    <li class="breadcrumb-item active" aria-current="page">Lista de Requisições</li>--}}
                 </ol>
             </nav>
         </div>
@@ -26,18 +25,18 @@
     </div>
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <h6 class="mb-0 text-uppercase">Registar Novo Pedido</h6>
+            <h6 class="mb-0 text-uppercase">Registar Dia de Folga</h6>
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('vacations.store')}}">
+                    <x-bootstrap::form.form class="row g-3" action="{{route('holidays.store')}}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Dados da Pedido
+                                        1
                                     </a>
                                 </li>
                             </ul>
@@ -45,22 +44,11 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.date-picker name="start_date" label="Dia de inicio"
+                                        <div class="col-6">
+                                            <x-bootstrap::form.date-picker name="holiday_date" label="Dia de folga"
                                                                       required/>
                                         </div>
-                                        <div class="col-8">
-                                            <x-bootstrap::form.date-picker name="end_date" label="Dia de Fim" required/>
-                                        </div>
                                     </div>
-                                    @if($is_admin)
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="user_id" label="Funcionario" required
-                                            :options="$users"/>
-                                        </div>
-                                    </div>
-                                    @endif
                                 </div>
                             </div>
                             <div class="row float-end">
@@ -69,8 +57,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <!-- Include optional progressbar HTML -->
                         <div class="progress">

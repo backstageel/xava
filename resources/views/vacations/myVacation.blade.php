@@ -82,7 +82,7 @@
                         <th>Data Fim</th>
                         <th>Nr de Dias</th>
                         <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
+{{--                        <th><p style="display: none;"> </p></th>--}}
 
 
                     </tr>
@@ -98,9 +98,9 @@
                                 <td>{{$vacation->end_date}}</td>
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{$vacation->vacationStatus->name}}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
+{{--                                <td>--}}
+{{--                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>--}}
+{{--                                </td>--}}
                             </tr>
                         @endif
                     @endforeach
@@ -127,14 +127,10 @@
                         <th>Nr de Dias</th>
                         <th>Dias Gozados</th>
                         <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
-
-
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($vacations as $vacation)
-
                         @if($vacation->vacationStatus->name == 'Em andamento')
                             <tr>
                                 <td>{{$vacation->internal_reference}}</td>
@@ -144,13 +140,9 @@
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{$vacation->used_days}}</td>
                                 <td>{{$vacation->vacationStatus->name}}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
                             </tr>
                         @endif
                     @endforeach
-
                     </tbody>
                     <tfoot>
                     </tfoot>
@@ -172,14 +164,11 @@
                         <th>Data Fim</th>
                         <th>Nr de Dias</th>
                         <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
-
-
+{{--                        <th><p style="display: none;"> </p></th>--}}
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($vacations as $vacation)
-
                         @if($vacation->vacationStatus->name == 'Rejeitado')
                             <tr>
                                 <td>{{$vacation->internal_reference}}</td>
@@ -188,13 +177,12 @@
                                 <td>{{$vacation->end_date}}</td>
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{$vacation->vacationStatus->name}}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
+{{--                                <td>--}}
+{{--                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>--}}
+{{--                                </td>--}}
                             </tr>
                         @endif
                     @endforeach
-
                     </tbody>
                     <tfoot>
                     </tfoot>
@@ -217,14 +205,11 @@
                         <th>Nr de Dias</th>
                         <th>Dias Gozados</th>
                         <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
-
-
+{{--                        <th><p style="display: none;"> </p></th>--}}
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($vacations as $vacation)
-
                         @if($vacation->vacationStatus->name == 'Cancelado')
                             <tr>
                                 <td>{{$vacation->internal_reference}}</td>
@@ -234,13 +219,12 @@
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{$vacation->used_days}}</td>
                                 <td>{{$vacation->vacationStatus->name}}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
+{{--                                <td>--}}
+{{--                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>--}}
+{{--                                </td>--}}
                             </tr>
                         @endif
                     @endforeach
-
                     </tbody>
                     <tfoot>
                     </tfoot>

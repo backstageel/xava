@@ -25,6 +25,33 @@
             <br>
         </div>
     </div>
+
+    <div class="col-12 col-lg-12">
+        <div class="col d-flex">
+            <div class="card radius-10 w-100">
+                <div class="card-header bg-transparent">
+                    <div class="d-flex align-items-center">
+                        <div>
+
+                            <h6 class="mb-0">Dias Tirados</h6>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container-0">
+                        <br>
+                        <canvas id="chart1"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Pedido de Férias</h6>
     <hr/>
@@ -176,9 +203,6 @@
                         <th>Data Fim</th>
                         <th>Nr de Dias</th>
                         <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
-
-
                     </tr>
                     </thead>
                     <tbody>
@@ -192,9 +216,6 @@
                                 <td>{{$vacation->end_date}}</td>
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{isset($vacation->vacationStatus) ? $vacation->vacationStatus->name : '' }}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
                             </tr>
                         @endif
                     @endforeach
@@ -214,18 +235,16 @@
             <div class="table-responsive">
                 <table id="example3" class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nome do Colaborador</th>
-                        <th>Data Inicio</th>
-                        <th>Data Fim</th>
-                        <th>Nr de Dias</th>
-                        <th>Dias Gozados</th>
-                        <th>Estado</th>
-                        <th><p style="display: none;"> </p></th>
-
-
-                    </tr>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome do Colaborador</th>
+                            <th>Data Inicio</th>
+                            <th>Data Fim</th>
+                            <th>Nr de Dias</th>
+                            <th>Dias Gozados</th>
+                            <th>Estado</th>
+{{--                            <th><p style="display: none;"> </p></th>--}}
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach($vacations as $vacation)
@@ -239,9 +258,9 @@
                                 <td>{{$vacation->number_of_days}}</td>
                                 <td>{{$vacation->used_days}}</td>
                                 <td>{{isset($vacation->vacationStatus) ? $vacation->vacationStatus->name : '' }}</td>
-                                <td>
-                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>
-                                </td>
+{{--                                <td>--}}
+{{--                                    <a href="{{route('vacations.show', $vacation)}}"> editar </a>--}}
+{{--                                </td>--}}
                             </tr>
                         @endif
                     @endforeach
@@ -304,6 +323,11 @@
 @section("script")
     <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{asset('')}}assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="{{asset('')}}assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.min.js"></script>
+    <script src="{{asset('')}}assets/plugins/chartjs/js/Chart.extension.js"></script>
+    <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script>
         $(document).ready(function () {
             var table = $('#example2').DataTable({
@@ -332,6 +356,40 @@
                 },
                 lengthChange: false,
             });
+        });
+    </script>
+    <script>
+
+
+        // Obtenha o contexto do canvas
+        var ctx = document.getElementById('chart1').getContext('2d');
+
+        // Crie o gráfico de barras horizontais
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: {!! json_encode($employees) !!}, // Nomes dos funcionários no eixo Y
+                datasets: [{
+                    data: {!! json_encode($used_days) !!}, // Número de dias de férias no eixo X
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false  // Oculta a legenda interativa
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
         });
     </script>
 @endsection

@@ -73,8 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('vacation_collectives', \App\Http\Controllers\VacationCollectiveController::class);
     Route::get('/documents/edit/{document}/{path}', [\App\Http\Controllers\DocumentController::class, 'edit'])->name('documents.edit');
     Route::put('/documents/update/{document}', [\App\Http\Controllers\DocumentController::class, 'update'])->name('documents.update');
-
-
+    Route::post('/vacations/{vacation}/concluded', [\App\Http\Controllers\VacationController::class, 'concluded'])->name('vacations.concluded');
+    Route::resource('holidays', \App\Http\Controllers\HolidaysController::class);
 
 
 });

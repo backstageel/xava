@@ -18,7 +18,8 @@ class VacationCollectiveController extends Controller
     public function index()
     {
         $vacation_collectives = VacationCollective::get();
-        return view('vacation_collectives.index', compact('vacation_collectives'));
+        $holidays = Holiday::where('id', '>', 9)->get();
+        return view('vacation_collectives.index', compact('vacation_collectives', 'holidays'));
     }
 
     public function create()

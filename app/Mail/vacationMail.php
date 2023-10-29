@@ -31,6 +31,6 @@ class vacationMail extends Mailable
 
         return $this->from('info@xava.co.mz')
             ->view('emails.vacation')
-            ->subject($subject);
+            ->subject($this->subject);
     }
 }

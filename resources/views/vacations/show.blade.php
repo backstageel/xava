@@ -91,7 +91,8 @@
                             </div>
 
                             @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO ||
-                                    $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO
+                                    $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO ||
+                                    $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL
                                     || $userID == 1) &&
                                     $userID != $vacation->user_id  &&
                                     $vacation->vacationStatus->name == "Pendente")
@@ -112,42 +113,48 @@
                                 </div>
                             @endif
                             @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
-                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
+                                || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO ||
+                                $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL)
                                      && $vacation->vacationStatus->name == "Aprovado" && $userID != $vacation->user_id)
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-success" type="submit">Cancelar</button>
                                     </form>
+                                    <form method="POST" action="{{ route('vacations.concluded', $vacation) }}">
+                                        @csrf
+                                        <button class="btn btn-success" type="submit">Concluido</button>
+                                    </form>
                                     <form method="POST" action="{{ route('vacations.reject', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-danger" type="submit">Recusar</button>
                                     </form>
+
                                 </div>
                             @endif
-                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
-                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
-                                     && $vacation->vacationStatus->name == "Rejeitado" && $userID != $vacation->user_id)
-                                <div class="col-12 d-flex justify-content-end">
-                                    <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">
-                                        @csrf
-                                        <button class="btn btn-success" type="submit">Cancelar</button>
-                                    </form>
-                                    <form method="POST" action="{{ route('vacations.approve', $vacation) }}">
-                                        @csrf
-                                        <button class="btn btn-success" type="submit">Aprovar</button>
-                                    </form>
-                                </div>
-                            @endif
+{{--                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO--}}
+{{--                                    || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)--}}
+{{--                                     && $vacation->vacationStatus->name == "Rejeitado" && $userID != $vacation->user_id)--}}
+{{--                                <div class="col-12 d-flex justify-content-end">--}}
+{{--                                    <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">--}}
+{{--                                        @csrf--}}
+{{--                                        <button class="btn btn-success" type="submit">Cancelar</button>--}}
+{{--                                    </form>--}}
+{{--                                    <form method="POST" action="{{ route('vacations.approve', $vacation) }}">--}}
+{{--                                        @csrf--}}
+{{--                                        <button class="btn btn-success" type="submit">Aprovar</button>--}}
+{{--                                    </form>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
                             @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
                                     || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
                                      && $vacation->vacationStatus->name == "Cancelado" && $userID != $vacation->user_id)
                                 <div class="col-12 d-flex justify-content-end">
-                                    <form method="POST" action="{{ route('vacations.approve', $vacation) }}">
+                                    <form method="POST" action="{{route('vacations.approve', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-success" type="submit">Aprovar</button>
                                     </form>
-                                    <form method="POST" action="{{ route('vacations.reject', $vacation) }}">
+                                    <form method="POST" action="{{route('vacations.reject', $vacation) }}">
                                         @csrf
                                         <button class="btn btn-danger" type="submit">Recusar</button>
                                     </form>
@@ -206,7 +213,6 @@
                                                 <td>{{$conflict_vacation->end_date}}</td>
                                                 <td>{{$conflict_vacation->number_of_days}}</td>
                                                 <td>{{isset($conflict_vacation->vacationStatus) ? $conflict_vacation->vacationStatus->name : '' }}</td>
-
                                             </tr>
                                         @endif
                                     @endforeach
