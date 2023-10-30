@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <h6 class="mb-0 text-uppercase">Férias Coletivas</h6>
+    <h6 class="mb-0 text-uppercase">Dias de Folga</h6>
     <hr/>
     <div class="card">
         <div class="card-body">
