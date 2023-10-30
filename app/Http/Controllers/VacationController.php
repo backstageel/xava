@@ -64,7 +64,7 @@ class VacationController extends Controller
             $user_ids = Person::whereIn('id', $employee_position_ids)->pluck('user_id');
             $vacations = Vacation::with('user', 'vacationStatus')->whereIn('user_id',  $user_ids)->get();
 
-            return view('vacations.index', compact('vacations'));
+            return view('vacations.index', compact('vacations','employees', 'used_days'));
         } else {
             return $this->create();
         }
