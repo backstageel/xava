@@ -249,7 +249,7 @@
                     <tbody>
                     @foreach($vacations as $vacation)
 
-                        @if($vacation->vacationStatus->name == 'Concluido')
+                        @if($vacation->vacationStatus->name == 'Concluído')
                             <tr>
                                 <td>{{$vacation->internal_reference}}</td>
                                 <td>{{$vacation->user->name}}</td>
