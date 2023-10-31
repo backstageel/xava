@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SaleItem extends Model
 {
     use HasFactory;
+    public $lazyLoaded = true;
 
     public function sale()
     {

@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="col-4">
                                                 <x-bootstrap::form.select  name="supplier_id" label="Fornecedor"
-                                                                           :options="$suppliers" required/>
+                                                                           :options="$suppliers" />
                                             </div>
                                             <div class="col-3">
                                                 <x-bootstrap::form.input type="number" name="quantity"   label="Quantidade"

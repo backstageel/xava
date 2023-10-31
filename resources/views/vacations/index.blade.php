@@ -194,7 +194,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example1" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Código</th>
@@ -233,7 +233,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example5" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Código</th>
@@ -277,7 +277,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="table table-striped table-bordered">
+                <table id="example6" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Código</th>
@@ -330,6 +330,16 @@
     <script src="{{asset('')}}assets/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script>
         $(document).ready(function () {
+            var table = $('#example1').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
             var table = $('#example2').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
@@ -351,6 +361,26 @@
     <script>
         $(document).ready(function () {
             var table = $('#example4').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example5').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
+                },
+                lengthChange: false,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example6').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },

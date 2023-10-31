@@ -1,11 +1,10 @@
 @extends("layouts.app")
 @section("style")
-    <link href="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
+{{--    <link href="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"/>--}}
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
 
 @section("wrapper")
-
-
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
         <div class="col">
             <div class="card radius-10 border-start border-0 border-3 border-info">
@@ -73,10 +72,8 @@
         </div>
     </div><!--end row-->
 
-
 <br>
     <div class="row">
-
         <div class="col-12 col-lg-4">
             <div class="card radius-10 d-flex">
                 <div class="card-body">
@@ -172,7 +169,6 @@
     <br>
     <br>
     <hr class="dropdown-divider">
-
     <h6 class="mb-0 text-uppercase">Vendas Facturadas(Não Pagas)</h6>
     <hr/>
 
@@ -180,9 +176,8 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table id="example2" class="table table-striped table-bordered">
-                    <thead>
+                    <thead class="table-light">
                     <tr>
-
                         <th>Codigo</th>
                         <th>Data de Venda</th>
                         <th>Nome Cliente</th>
@@ -192,8 +187,6 @@
                         <th>Valor Recebido</th>
                         <th>Divida</th>
                         <th><p style="display: none;">.</p></th>
-
-
                     </tr>
                     </thead>
                     <tbody>
@@ -382,7 +375,6 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </div><!--end row-->--}}
-
 @endsection
 
 @section("script")
@@ -394,7 +386,7 @@
 
     <script>
         $(document).ready(function () {
-            var table = $('#example2').DataTable({
+            var table = $('#example1').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
                 },
