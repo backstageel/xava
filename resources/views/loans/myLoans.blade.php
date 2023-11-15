@@ -13,12 +13,51 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Emprestimos</li>
+                    <li class="breadcrumb-item active" aria-current="page">Meus Emprestimos</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
 
+        </div>
+    </div>
+    <h6 class="mb-0 text-uppercase">Minhas simulacoes </h6>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example1" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Valor de Emprestimo</th>
+                        <th>Estado do Emprestimo</th>
+                        <th><p style="display: none;">.</p></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($loans as $loan)
+                        @if($loan->status == 'Simulacao')
+                        <tr>
+                            <td>{{$loan->internal_reference}}</td>
+                            <td>{{$loan->employee->person->full_name}}</td>
+                            <td>@money($loan->amount)</td>
+                            <td>{{$loan->status}}</td>
+                            <td>
+                                <a href="{{route('loans.show', $loan)}}"> mostrar detalhes </a>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
     <!--end breadcrumb-->
@@ -42,7 +81,7 @@
                     <tbody>
                     @foreach($loans as $loan)
                         @if($loan->status == 'Pendente')
-                            <tr>
+                        <tr>
                             <td>{{$loan->internal_reference}}</td>
                             <td>{{$loan->employee->person->full_name}}</td>
                             <td>@money($loan->amount)</td>
@@ -50,8 +89,8 @@
                             <td>
                                 <a href="{{route('loans.show', $loan)}}"> mostrar detalhes </a>
                             </td>
-                            </tr>
-                            @endif
+                        </tr>
+                        @endif
                     @endforeach
 
                     </tbody>
@@ -77,27 +116,21 @@
                         <th>Responsavel</th>
                         <th>Motivos</th>
                         <th>Estado do Emprestimo</th>
-                        <th><p style="display: none;">.</p></th>
-
-
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($loans as $loan)
                         @if($loan->status == 'Aprovado')
-                        <tr>
-                            <td>{{$loan->internal_reference}}</td>
-                            <td>{{$loan->employee->person->full_name}}</td>
-                            <td>{{$loan->created_at}}</td>
-                            <td>@money($loan->amount)</td>
-                            <td>{{$loan->debt}}</td>
-                            <td>{{$loan->user->name}}</td>
-                            <td>{{$loan->reason}}</td>
-                            <td>{{$loan->status}}</td>
-                            <td>
-                                <a href="{{route('loans.show', $loan)}}"> mostrar detalhes </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{$loan->internal_reference}}</td>
+                                <td>{{$loan->employee->person->full_name}}</td>
+                                <td>{{$loan->created_at}}</td>
+                                <td>@money($loan->amount)</td>
+                                <td>{{$loan->debt}}</td>
+                                <td>{{$loan->user->name}}</td>
+                                <td>{{$loan->reason}}</td>
+                                <td>{{$loan->status}}</td>
+                            </tr>
                         @endif
                     @endforeach
 
@@ -124,22 +157,21 @@
                         <th>Responsavel</th>
                         <th>Motivos</th>
                         <th>Estado do Emprestimo</th>
-
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($loans as $loan)
                         @if($loan->status == 'Rejeitado')
-                        <tr>
-                            <td>{{$loan->internal_reference}}</td>
-                            <td>{{$loan->employee->person->full_name}}</td>
-                            <td>{{$loan->created_at}}</td>
-                            <td>@money($loan->amount)</td>
-                            <td>{{$loan->amount - $loan->total_paid}}</td>
-                            <td>{{$loan->user->name}}</td>
-                            <td>{{$loan->reason}}</td>
-                            <td>{{$loan->status}}</td>
-                        </tr>
+                            <tr>
+                                <td>{{$loan->internal_reference}}</td>
+                                <td>{{$loan->employee->person->full_name}}</td>
+                                <td>{{$loan->created_at}}</td>
+                                <td>@money($loan->amount)</td>
+                                <td>{{$loan->debt}}</td>
+                                <td>{{$loan->user->name}}</td>
+                                <td>{{$loan->reason}}</td>
+                                <td>{{$loan->status}}</td>
+                             </tr>
                         @endif
                     @endforeach
 

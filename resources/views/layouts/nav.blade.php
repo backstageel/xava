@@ -26,69 +26,92 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{route('employees.index')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Colaboradores
+                    <a href="{{route('employees.index')}}" >
+                        <div class="parent-icon"><i class="bx bx-right-arrow-alt"></i></div>
+                        <div class="menu-title">Colaboradores</div>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('documents.index', 'Procedimentos Internos')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Procedimentos Internos
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('documents.index', 'Legislação Moçambicana')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Legislação Moçambicana
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('documents.index', 'Documentos Actualizados')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Documentos Actualizados
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('documents.index', 'Inventario do RH')}}">
-                        <i class="bx bx-right-arrow-alt"></i>
-                        Inventario do RH
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="has-arrow">
-                        <div class="parent-icon"><i ></i></div>
-                        <div class=" bx bx-right-arrow-alt ">Actas</div>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-right-arrow-alt"></i></div>
+                        <div class="menu-title">Documentos</div>
                     </a>
                     <ul>
                         <li>
-                            <a href="{{route('documents.index', 'IT')}}">
+                            <a href="{{route('documents.index', 'Procedimentos Internos')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
-                                Departamento de Equipamento Informático
+                                Procedimentos Internos
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('documents.index', 'motas')}}">
+                            <a href="{{route('documents.index', 'Legislação Moçambicana')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
-                                Departamento de Motas e Bicicletas
+                                Legislação Moçambicana
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('documents.index', 'Documentos Actualizados')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Documentos Actualizados
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('documents.index', 'Inventario do RH')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Inventario do RH
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="has-arrow">
+                                <div class="parent-icon"><i ></i></div>
+                                <div class=" bx bx-right-arrow-alt "></div>
+                                Actas
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{route('documents.index', 'IT')}}">
+                                        <i class="bx bx-right-arrow-alt"></i>
+                                        Departamento de Equipamento Informático
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('documents.index', 'motas')}}">
+                                        <i class="bx bx-right-arrow-alt"></i>
+                                        Departamento de Motas e Bicicletas
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow" >
+                        <div class="parent-icon"><i class="bx bx-right-arrow-alt"></i></div>
+                        <div class="menu-title">Emprestimos</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('loans.create')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Simular Emprestimos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('loan.myLoans')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Meus Emprestimos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('loans.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Emprestimos
                             </a>
                         </li>
                     </ul>
                 </li>
 
-{{--                    <li>--}}
-{{--                        <a href="{{route('loans.index')}}">--}}
-{{--                            <i class="bx bx-right-arrow-alt"></i>--}}
-{{--                            Ver Empréstimos--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
-{{--                    <li>--}}
-{{--                        <a href="{{route('loans_simulator.create')}}">--}}
-{{--                            <i class="bx bx-right-arrow-alt"></i>--}}
-{{--                            Simular Emprestimos--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
 
 {{--                <li>--}}
 {{--                    <a href="{{route('expense_requests.index')}}">--}}

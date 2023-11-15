@@ -22,7 +22,7 @@
         <div class="main-body">
 
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
 
@@ -36,7 +36,7 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0">Nome do Colaborador</h6>
                                         <span
-                                            class="text-secondary">{{$employee->person->first_name}} {{$employee->person->last_name}}</span>
+                                            class="text-secondary">{{$loan->employee->person->first_name}} {{$loan->employee->person->last_name}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0">Valor do Emprestimo</h6>
@@ -53,13 +53,9 @@
                                     </li>
                                 </ul>
 
-                            <x-bootstrap::form.form class="row g-3" action="{{route('create_pdf.store')}}">
+                            <x-bootstrap::form.form method="POST" class="row g-3" action="{{route('loans.submit', $loan)}}">
                                 @csrf
-                                <input type="hidden" name="amount" value="{{$loan->amount}}"/>
-                                <input type="hidden" name="installment" value="{{$loan->installment}}"/>
-                                <input type="hidden" name="months" value="{{$loan->months}}"/>
-                                <input type="hidden" name="full_name" value="{{$employee->person->first_name}} {{$employee->person->last_name}}"/>
-                                <input type="hidden" name="employee_position" value="{{$employee->employeePosition->name}}">
+
                                 <button class="btn btn-success" type="submit">Gerar Pedido</button>
                             </x-bootstrap::form.form>
                         </div>

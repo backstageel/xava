@@ -13,4 +13,8 @@ class Loan extends Model
         return $this->belongsTo(Employee::class);
     }
 
+    public function user(){
+        return  $this->belongsTo(User::class, 'responsible_id');
+    }
+
 }

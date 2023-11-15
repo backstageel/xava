@@ -14,19 +14,31 @@ class PaymentController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-        $id_loan = $request->input('loan_id');
-        $payments = Payment::where('loan_id', $id_loan)->get();
+        $loan_id = $request->input('loan_id');
 
-        return view('payments.index', compact('payments'));
+        $payment = new Payment();
+        $payment->amount = $request->input('amount');
+        $payment->loan_id = $loan_id;
+        $payment->month = $request->input('month');
+        $payment->payment_date = $request->input('payment_date');
+        $payment->save();
+
+        $loan = Loan::where('id', $loan_id)->first();
+
+        $loan->total_paid = $loan->total_paid + $payment->amount;
+        $loan->debt = $loan->amount - $loan->total_paid;
+        $loan->save();
+
+        return redirect()->route('loans.show', $loan);
 
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Loan $loan)
     {
-
+        return view('payments.create', compact('loan'));
     }
     public function index(){
 

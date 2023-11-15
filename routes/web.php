@@ -36,8 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('suppliers', \App\Http\Controllers\SuppliersController::class);
     Route::resource('change_passwords', ChangePasswordsController::class)->only('create', 'store');
     Route::resource('loans', \App\Http\Controllers\LoanController::class);
-    Route::resource('loans_simulator', \App\Http\Controllers\LoanController::class)->only('create', 'store');
-    Route::resource('payments', \App\Http\Controllers\PaymentController::class);
     Route::resource('competitions', \App\Http\Controllers\CompetitionController::class);
     Route::resource('create_pdf', \App\Http\Controllers\CreatePdfController::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
@@ -75,6 +73,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/documents/update/{document}', [\App\Http\Controllers\DocumentController::class, 'update'])->name('documents.update');
     Route::post('/vacations/{vacation}/concluded', [\App\Http\Controllers\VacationController::class, 'concluded'])->name('vacations.concluded');
     Route::resource('holidays', \App\Http\Controllers\HolidaysController::class);
+    Route::post('loans/simulate', [\App\Http\Controllers\LoanController::class, 'simulate'])->name('loans.simulate');
+    Route::post('loans/{loan}/submit', [\App\Http\Controllers\LoanController::class, 'submit'])->name('loans.submit');
+    Route::get('/loan/myLoans', [\App\Http\Controllers\LoanController::class, 'myLoans'])->name('loan.myLoans');
+    Route::post('loans/{loan}/approve', [\App\Http\Controllers\LoanController::class, 'approve'])->name('loans.approve');
+    Route::post('loans/{loan}/reject', [\App\Http\Controllers\LoanController::class, 'reject'])->name('loans.reject');
+    Route::post('loans/{loan}/cancel', [\App\Http\Controllers\LoanController::class, 'cancel'])->name('loans.cancel');
+    Route::delete('loans/{loan}/destroy', [\App\Http\Controllers\LoanController::class, 'destroy'])->name('loans.destroy');
+    Route::put('/payments/store', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/payments/{loan}/create', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payments.create');
 
 
 });

@@ -6,13 +6,13 @@
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Emprestimo</div>
+        <div class="breadcrumb-title pe-3">Pagamento</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Simular Emprestimo</li>
+                    <li class="breadcrumb-item active" aria-current="page">Efectuar Pagamento</li>
                 </ol>
             </nav>
         </div>
@@ -24,14 +24,14 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('loans.simulate')}}">
-                        <!-- SmartWizard html -->
+                    <x-bootstrap::form.form  method='PUT'  class="row g-3" action="{{route('payments.store')}}">
+
                         <div id="smartwizard">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#step-1">
                                         <div class="num">1</div>
-                                        Simulação de Emprestimo
+                                        Pagamento
                                     </a>
                                 </li>
 
@@ -41,13 +41,23 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-5">
-                                            <x-bootstrap::form.input name="amount" label="Valor do Emprestimo" required/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="amount" label="valor a Pagar"/>
+                                        </div>
+                                        <div class="col-4"> <!-- Adicione a classe form-select -->
+                                            <x-bootstrap::form.input   name="month" label="Mês"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="payment_date" label="Dia do Pagamento" />
                                         </div>
                                     </div>
+                                    <div>
+                                        <input type="hidden" name="loan_id" value="{{$loan->id}}"/>
+                                    </div>
+
                                     <div class="row float-end">
                                         <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Simular</button>
+                                            <button class="btn btn-success" type="submit">Editar</button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
