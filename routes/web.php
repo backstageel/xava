@@ -79,7 +79,6 @@ Route::middleware('auth')->group(function () {
     Route::post('loans/{loan}/approve', [\App\Http\Controllers\LoanController::class, 'approve'])->name('loans.approve');
     Route::post('loans/{loan}/reject', [\App\Http\Controllers\LoanController::class, 'reject'])->name('loans.reject');
     Route::post('loans/{loan}/cancel', [\App\Http\Controllers\LoanController::class, 'cancel'])->name('loans.cancel');
-    Route::delete('loans/{loan}/destroy', [\App\Http\Controllers\LoanController::class, 'destroy'])->name('loans.destroy');
     Route::put('/payments/store', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
     Route::get('/payments/{loan}/create', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payments.create');
 
