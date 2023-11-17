@@ -34,7 +34,7 @@ class ExpenseRequestController extends Controller
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
         $balance = CardLoad::latest()->first()->balance;
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO || $this->userID==1){
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO ){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
@@ -49,7 +49,7 @@ class ExpenseRequestController extends Controller
 
             return view('expense_requests.index', compact('expenses','balance'));
         }
-        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1){
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
             $accountingStatus = AccountingStatus::where('name', 'Contabilizado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
