@@ -34,7 +34,7 @@ class ExpenseRequestController extends Controller
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
         $balance = CardLoad::latest()->first()->balance;
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO||$this->userID==1){
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO || $this->userID==1){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
                 [
@@ -128,8 +128,7 @@ class ExpenseRequestController extends Controller
         $expenseRequest->type_id = $request->input('type_id');
         $expenseRequest->description = $request->input('description');
         $expenseRequest->amount = $request->input('amount');
-        $expenseRequest->transaction_account_id = $request->input('transaction_account_id');
-        $expenseRequest->transfer_account_number = $request->input('transfer_account_number');
+
         $expenseRequest->request_date = ucfirst($month);
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'pendente')->value('id'); // Obtenha o ID correspondente ao nome "pendente"
         $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
@@ -153,8 +152,9 @@ class ExpenseRequestController extends Controller
      */
     public function show(ExpenseRequest $expenseRequest)
     {
+        $transactionAccount = TransactionAccount::get();
 
-        return view('expense_requests.show',compact('expenseRequest'));
+        return view('expense_requests.show',compact('expenseRequest', 'transactionAccount'));
     }
 
     /**
@@ -200,6 +200,16 @@ class ExpenseRequestController extends Controller
     {
         $newAccountingStatusId = $request->input('accounting_status_id');
         $expenseRequest->update(['accounting_status_id' => $newAccountingStatusId,'accountant_user_id'=>Auth::user()->id]);
+
+        $expenseRequest->transaction_account_id = $request->input('transaction_account_id');
+        $expenseRequest->transfer_account_number = $request->input('transfer_account_number');
+        $expenseRequest->save();
+
+        if ( $expenseRequest->transaction_account_id !=  TransactionAccount::where('name', 'Caixa')->value('id')) {
+            $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
+            $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
+
+        }
 
         flash('Requisição Actualizada com sucesso')->success();
         return redirect()->route('expense_requests.index');

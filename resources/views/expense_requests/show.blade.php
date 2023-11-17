@@ -117,6 +117,27 @@
                                     </select>
                                 </div>
                             </div>
+                                <div class="mb-2 row">
+                                    <label for="staticEmail"
+                                           class="col-sm-3 col-form-label text-end fw-bold">Conta da Transação</label>
+                                    <div class="col-sm-6">
+                                        <select name="transaction_account_id" class="form-select form-select-lg mb-1 custom-select" aria-label=".form-select-lg example">
+                                            @foreach($transactionAccount as $transaction)
+                                                    <option class ="opt" value="{{ $transaction->id }}">{{ $transaction->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="staticEmail"
+                                           class="col-sm-3 col-form-label text-end fw-bold">Nr da Conta</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="transfer_account_number" class="form-control-plaintext" id="staticEmail"
+                                               >
+                                    </div>
+
+                                </div>
+
                                 <div class="col-12 d-flex justify-content-end">
                                         @csrf
                                     <button class="btn btn-success" type="submit">Gravar</button></div>

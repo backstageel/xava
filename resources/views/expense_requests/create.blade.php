@@ -59,13 +59,13 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="amount" label="Valor da Transação" required/>
                                         </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.select name="transaction_account_id" label="Conta da Transação"
-                                            :options="$transactionAccount"/>
-                                        </div>
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="transfer_account_number" label="Número da Conta"/>
-                                        </div>
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.select name="transaction_account_id" label="Conta da Transação"--}}
+{{--                                            :options="$transactionAccount"/>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-4">--}}
+{{--                                            <x-bootstrap::form.input name="transfer_account_number" label="Número da Conta"/>--}}
+{{--                                        </div>--}}
 
                                     </div>
 
