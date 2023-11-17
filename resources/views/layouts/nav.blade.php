@@ -256,6 +256,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{route('expense_request_types.index')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Tipos de Despesas
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{route('expense_request.myRequest')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Minhas Requisições

@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::post('loans/{loan}/cancel', [\App\Http\Controllers\LoanController::class, 'cancel'])->name('loans.cancel');
     Route::put('/payments/store', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
     Route::get('/payments/{loan}/create', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payments.create');
+    Route::resource('expense_request_types', \App\Http\Controllers\ExpenseRequestTypeController::class);
 
 
 });
