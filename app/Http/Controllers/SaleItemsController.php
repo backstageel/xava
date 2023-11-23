@@ -163,7 +163,7 @@ class SaleItemsController extends Controller
             $sale->debt_amount = $sale->total_amount - $sale->amount_received;
             $sale->save();
 
-            $sale_items = SaleItem::with(['product'])->
+            $sale_items = SaleItem::with(['product', 'supplier.supplierable'])->
             where('sale_id', $sale->id)->get();
 
             flash('Produto Actualizado')->success();
