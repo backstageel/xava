@@ -310,6 +310,8 @@ class ExpenseRequestController extends Controller
         $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
         $lastBalance->update(['balance'=>$lastBalance->balance - $expenseRequest->amount + $change]);
 
+        $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
+        $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
         $expenseRequest->save();
         flash('Requisição Finalizada com sucesso')->success();
         return redirect()->route('expense_request.index_box_request');
