@@ -34,7 +34,14 @@ class ExpenseRequest extends Model
         return $this->belongsTo(ApprovalStatus::class);
     }
     public function user(){
-       return  $this->belongsTo(User::class);
+       return  $this->belongsTo(User::class, 'requester_user_id');
+    }
+
+    public function approvedByUser(){
+        return  $this->belongsTo(User::class, 'approved_by_user_id');
+    }
+    public function accoutantUser(){
+        return  $this->belongsTo(User::class, 'accountant_user_id');
     }
 
 }

@@ -24,8 +24,7 @@ class ExpenseRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $userID,$personID,$employee_position_id;
-
+    private $userID, $personID, $employee_position_id;
 
     public function index()
     {
@@ -65,7 +64,7 @@ class ExpenseRequestController extends Controller
             return view('expense_requests.index', compact('expenses','balance'));
         }
 
-        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO || $this->userID==1) {
         $expenses = ExpenseRequest::with(
             [
                 'accountingStatus',
@@ -82,33 +81,146 @@ class ExpenseRequestController extends Controller
     }
     }
 
+    public function index_box_request()
+    {
+        $this->userID = Auth::user()->id;
+        $this->personID = Person::where('user_id',$this->userID)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
+        $balance = CardLoad::latest()->first()->balance;
+
+        if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
+
+            $expenses = ExpenseRequest::with(
+                [
+                    'accountingStatus',
+                    'expenseRequestType',
+                    'requestStatus',
+                    'transactionAccount',
+                    'approvalStatus',
+                    'user'
+                ]
+            )->where('transaction_account_id', TransactionAccount::where('name', 'Caixa')->value('id'))->orderBy('id')->paginate(1000);
+
+            return view('expense_requests.index_box_request', compact('expenses','balance'));
+        }
+        if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO) {
+            $expenses = ExpenseRequest::with(
+                [
+                    'accountingStatus',
+                    'expenseRequestType',
+                    'requestStatus',
+                    'transactionAccount',
+                    'approvalStatus',
+                    'user'
+                ]
+            )->where('transaction_account_id', TransactionAccount::where('name', 'Caixa')->value('id'))->paginate(1000);
+//            dd (TransactionAccount::where('name', 'Caixa')->value('id'));
+            return view('expense_requests.index_box_request', compact('expenses','balance'));
+        }
+
+        if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO||$this->userID==1) {
+            $expenses = ExpenseRequest::with(
+                [
+                    'accountingStatus',
+                    'expenseRequestType',
+                    'requestStatus',
+                    'transactionAccount',
+                    'approvalStatus',
+                    'user'
+                ]
+            )->where('transaction_account_id',TransactionAccount::where('name', 'Caixa')->value('id'))
+                ->orderBy('id')->paginate(1000);
+            return view('expense_requests.index_box_request', compact('expenses','balance'));
+        } else {
+            return $this->create();
+        }
+    }
+
+    public function create (){
+        $users=User::where('id','>','1')->orderBy('name')->pluck('name','id');
+        $accountingStatus=AccountingStatus::orderBy('name')->pluck('name','id');
+        $approvalStatus=ApprovalStatus::orderBy('name')->pluck('name','id');
+        $expenseRequestType=ExpenseRequestType::orderBy('name')->pluck('name','id');
+        $requestStatus=RequestStatus::orderBy('name')->pluck('name','id');
+        $transactionAccount=TransactionAccount::orderBy('name')->pluck('name','id');
+        $is_box = false;
+        return view('expense_requests.create',
+            compact(
+                'users',
+                'accountingStatus',
+                'approvalStatus',
+                'expenseRequestType',
+                'requestStatus',
+                'transactionAccount',
+                'is_box'
+            ));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create_box_request()
     {
-       $users=User::where('id','>','1')->orderBy('name')->pluck('name','id');
-       $accountingStatus=AccountingStatus::orderBy('name')->pluck('name','id');
-       $approvalStatus=ApprovalStatus::orderBy('name')->pluck('name','id');
-       $expenseRequestType=ExpenseRequestType::orderBy('name')->pluck('name','id');
-       $requestStatus=RequestStatus::orderBy('name')->pluck('name','id');
-       $transactionAccount=TransactionAccount::orderBy('name')->pluck('name','id');
+        $this->userID = Auth::user()->id;
+        $this->personID = Person::where('user_id',$this->userID)->value('id');
+        $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
-       return view('expense_requests.create',
-           compact(
-               'users',
-               'accountingStatus',
-               'approvalStatus',
-               'expenseRequestType',
-               'requestStatus',
-               'transactionAccount'
-           ));
+       if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO) {
+           $users = User::where('id', '>', '1')->orderBy('name')->pluck('name', 'id');
+           $expenseRequestType = ExpenseRequestType::orderBy('name')->pluck('name', 'id');
+           $requestStatus = RequestStatus::orderBy('name')->pluck('name', 'id');
 
+           $is_box = true;
+           return view('expense_requests.create',
+               compact(
+                   'users',
+                   'expenseRequestType',
+                   'requestStatus',
+                   'is_box'
+               ));
+       } else {
+           return $this->create();
+       }
+    }
+
+    public function store_box_request(\App\Http\Requests\ExpenseRequest $request)
+    {
+        $expenseRequest = new ExpenseRequest();
+        Carbon::setLocale('pt_BR');
+        $month= Carbon::now()->isoFormat('MMMM');
+        $year = Carbon::now()->year;
+        $lastTwoDigits = substr($year, -2);
+
+        $auth_user = Auth::user()->id;
+        $last_Id = ExpenseRequest::count();
+
+        $expenseRequest->internal_reference=('RD'.$lastTwoDigits.($last_Id<10?'0':'').(1+$last_Id));
+        $expenseRequest->requester_user_id = $request->input('requester_user_id');
+        $expenseRequest->type_id = $request->input('type_id');
+        $expenseRequest->description = $request->input('description');
+        $expenseRequest->amount = $request->input('amount');
+        $expenseRequest->transaction_account_id = TransactionAccount::where('name', 'Caixa')->value('id');
+
+        $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
+        $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
+        $expenseRequest->request_date = ucfirst($month);
+        $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
+
+        $expenseRequest->approved_by_user_id = $auth_user;
+        $expenseRequest->accountant_user_id = $auth_user;
+
+        try{
+            $expenseRequest->save();
+            flash('Requisição registada com sucesso')->success();
+            return redirect()->route('expense_request.index_box_request');
+        }catch (\Exception $exception){
+            flash('Erro ao tentar registar a requisição '. $exception->getMessage())->error();
+            return redirect()->back()->withInput();
+
+        }
 
 
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -131,7 +243,7 @@ class ExpenseRequestController extends Controller
 
         $expenseRequest->request_date = ucfirst($month);
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'pendente')->value('id'); // Obtenha o ID correspondente ao nome "pendente"
-        $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
+        $expenseRequest->request_status_id = RequestStatus::where('name','Aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
         $expenseRequest->accounting_status_id = AccountingStatus::where('name','Requisitado')->value('id');
 
         try{
@@ -155,6 +267,12 @@ class ExpenseRequestController extends Controller
         $transactionAccount = TransactionAccount::get();
 
         return view('expense_requests.show',compact('expenseRequest', 'transactionAccount'));
+    }
+
+    public function show_details(ExpenseRequest $expenseRequest)
+    {
+        dd($expenseRequest);
+        return view('expense_requests.show_details', compact('expenseRequest'));
     }
 
     /**
@@ -182,18 +300,19 @@ class ExpenseRequestController extends Controller
         return redirect()->route('expense_requests.index');
     }
 
-    public function confirm(ExpenseRequest $expenseRequest)
+    public function confirm(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
-        $lastBalance = CardLoad::latest()->first();
 
+        $lastBalance = CardLoad::latest()->first();
+        $change = $request->input('change');
         $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
 
+        $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
+        $lastBalance->update(['balance'=>$lastBalance->balance - $expenseRequest->amount + $change]);
 
-            $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
-            $lastBalance->update(['balance'=>$lastBalance->balance-$expenseRequest->amount]);
-
-            flash('Requisição Confirmada com sucesso')->success();
-            return redirect()->route('expense_requests.index');
+        $expenseRequest->save();
+        flash('Requisição Finalizada com sucesso')->success();
+        return redirect()->route('expense_request.index_box_request');
 
     }
     public function accountingStatus(ExpenseRequest $expenseRequest,Request $request,)
@@ -205,7 +324,7 @@ class ExpenseRequestController extends Controller
         $expenseRequest->transfer_account_number = $request->input('transfer_account_number');
         $expenseRequest->save();
 
-        if ( $expenseRequest->transaction_account_id !=  TransactionAccount::where('name', 'Caixa')->value('id')) {
+        if ($expenseRequest->transaction_account_id !=  TransactionAccount::where('name', 'Caixa')->value('id')) {
             $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
             $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
 

@@ -82,6 +82,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/payments/store', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
     Route::get('/payments/{loan}/create', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payments.create');
     Route::resource('expense_request_types', \App\Http\Controllers\ExpenseRequestTypeController::class);
+    Route::get('/expense_request/create_box_request',[\App\Http\Controllers\ExpenseRequestController::class, 'create_box_request'])->name('expense_request.create_box_request');
+    Route::post('/expense_request/store_box_request',[\App\Http\Controllers\ExpenseRequestController::class, 'store_box_request'])->name('expense_request.store_box_request');
+    Route::get('/expense_request/index_box_request',[\App\Http\Controllers\ExpenseRequestController::class, 'index_box_request'])->name('expense_request.index_box_request');
+    Route::get('/expense_request/{expenseRequest}/show_details',[\App\Http\Controllers\ExpenseRequestController::class, 'show_details'])->name('expense_request.show_details');
 
 
 });

@@ -22,6 +22,7 @@
                 <a href="{{route('expense_request_types.create')}}" class="btn btn-primary">Adicionar</a>
             </div>
         </div>
+
     </div>
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">Tipos de Despesas</h6>
@@ -35,7 +36,7 @@
                         <th>Código</th>
                         <th>Tipo de Despesa</th>
                         <th>Data de Criação</th>
-                        <td></td <th><p style="display: none;">.</p></th>
+                        <th><p style="display: none;">.</p></th>
                     </tr>
                     </thead>
                     <tbody>

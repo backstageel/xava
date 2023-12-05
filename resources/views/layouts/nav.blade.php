@@ -256,6 +256,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{route('expense_request.index_box_request')}}">
+                                <i class="bx bx-right-arrow-alt"></i>
+                                Requisição de Caixa
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{route('expense_request_types.index')}}">
                                 <i class="bx bx-right-arrow-alt"></i>
                                 Tipos de Despesas

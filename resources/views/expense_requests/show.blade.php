@@ -132,18 +132,21 @@
                                     <label for="staticEmail"
                                            class="col-sm-3 col-form-label text-end fw-bold">Nr da Conta</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="transfer_account_number" class="form-control-plaintext" id="staticEmail"
-                                               >
+                                        <input type="text" name="transfer_account_number" class="form-control-plaintext" id="staticEmail">
                                     </div>
 
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-end">
                                         @csrf
-                                    <button class="btn btn-success" type="submit">Gravar</button></div>
+                                    <button class="btn btn-success" type="submit">Gravar</button>
+                                </div>
                             </form>
                             @endif
                             @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO)
+
+                                <form method="POST" action="{{ route('expense_requests.confirm', $expenseRequest)}}">
+                                    @csrf
                                 <div class="mb-3 row">
                                     <label for="staticEmail"
                                            class="col-sm-3 col-form-label text-end fw-bold">Estado Contabilistico</label>
@@ -151,17 +154,19 @@
                                         <input type="text" readonly class="form-control-plaintext" id="staticEmail"
                                                value="{{$expenseRequest->accountingStatus->name??''}}">
                                     </div>
-
                                 </div>
-                            <div class="row">
+                                <div class="mb-3 row">
+                                    <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Trocos</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="change" class="form-control-plaintext" id="staticEmail">
+                                        </div>
+                                </div>
+
                                 <div class="col-12 d-flex justify-content-end">
-                                    <form method="POST" action="{{ route('expense_requests.confirm', $expenseRequest) }}">
-                                        @csrf
-                                        <button class="btn btn-success" type="submit">Confirmar</button>
-                                    </form>
+                                    @csrf
+                                        <button class="btn btn-success" type="submit">Fechar</button>
                                 </div>
-                            </div>
-
+                                </form>
                             @endif
 
                             <div class="row">
@@ -180,7 +185,7 @@
                                 </div>
                                 @endif
                             </div>
-                            </form>
+
                         </div>
 
 

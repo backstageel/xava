@@ -30,7 +30,7 @@
             <hr/>
             <div class="card">
                 <div class="card-body">
-                    <x-bootstrap::form.form class="row g-3" action="{{route('expense_requests.store')}}">
+                    <x-bootstrap::form.form class="row g-3" method="POST" action="{{ $is_box ? route('expense_request.store_box_request') : route('expense_requests.store') }}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -59,6 +59,12 @@
                                         <div class="col-4">
                                             <x-bootstrap::form.input name="amount" label="Valor da Transação" required/>
                                         </div>
+                                        @if($is_box)
+                                            <div class="col-4">
+                                                <x-bootstrap::form.select name="requester_user_id" label="Requerente"
+                                                                          :options="$users"/>
+                                            </div>
+                                        @endif
 {{--                                        <div class="col-4">--}}
 {{--                                            <x-bootstrap::form.select name="transaction_account_id" label="Conta da Transação"--}}
 {{--                                            :options="$transactionAccount"/>--}}

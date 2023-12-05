@@ -19,13 +19,10 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{route('expense_requests.create')}}" class="btn btn-primary">Adicionar</a>
+                <a href="{{route('expense_requests.create')}}" class="btn btn-primary">Adicionar Requisição</a>
             </div>
             <br>
-            <br>
-            <div class="btn-group" readonly>
-                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo: {{$balance}} MT </a>
-            </div>
+
         </div>
     </div>
     <!--end breadcrumb-->
@@ -149,6 +146,50 @@
             });
         });
     </script>
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            var table1 = $('#example2').DataTable({--}}
+{{--                language: {--}}
+{{--                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'--}}
+{{--                },--}}
+{{--                lengthChange: false--}}
+{{--            });--}}
+
+{{--            // Ocultar colunas vazias--}}
+{{--            table1.columns().every(function () {--}}
+{{--                var column = this;--}}
+
+{{--                // Verificar se há dados na coluna--}}
+{{--                var hasData = column.data().any();--}}
+
+{{--                // Se não houver dados, ocultar a coluna--}}
+{{--                if (!hasData) {--}}
+{{--                    column.visible(false);--}}
+{{--                }--}}
+{{--            });--}}
+
+{{--            var table2 = $('#example3').DataTable({--}}
+{{--                language: {--}}
+{{--                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'--}}
+{{--                },--}}
+{{--                lengthChange: false--}}
+{{--            });--}}
+
+{{--            // Ocultar colunas vazias--}}
+{{--            table2.columns().every(function () {--}}
+{{--                var column = this;--}}
+
+{{--                // Verificar se há dados na coluna--}}
+{{--                var hasData = column.data().any();--}}
+
+{{--                // Se não houver dados, ocultar a coluna--}}
+{{--                if (!hasData) {--}}
+{{--                    column.visible(false);--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+
+{{--    </script>--}}
     <script>
         $(document).ready(function () {
             var table = $('#example3').DataTable({
