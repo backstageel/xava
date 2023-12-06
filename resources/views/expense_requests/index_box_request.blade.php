@@ -54,7 +54,7 @@
                         <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
-                        @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO)
+                        @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID=1)
                         <th><p style="display: none;">.</p></th>
                         @endif
 
@@ -75,7 +75,7 @@
                                 <td>{{$expense->approvalStatus->name??''}}</td>
                                 <td>{{$expense->accountingStatus->name??''}}</td>
                                 <td>{{$expense->requestStatus->name}}</td>
-                                @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO)
+                                @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID=1)
                                 <td>
                                     <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
                                 </td>
