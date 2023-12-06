@@ -143,7 +143,7 @@
                                 </div>
                             </form>
                             @endif
-                            @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO)
+                            @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1)
 
                                 <form method="POST" action="{{ route('expense_requests.confirm', $expenseRequest)}}">
                                     @csrf
@@ -170,7 +170,7 @@
                             @endif
 
                             <div class="row">
-                                @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO||$userID==1)
+                                @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL||$employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO)
 
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('expense_requests.approve', $expenseRequest) }}">
