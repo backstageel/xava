@@ -301,7 +301,7 @@ class ExpenseRequestController extends Controller
 
     public function confirm(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
-        if ($expenseRequest->transaction_account_id == TransactionAccount::where('name', 'Caixa')) {
+        if ($expenseRequest->transaction_account_id == TransactionAccount::where('name', 'Caixa')->value('id')) {
             $lastBalance = CardLoad::latest()->first();
             $change = $request->input('change');
             $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
