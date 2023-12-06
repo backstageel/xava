@@ -143,7 +143,7 @@
                                 </div>
                             </form>
                             @endif
-                            @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1)
+                            @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1) && $expenseRequest->transactionAccount->name == "Caixa")
 
                                 <form method="POST" action="{{ route('expense_requests.confirm', $expenseRequest)}}">
                                     @csrf

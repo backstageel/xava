@@ -66,6 +66,7 @@
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
                             <td>{{$expense->requestStatus->name}}</td>
+
                             <td>
                                 <a href="{{route('expense_requests.show', $expense->id)}}"> Ver </a>
                             </td>
