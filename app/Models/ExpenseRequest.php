@@ -28,7 +28,7 @@ class ExpenseRequest extends Model
         return $this->belongsTo(RequestStatus::class);
     }
     public function transactionAccount(){
-        return $this->belongsTo(TransactionAccount::class);
+        return $this->belongsTo(TransactionAccount::class, 'transaction_account_id');
     }
     public function approvalStatus(){
         return $this->belongsTo(ApprovalStatus::class);

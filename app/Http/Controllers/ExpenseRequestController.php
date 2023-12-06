@@ -301,19 +301,23 @@ class ExpenseRequestController extends Controller
 
     public function confirm(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
+        if ($expenseRequest->transaction_account_id == TransactionAccount::where('name', 'Caixa')) {
+            $lastBalance = CardLoad::latest()->first();
+            $change = $request->input('change');
+            $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
 
-        $lastBalance = CardLoad::latest()->first();
-        $change = $request->input('change');
-        $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
+            $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
+            $lastBalance->update(['balance' => $lastBalance->balance - $expenseRequest->amount + $change]);
 
-        $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
-        $lastBalance->update(['balance'=>$lastBalance->balance - $expenseRequest->amount + $change]);
-
-        $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
-        $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
-        $expenseRequest->save();
-        flash('Requisição Finalizada com sucesso')->success();
-        return redirect()->route('expense_request.index_box_request');
+            $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
+            $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
+            $expenseRequest->save();
+            flash('Requisição Finalizada com sucesso')->success();
+            return redirect()->route('expense_request.index_box_request');
+        } else {
+            flash('Não tem Permissões para finalizar uma requisição que não é de Caixa. Por favor contacte o Administrador')->error();
+            return redirect()->back()->withInput();
+        }
 
     }
     public function accountingStatus(ExpenseRequest $expenseRequest,Request $request,)
