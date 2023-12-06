@@ -88,8 +88,7 @@ class ExpenseRequestController extends Controller
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
         $balance = CardLoad::latest()->first()->balance;
 
-        if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
-
+        if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
             $expenses = ExpenseRequest::with(
                 [
                     'accountingStatus',
@@ -103,7 +102,7 @@ class ExpenseRequestController extends Controller
 
             return view('expense_requests.index_box_request', compact('expenses','balance'));
         }
-        if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO) {
+        if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->userID==1) {
             $expenses = ExpenseRequest::with(
                 [
                     'accountingStatus',
@@ -118,7 +117,7 @@ class ExpenseRequestController extends Controller
             return view('expense_requests.index_box_request', compact('expenses','balance'));
         }
 
-        if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO||$this->userID==1) {
+        if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
             $expenses = ExpenseRequest::with(
                 [
                     'accountingStatus',
