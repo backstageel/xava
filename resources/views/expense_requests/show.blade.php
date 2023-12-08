@@ -38,6 +38,15 @@
                 </ol>
             </nav>
         </div>
+        @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1))
+        <div class="ms-auto">
+            <div class="btn-group">
+                <a href="{{route('expense_requests.edit', $expenseRequest)}}" class="btn btn-primary">Editar</a>
+            </div>
+            <br>
+
+        </div>
+        @endif
 
     </div>
     <!--end breadcrumb-->

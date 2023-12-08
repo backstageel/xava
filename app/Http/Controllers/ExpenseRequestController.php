@@ -155,9 +155,7 @@ class ExpenseRequestController extends Controller
             ));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create_box_request()
     {
         $this->userID = Auth::user()->id;
@@ -226,9 +224,8 @@ class ExpenseRequestController extends Controller
 
 
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
     public function store(\App\Http\Requests\ExpenseRequest $request)
     {
         $expenseRequest = new ExpenseRequest();
@@ -271,13 +268,10 @@ class ExpenseRequestController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(ExpenseRequest $expenseRequest)
     {
         $transactionAccount = TransactionAccount::get();
-
         return view('expense_requests.show',compact('expenseRequest', 'transactionAccount'));
     }
 
@@ -290,17 +284,57 @@ class ExpenseRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ExpenseRequest $expenseRequest)
     {
+        $users = User::where('id', '>', '1')->orderBy('name')->pluck('name', 'id');
+        $expenseRequestType = ExpenseRequestType::orderBy('name')->pluck('name', 'id');
+        $requestStatus = RequestStatus::orderBy('name')->pluck('name', 'id');
 
+        $is_box = true;
+        return view('expense_requests.edit',
+            compact(
+                'users',
+                'expenseRequestType',
+                'requestStatus',
+                'is_box',
+                'expenseRequest'
+            ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
+        $expenseRequest->requester_user_id = $request->input('requester_user_id');
+        $expenseRequest->type_id = $request->input('type_id');
+        $expenseRequest->description = $request->input('description');
+        $expenseRequest->amount = $request->input('amount');
+        $expenseRequest->invoice = $request->input('invoice');
+        $expenseRequest->transaction_account_id = TransactionAccount::where('name', 'Caixa')->value('id');
 
+        $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
+        $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
+        $expenseRequest->request_date = $request->input('request_date');
+        $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
+
+        $expenseRequest->approved_by_user_id = Auth::user()->id;
+        $expenseRequest->accountant_user_id = Auth::user()->id;
+
+        try{
+            $expenseRequest->save();
+            flash('Requisição editada com sucesso')->success();
+            return redirect()->route('expense_request.index_box_request');
+        }catch (\Exception $exception){
+            if ($exception->getCode() === '23000' && strpos($exception->getMessage(), 'Duplicate entry') !== false) {
+                // Aqui, você pode fornecer uma mensagem amigável para o usuário, por exemplo:
+                flash(' O número de fatura já existe. Por favor, insira um número de fatura único. ')->error();
+                return redirect()->back()->withInput();
+            } else {
+                flash(' Erro ao tentar cadastrar requisição ')->error();
+                return redirect()->back()->withInput();
+            }
+        }
     }
     public function approve(ExpenseRequest $expenseRequest)
     {

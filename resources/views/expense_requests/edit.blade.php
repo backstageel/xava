@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <x-bootstrap::form.form method='PUT' action="{{route('expense_requests.update', $supplier)}}">
+                    <x-bootstrap::form.form method='PUT' action="{{route('expense_requests.update', $expenseRequest)}}">
                         <!-- SmartWizard html -->
                         <div id="smartwizard">
                             <ul class="nav">
@@ -35,78 +35,54 @@
                                         Dados do Fornecedor
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#step-2">
-                                        <span class="num">2</span>
-                                        Contactos
-                                    </a>
-                                </li>
-
                             </ul>
 
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="name" label="Nome da Empresa"
-                                                                     value="{{old('name', $company->name)}}"/>
+
+                                        <div class="col-4">
+
+                                            <x-bootstrap::form.select name="type_id" label="Tipo de Despesa"
+                                                                      :options="$expenseRequestType"
+                                                                      default="{{old('type_id', $expenseRequest->type_id)}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="description" label="Descrição"
+                                                                     default="{{old('description', $expenseRequest->description)}}"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="request_date" label="Data da Requisicão"
+                                                                           default="{{old('request_date', $expenseRequest->request_date)}}"
+                                                                           required/>
                                         </div>
 
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="email" label="Email"
-                                                                     value="{{old('email', $company->email)}}"/>
-                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-3">
-                                            <x-bootstrap::form.input name="nuit" label="NUIT"
-                                                                     value="{{old('nuit', $company->nuit)}}"/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="amount" label="Valor da Transação"
+                                                                     default="{{old('amount', $expenseRequest->amount)}}"
+                                                                     required/>
                                         </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="address_country_id" label="Nacionalidade"
-                                                                      :options="$countries"
-                                                                      default="{{old('country_id', $company->address_country_id)}}"/>
-                                        </div>
-
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="address_province_id" label="Província"
-                                                                      :options="$provinces"
-                                                                      default="{{old('province_id', $company->address_province_id)}}"/>
-                                        </div>
-                                        <div class="col-3">
-                                            <x-bootstrap::form.select name="address_district_id" label="Distrito"
-                                                                      :options="$districts"
-                                                                      default="{{old('district_id', $company->address_district_id)}}"/>
+                                        @if($is_box)
+                                            <div class="col-4">
+                                                <x-bootstrap::form.select name="requester_user_id" label="Requerente"
+                                                                          :options="$users"
+                                                                          default="{{old('requester_user_id', $expenseRequest->user->name)}}"/>
+                                            </div>
+                                        @endif
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura"
+                                                                     default="{{old('ínvoice', $expenseRequest->invoice)}}"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="phone" label="Telemovel"
-                                                                     value="{{old('phone', $company->phone)}}"/>
-                                        </div>
-                                        <div class="col-6">
-                                            <x-bootstrap::form.input name="website" label="Pagina WEB"
-                                                                     value="{{old('website', $company->website)}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="row float-end">
-                                        <div class="col-12">
-                                            <button class="btn btn-success" type="submit">Update</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
-
-                        </div>
-
-                        <!-- Include optional progressbar HTML -->
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="row float-end">
+                                    <div class="col-12">
+                                        <button class="btn btn-success" type="submit">Actualizar</button>
+                                    </div>
+                                </div>
                         </div>
 
                     </x-bootstrap::form.form>
@@ -114,6 +90,7 @@
             </div>
         </div>
     </div>
+
 
     <!--end row-->
 @endsection
