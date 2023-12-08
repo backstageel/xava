@@ -51,14 +51,17 @@
                             <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="last_balance" label="Saldo Actual "
-                                                                     value="{{old('balance', $cardLoad->balance)}}" readonly/>
+                                       <div class="col-4">
+                                            <x-bootstrap::form.input name="balance" label="Valor"
+                                                                     value="{{old('balance', $cardLoad->balance)}}"  required/>
                                         </div>
-
-                                        <div class="col-8">
-                                            <x-bootstrap::form.input name="balance" label="Indique o Montante"
-                                                                     value="" required/>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="loading_date" label="Dia de Recarga"
+                                                                           default="{{old('loading_date', $cardLoad->loading_date)}}" required/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="description" label="Descrição"
+                                                                     default="{{old('description', $cardLoad->description)}}"/>
                                         </div>
                                     </div>
 

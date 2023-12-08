@@ -95,9 +95,9 @@ class CardLoadController extends Controller
     public function edit(CardLoad $cardLoad)
     {
         $this->userID = Auth::user()->id;
-        $this->personID = Person::where('user_id',$this->userID)->value('id');
+        $this->personID = Person::where('user_id', $this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->userID==1) {
             return view('card_loads.edit', compact('cardLoad'));
         }
     }
@@ -105,16 +105,24 @@ class CardLoadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CardLoadRequest $request,CardLoad $cardLoad)
+    public function update(CardLoadRequest $request, CardLoad $cardLoad)
     {
-        $lastBalance = $request->input('last_balance');
-        $actualBalance = $lastBalance + $request->input('balance');
+        $lastBalance = $cardLoad->balance;
+
+        $cardLoad->balance = $request->input('balance');
+        $cardLoad->loading_date = $request->input('loading_date');
+        $cardLoad->description = $request->input('description');
+
+        $total_cards = TotalCard::where('id', 1)->first();
+        $total_cards->total_amount = $total_cards->total_amount + $cardLoad->balance - $lastBalance;
+        $total_cards->update_date = Carbon::now();
         try {
-            $cardLoad->update(['balance'=>$actualBalance]);
-            flash('Cartão Recareregado com sucesso')->success();
+            $cardLoad->save();
+            $total_cards->save();
+            flash('Edição Concluida com sucesso')->success();
             return redirect()->route('card_loads.index');
         }catch (\Exception $exception){
-            flash('Erro ao tentar recarregar o cartão '. $exception->getMessage())->error();
+            flash('Erro ao tentar editar o cartao '. $exception->getMessage())->error();
             return redirect()->back()->withInput();
 
         }

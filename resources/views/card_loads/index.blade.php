@@ -44,7 +44,7 @@
                         <th>Montante</th>
                         <th>Data da Recarga</th>
                         <th>Descrição</th>
-{{--                        <th><p style="display: none;">.</p></th>--}}
+                        <th><p style="display: none;">.</p></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,9 +54,9 @@
                             <td>{{$card_load->balance}}</td>
                             <td>{{$card_load->updated_at}}</td>
                             <td>{{$card_load->description}}</td>
-{{--                            <td>--}}
-{{--                                <a href="{{route('card_loads.edit', $card_load->id)}}"> Recarregar </a>--}}
-{{--                            </td>--}}
+                            <td>
+                                <a href="{{route('card_loads.edit', $card_load)}}"> editar </a>
+                            </td>
                         </tr>
                     @endforeach
 
