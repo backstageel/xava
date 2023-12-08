@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CardLoadRequest;
 use App\Models\CardLoad;
 use App\Models\Employee;
+use App\Models\ExpenseRequest;
 use App\Models\Person;
+use App\Models\TotalCard;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -22,8 +25,8 @@ class CardLoadController extends Controller
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
         if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
             $card_loads = CardLoad::paginate(1000);
-            $lastBalance = CardLoad::latest()->first()->balance;
-            return view('card_loads.index', compact('card_loads','lastBalance'));
+            $total_cards = TotalCard::where('id', 1)->first();
+            return view('card_loads.index', compact('card_loads','total_cards'));
         }else{
             flash('Sem acesso, contacte o administrador do Sistema ')->error();
             return redirect()->back()->withInput();
@@ -39,7 +42,7 @@ class CardLoadController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO||$this->userID==1) {
+        if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->userID==1) {
             return view('card_loads.create');
         }
     }
@@ -49,12 +52,26 @@ class CardLoadController extends Controller
      */
     public function store(CardLoadRequest $request)
     {
-        $cardLoad=new CardLoad();
-        $lastBalance=CardLoad::latest()->first();
+        $cardLoad = new CardLoad();
 
-        $cardLoad->balance = ($lastBalance->balance + $request->input('balance'));
+        \Illuminate\Support\Carbon::setLocale('pt_BR');
+        $year = Carbon::now()->year;
+        $lastTwoDigits = substr($year, -2);
+        $last_Id = CardLoad::count();
+
+        $cardLoad->internal_reference=('CL'.$lastTwoDigits.($last_Id<10?'0':'').(1+$last_Id));
+
+        $cardLoad->balance = $request->input('balance');
+        $cardLoad->loading_date = $request->input('loading_date');
+        $cardLoad->description = $request->input('description');
+
+        $total_cards = TotalCard::where('id', 1)->first();
+        $total_cards->total_amount = $total_cards->total_amount + $cardLoad->balance;
+        $total_cards->update_date = Carbon::now();
+
         try{
             $cardLoad->save();
+            $total_cards->save();
             flash('Cartão recarregado com sucesso')->success();
             return redirect()->route('card_loads.index');
         }catch (\Exception $exception){

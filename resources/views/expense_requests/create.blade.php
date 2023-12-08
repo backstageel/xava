@@ -50,8 +50,11 @@
                                             <x-bootstrap::form.select name="type_id" label="Tipo de Despesa"
                                                                       :options="$expenseRequestType"/>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-4">
                                             <x-bootstrap::form.input name="description" label="Descrição" required/>
+                                        </div>
+                                        <div class="col-4">
+                                            <x-bootstrap::form.date-picker name="request_date" label="Data da Requisicão" required/>
                                         </div>
 
                                     </div>
@@ -65,6 +68,10 @@
                                                                           :options="$users"/>
                                             </div>
                                         @endif
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura" />
+                                        </div>
+
 {{--                                        <div class="col-4">--}}
 {{--                                            <x-bootstrap::form.select name="transaction_account_id" label="Conta da Transação"--}}
 {{--                                            :options="$transactionAccount"/>--}}

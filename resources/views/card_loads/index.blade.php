@@ -27,7 +27,7 @@
             <br>
             <br>
             <div class="btn-group" readonly>
-                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo Disponivel: {{$lastBalance}} MT</a>
+                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo Disponivel: {{$total_cards->total_amount}} MT</a>
             </div>
         </div>
     </div>
@@ -41,8 +41,9 @@
                     <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Saldo</th>
-                        <th>Data da Ultima Actualização</th>
+                        <th>Montante</th>
+                        <th>Data da Recarga</th>
+                        <th>Descrição</th>
 {{--                        <th><p style="display: none;">.</p></th>--}}
                     </tr>
                     </thead>
@@ -52,6 +53,7 @@
                             <td>{{$card_load->id}}</td>
                             <td>{{$card_load->balance}}</td>
                             <td>{{$card_load->updated_at}}</td>
+                            <td>{{$card_load->description}}</td>
 {{--                            <td>--}}
 {{--                                <a href="{{route('card_loads.edit', $card_load->id)}}"> Recarregar </a>--}}
 {{--                            </td>--}}

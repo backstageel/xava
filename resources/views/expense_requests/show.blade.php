@@ -38,17 +38,7 @@
                 </ol>
             </nav>
         </div>
-{{--        <div class="ms-auto">--}}
-{{--            <div class="btn-group">--}}
-{{--                <a href="{{route('expense_requests.edit', $expense)}}" class="btn btn-primary">Editar</a>--}}
-{{--                <a href="{{route('expense_requests.create')}}" class="btn btn-primary">Adicionar</a>--}}
-{{--                @php--}}
-{{--                    $province = \App\Models\Province::find($supplier->supplierable->address_province_id);--}}
-{{--                    $country=\App\Models\Country::find($supplier->supplierable->address_country_id);--}}
-{{--                    $district=\App\Models\District::find($supplier->supplierable->address_district_id);--}}
-{{--                @endphp--}}
-{{--            </div>--}}
-{{--        </div>--}}
+
     </div>
     <!--end breadcrumb-->
     <div class="container">

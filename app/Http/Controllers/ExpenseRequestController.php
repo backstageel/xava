@@ -11,6 +11,7 @@ use App\Models\ExpenseRequest;
 use App\Models\ExpenseRequestType;
 use App\Models\Person;
 use App\Models\RequestStatus;
+use App\Models\TotalCard;
 use App\Models\TransactionAccount;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,6 @@ class ExpenseRequestController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
-        $balance = CardLoad::latest()->first()->balance;
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO ){
             $approvalStatus= ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenses = ExpenseRequest::with(
@@ -46,7 +46,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('approval_status_id',$approvalStatus)->orderBy('id')->paginate(1000);
 
-            return view('expense_requests.index', compact('expenses','balance'));
+            return view('expense_requests.index', compact('expenses'));
         }
         if($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO){
             $accountingStatus = AccountingStatus::where('name', 'Contabilizado')->value('id');
@@ -61,7 +61,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('accounting_status_id',$accountingStatus)->orderBy('id')->paginate(1000);
 
-            return view('expense_requests.index', compact('expenses','balance'));
+            return view('expense_requests.index', compact('expenses'));
         }
 
         if($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO || $this->userID==1) {
@@ -75,7 +75,7 @@ class ExpenseRequestController extends Controller
                 'user'
             ]
         )->orderBy('id')->paginate(1000);
-        return view('expense_requests.index', compact('expenses','balance'));
+        return view('expense_requests.index', compact('expenses'));
     }else{
         return $this->create();
     }
@@ -86,7 +86,7 @@ class ExpenseRequestController extends Controller
         $this->userID = Auth::user()->id;
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
-        $balance = CardLoad::latest()->first()->balance;
+        $total_cards = TotalCard::where('id', 1)->first();
 
         if ($this->employee_position_id == \App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO) {
             $expenses = ExpenseRequest::with(
@@ -100,7 +100,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('transaction_account_id', TransactionAccount::where('name', 'Caixa')->value('id'))->orderBy('id')->paginate(1000);
 
-            return view('expense_requests.index_box_request', compact('expenses','balance'));
+            return view('expense_requests.index_box_request', compact('expenses','total_cards'));
         }
         if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->userID==1) {
             $expenses = ExpenseRequest::with(
@@ -114,7 +114,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('transaction_account_id', TransactionAccount::where('name', 'Caixa')->value('id'))->paginate(1000);
 //            dd (TransactionAccount::where('name', 'Caixa')->value('id'));
-            return view('expense_requests.index_box_request', compact('expenses','balance'));
+            return view('expense_requests.index_box_request', compact('expenses','total_cards'));
         }
 
         if ($this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL || $this->employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO) {
@@ -129,7 +129,7 @@ class ExpenseRequestController extends Controller
                 ]
             )->where('transaction_account_id',TransactionAccount::where('name', 'Caixa')->value('id'))
                 ->orderBy('id')->paginate(1000);
-            return view('expense_requests.index_box_request', compact('expenses','balance'));
+            return view('expense_requests.index_box_request', compact('expenses','total_cards'));
         } else {
             return $this->create();
         }
@@ -164,7 +164,8 @@ class ExpenseRequestController extends Controller
         $this->personID = Person::where('user_id',$this->userID)->value('id');
         $this->employee_position_id = Employee::where('person_id',$this->personID)->value('employee_position_id');
 
-       if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO) {
+       if ($this->employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $this->userID==1) {
+
            $users = User::where('id', '>', '1')->orderBy('name')->pluck('name', 'id');
            $expenseRequestType = ExpenseRequestType::orderBy('name')->pluck('name', 'id');
            $requestStatus = RequestStatus::orderBy('name')->pluck('name', 'id');
@@ -186,7 +187,6 @@ class ExpenseRequestController extends Controller
     {
         $expenseRequest = new ExpenseRequest();
         Carbon::setLocale('pt_BR');
-        $month= Carbon::now()->isoFormat('MMMM');
         $year = Carbon::now()->year;
         $lastTwoDigits = substr($year, -2);
 
@@ -198,11 +198,12 @@ class ExpenseRequestController extends Controller
         $expenseRequest->type_id = $request->input('type_id');
         $expenseRequest->description = $request->input('description');
         $expenseRequest->amount = $request->input('amount');
+        $expenseRequest->invoice = $request->input('invoice');
         $expenseRequest->transaction_account_id = TransactionAccount::where('name', 'Caixa')->value('id');
 
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
         $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
-        $expenseRequest->request_date = ucfirst($month);
+        $expenseRequest->request_date = $request->input('request_date');
         $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
 
         $expenseRequest->approved_by_user_id = $auth_user;
@@ -213,9 +214,14 @@ class ExpenseRequestController extends Controller
             flash('Requisição registada com sucesso')->success();
             return redirect()->route('expense_request.index_box_request');
         }catch (\Exception $exception){
-            flash('Erro ao tentar registar a requisição '. $exception->getMessage())->error();
+            if ($exception->getCode() === '23000' && strpos($exception->getMessage(), 'Duplicate entry') !== false) {
+                // Aqui, você pode fornecer uma mensagem amigável para o usuário, por exemplo:
+            flash(' O número de fatura já existe. Por favor, insira um número de fatura único. ')->error();
             return redirect()->back()->withInput();
-
+        } else {
+                flash(' Erro ao tentar cadastrar requisição ')->error();
+                return redirect()->back()->withInput();
+            }
         }
 
 
@@ -232,13 +238,14 @@ class ExpenseRequestController extends Controller
         $lastTwoDigits = substr($year, -2);
 
         $last_Id = ExpenseRequest::count();
-        $requester_user_id=Auth::user()->id;
+        $requester_user_id = Auth::user()->id;
 
         $expenseRequest->internal_reference=('RD'.$lastTwoDigits.($last_Id<10?'0':'').(1+$last_Id));
         $expenseRequest->requester_user_id = $requester_user_id;
         $expenseRequest->type_id = $request->input('type_id');
         $expenseRequest->description = $request->input('description');
         $expenseRequest->amount = $request->input('amount');
+        $expenseRequest->invoice = $request->input('invoice');
 
         $expenseRequest->request_date = ucfirst($month);
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'pendente')->value('id'); // Obtenha o ID correspondente ao nome "pendente"
@@ -250,9 +257,15 @@ class ExpenseRequestController extends Controller
             flash('Requisição registada com sucesso')->success();
            return redirect()->route('expense_request.myRequest');
         }catch (\Exception $exception){
-            flash('Erro ao tentar registar a requisição '. $exception->getMessage())->error();
-           return redirect()->back()->withInput();
 
+            if ($exception->getCode() === '23000' && strpos($exception->getMessage(), 'Duplicate entry') !== false) {
+                // Aqui, você pode fornecer uma mensagem amigável para o usuário, por exemplo:
+                flash(' O número de fatura já existe. Por favor, insira um número de fatura único. ')->error();
+                return redirect()->back()->withInput();
+            } else {
+                flash(' Erro ao tentar cadastrar requisição ')->error();
+                return redirect()->back()->withInput();
+            }
         }
 
 
@@ -302,16 +315,19 @@ class ExpenseRequestController extends Controller
     public function confirm(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
         if ($expenseRequest->transaction_account_id == TransactionAccount::where('name', 'Caixa')->value('id')) {
-            $lastBalance = CardLoad::latest()->first();
+            $total_cards = TotalCard::where('id', 1)->first();
             $change = $request->input('change');
             $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
 
             $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
-            $lastBalance->update(['balance' => $lastBalance->balance - $expenseRequest->amount + $change]);
 
+            $total_cards->total_amount = $total_cards->total_amount - $expenseRequest->amount + $change;
+            $total_cards->update_date = Carbon::now();
             $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
             $expenseRequest->save();
+            $total_cards->save();
+
             flash('Requisição Finalizada com sucesso')->success();
             return redirect()->route('expense_request.index_box_request');
         } else {

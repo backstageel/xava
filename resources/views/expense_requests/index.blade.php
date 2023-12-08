@@ -42,6 +42,7 @@
                         <th>Valor</th>
                         <th>Conta Transação</th>
                         <th>Número Conta</th>
+                        <th>Factura</th>
                         <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
@@ -63,6 +64,7 @@
                             <td>{{$expense->amount}}</td>
                             <td>{{$expense->transactionAccount->name??''}}</td>
                             <td>{{$expense->transfer_account_number}}</td>
+                            <td>{{$expense->invoice}}</td>
                             <td>{{$expense->approvalStatus->name??''}}</td>
                             <td>{{$expense->accountingStatus->name??''}}</td>
                             <td>{{$expense->requestStatus->name}}</td>

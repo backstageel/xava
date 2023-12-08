@@ -25,7 +25,7 @@
             </div>
             <br>
             <div class="btn-group" readonly>
-                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo: {{$balance}} MT </a>
+                <a href="" class="btn btn-info" style="color: white; font-weight: bold;">Saldo: {{$total_cards->total_amount}} MT </a>
             </div>
         </div>
     </div>
@@ -51,6 +51,7 @@
                         <th>Descrição</th>
                         <th>Valor</th>
                         <th>Conta Transação</th>
+                        <th>Factura</th>
                         <th>Estado da Aprovação</th>
                         <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
@@ -72,6 +73,7 @@
                                 <td>{{$expense->description}}</td>
                                 <td>{{$expense->amount}}</td>
                                 <td>{{$expense->transactionAccount->name??''}}</td>
+                                <td>{{$expense->invoice}}</td>
                                 <td>{{$expense->approvalStatus->name??''}}</td>
                                 <td>{{$expense->accountingStatus->name??''}}</td>
                                 <td>{{$expense->requestStatus->name}}</td>
