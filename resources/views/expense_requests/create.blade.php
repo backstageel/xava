@@ -59,26 +59,37 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-5">
                                             <x-bootstrap::form.input name="amount" label="Valor da Transação" required/>
                                         </div>
+
+                                        <div class="col-5">
+                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         @if($is_box)
                                             <div class="col-4">
                                                 <x-bootstrap::form.select name="requester_user_id" label="Requerente"
                                                                           :options="$users"/>
                                             </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.input name="change" label="Trocos"/>
+                                            </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.group name="requires_receipt" label="Justificativo?">
+                                                    <div class="form-check form-check-inline col-4">
+                                                        <input class="form-check-input" type="radio" name="requires_receipt" id="requires_receipt_yes" value="1">
+                                                        <label class="form-check-label" for="requires_receipt_yes">Sim</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="requires_receipt" id="requires_receipt_no" value="0" checked>
+                                                        <label class="form-check-label" for="requires_receipt_no">Não</label>
+                                                    </div>
+                                                </x-bootstrap::form.group>
+                                            </div>
                                         @endif
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura" />
-                                        </div>
 
-{{--                                        <div class="col-4">--}}
-{{--                                            <x-bootstrap::form.select name="transaction_account_id" label="Conta da Transação"--}}
-{{--                                            :options="$transactionAccount"/>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-4">--}}
-{{--                                            <x-bootstrap::form.input name="transfer_account_number" label="Número da Conta"/>--}}
-{{--                                        </div>--}}
 
                                     </div>
 

@@ -2,6 +2,11 @@
 
 @section("style")
     <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+    <style>
+        .linha-amarela {
+            background-color: yellow;
+        }
+    </style>
 @endsection
 
 @section("wrapper")
@@ -50,10 +55,9 @@
                         <th>Tipo Despesa</th>
                         <th>Descrição</th>
                         <th>Valor</th>
-                        <th>Conta Transação</th>
-                        <th>Factura</th>
-                        <th>Estado da Aprovação</th>
-                        <th>Estado Contabilistico</th>
+                        <th>Trocos</th>
+                        <th>Factura / VD</th>
+
                         <th>Estado da Requisição</th>
                         @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID==1)
                         <th><p style="display: none;">.</p></th>
@@ -65,17 +69,17 @@
                     <tbody>
                     @foreach($expenses as $expense)
                             @if($expense->requestStatus->name=='Aberto')
-                            <tr>
+
+                            <tr class="{{ $expense->requires_receipt ? 'linha-amarela' : '' }}">
                                 <td>{{$expense->internal_reference}}</td>
                                 <td>{{$expense->request_date}}</td>
                                 <td>{{\App\Models\User::find($expense->requester_user_id)->name}}</td>
                                 <td>{{\App\Models\ExpenseRequestType::find($expense->type_id)->name??''}}</td>
                                 <td>{{$expense->description}}</td>
                                 <td>{{$expense->amount}}</td>
-                                <td>{{$expense->transactionAccount->name??''}}</td>
+                                <td>{{$expense->change}}</td>
                                 <td>{{$expense->invoice}}</td>
-                                <td>{{$expense->approvalStatus->name??''}}</td>
-                                <td>{{$expense->accountingStatus->name??''}}</td>
+
                                 <td>{{$expense->requestStatus->name}}</td>
                                 @if($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID==1)
                                 <td>
@@ -109,10 +113,8 @@
                         <th>Valor</th>
                         <th>Troco</th>
                         <th>Conta Transação</th>
-                        <th>Estado da Aprovação</th>
-                        <th>Estado Contabilistico</th>
                         <th>Estado da Requisição</th>
-{{--                        <th><p style="display: none;">.</p></th>--}}
+                        <th><p style="display: none;">.</p></th>
 
 
 
@@ -131,12 +133,10 @@
                                 <td>{{$expense->amount}}</td>
                                 <td>{{$expense->change}}</td>
                                 <td>{{$expense->transactionAccount->name??''}}</td>
-                                <td>{{$expense->approvalStatus->name??''}}</td>
-                                <td>{{$expense->accountingStatus->name??''}}</td>
                                 <td>{{$expense->requestStatus->name}}</td>
-{{--                                <td>--}}
-{{--                                    <a href="{{route('expense_request.show_details', $expense)}}"> Ver </a>--}}
-{{--                                </td>--}}
+                                <td>
+                                    <a href="{{route('expense_requests.show', $expense)}}"> Ver </a>
+                                </td>
                             </tr>
                         @endif
                     @endforeach

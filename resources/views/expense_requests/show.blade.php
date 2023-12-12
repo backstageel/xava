@@ -38,7 +38,7 @@
                 </ol>
             </nav>
         </div>
-        @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1))
+        @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO || $userID == 1) && $expenseRequest->requestStatus->name=='Aberto')
         <div class="ms-auto">
             <div class="btn-group">
                 <a href="{{route('expense_requests.edit', $expenseRequest)}}" class="btn btn-primary">Editar</a>
@@ -54,52 +54,90 @@
         <div class="main-body">
             <div class="row">
 
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 class="d-flex align-items-center mb-3">Dados da Requisição</h5>
-                            <div class="mb-3 row">
-                                <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Requerente</label>
-                                <div class="col-sm-9">
-
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{\App\Models\User::find($expenseRequest->requester_user_id)->name}}">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo da Requisição</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{\App\Models\ExpenseRequestType::find($expenseRequest->type_id)->name}}">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Descrição</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$expenseRequest->description}}">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Valor Requisitado</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$expenseRequest->amount.' MT'}}">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="staticEmail"
-                                       class="col-sm-3 col-form-label text-end fw-bold">Estado da Requisição</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                                           value="{{$expenseRequest->approvalStatus->name??''}}">
-                                </div>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <h5 class="mb-3">Dados da Requisição</h5>
 
                             </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div >
+                                        <div class="card-body">
+
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Requerente</label>
+                                            <div class="col-sm-9">
+
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{\App\Models\User::find($expenseRequest->requester_user_id)->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Tipo da Requisição</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{\App\Models\ExpenseRequestType::find($expenseRequest->type_id)->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Descrição</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{$expenseRequest->description}}">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Valor Requisitado</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{$expenseRequest->amount.' MT'}}">
+                                            </div>
+                                        </div>
+                                            <div class="mb-3 row">
+                                                <label for="staticEmail"
+                                                       class="col-sm-3 col-form-label text-end fw-bold">Trocos</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                           value="{{$expenseRequest->change}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                <div >
+                                    <div class="card-body">
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Factura / VD</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{$expenseRequest->invoice}}">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Estado da Requisição</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{$expenseRequest->approvalStatus->name??''}}">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="staticEmail"
+                                                   class="col-sm-3 col-form-label text-end fw-bold">Estado Contabilistico</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                                       value="{{$expenseRequest->accountingStatus->name??''}}">
+                                            </div>
+                                        </div>
+                @if ($expenseRequest->requestStatus->name=='Aberto')
                             @if($employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_FINANCEIRO)
                             <form method="POST" action="{{ route('expense_requests.accountingStatus', $expenseRequest) }}">
                                 @csrf
@@ -154,13 +192,6 @@
                                                value="{{$expenseRequest->accountingStatus->name??''}}">
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="staticEmail" class="col-sm-3 col-form-label text-end fw-bold">Trocos</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" name="change" class="form-control-plaintext" id="staticEmail">
-                                        </div>
-                                </div>
-
                                 <div class="col-12 d-flex justify-content-end">
                                     @csrf
                                         <button class="btn btn-success" type="submit">Fechar</button>
@@ -184,7 +215,7 @@
                                 </div>
                                 @endif
                             </div>
-
+                            @endif
                         </div>
 
 
@@ -192,10 +223,16 @@
 
                 </div>
 
+
             </div>
 
         </div>
     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 

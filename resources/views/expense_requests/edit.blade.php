@@ -3,6 +3,12 @@
 
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet"
           type="text/css"/>
+    <style>
+        .sw-btn-next,
+        .sw-btn-prev {
+            display: none !important;
+        }
+    </style>
 @endsection
 @section("wrapper")
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -64,17 +70,37 @@
                                                                      default="{{old('amount', $expenseRequest->amount)}}"
                                                                      required/>
                                         </div>
+
+                                        <div class="col-4">
+                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura"
+                                                                     default="{{old('ínvoice', $expenseRequest->invoice)}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         @if($is_box)
                                             <div class="col-4">
                                                 <x-bootstrap::form.select name="requester_user_id" label="Requerente"
                                                                           :options="$users"
                                                                           default="{{old('requester_user_id', $expenseRequest->user->name)}}"/>
                                             </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.input name="change" label="Trocos"
+                                                                         default="{{old('change', $expenseRequest->change)}}"/>
+                                            </div>
+                                            <div class="col-4">
+                                                <x-bootstrap::form.group name="requires_receipt" label="Justificativo? " >
+                                                    <div class="form-check form-check-inline col-4">
+                                                        <input class="form-check-input" type="radio" name="requires_receipt" id="requires_receipt_yes" value="1" {{ $expenseRequest->requires_receipt == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="requires_receipt_yes">Sim</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="requires_receipt" id="requires_receipt_no" value="0" {{ $expenseRequest->requires_receipt == 0 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="requires_receipt_no">Não</label>
+                                                    </div>
+                                                </x-bootstrap::form.group>
+                                            </div>
+
                                         @endif
-                                        <div class="col-4">
-                                            <x-bootstrap::form.input name="invoice" label="Nr da Factura"
-                                                                     default="{{old('ínvoice', $expenseRequest->invoice)}}"/>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

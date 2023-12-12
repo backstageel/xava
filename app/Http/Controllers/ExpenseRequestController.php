@@ -204,12 +204,25 @@ class ExpenseRequestController extends Controller
         $expenseRequest->request_date = $request->input('request_date');
         $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
 
+
+        if ($request->input('requires_receipt') == 1) {
+            $expenseRequest->requires_receipt = true;
+        } else {
+            $expenseRequest->requires_receipt = false;
+        }
         $expenseRequest->approved_by_user_id = $auth_user;
         $expenseRequest->accountant_user_id = $auth_user;
 
+        $expenseRequest->change = $request->input('change');
+
+        $total_cards = TotalCard::where('id', 1)->first();
+        $total_cards->total_amount = $total_cards->total_amount - $expenseRequest->amount;
+        $total_cards->update_date = Carbon::now();
+
         try{
             $expenseRequest->save();
-            flash('Requisição registada com sucesso')->success();
+            $total_cards->save();
+            flash('Requisição registrada com sucesso')->success();
             return redirect()->route('expense_request.index_box_request');
         }catch (\Exception $exception){
             if ($exception->getCode() === '23000' && strpos($exception->getMessage(), 'Duplicate entry') !== false) {
@@ -243,6 +256,7 @@ class ExpenseRequestController extends Controller
         $expenseRequest->description = $request->input('description');
         $expenseRequest->amount = $request->input('amount');
         $expenseRequest->invoice = $request->input('invoice');
+        $expenseRequest->change = $request->input('change');
 
         $expenseRequest->request_date = ucfirst($month);
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'pendente')->value('id'); // Obtenha o ID correspondente ao nome "pendente"
@@ -306,32 +320,46 @@ class ExpenseRequestController extends Controller
      */
     public function update(\App\Http\Requests\ExpenseRequest $request, ExpenseRequest $expenseRequest)
     {
+        $last_amount = $expenseRequest->amount;
         $expenseRequest->requester_user_id = $request->input('requester_user_id');
         $expenseRequest->type_id = $request->input('type_id');
         $expenseRequest->description = $request->input('description');
         $expenseRequest->amount = $request->input('amount');
         $expenseRequest->invoice = $request->input('invoice');
+
         $expenseRequest->transaction_account_id = TransactionAccount::where('name', 'Caixa')->value('id');
 
         $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
         $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
         $expenseRequest->request_date = $request->input('request_date');
         $expenseRequest->request_status_id = RequestStatus::where('name','aberto')->value('id');// Obtenha o ID correspondente ao nome "Aberto"
-
+        $expenseRequest->change = $request->input('change');
         $expenseRequest->approved_by_user_id = Auth::user()->id;
         $expenseRequest->accountant_user_id = Auth::user()->id;
 
+        if ($request->input('requires_receipt') == 1) {
+            $expenseRequest->requires_receipt = true;
+        } else {
+            $expenseRequest->requires_receipt = false;
+        }
+
+
+        $total_cards = TotalCard::where('id', 1)->first();
+        $total_cards->total_amount = $total_cards->total_amount - $expenseRequest->amount + $last_amount;
+        $total_cards->update_date = Carbon::now();
+
         try{
             $expenseRequest->save();
+            $total_cards->save();
             flash('Requisição editada com sucesso')->success();
-            return redirect()->route('expense_request.index_box_request');
+            return redirect()->route('expense_requests.show', $expenseRequest);
         }catch (\Exception $exception){
             if ($exception->getCode() === '23000' && strpos($exception->getMessage(), 'Duplicate entry') !== false) {
                 // Aqui, você pode fornecer uma mensagem amigável para o usuário, por exemplo:
                 flash(' O número de fatura já existe. Por favor, insira um número de fatura único. ')->error();
                 return redirect()->back()->withInput();
             } else {
-                flash(' Erro ao tentar cadastrar requisição ')->error();
+                flash(' Erro ao tentar editar requisição')->error();
                 return redirect()->back()->withInput();
             }
         }
@@ -350,12 +378,12 @@ class ExpenseRequestController extends Controller
     {
         if ($expenseRequest->transaction_account_id == TransactionAccount::where('name', 'Caixa')->value('id')) {
             $total_cards = TotalCard::where('id', 1)->first();
-            $change = $request->input('change');
+
             $newRequestStatusId = RequestStatus::where('name', 'Fechado')->value('id');
 
             $expenseRequest->update(['request_status_id' => $newRequestStatusId, 'treasurer_user_id' => Auth::user()->id]);
 
-            $total_cards->total_amount = $total_cards->total_amount - $expenseRequest->amount + $change;
+            $total_cards->total_amount = $total_cards->total_amount + $expenseRequest->change;
             $total_cards->update_date = Carbon::now();
             $expenseRequest->approval_status_id = ApprovalStatus::where('name', 'Aprovado')->value('id');
             $expenseRequest->accounting_status_id = AccountingStatus::where('name', 'Contabilizado')->value('id');
