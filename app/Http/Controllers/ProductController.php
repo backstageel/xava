@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
+use App\Exports\SaleExport;
 use App\Http\Requests\ProductRequest;
 use App\Models\CategoryProduct;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -118,5 +121,9 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function export(){
+        return Excel::download(new ProductExport, 'productos.xlsx');
     }
 }

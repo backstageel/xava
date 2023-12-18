@@ -352,6 +352,12 @@
                         Imprimir Lista de Concursos
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('products.export')}}">
+                        <i class="bx bx-right-arrow-alt"></i>
+                        Imprimir Lista de produtos
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>
