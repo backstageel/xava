@@ -115,7 +115,7 @@
                             @if(($employee_position_id==\App\Enums\EmployeePosition::GESTOR_ESCRITORIO
                                 || $userID == 1 || $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_OPERATIVO ||
                                 $employee_position_id==\App\Enums\EmployeePosition::DIRECTOR_GERAL)
-                                     && $vacation->vacationStatus->name == "Aprovado" && $userID != $vacation->user_id)
+                                     && ($vacation->vacationStatus->name == "Aprovado" || $vacation->vacationStatus->name == "Em Andamento") && $userID != $vacation->user_id)
                                 <div class="col-12 d-flex justify-content-end">
                                     <form method="POST" action="{{ route('vacations.cancel', $vacation) }}">
                                         @csrf
