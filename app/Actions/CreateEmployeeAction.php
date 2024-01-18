@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\EmployeeContract;
 use App\Models\Person;
 use App\Models\User;
+use App\Models\VacationAccumulation;
 use App\Utils\Employee_reference;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -80,6 +81,11 @@ class CreateEmployeeAction
                 'start_date' => $data['start_date'],
                 'base_salary' => $data['base_salary'],
                 'contract_type_id' => $data['contract_type_id'],
+            ]);
+
+            $vacation_accumulation = VacationAccumulation::create([
+                'number_of_days' => 11,
+                'user_id' => $user->id
             ]);
 
             $contract = EmployeeContract::create([

@@ -481,14 +481,35 @@ class VacationController extends Controller
         foreach ($vacations as $vacation) {
             $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
             $vacation->used_days = $vacation->number_of_days;
+            $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->value('number_of_days');
+            $vacation_accumulation->number_of_days = $vacation_accumulation->number_of_days - $vacation->used_days;
+            $vacation_accumulation->save();
             $vacation->save();
         }
+    }
+    public function newYear()
+    {
+        $vacation_accumulations = VacationAccumulation::get();
+
+        foreach ($vacation_accumulations as $vacation_accumulation) {
+            $vacation_accumulation->number_of_days = $vacation_accumulation->number_of_days + 11;
+            $vacation_accumulation->save();
+        }
+
     }
 
     public function concluded(Vacation $vacation){
         $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
         $vacation->used_days = $vacation->number_of_days;
+        $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->first();
+
+        if ($vacation_accumulation) {
+            $number_of_days = $vacation_accumulation->number_of_days - $vacation->used_days;
+
+            VacationAccumulation::where('user_id', $vacation->user_id)->update(['number_of_days' => $number_of_days]);
+        }
         $vacation->save();
+        $vacation_accumulation->save();
         flash('Ferias Actualizadas para "Tiradas"')->success();
         return redirect()->route('vacations.index');
     }

@@ -32,6 +32,10 @@ class Kernel extends ConsoleKernel
             (new VacationController())->inProgress();
         })->dailyAt('15:00');
 
+        $schedule->call(function() {
+            (new VacationController())->newYear();
+        })->cron('0 15 1 1 *');
+
      //   Schedule to notify user about the competition proposal delivery date
         $schedule->call(function () {
             $competitions = Competition::with([
