@@ -445,11 +445,11 @@ class VacationController extends Controller
         foreach ($approved_vacations as $vacation) {
             $user = User::where('id', $vacation->user_id)->first();
             Mail::to($user->email)->send(new vacationMail(['vacation' => $vacation], $user->name, 'Em Andamento'));
-            $vacation->status_id = VacationStatus::where('name', 'Em andamento')->value('id');
+            $vacation->status_id = VacationStatus::where('name', 'Em Andamento')->value('id');
             $vacation->save();
         }
 
-        $in_progress_vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em andamento')->value('id'))->get();
+        $in_progress_vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em Andamento')->value('id'))->get();
 
         foreach ($in_progress_vacations as $vacation) {
             $holidayDates = Holiday::pluck('holiday_date')->map(function ($date) {
@@ -474,12 +474,12 @@ class VacationController extends Controller
         }
 
 
-        $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em andamento')->value('id'))
+        $vacations = Vacation::where('status_id', VacationStatus::where('name', 'Em Andamento')->value('id'))
             ->whereDate('end_date', $today)
             ->get();
 
         foreach ($vacations as $vacation) {
-            $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
+            $vacation->status_id = VacationStatus::where('name', 'Concluído')->value('id');
             $vacation->used_days = $vacation->number_of_days;
             $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->value('number_of_days');
             $vacation_accumulation->number_of_days = $vacation_accumulation->number_of_days - $vacation->used_days;
@@ -499,7 +499,7 @@ class VacationController extends Controller
     }
 
     public function concluded(Vacation $vacation){
-        $vacation->status_id = VacationStatus::where('name', 'Concluido')->value('id');
+        $vacation->status_id = VacationStatus::where('name', 'Concluído')->value('id');
         $vacation->used_days = $vacation->number_of_days;
         $vacation_accumulation = VacationAccumulation::where('user_id', $vacation->user_id)->first();
 

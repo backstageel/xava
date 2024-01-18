@@ -165,7 +165,7 @@
                     <tbody>
                     @foreach($vacations as $vacation)
 
-                        @if($vacation->vacationStatus->name=='Em andamento')
+                        @if($vacation->vacationStatus->name=='Em Andamento')
                             <tr>
                                 <td>{{$vacation->internal_reference}}</td>
                                 <td>{{$vacation->user->name}}</td>
